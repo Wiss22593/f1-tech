@@ -25,7 +25,7 @@ export function GaragePage() {
     setSelectedComponent(componentId); setSelectedUpdateId(undefined)
   }
   function selectCamera(preset: CameraPresetId) {
-    setCameraPreset(preset); setViewerVersion((version) => version + 1)
+    setCameraPreset(preset); if (preset === 'default') { setSelectedComponent(undefined); setSelectedUpdateId(undefined) }; setViewerVersion((version) => version + 1)
   }
 
   return <section className="garage-page dashboard__content" style={{ '--team-primary': team.theme.primary, '--team-accent': team.theme.accent, '--team-surface': team.theme.surface } as React.CSSProperties} aria-labelledby="garage-title">

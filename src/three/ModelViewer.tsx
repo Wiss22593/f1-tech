@@ -1,8 +1,9 @@
-import { Html, OrbitControls, useGLTF } from '@react-three/drei'
+import { Billboard, Environment, Html, Lightformer, Line, OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas, useThree } from '@react-three/fiber'
-import { Component, Suspense, useEffect, useMemo } from 'react'
+import { Component, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { BufferGeometry, Float32BufferAttribute, Quaternion, Vector3 } from 'three'
+import { ACESFilmicToneMapping, BufferGeometry, Float32BufferAttribute, Quaternion, Vector3 } from 'three'
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { CameraPresetId, CarComponentId, F1TechCarAsset, F1TechHotspot } from './assets'
 
 type ViewerTheme = { primary: string; accent: string; surface: string }
@@ -118,13 +119,42 @@ function ProvisionalCar({ theme, selectedComponent, onSelectComponent }: Pick<Vi
   </group>
 }
 
-function Hotspots({ hotspots, activeComponents, selectedComponent, onSelectComponent }: Pick<ViewerProps, 'hotspots' | 'activeComponents' | 'selectedComponent' | 'onSelectComponent'>) {
-  return <>{hotspots.map((hotspot) => { const active = activeComponents.includes(hotspot.componentId); const selected = selectedComponent === hotspot.componentId
-    return <Html key={hotspot.id} position={hotspot.position} center distanceFactor={8} zIndexRange={[10, 0]}><button type="button" className={selected ? 'garage-hotspot garage-hotspot--selected' : active ? 'garage-hotspot garage-hotspot--active' : 'garage-hotspot'} onClick={() => onSelectComponent(hotspot.componentId)} aria-label={`Seleccionar ${hotspot.label}`}><i />{selected && <span>{hotspot.label}</span>}</button></Html>
+function CameraFocus({ hotspot, controlsRef }: { hotspot?: F1TechHotspot; controlsRef: React.RefObject<OrbitControlsImpl | null> }) {
+  const { camera } = useThree()
+  useEffect(() => {
+    const controls = controlsRef.current
+    if (!hotspot || !controls) return
+    const startPosition = camera.position.clone(); const startTarget = controls.target.clone(); const target = new Vector3(...hotspot.inspectionView.target)
+    const destination = new Vector3(...hotspot.inspectionView.position); const startedAt = performance.now(); const duration = hotspot.inspectionView.duration ?? 760
+    controls.maxPolarAngle = hotspot.id === 'floor' ? Math.PI - .08 : Math.PI / 2.08
+    let frame = 0; controls.enabled = false
+    const animate = (now: number) => {
+      const progress = Math.min((now - startedAt) / duration, 1); const eased = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2
+      camera.position.lerpVectors(startPosition, destination, eased); controls.target.lerpVectors(startTarget, target, eased); controls.update()
+      if (progress < 1) frame = requestAnimationFrame(animate); else controls.enabled = true
+    }
+    frame = requestAnimationFrame(animate)
+    return () => { cancelAnimationFrame(frame); controls.enabled = true }
+  }, [camera, controlsRef, hotspot])
+  return null
+}
+
+function TechnicalCallouts({ hotspots, activeComponents, selectedComponent, onFocus }: Pick<ViewerProps, 'hotspots' | 'activeComponents' | 'selectedComponent'> & { onFocus: (hotspot: F1TechHotspot) => void }) {
+  const [hoveredId, setHoveredId] = useState<string>()
+  return <>{hotspots.map((hotspot) => {
+    const active = activeComponents.includes(hotspot.componentId); const selected = selectedComponent === hotspot.componentId; const hovered = hoveredId === hotspot.id
+    const color = selected ? '#ffffff' : active || hovered ? '#9de6dc' : '#5f6674'; const labelClass = `garage-callout-label ${selected ? 'garage-callout-label--selected' : active ? 'garage-callout-label--active' : 'garage-callout-label--normal'}${hovered ? ' garage-callout-label--hovered' : ''}`
+    return <group key={hotspot.id} position={hotspot.position}>
+      <Line points={[[0, 0, 0], hotspot.calloutOffset]} color={color} lineWidth={1} transparent opacity={selected ? .92 : hovered ? .76 : active ? .48 : .22} />
+      <Billboard><group onPointerOver={(event) => { event.stopPropagation(); setHoveredId(hotspot.id) }} onPointerOut={() => setHoveredId(undefined)} onClick={(event) => { event.stopPropagation(); onFocus(hotspot) }}><mesh><sphereGeometry args={[selected ? .075 : hovered || active ? .052 : .034, 16, 16]} /><meshBasicMaterial color={color} toneMapped={false} /></mesh>{selected && <mesh><ringGeometry args={[.11, .125, 24]} /><meshBasicMaterial color={color} transparent opacity={.7} side={2} toneMapped={false} /></mesh>}</group></Billboard>
+      <Html position={hotspot.calloutOffset} center distanceFactor={9} zIndexRange={[10, 0]}><button type="button" className={labelClass} onMouseEnter={() => setHoveredId(hotspot.id)} onMouseLeave={() => setHoveredId(undefined)} onClick={(event) => { event.stopPropagation(); onFocus(hotspot) }}><i />{hotspot.label}</button></Html>
+    </group>
   })}</>
 }
 
 export function ModelViewer({ asset, cameraPreset, theme, hotspots, activeComponents, selectedComponent, onSelectComponent }: ViewerProps) {
   const cameraPosition = asset?.cameraPresets[cameraPreset] ?? provisionalCameraPresets[cameraPreset]
-  return <Canvas shadows camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#0b0c11']} /><ambientLight intensity={1.05} /><directionalLight castShadow position={[5, 8, 4]} intensity={3} shadow-mapSize={[1024, 1024]} /><directionalLight position={[-4, 2, -3]} intensity={1.45} color={theme.primary} /><pointLight position={[0, 3, -1]} intensity={1.4} color="#e7edf8" /><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">No se pudo cargar el modelo original.</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">Cargando modelo original…</span></Html>}>{asset ? <OriginalModel asset={asset} /> : <ProvisionalCar theme={theme} selectedComponent={selectedComponent} onSelectComponent={onSelectComponent} />}</Suspense></ViewerErrorBoundary><Hotspots hotspots={hotspots} activeComponents={activeComponents} selectedComponent={selectedComponent} onSelectComponent={onSelectComponent} /><OrbitControls enablePan={false} minDistance={3} maxDistance={15} target={[0, .55, 0]} /></Canvas>
+  const controlsRef = useRef<OrbitControlsImpl>(null); const [focusedHotspot, setFocusedHotspot] = useState<F1TechHotspot>()
+  function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: 1.6 }} camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#0b0c11']} /><ambientLight intensity={1.25} /><hemisphereLight args={['#e5efff', '#1a1f2a', 2.35]} /><directionalLight castShadow position={[5.5, 7.5, 6]} intensity={8} color="#ffffff" shadow-mapSize={[2048, 2048]} shadow-radius={4} shadow-bias={-.0001} /><directionalLight position={[-6, 4, 4.5]} intensity={4.8} color="#c9e1ff" /><directionalLight position={[1.5, 5.5, -6.5]} intensity={5.2} color="#dceaff" /><directionalLight position={[-2.5, 7, -.5]} intensity={3.4} color="#ffffff" /><pointLight position={[0, 2.8, 4.5]} intensity={3.2} distance={11} color="#ffffff" /><Environment resolution={256}><Lightformer form="rect" intensity={8} color="#ffffff" position={[0, 6, 5]} scale={[10, 5, 1]} /><Lightformer form="rect" intensity={5} color="#b9d8ff" position={[-6, 2, 2]} scale={[5, 3, 1]} /><Lightformer form="rect" intensity={4} color="#dce9ff" position={[3, 4, -6]} scale={[6, 3, 1]} /></Environment><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">No se pudo cargar el modelo original.</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">Cargando modelo original…</span></Html>}>{asset ? <OriginalModel asset={asset} /> : <ProvisionalCar theme={theme} selectedComponent={selectedComponent} onSelectComponent={onSelectComponent} />}</Suspense></ViewerErrorBoundary><TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} selectedComponent={selectedComponent} onFocus={focusHotspot} /><CameraFocus hotspot={focusedHotspot} controlsRef={controlsRef} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

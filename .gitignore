@@ -27,3 +27,8 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+
+# User-provided CGTrader model: local evaluation only, never commit its source or export.
+/public/models/imports/bgrt-f1-concept-2026/
+/public/models/.bgrt-working/
+/public/models/bgrt-f1-concept-2026.glb
