@@ -2,9 +2,13 @@ export type CarComponentId = 'car' | 'chassis' | 'nose' | 'frontWing' | 'frontSu
 export type CameraPresetId = 'default' | 'front' | 'rear' | 'side' | 'top'
 
 export interface F1TechHotspot { id: string; componentId: CarComponentId; label: string; position: [number, number, number]; description: string }
-export interface F1TechCarAsset { id: string; path: `/models/${string}.${'glb' | 'gltf'}`; version: string; scale: number; rotation: [number, number, number]; nodes: Partial<Record<CarComponentId, string>>; hotspots: F1TechHotspot[]; cameraPresets: Record<CameraPresetId, [number, number, number]>; materials?: Record<string, { label: string }>; beforeAsset?: string; afterAsset?: string; metadata: { author: string; license: 'F1 TECH Original'; createdAt: string } }
+export interface F1TechCarAsset { id: string; path: `/models/${string}.${'glb' | 'gltf'}`; version: string; scale: number; rotation: [number, number, number]; nodes: Partial<Record<CarComponentId, string>>; hotspots: F1TechHotspot[]; cameraPresets: Record<CameraPresetId, [number, number, number]>; materials?: Record<string, { label: string }>; beforeAsset?: string; afterAsset?: string; metadata: { author: string; license: 'F1 TECH Original' | 'Apache-2.0'; createdAt: string } }
 
-// El registry se mantiene vacío hasta incorporar un modelo ORIGINAL de F1 TECH.
-// Nunca registrar assets de Formula Alpha, VRC, Assetto Corsa ni otros terceros.
-export const carAssetRegistry: readonly F1TechCarAsset[] = []
+// Asset de evaluación explícitamente autorizado por el usuario. No procede de VRC,
+// Formula Alpha ni Assetto Corsa y conserva la atribución del proyecto de origen.
+export const carAssetRegistry: readonly F1TechCarAsset[] = [{
+  id: 'apex-formula-2026-evaluation', path: '/models/apex-formula-2026.glb', version: 'evaluation', scale: 1.15, rotation: [0, 0, 0], nodes: {}, hotspots: [],
+  cameraPresets: { default: [4.8, 2.75, 5.6], front: [0, 1.7, 6.9], rear: [0, 1.9, -6.9], side: [6.7, 2.15, 0], top: [0, 7.2, .35] },
+  metadata: { author: 'Apex Formula 2026', license: 'Apache-2.0', createdAt: '2026-09-08' },
+}]
 export const activeCarAsset = carAssetRegistry[0]
