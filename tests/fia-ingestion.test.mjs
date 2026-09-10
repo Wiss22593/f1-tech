@@ -10,8 +10,9 @@ import { createPublicationPlan, publicationDecision } from '../ingestion/fia/pub
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { eventRegistry2026, selectCurrentEvents } from '../ingestion/fia/events.mjs'
+import { eventRegistry2026, selectCurrentEvents, selectIngestionWindowEvents } from '../ingestion/fia/events.mjs'
 import { buildDataChangePlan } from '../ingestion/fia/prepare-pr.mjs'
+import { buildAutoPublishChangePlan, validateAutoPublishDataset } from '../ingestion/fia/auto-publish.mjs'
 import { JolpicaChampionshipProvider } from '../ingestion/championship/jolpica.mjs'
 import { resolveChampionshipSource } from '../ingestion/championship/source-config.mjs'
 
@@ -131,6 +132,44 @@ test('canonical 2026 registry contains all 24 official calendar rounds', () => {
 
 test('current event discovery selects Madrid during its verified race window', () => {
   assert.deepEqual(selectCurrentEvents(eventRegistry2026, new Date('2026-09-12T12:00:00Z')).map(({ id }) => id), ['madrid-grand-prix-2026'])
+})
+
+test('scheduled auto-publication uses the Buenos Aires GP window and exits early otherwise', () => {
+  assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date('2026-09-11T02:47:00Z')).map(({ id }) => id), ['madrid-grand-prix-2026'])
+  assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date('2026-09-17T12:00:00Z')), [])
+})
+
+test('auto-publication makes no commit for no-document, unchanged or manual-review-only runs', () => {
+  for (const outcome of ['NO_DOCUMENT_FOUND', 'UNCHANGED', 'MANUAL_REVIEW_ONLY']) {
+    const plan = buildAutoPublishChangePlan([])
+    assert.equal(plan.status, 'NO_CHANGES', outcome)
+    assert.equal(plan.safeToCommit, false, outcome)
+  }
+})
+
+test('auto-publication aborts when any changed path is outside the dataset allowlist', () => {
+  const plan = buildAutoPublishChangePlan(['public/data/grands-prix/2026/madrid-grand-prix-2026.json', 'src/app/App.tsx'])
+  assert.equal(plan.status, 'UNAUTHORIZED_CHANGED_PATHS')
+  assert.deepEqual(plan.unauthorizedPaths, ['src/app/App.tsx'])
+  assert.equal(plan.safeToCommit, false)
+})
+
+test('auto-publication accepts a non-empty final dataset and rejects failed validation', () => {
+  const hash = 'a'.repeat(64)
+  const record = { ...valid, id: 'madrid-mercedes-rear-wing', grandPrixId: 'madrid-grand-prix-2026', season: 2026, contentHash: hash, parserConfidence: 'deterministic_table', validationState: 'published', publishedAt: '2026-09-11T12:00:00.000Z' }
+  const dataset = {
+    schemaVersion: 'fia-published-dataset-v1', season: 2026,
+    grandPrix: { id: 'madrid-grand-prix-2026', name: 'Madrid Grand Prix' },
+    updates: [record],
+    sourceDocument: { title: 'Doc 10 — Car Presentation Submissions', sourceUrl: valid.sourceUrl, documentHash: hash },
+    validation: { recordsPublished: 1 },
+  }
+  const path = 'public/data/grands-prix/2026/madrid-grand-prix-2026.json'
+  assert.deepEqual(buildAutoPublishChangePlan([path]).datasetPaths, [path])
+  assert.equal(validateAutoPublishDataset(dataset, path).valid, true)
+  const invalid = validateAutoPublishDataset({ ...dataset, updates: [], validation: { recordsPublished: 0 } }, path)
+  assert.equal(invalid.valid, false)
+  assert.match(invalid.errors.join(' '), /zero_published_records/)
 })
 
 test('data PR preparation allowlists datasets and rejects application files', () => {

@@ -22,20 +22,21 @@ Status: DONE
 
 ## 3. Madrid and future-event discovery
 
-Status: PARTIAL
+Status: DONE
 
 - `npm run fia:current` selects the active/nearest event from the registry, checks its official index and exits successfully when no presentation document exists.
-- The read-only scheduled workflow stages validated output and reports. It can detect Madrid after FIA publishes the document and a scheduled run executes; no exact publication hour is promised.
-- Remaining dependency: future FIA event index URLs cannot be registered before FIA publishes and verifies them.
+- `.github/workflows/fia-auto-publish.yml` checks only a registered GP from the day before the event through its final day, using the Buenos Aires calendar date. Outside that window it exits before dependency installation or FIA access.
+- Madrid is registered as `madrid-grand-prix-2026`, 11–13 September 2026, with its verified official Spanish Grand Prix FIA index. The 10 September dry-run returned `NO_DOCUMENT_FOUND`, 0 published and no production diff.
+- Future FIA index URLs remain external data availability: they are registered only after FIA publishes and verifies them; no URL is inferred.
 
 ## 4. Automated publication
 
-Status: USER_ACTION_REQUIRED
+Status: DONE
 
-- The active workflow remains repository read-only and cannot write to `main`.
-- `ingestion/fia/prepare-pr.mjs` allows only registry/public dataset paths and prevents empty PRs.
-- `.github/workflows/fia-data-pr.yml.disabled` is a prepared data-only PR template. It is deliberately inactive until the owner approves GitHub Actions `contents: write` and `pull-requests: write` and reviews the pinned/third-party action policy.
-- Direct automatic commits to `main` are not enabled. PR publication is the recommended audited path; auto-merge can later be added without changing ingestion.
+- The production workflow requests repository-scoped `contents: write`, uses only `GITHUB_TOKEN`, and serializes runs with a non-cancelling concurrency group.
+- Final validation allows only the active event file under `public/data/grands-prix/2026/*.json`. Any source, docs, workflow, registry, UI, asset or other changed path aborts before staging/commit.
+- Empty, unchanged, manual-review-only and failed-validation outcomes never commit. A valid deterministic dataset is committed by `github-actions[bot]` directly to `main`; Netlify then deploys `https://formulatech.netlify.app` through its Git integration.
+- Branch protection is never bypassed. A rejected push is labelled `BRANCH_PROTECTION_BLOCKED` and the safe output is retained as a workflow artifact. The disabled PR workflow remains available only as a fallback.
 
 ## 5. Championship
 
@@ -84,7 +85,7 @@ Status: PARTIAL
 Status: PARTIAL
 
 - Route-level lazy loading remains active and the Garage/Three chunk stays isolated; the 3D scene was not altered for bundle-size work.
-- Automated tests cover strict FIA discovery, infringement rejection, registry size, publication gate, empty-PR prevention, championship fallback/commercial guard, ad default, six-locale/offline completeness, PWA rules and BGRT/Apex invariants: **23/23 pass**.
+- Automated tests cover strict FIA discovery, infringement rejection, registry size, publication gate, auto-publication window/no-op/allowlist/final dataset validation, empty-PR prevention, championship fallback/commercial guard, ad default, six-locale/offline completeness, PWA rules and BGRT/Apex invariants: **27/27 pass**.
 - `npm run lint`, `npm test`, `npm run build` and `git diff --check` all exit 0. The production build preserves the lazy Garage chunk at 1,057.43 kB minified / 292.90 kB gzip; Vite emits the expected >500 kB advisory.
 - Browser QA verified `/inicio`, `/technical-preview`, `/equipos`, `/actualizaciones`, `/circuitos`, team detail, published counts/history, all five update filters, six-locale switching and direct `/garage?gp=italian-grand-prix-2026&team=mercedes`. The BGRT route loaded and query parameters were preserved.
 - Full refresh/back/forward coverage at every viewport plus physical mobile/WebGL/PWA install/offline/update testing remains `MANUAL_QA_REQUIRED`; it is not represented as completed.
@@ -121,5 +122,4 @@ Status: PARTIAL
 
 1. Resolve written public/commercial redistribution rights for the BGRT GLB for continued public distribution and before Play publication.
 2. Choose and license the championship provider; recommended evaluation is Sportmonks. Supply its server-side token only through protected repository or hosting secrets after reviewing the contracted rights.
-3. Approve (or decline) the disabled automated data-PR workflow and repository Actions permissions `contents: write` plus `pull-requests: write`.
-4. Complete physical mobile/WebGL/PWA install/offline QA at the required devices/viewports.
+3. Complete physical mobile/WebGL/PWA install/offline QA at the required devices/viewports.

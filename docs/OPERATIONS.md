@@ -40,7 +40,14 @@ Review the relevant JSON under `ingestion/output/manual-review/`. Keep the raw F
 
 ## Scheduled discovery
 
-`.github/workflows/fia-ingestion.yml` is active as a read-only staging workflow. Scheduled/manual runs can generate validated public JSON inside the job and upload it as an artifact, but `permissions: contents: read` prevents repository mutation.
+`.github/workflows/fia-ingestion.yml` remains available as a manual read-only staging/backfill workflow. It can generate validated public JSON inside the job and upload it as an artifact, but `permissions: contents: read` prevents repository mutation.
+
+`.github/workflows/fia-auto-publish.yml` is the production scheduler. GitHub cron uses UTC, so two entries cover Thursday and Friday from 06:17 through 23:47 in `America/Argentina/Buenos_Aires`:
+
+- `17,47 9-23 * * 4,5`
+- `17,47 0-2 * * 5,6`
+
+Scheduled starts are best-effort, not exact. Before installing dependencies or contacting FIA, `ingestion/fia/auto-publish.mjs window` exits successfully unless the local Buenos Aires date is between the day before a registered GP and its final event day. `workflow_dispatch` provides an equivalent manual check.
 
 Expected Madrid/future behavior:
 
@@ -48,42 +55,37 @@ Expected Madrid/future behavior:
 FIA publishes an official event index/document
 → scheduled job detects Car Presentation Submissions
 → download/hash/extract/parse/normalize/validate
-→ deterministic records enter staged public JSON
+→ deterministic records enter atomic public JSON
 → ambiguous rows remain manual review
 ```
 
-GitHub schedules are best-effort; do not promise an exact publication hour.
+For `NO_DOCUMENT_FOUND`, `UNCHANGED` or `MANUAL_REVIEW_ONLY`, the repository diff is empty and the job exits successfully without a commit or push. Extraction/validation failures fail the job and leave the prior public dataset untouched.
 
-## Automated data PR publication
+## Automated data publication
 
-Recommended strategy A is an automated data-only pull request. It gives an auditable diff, branch protection, rollback and review while keeping manual-review artifacts private. Strategy B—a direct bot commit to `main`—has lower latency but weaker review/rollback controls and larger blast radius; it is not enabled.
+The production path commits deterministic data directly to `main` with the repository-scoped `GITHUB_TOKEN`; no PAT or additional secret is used. The workflow requests only `contents: write`, uses a single non-cancelling concurrency group and has a 25-minute job timeout.
 
-`ingestion/fia/prepare-pr.mjs` builds an allowlisted plan for only `data/grands-prix/` and `public/data/grands-prix/`. No changed allowlisted file means `safeToPropose: false`, so an empty PR cannot be opened. Raw PDFs, draft, validated, manual-review and temporary files are excluded.
+`ingestion/fia/auto-publish.mjs validate` rejects the run if any working-tree path is outside `public/data/grands-prix/2026/<grandPrixId>.json`, if the changed dataset does not match the active event, if it is empty, or if its schema, official FIA URL/title/hash, record validation state, deterministic confidence, component/team/GP/season mapping, duplicate check or published count fails. Only the single expected event JSON is staged after this final guard. Raw PDFs, source code, docs, registry metadata, drafts, manual-review and temporary files cannot enter the automated commit.
 
-`.github/workflows/fia-data-pr.yml.disabled` is the prepared, deliberately inactive implementation. To activate it, the owner must:
+The bot identity is `github-actions[bot]`; the commit message names the detected GP. If the push is rejected, the workflow reports `BRANCH_PROTECTION_BLOCKED`, does not bypass repository policy and uploads the validated JSON/report as an artifact. An API permission probe reports an explicit error when the workflow token is known not to have push permission, without creating a test commit.
 
-1. Review/pin the `peter-evans/create-pull-request` action according to repository policy.
-2. In GitHub repository Settings → Actions → General → Workflow permissions, allow read/write and pull-request creation.
-3. Rename the template to a `.yml` workflow and review its branch protection interaction.
-4. Keep `contents: write` and `pull-requests: write` scoped only to that job; do not add a personal token.
-5. Run it manually first and inspect hashes/counts before adding a schedule.
+`.github/workflows/fia-data-pr.yml.disabled` remains a deliberately inactive, reviewed fallback for a future manual/PR policy. It is not part of the full-auto production path.
 
-After approval, the final production path is:
+The production path is:
 
 ```text
 FIA publishes
 → scheduled GitHub Action
-→ ingestion + validation + tests
-→ changed allowlisted dataset
-→ create/update data PR
-→ maintainer/approved automation merges
-→ GitHub main changes
+→ strict discovery + ingestion + validation + tests
+→ final data-only allowlist
+→ github-actions[bot] commits the validated event JSON to main
+→ push origin/main
 → Netlify automatically builds/deploys
 → https://formulatech.netlify.app
 → /public/data changes become visible in F1 TECH
 ```
 
-Future auto-merge should be a repository policy on deterministic data PRs, not a second ingestion pipeline. Preserve the manual-review branch.
+Manual-review remains outside Git and never blocks publication of other deterministic records. It must be resolved through the existing mapping/review process, never by weakening the automatic gate.
 
 ## Championship source policy
 

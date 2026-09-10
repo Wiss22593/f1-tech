@@ -1,0 +1,128 @@
+name: FIA auto-publish
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron is UTC. These two entries cover Thu/Fri 06:17–23:47
+    # in America/Argentina/Buenos_Aires. Scheduled starts are best-effort.
+    - cron: '17,47 9-23 * * 4,5'
+    - cron: '17,47 0-2 * * 5,6'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fia-auto-publish-main
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      TZ: America/Argentina/Buenos_Aires
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check whether a GP is in the ingestion window
+        id: window
+        run: node ingestion/fia/auto-publish.mjs window
+
+      - name: Exit successfully outside an ingestion window
+        if: steps.window.outputs.relevant != 'true'
+        run: echo "No GP is within the configured ingestion window. Nothing to publish."
+
+      - name: Verify GITHUB_TOKEN write scope without changing the repository
+        if: steps.window.outputs.relevant == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          permission=$(gh api "repos/${GITHUB_REPOSITORY}" --jq 'if (.permissions | type) == "object" then (.permissions.push | tostring) else "unknown" end')
+          if [ "$permission" = "false" ]; then
+            echo "::error title=CONTENTS_WRITE_UNAVAILABLE::GITHUB_TOKEN does not have repository write permission."
+            exit 1
+          fi
+          if [ "$permission" = "unknown" ]; then
+            echo "::warning title=WRITE_PERMISSION_NOT_INTROSPECTABLE::The API did not expose token push permission; an actual data push remains the definitive check."
+          fi
+
+      - name: Install reproducible dependencies
+        if: steps.window.outputs.relevant == 'true'
+        run: npm ci
+
+      - name: Validate ingestion modules
+        if: steps.window.outputs.relevant == 'true'
+        run: |
+          node --check ingestion/fia/auto-publish.mjs
+          node --check ingestion/fia/finder.mjs
+          node --check ingestion/fia/downloader.mjs
+          node --check ingestion/fia/extractor.mjs
+          node --check ingestion/fia/parser.mjs
+          node --check ingestion/fia/normalizer.mjs
+          node --check ingestion/fia/validator.mjs
+          node --check ingestion/fia/publication.mjs
+          node --check ingestion/fia/run.mjs
+          node --check ingestion/fia/backfill.mjs
+
+      - name: Discover and atomically publish deterministic records
+        if: steps.window.outputs.relevant == 'true'
+        run: npm run fia:current -- --season=2026 --publish=true
+
+      - name: Run the complete test suite
+        if: steps.window.outputs.relevant == 'true'
+        run: npm test
+
+      - name: Enforce final validation and the data-only allowlist
+        if: steps.window.outputs.relevant == 'true'
+        id: guard
+        env:
+          AUTO_PUBLISH_EXPECTED_EVENT_ID: ${{ steps.window.outputs.event_id }}
+        run: node ingestion/fia/auto-publish.mjs validate
+
+      - name: Commit the single validated event dataset
+        if: steps.guard.outputs.has_changes == 'true'
+        env:
+          DATASET_PATH: ${{ steps.window.outputs.dataset_path }}
+          COMMIT_MESSAGE: ${{ steps.guard.outputs.commit_message }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$DATASET_PATH"
+          staged=$(git diff --cached --name-only)
+          if [ "$staged" != "$DATASET_PATH" ]; then
+            echo "::error title=UNAUTHORIZED_STAGED_PATH::Only the validated event dataset may be committed."
+            exit 1
+          fi
+          git commit -m "$COMMIT_MESSAGE"
+
+      - name: Push validated data to main
+        if: steps.guard.outputs.has_changes == 'true'
+        id: push
+        shell: bash
+        run: |
+          if ! output=$(git push origin HEAD:main 2>&1); then
+            echo "$output"
+            echo "::error title=BRANCH_PROTECTION_BLOCKED::The validated data commit could not be pushed to main. No protection rule was bypassed."
+            exit 1
+          fi
+          echo "$output"
+
+      - name: Preserve validated output if the push is blocked
+        if: failure() && steps.guard.outputs.has_changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fia-auto-publish-blocked-${{ github.run_id }}
+          path: |
+            ${{ steps.window.outputs.dataset_path }}
+            ingestion/output/reports/
+          if-no-files-found: error

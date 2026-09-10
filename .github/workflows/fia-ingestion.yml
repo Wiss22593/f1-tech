@@ -14,11 +14,6 @@ on:
         required: true
         default: false
         type: boolean
-  schedule:
-    # One weekday pass plus extra Thursday/Friday checks; GitHub schedules are best-effort.
-    - cron: '23 7 * * 1-3,6,0'
-    - cron: '23 7,13,19 * * 4,5'
-
 permissions:
   contents: read
 
