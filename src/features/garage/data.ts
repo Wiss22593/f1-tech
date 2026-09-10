@@ -21,7 +21,7 @@ export interface GarageUpdate {
 export type GarageContentLocale = 'es' | 'en' | 'it' | 'pt' | 'fr' | 'de'
 
 /** The Garage selector is a view of the canonical event registry, never a second event list. */
-export const garageGrandPrix = grandsPrix2026.filter(({ id }) => id === 'italian-grand-prix-2026' || id === 'madrid-grand-prix-2026')
+export const garageGrandPrix = grandsPrix2026.filter(({ id, status }) => status === 'completed' || id === 'madrid-grand-prix-2026')
 
 const theme = (bodyBase: string, bodySecondary: string, accent: string, highlight: string, metallic: string, surface: string, materialMetalness = .58, materialRoughness = .3, materialEmissiveIntensity = .018): TeamTheme => ({ bodyBase, bodySecondary, accent, highlight, metallic, surface, materialMetalness, materialRoughness, materialEmissiveIntensity, carbon: '#101318', glass: '#0a0e14', wheel: '#1b212a', brake: accent, neutral: highlight, primary: bodyBase, secondary: bodySecondary })
 export const teamThemes: Record<string, TeamTheme> = {
@@ -105,9 +105,38 @@ const spanishChangeTranslations: Record<string, string> = {
   'cadillac-diffuser-vane': 'Añadido un vane al borde de salida interior de la pared lateral exterior del difusor.',
 }
 
+// Presentation-only translations for the published Monza records. The canonical
+// FIA source text remains untouched in public/data and is still available to the
+// other product views and audit trail.
+const spanishPublishedDescriptions: Record<string, string> = {
+  'italian-grand-prix-2026-doc-10-mclaren-rear-wing-1': 'El alerón trasero modifica la posición del flap en modo recta y utiliza un beam wing con menos carga para lograr una mayor reducción de la resistencia aerodinámica.',
+  'italian-grand-prix-2026-doc-10-mclaren-floor-2': 'Una pequeña modificación de los elementos auxiliares del piso mejora el acondicionamiento del flujo, el rendimiento aerodinámico del piso y la reducción de la resistencia.',
+  'italian-grand-prix-2026-doc-10-mercedes-rear-wing-1': 'La retirada de varios winglets del alerón trasero reduce la carga local y la resistencia aerodinámica en una proporción adecuada para Monza.',
+  'italian-grand-prix-2026-doc-10-red-bull-racing-floor-2': 'El perfil revisado del borde del bib modifica el flujo para generar más carga local y mejorar la estabilidad aerodinámica.',
+  'italian-grand-prix-2026-doc-10-red-bull-racing-front-wing-4': 'El vane recortado del endplate del alerón delantero busca mejorar la carga generada aguas abajo por el piso.',
+  'italian-grand-prix-2026-doc-10-ferrari-floor-1': 'La optimización de la tabla del piso adapta el auto a las características de Monza y reduce la resistencia aerodinámica con una relación favorable respecto de la pérdida de carga.',
+  'italian-grand-prix-2026-doc-10-williams-halo-1': 'Una aleta vertical alrededor del Halo modifica la distribución de presión y el flujo aguas abajo para mejorar la eficiencia específica de Monza.',
+  'italian-grand-prix-2026-doc-10-williams-front-wing-2': 'Se redujo la cuerda de los elementos del alerón delantero para adecuar el balance del auto a las exigencias de Monza.',
+  'italian-grand-prix-2026-doc-10-williams-floor-3': 'Un recorte local en la tabla del piso modifica el equilibrio entre carga y resistencia aerodinámica en la parte delantera del piso principal.',
+  'italian-grand-prix-2026-doc-10-racing-bulls-rear-wing-1': 'El nuevo conjunto del alerón trasero permite un mayor recorrido del flap en modo recta y una reducción eficiente de la resistencia aerodinámica.',
+  'italian-grand-prix-2026-doc-10-aston-martin-front-suspension-1': 'El carenado exterior de un elemento de la suspensión delantera fue modificado para alinearse mejor con el flujo incidente.',
+  'italian-grand-prix-2026-doc-10-aston-martin-floor-2': 'La geometría delante del neumático trasero mejora el flujo hacia la cara inferior del piso y aumenta la carga generada en esa zona.',
+  'italian-grand-prix-2026-doc-10-haas-floor-1': 'El nuevo piso delantero optimiza la zona principal de expansión y la geometría lateral para mejorar la eficiencia, la carga y el rendimiento aerodinámico general.',
+  'italian-grand-prix-2026-doc-10-alpine-front-wing-1': 'El vane del endplate fue rediseñado para aumentar la carga local y mejorar el campo de flujo de la zona.',
+  'italian-grand-prix-2026-doc-10-alpine-rear-wing-2': 'Se retiró el carenado del pod de modo recta para adaptar el alerón trasero a la configuración de baja resistencia de Monza.',
+  'italian-grand-prix-2026-doc-10-cadillac-floor-1': 'La nueva posición del soporte delantero de la tabla del piso mejora el flujo hacia la parte trasera, la estabilidad estructural y la carga aerodinámica posterior.',
+  'italian-grand-prix-2026-doc-10-cadillac-diffuser-2': 'Un pequeño vane vertical en el borde interior de la pared lateral del difusor mejora el rendimiento de los canales exteriores del piso y aumenta la carga trasera.',
+}
+
+const spanishComponentNames: Partial<Record<CarComponentId, string>> = {
+  frontWing: 'el alerón delantero', nose: 'la carrocería delantera', floor: 'el piso', diffuser: 'el difusor', rearWing: 'el alerón trasero', sidepods: 'los pontones', cooling: 'la refrigeración', engineCover: 'la carrocería', chassis: 'el chasis', halo: 'el Halo', frontSuspension: 'la suspensión delantera', rearSuspension: 'la suspensión trasera', frontBrake: 'los frenos delanteros', rearBrake: 'los frenos traseros', wheels: 'las ruedas y los neumáticos',
+}
+
 export function getGarageUpdateChange(update: GarageUpdate, locale: GarageContentLocale) {
-  if (locale === 'en') return update.geometricDifference || update.description
-  return (spanishChangeTranslations[update.id] ?? update.geometricDifference) || update.description
+  if (locale !== 'es') return update.geometricDifference || update.description
+  return spanishPublishedDescriptions[update.id]
+    ?? spanishChangeTranslations[update.id]
+    ?? `La FIA publicó una actualización técnica para ${spanishComponentNames[update.componentId] ?? 'este componente'}. El texto original se conserva en el dataset publicado.`
 }
 
 export const noUpdatesSubmitted = [{ teamId: 'audi', grandPrixId: monza }] as const

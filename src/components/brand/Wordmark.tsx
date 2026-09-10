@@ -5,9 +5,9 @@ const homeLabels: Record<Locale, string> = { es: 'inicio', en: 'home', it: 'home
 
 export function Wordmark({ compact = false, locale = 'es' }: WordmarkProps) {
   return (
-    <a className="wordmark" href="/inicio" aria-label={`F1 TECH, ${homeLabels[locale]}`}>
-      <span className="wordmark__mark" aria-hidden="true">F1</span>
-      {!compact && <span>TECH</span>}
+    <a className="wordmark" href="/inicio" aria-label={`Formula Tech, ${homeLabels[locale]}`}>
+      <span className="wordmark__mark" aria-hidden="true">Formula</span>
+      {!compact && <span>Tech</span>}
     </a>
   )
 }

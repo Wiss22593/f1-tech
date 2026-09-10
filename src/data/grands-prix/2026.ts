@@ -11,5 +11,5 @@ export const grandsPrix2026: readonly GrandPrix[] = registry.map((event) => ({
   startDate: event.startDate,
   endDate: event.endDate,
   status: event.ingestionStatus === 'PROCESSED' ? 'completed' : event.ingestionStatus === 'PENDING' ? 'scheduled' : 'pending',
-  sourceMetadata: { source: 'FIA 2026 calendar and decision-document index', retrievedAt: '2026-09-09' },
+  sourceMetadata: { source: 'FIA 2026 calendar and decision-document index', retrievedAt: '2026-09-10' },
 }))

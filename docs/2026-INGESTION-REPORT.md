@@ -1,6 +1,6 @@
 # 2026 FIA ingestion report
 
-Last verified: 2026-09-09
+Last verified: 2026-09-10
 
 Only official FIA indexes and PDFs explicitly identified as `Car Presentation Submissions` are accepted. Technical delegate reports, infringements, decisions and generic documents containing “technical” are excluded.
 
@@ -9,8 +9,7 @@ Only official FIA indexes and PDFs explicitly identified as `Car Presentation Su
 | Australian GP | verified | yes | Doc 9 — Car Presentation Submissions | `9e9ccc09667faa4f612a32edab64e41b1d7ff914778e5681d96cd4ff81dbb5dd` | 39 | 15 | 26 | none after retry | PROCESSED |
 | Chinese GP | verified | yes | Doc 10 — Car Presentation Submissions | `e113dd8e20a71be5f18ff28e8a94351d2699895e09207294f73cfaecd395840b` | 4 | 4 | 1 | none | PROCESSED |
 | Japanese GP | verified | yes | Doc 11 — Car Presentation Submissions | `a8fcc30bcae36d21d52c7d3c50dc76c197949b48843653c15ae9d15facaec3a6` | 13 | 5 | 11 | none | PROCESSED |
-| Bahrain GP | not published/verified | no | — | — | 0 | 0 | 0 | `OFFICIAL_EVENT_INDEX_NOT_PUBLISHED` | NO_DOCUMENT_FOUND |
-| Saudi Arabian GP | not published/verified | no | — | — | 0 | 0 | 0 | `OFFICIAL_EVENT_INDEX_NOT_PUBLISHED` | NO_DOCUMENT_FOUND |
+| Saudi Arabian GP | called off; no verified index | no | — | — | 0 | 0 | 0 | official 2026 event status is called off | NO_DOCUMENT_FOUND |
 | Miami GP | verified | yes | Doc 8 — Car Presentation Submissions | `3ba75eb51c6ce045b3e5c11279e359e1ddaa0f825a251886d9c6f7a7b307de5e` | 39 | 27 | 31 | none after retry | PROCESSED |
 | Canadian GP | verified | yes | Doc 11 — Car Presentation Submissions | `5971fae2e70a5e17ad87fbdd400e2287f064ee830dfdada8be9f7f36c882193e` | 22 | 17 | 16 | none | PROCESSED |
 | Monaco GP | verified | yes | Doc 15 — Car Presentation Submissions | `513eca62751dd9e24be31a313058e3efc949ad72ed25a21fbd5a86d1f2355996` | 22 | 20 | 11 | none | PROCESSED |
@@ -23,6 +22,7 @@ Only official FIA indexes and PDFs explicitly identified as `Car Presentation Su
 | Italian GP | verified | yes | Doc 10 — Car Presentation Submissions | `55541780261498d2f329dae1748df636a871072f26a580dd027de78669442d81` | 17 | 17 | 9 | none | PROCESSED |
 | Madrid / Spanish GP | verified | no | — | — | 0 | 0 | 0 | none; expected absence | NO_DOCUMENT_FOUND |
 | Azerbaijan GP | future index pending | no | — | — | 0 | 0 | 0 | none | FUTURE |
+| Bahrain GP (Sepang, Malaysia) | future index pending | no | — | — | 0 | 0 | 0 | rescheduled by FIA to 02–04 October | FUTURE |
 | Singapore GP | future index pending | no | — | — | 0 | 0 | 0 | none | FUTURE |
 | United States GP | future index pending | no | — | — | 0 | 0 | 0 | none | FUTURE |
 | Mexico City GP | future index pending | no | — | — | 0 | 0 | 0 | none | FUTURE |
@@ -39,8 +39,8 @@ Only official FIA indexes and PDFs explicitly identified as `Car Presentation Su
 - Parsed rows: 254
 - Published deterministic records: 170 across 13 public datasets
 - Manual-review entries: 174
-- `NO_DOCUMENT_FOUND`: 3
-- Future events awaiting official indexes: 8
+- `NO_DOCUMENT_FOUND`: 2
+- Future events awaiting official indexes: 9
 - Unresolved final errors: 0
 
 The complete backfill report at `ingestion/output/reports/2026-backfill.json` records a transient Australia event timeout and a Miami PDF HTTP 504 during its last full pass. Both were then retried against the same official indexes: Australia and Miami returned `UNCHANGED` with their existing SHA-256 hashes, so no duplicate, `publishedAt` change or dataset rewrite occurred. The failures are therefore recovered, not concealed.

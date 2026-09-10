@@ -9,7 +9,7 @@ import { garageText, type Locale } from '../i18n'
 
 type ViewerTheme = { primary: string; secondary: string; bodyBase: string; bodySecondary: string; accent: string; highlight: string; carbon: string; metallic: string; glass: string; wheel: string; brake: string; neutral: string; surface: string; materialMetalness: number; materialRoughness: number; materialEmissiveIntensity: number }
 type ViewerProps = { asset: F1TechCarAsset; locale: Locale; cameraPreset: CameraPresetId; theme: ViewerTheme; hotspots: F1TechHotspot[]; activeComponents: readonly CarComponentId[]; selectedComponent?: CarComponentId; selectedHotspot?: F1TechHotspot; focusRequestId?: number; showCallouts?: boolean; onSelectComponent: (componentId: CarComponentId) => void }
-const mobileCameraScale = 1.35
+const mobileCameraScale = 1.5
 
 function useMobileViewer() {
   const [mobile, setMobile] = useState(() => window.matchMedia('(max-width: 600px)').matches)

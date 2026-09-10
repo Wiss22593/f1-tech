@@ -1,6 +1,6 @@
 # F1 TECH Production Status
 
-Last reviewed: 2026-09-09
+Last reviewed: 2026-09-10
 
 ## 1. FIA ingestion
 
@@ -17,7 +17,7 @@ Status: DONE
 
 - The single registry `data/grands-prix/2026.json` contains all 24 official calendar rounds.
 - 14 FIA event indexes are verified, 13 correct documents are processed, 13 public datasets contain 170 deterministic records, and 174 entries remain in manual review.
-- Madrid has a verified index and no valid document: `NO_DOCUMENT_FOUND`. Bahrain and Saudi Arabia have no verified event index. Eight future rounds remain `PENDING` in the registry and are reported as `FUTURE`.
+- Madrid has a verified index and no valid document: `NO_DOCUMENT_FOUND`. Saudi Arabia is officially called off and has no verified event index. Bahrain was moved to Sepang, Malaysia, on 2–4 October and is now `PENDING`; nine future rounds remain `PENDING` in the registry and are reported as `FUTURE`.
 - Detailed evidence, hashes and the recovered transient failures are in `docs/2026-INGESTION-REPORT.md`.
 
 ## 3. Madrid and future-event discovery
@@ -89,13 +89,14 @@ Status: PARTIAL
 - Browser QA verified `/inicio`, `/technical-preview`, `/equipos`, `/actualizaciones`, `/circuitos`, team detail, published counts/history, all five update filters, six-locale switching and direct `/garage?gp=italian-grand-prix-2026&team=mercedes`. The BGRT route loaded and query parameters were preserved.
 - Full refresh/back/forward coverage at every viewport plus physical mobile/WebGL/PWA install/offline/update testing remains `MANUAL_QA_REQUIRED`; it is not represented as completed.
 
-## 11. Vercel and f1tech.app
+## 11. Netlify and custom domain
 
-Status: USER_ACTION_REQUIRED
+Status: DONE
 
-- Vite build output, SPA rewrite, public data paths, manifest/service worker and model URL are configured locally. No deployment was performed.
-- The BGRT asset is recorded as non-redistributable local evaluation material; public Vercel deployment is BLOCKED until the owner supplies distribution/commercial authorization or otherwise resolves the license without changing the approved active model.
-- Vercel login, GitHub repository connection, production deployment and the exact DNS records shown by Vercel require the owner.
+- Netlify is the active production host at `https://formulatech.netlify.app` and is connected to the GitHub `main` branch.
+- Every push to `main` triggers the Netlify production build/deployment automatically. `public/_redirects` provides the verified SPA fallback.
+- No custom domain has been purchased or configured. The Netlify URL remains the canonical production origin unless the owner later chooses a domain.
+- BGRT redistribution authorization remains a separate legal gate; changing hosting providers does not resolve it.
 
 ## 12. Android / Play Store
 
@@ -114,12 +115,11 @@ Status: PARTIAL
 - `TECHNICAL SHOWROOM`: absent.
 - Redundant visible Garage `GRAN PREMIO` label: absent.
 - Git: no reset, destructive checkout, branch change, commit or push.
-- Deployment: not performed.
+- Deployment: active on Netlify at `https://formulatech.netlify.app`.
 
 ## USER ACTION REQUIRED
 
-1. Resolve written public/commercial redistribution rights for the BGRT GLB before Vercel or Play publication.
-2. Choose and license the championship provider; recommended evaluation is Sportmonks. Supply its server-side token only through repository/Vercel secrets after reviewing the contracted rights.
+1. Resolve written public/commercial redistribution rights for the BGRT GLB for continued public distribution and before Play publication.
+2. Choose and license the championship provider; recommended evaluation is Sportmonks. Supply its server-side token only through protected repository or hosting secrets after reviewing the contracted rights.
 3. Approve (or decline) the disabled automated data-PR workflow and repository Actions permissions `contents: write` plus `pull-requests: write`.
-4. Connect the GitHub repository to Vercel, perform the first authorized production deploy, and then add `f1tech.app` using only the DNS records Vercel displays.
-5. Complete physical mobile/WebGL/PWA install/offline QA at the required devices/viewports before public launch.
+4. Complete physical mobile/WebGL/PWA install/offline QA at the required devices/viewports.

@@ -30,6 +30,8 @@ npm run fia:current -- --season=2026 --publish=true
 
 Backfill runs all 24 rounds. Current mode selects the active event window or nearest upcoming event. A missing index for a past round becomes `NO_DOCUMENT_FOUND`; an unpublished future index remains `PENDING`/`FUTURE`. A verified index with no presentation PDF returns success as `NO_DOCUMENT_FOUND`.
 
+The registry follows the current FIA calendar: Saudi Arabia is called off, while the Bahrain Grand Prix is scheduled at Sepang, Malaysia, on 2–4 October 2026. Do not reuse the former Sakhir dates or invent an event index before FIA publishes one.
+
 The publication check compares the official document hash. An unchanged hash returns `UNCHANGED`, preserves file timestamps/content and does not duplicate records. If the same URL yields a new hash, it is treated as a new revision; the prior public dataset remains until the new non-empty records independently pass all validators and the atomic writer succeeds.
 
 ## Manual review and deterministic mappings
@@ -76,7 +78,8 @@ FIA publishes
 → create/update data PR
 → maintainer/approved automation merges
 → GitHub main changes
-→ Vercel automatically builds/deploys
+→ Netlify automatically builds/deploys
+→ https://formulatech.netlify.app
 → /public/data changes become visible in F1 TECH
 ```
 
@@ -105,7 +108,7 @@ Before launch, test installability, update behavior, JSON offline fallback and B
 
 The future Capacitor/Android/Play/AdMob sequence and its signing, store and privacy gates are in `docs/ANDROID-ROADMAP.md`. Do not generate the Android project until web QA, standings rights and BGRT distribution rights are closed.
 
-## Vercel deployment
+## Netlify deployment
 
 Preflight locally:
 
@@ -116,21 +119,20 @@ npm run build
 git diff --check
 ```
 
-`vercel.json` builds Vite to `dist` and supplies the SPA fallback. Verify that `/data/grands-prix/2026/*.json`, `/manifest.webmanifest`, `/sw.js`, icons and `/models/bgrt-f1-concept-2026.glb` survive the deployment. The model is ignored by Git and currently lacks public/commercial redistribution authorization, so production deployment must wait for that owner-controlled license decision.
+Netlify is the active production host at `https://formulatech.netlify.app`. The site is connected to the GitHub `main` branch: each push to `main` triggers the Netlify production build and deployment automatically. Vite builds to `dist`, and `public/_redirects` supplies the working SPA fallback.
 
-Authorized first deployment steps:
+The live deployment path is:
 
-1. Sign in to Vercel and choose Add New → Project.
-2. Import the GitHub `f1-tech` repository and authorize only the needed repository.
-3. Confirm Framework Preset `Vite`, Build Command `npm run build`, Output Directory `dist`, and install command `npm ci`/automatic equivalent.
-4. Deploy Production and record the temporary Vercel URL.
-5. Open `/inicio`, every direct SPA route, a known Monza JSON URL, `manifest.webmanifest` and `sw.js`; refresh and test back/forward.
-6. Install/test the PWA and validate offline retained JSON plus BGRT on an authorized device.
+```text
+GitHub main
+→ Netlify automatic deploy
+→ https://formulatech.netlify.app
+```
 
-No Vercel login or deployment is performed by this repository preparation.
+After each production deploy, verify `/inicio`, every direct SPA route, a known Monza JSON URL, `manifest.webmanifest` and `sw.js`; refresh and test back/forward. Install/test the PWA and validate offline retained JSON plus BGRT on an authorized device. The BGRT redistribution/license decision remains an owner-controlled legal gate independent of the hosting provider.
 
-## f1tech.app
+## Custom domain
 
-After a successful authorized deployment: Project → Settings → Domains → Add `f1tech.app`. Use exactly the DNS values Vercel displays at that time; do not guess A/CNAME records. Configure them at the domain registrar, wait for Vercel verification/HTTPS, then choose one canonical hostname. Recommended policy: apex `f1tech.app` canonical and `www.f1tech.app` redirecting to it, unless the owner deliberately chooses the reverse.
+No custom domain has been purchased or configured. The canonical production origin is currently `https://formulatech.netlify.app`.
 
-Recheck all routes, `/inicio`, one published Monza JSON, the service worker and PWA installation on the canonical HTTPS domain. Add the canonical metadata only when the final hostname is live.
+If a custom domain is purchased later, add it from Netlify Domain management and use exactly the DNS values Netlify displays at that time; do not guess A/CNAME records. Wait for DNS verification and HTTPS, choose a canonical hostname plus an explicit redirect policy, then recheck all routes, `/inicio`, one published Monza JSON, the service worker and PWA installation. Update canonical metadata only after that hostname is live.

@@ -24,7 +24,7 @@ Keep React/Vite as the single web implementation and package its production outp
 
 - Developer account and verified contact details.
 - App name, short/full descriptions, category, icon, feature graphic, phone/tablet screenshots and support URL.
-- Public privacy-policy URL on `f1tech.app`.
+- Public privacy-policy URL on the current production origin (`https://formulatech.netlify.app`) or on a future verified custom domain.
 - Content rating, target audience, ads declaration, Data safety form and account-deletion declaration if accounts are later introduced.
 - Current target API level, 64-bit compatibility, testing requirements and any regional declarations shown by Play Console at submission time.
 - License and trademark review for FIA-derived text, standings data, team identifiers and especially the BGRT model before distribution.
@@ -39,4 +39,4 @@ Create a native abstraction parallel to the disabled web `AdSlot`: banner/native
 
 ## Go/no-go gates
 
-Do not start store packaging until: the web deploy and domain are stable; the championship source is commercially licensed; BGRT redistribution is authorized; privacy/consent text is published; required mobile viewport and physical-device QA pass; and the owner supplies signing and Play Console access.
+Do not start store packaging until: the Netlify production origin is stable; the championship source is commercially licensed; BGRT redistribution is authorized; privacy/consent text is published; required mobile viewport and physical-device QA pass; and the owner supplies signing and Play Console access.
