@@ -69,16 +69,16 @@
 /* Mobile is a distinct composition: context and components precede the car. */
 @media (max-width: 600px) {
   .showroom { padding-bottom: 0; }
-  .showroom__stage { min-height: 1040px; overflow: hidden; }
+  .showroom__stage { min-height: 820px; overflow: hidden; }
   .showroom__heading { top: .9rem; left: 1rem; }
   .showroom__heading h1 { font-size: 1.45rem; }
   .showroom__heading .section-kicker { display: none; }
   .showroom__context { top: 3.35rem; left: 1rem; right: 1rem; min-width: 0; }
-  .showroom__context strong, .showroom__context > span { display: none; }
-  .showroom-gp-select { min-width: 0; }
+  .showroom__context strong, .showroom__context > span:not(.showroom-gp-select) { display: none; }
+  .showroom-gp-select { display: block; width: 100%; min-width: 0; }
   .showroom-panel { top: 8.5rem; right: 1rem; bottom: auto; left: 1rem; width: auto; max-height: 280px; min-height: 215px; }
   .showroom-pieces { max-height: 215px; }
-  .showroom__canvas { top: 425px; bottom: 62px; }
+  .showroom__canvas { top: 425px; bottom: 64px; }
   .showroom__views { top: 390px; bottom: auto; left: 1rem; }
   .showroom__hint { display: none; }
   .showroom-teambar { min-height: 62px; overflow-x: auto; }
