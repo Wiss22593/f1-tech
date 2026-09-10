@@ -6,7 +6,8 @@ import { garageArea, garageCategory, garageComponent, garageGrandPrixName, garag
 import { loadPublishedGrandPrix, toCarComponent } from '../../services/fia/published-dataset'
 
 const cameraPresets: CameraPresetId[] = ['default', 'front', 'rear', 'side', 'top']
-const teamAbbreviations: Record<string, string> = { mercedes: 'MER', ferrari: 'FER', mclaren: 'MCL', 'red-bull-racing': 'RBR', 'racing-bulls': 'RB', 'aston-martin': 'AST', alpine: 'ALP', haas: 'HAS', audi: 'AUD', williams: 'WIL', cadillac: 'CAD' }
+const teamAbbreviations: Record<string, string> = { mercedes: 'MER', ferrari: 'FER', mclaren: 'MCL', 'red-bull-racing': 'RBR', 'racing-bulls': 'RBT', 'aston-martin': 'AST', alpine: 'ALP', haas: 'HAA', audi: 'AUD', williams: 'WIL', cadillac: 'CAD' }
+const cleanMobileUpdateText = (text: string) => text.replace(/^\s*\d{1,2}[.)-]?\s+(?=\p{L})/u, '')
 
 export function GaragePage({ locale }: { locale: Locale }) {
   const copy = garageText(locale)
@@ -20,6 +21,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const [publishedUpdates, setPublishedUpdates] = useState<GarageUpdate[]>([])
   const [mobileUpdatesExpanded, setMobileUpdatesExpanded] = useState(false)
   const itemRefs = useRef<Partial<Record<CarComponentId, HTMLDivElement | null>>>({})
+  const mobileTeamRefs = useRef<Record<string, HTMLButtonElement | null>>({})
   const grandPrix = garageGrandPrix.find((item) => item.id === grandPrixId) ?? garageGrandPrix[0]
   const team = garageTeams.find((item) => item.id === teamId) ?? garageTeams[0]
   const updates = publishedUpdates.filter((update) => update.teamId === team.id && update.grandPrixId === grandPrix.id)
@@ -37,6 +39,11 @@ export function GaragePage({ locale }: { locale: Locale }) {
     window.history.replaceState({}, '', `${window.location.pathname}?${query.toString()}`)
   }, [grandPrixId, teamId])
   useEffect(() => { if (selectedComponent) itemRefs.current[selectedComponent]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) }, [selectedComponent])
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 600px)').matches) return
+    const frame = window.requestAnimationFrame(() => mobileTeamRefs.current[teamId]?.scrollIntoView({ block: 'nearest', inline: 'center' }))
+    return () => window.cancelAnimationFrame(frame)
+  }, [teamId])
   useEffect(() => {
     let active = true
     void loadPublishedGrandPrix(grandPrixId).then(({ dataset }) => {
@@ -66,6 +73,12 @@ export function GaragePage({ locale }: { locale: Locale }) {
       </dl>
     </article>)
   }
+  function renderMobileUpdateDetails(componentUpdates: GarageUpdate[]) {
+    return componentUpdates.map((update) => <article className="showroom-submission" key={update.id}>
+      <header><span>{copy.updated}</span></header>
+      <dl><div><dt>{copy.whatChanged}</dt><dd>{cleanMobileUpdateText(getGarageUpdateChange(update, locale))}</dd></div></dl>
+    </article>)
+  }
   function renderComponent(hotspot: F1TechHotspot) {
     const componentUpdates = updates.filter((update) => update.componentId === hotspot.componentId)
     const expanded = selectedComponent === hotspot.componentId
@@ -90,7 +103,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
       </div>
       {selectedHotspot && updatedComponents.has(selectedHotspot.componentId) && <section className="showroom-mobile-detail" aria-live="polite">
         <header><h2>{garageComponent(locale, selectedHotspot.id, selectedHotspot.label)}</h2><button type="button" onClick={() => selectPiece(selectedHotspot.componentId)} aria-label={copy.closeDetail}>×</button></header>
-        <div className="showroom-mobile-detail__body">{renderUpdateDetails(updates.filter((update) => update.componentId === selectedHotspot.componentId))}</div>
+        <div className="showroom-mobile-detail__body">{renderMobileUpdateDetails(updates.filter((update) => update.componentId === selectedHotspot.componentId))}</div>
       </section>}
       <aside className="showroom-panel" aria-label={copy.components}>
         <div className="showroom-panel__top"><p className="section-kicker">{copy.components}</p><span>{noUpdates ? copy.noSubmitted : `${updates.length.toString().padStart(2, '0')} ${copy.submitted}`}</span></div>
@@ -102,7 +115,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
       <div className="showroom__views" aria-label={copy.views}>{cameraPresets.map((preset) => <button type="button" className={cameraPreset === preset && !selectedComponent ? 'showroom-view showroom-view--active' : 'showroom-view'} key={preset} onClick={() => selectCamera(preset)}>{copy[preset === 'default' ? 'reset' : preset]}</button>)}</div><p className="showroom__hint">{copy.hint}</p>
       <div className="showroom-teambar showroom-teambar--desktop" aria-label={copy.teamSelector}>{garageTeams.map((item) => { const count = publishedUpdates.filter((update) => update.teamId === item.id && update.grandPrixId === grandPrix.id).length; return <button type="button" className={item.id === teamId ? 'showroom-team showroom-team--selected' : 'showroom-team'} key={item.id} onClick={() => changeTeam(item.id)} style={{ '--item-primary': item.theme.primary } as React.CSSProperties}><i /><span>{item.name}</span><em>{count ? `${count.toString().padStart(2, '0')} ${copy.submitted}` : copy.noSubmitted}</em></button> })}</div>
       <div className="showroom-team-mobile" aria-label={copy.teamSelector} onTouchStart={(event) => setTeamTouchStart(event.changedTouches[0].clientX)} onTouchEnd={(event) => { const start = teamTouchStart; if (start === undefined) return; const difference = event.changedTouches[0].clientX - start; if (Math.abs(difference) > 42) stepTeam(difference < 0 ? 1 : -1); setTeamTouchStart(undefined) }}>
-        <button type="button" onClick={() => stepTeam(-1)} aria-label={copy.previousTeam}>←</button><strong>{teamAbbreviations[team.id]}</strong><span>{garageTeams.findIndex((item) => item.id === team.id) + 1} {copy.teamPosition} {garageTeams.length}</span><button type="button" onClick={() => stepTeam(1)} aria-label={copy.nextTeam}>→</button>
+        {garageTeams.map((item) => <button type="button" className={item.id === teamId ? 'showroom-team-mobile__item showroom-team-mobile__item--active' : 'showroom-team-mobile__item'} key={item.id} ref={(node) => { mobileTeamRefs.current[item.id] = node }} onClick={() => changeTeam(item.id)} style={{ '--item-primary': item.theme.primary } as React.CSSProperties} aria-label={item.name} aria-pressed={item.id === teamId}><i /><span>{teamAbbreviations[item.id]}</span></button>)}
       </div>
     </section>
   </section>
