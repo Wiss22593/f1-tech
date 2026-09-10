@@ -1,4 +1,4 @@
-export type UpdateStatus = 'Submitted' | 'Tested' | 'Race Spec' | 'Test Item'
+export type UpdateStatus = 'Submitted' | 'Tested' | 'Race Spec' | 'Test Item' | 'SUBMITTED' | 'ANNOUNCED' | 'TESTED' | 'RUNNING' | 'RACE_SPEC'
 
 export type TechnicalUpdate = {
   team: string

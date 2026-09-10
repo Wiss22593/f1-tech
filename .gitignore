@@ -32,3 +32,7 @@ Thumbs.db
 /public/models/imports/bgrt-f1-concept-2026/
 /public/models/.bgrt-working/
 /public/models/bgrt-f1-concept-2026.glb
+
+# Raw FIA source documents are transient ingestion inputs, never frontend assets.
+/ingestion/raw/
+/ingestion/output/

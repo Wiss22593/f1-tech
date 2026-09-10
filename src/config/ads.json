@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "provider": null,
+  "placements": [
+    "technical-preview-inline",
+    "updates-bottom",
+    "teams-bottom",
+    "circuits-bottom"
+  ]
+}

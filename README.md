@@ -29,7 +29,7 @@ src/
 └── i18n/         catálogos y fallback de idiomas
 ```
 
-`DemoProvider` es la única fuente conectada actualmente. `FiaProvider` y `PublicDocumentsProvider` son contratos preparados; no hacen scraping ni llamadas a APIs. Los datos futuros deben incluir fuente, URL cuando exista, confianza, fecha de verificación y trazabilidad.
+`DemoProvider` es la única fuente de standings conectada actualmente. La ingesta FIA se ejecuta fuera de React mediante módulos Node conservadores; no se considera productiva hasta que se configure un índice oficial verificable. Los datos publicados deben incluir fuente, URL cuando exista, fecha de verificación y trazabilidad.
 
 ## Estados y métricas
 
@@ -39,9 +39,9 @@ Las actualizaciones admiten `ANNOUNCED`, `SUBMITTED`, `TESTED`, `RUNNING` y `RAC
 
 El idioma por defecto es español. La API de localización acepta `es`, `en`, `it`, `pt`, `fr` y `de`; los catálogos futuros se agregan a `src/i18n` sin cambiar los componentes.
 
-## 3D Garage: modelo original de F1 TECH
+## 3D Garage: modelo activo
 
-El Garage no muestra una aproximación genérica de un monoplaza. El registry en `src/three/assets.ts` está vacío deliberadamente hasta que exista un asset **ORIGINAL de F1 TECH**. El viewer soporta carga de `/public/models/*.glb` o `/public/models/*.gltf`, loading, error state, orbit/zoom y presets de cámara cuando se registra un asset.
+El modelo activo obligatorio del Garage es el asset local aportado por el usuario: **BGRT F1 Concept 2026**, en `/models/bgrt-f1-concept-2026.glb`. El registry en `src/three/assets.ts` lo declara explícitamente; Apex sólo permanece como referencia histórica y no es un fallback ni se carga de forma automática.
 
 Cada asset debe usar `F1TechCarAsset` y declarar scale, rotation, hotspots, materiales y camera presets. Convención recomendada de nodes: `car`, `chassis`, `nose`, `frontWing`, `frontSuspension`, `frontBrake`, `floor`, `sidepods`, `cooling`, `engineCover`, `rearSuspension`, `rearBrake`, `rearWing`, `diffuser`, `wheels`, `steeringWheel`, `halo`.
 
@@ -53,4 +53,4 @@ No agregar, copiar, convertir ni redistribuir Formula Alpha, VRC, Assetto Corsa,
 
 F1 TECH es un proyecto independiente y no está afiliado, patrocinado ni respaldado por Formula 1, FIA ni los equipos de Formula 1. No se incluyen logos, fotografías, tipografías oficiales, modelos ni assets oficiales.
 
-Todo valor no verificado se marca explícitamente como **DEMO**. No hay resultados, pilotos, nombres de coches, fechas, fuentes oficiales ni actualizaciones reales conectadas en esta etapa.
+Todo valor no verificado se marca explícitamente como **DEMO**. Los standings siguen en DEMO; las actualizaciones del Garage conservan su documento FIA de procedencia y no deben ampliarse sin validación.

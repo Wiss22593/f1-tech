@@ -1,3 +1,4 @@
-export function ThreePreview() {
-  return <section className="three-preview card"><div><p className="section-kicker">PRÓXIMAMENTE</p><h2>Technical 3D Viewer</h2><p>Espacio reservado para escenas con Three.js, React Three Fiber y Drei.</p></div><div className="three-preview__wireframe" aria-label="Vista 3D de demostración no interactiva"><span /><i /><b /></div></section>
+import { type Locale, uiText } from '../../i18n'
+export function ThreePreview({ locale }: { locale: Locale }) {
+  return <section className="three-preview card"><div><p className="section-kicker">{uiText(locale, 'threeSoon')}</p><h2>{uiText(locale, 'threeViewer')}</h2><p>{uiText(locale, 'threeText')}</p></div><div className="three-preview__wireframe" aria-label={uiText(locale, 'threeAria')}><span /><i /><b /></div></section>
 }

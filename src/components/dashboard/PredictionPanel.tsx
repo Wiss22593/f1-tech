@@ -1,3 +1,4 @@
-export function PredictionPanel() {
-  return <section className="prediction-panel card"><div><p className="section-kicker">PRE-RACE PREDICTION</p><h2>Predicción en preparación</h2><p>La predicción comparará señales técnicas, Circuit Fit y confianza cuando existan datos trazables.</p></div><div><span>RESULTADO VS PREDICCIÓN</span><strong>—</strong><b>DEMO · SIN RESULTADOS</b></div></section>
+import { type Locale, uiText } from '../../i18n'
+export function PredictionPanel({ locale }: { locale: Locale }) {
+  return <section className="prediction-panel card"><div><p className="section-kicker">{uiText(locale, 'preRacePrediction')}</p><h2>{uiText(locale, 'predictionPreparing')}</h2><p>{uiText(locale, 'predictionText')}</p></div><div><span>{uiText(locale, 'resultVsPrediction')}</span><strong>—</strong><b>{uiText(locale, 'noResults')}</b></div></section>
 }

@@ -1,0 +1,21 @@
+name: Championship provider validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  standings:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Confirm production source remains explicitly gated
+        run: node --input-type=module -e "import('./ingestion/championship/source-config.mjs').then(({resolveChampionshipSource}) => { try { resolveChampionshipSource({}) } catch (error) { if (error.message !== 'CHAMPIONSHIP_SOURCE_USER_DECISION_REQUIRED') throw error } })"

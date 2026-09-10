@@ -1,50 +1,93 @@
-import { useState } from 'react'
-import { activeCarAsset, type CameraPresetId, type CarComponentId } from '../../three/assets'
+import { useEffect, useRef, useState } from 'react'
+import { activeCarAsset, type CameraPresetId, type CarComponentId, type F1TechHotspot } from '../../three/assets'
 import { ModelViewer } from '../../three/ModelViewer'
-import { garageGrandPrix, garageHotspots, garageTeams, getGarageUpdates } from './data'
+import { garageComponentGroups, garageGrandPrix, garageHotspots, garageTeams, getGarageUpdateChange, type GarageUpdate } from './data'
+import { garageArea, garageCategory, garageComponent, garageGrandPrixName, garageText, technicalText, type Locale } from '../../i18n'
+import { loadPublishedGrandPrix, toCarComponent } from '../../services/fia/published-dataset'
 
-const cameraPresets: { id: CameraPresetId; label: string }[] = [{ id: 'default', label: 'RESET' }, { id: 'front', label: 'FRONTAL' }, { id: 'rear', label: 'TRASERA' }, { id: 'side', label: 'LATERAL' }, { id: 'top', label: 'SUPERIOR' }]
+const cameraPresets: CameraPresetId[] = ['default', 'front', 'rear', 'side', 'top']
+const teamAbbreviations: Record<string, string> = { mercedes: 'MER', ferrari: 'FER', mclaren: 'MCL', 'red-bull-racing': 'RBR', 'racing-bulls': 'RB', 'aston-martin': 'AST', alpine: 'ALP', haas: 'HAS', audi: 'AUD', williams: 'WIL', cadillac: 'CAD' }
 
-export function GaragePage() {
-  const [grandPrixId, setGrandPrixId] = useState(garageGrandPrix[0].id)
-  const [teamId, setTeamId] = useState(garageTeams[0].id)
+export function GaragePage({ locale }: { locale: Locale }) {
+  const copy = garageText(locale)
+  const initialQuery = new URLSearchParams(window.location.search)
+  const [grandPrixId, setGrandPrixId] = useState(() => garageGrandPrix.some((item) => item.id === initialQuery.get('gp')) ? initialQuery.get('gp')! : garageGrandPrix[0].id)
+  const [teamId, setTeamId] = useState(() => garageTeams.some((item) => item.id === initialQuery.get('team')) ? initialQuery.get('team')! : garageTeams[0].id)
   const [cameraPreset, setCameraPreset] = useState<CameraPresetId>('default')
-  const [viewerVersion, setViewerVersion] = useState(0)
-  const [selectedComponent, setSelectedComponent] = useState<CarComponentId | undefined>('floor')
-  const [selectedUpdateId, setSelectedUpdateId] = useState<string | undefined>()
+  const [selectedComponent, setSelectedComponent] = useState<CarComponentId>()
+  const [focusRequestId, setFocusRequestId] = useState(0)
+  const [teamTouchStart, setTeamTouchStart] = useState<number>()
+  const [publishedUpdates, setPublishedUpdates] = useState<GarageUpdate[]>([])
+  const itemRefs = useRef<Partial<Record<CarComponentId, HTMLDivElement | null>>>({})
   const grandPrix = garageGrandPrix.find((item) => item.id === grandPrixId) ?? garageGrandPrix[0]
   const team = garageTeams.find((item) => item.id === teamId) ?? garageTeams[0]
-  const updates = getGarageUpdates(team.id, grandPrix.id)
-  const zoneUpdates = updates.filter((update) => update.componentId === selectedComponent)
-  const selectedUpdate = updates.find((update) => update.id === selectedUpdateId) ?? zoneUpdates[0]
+  const updates = publishedUpdates.filter((update) => update.teamId === team.id && update.grandPrixId === grandPrix.id)
+  const noUpdates = updates.length === 0
+  const updatedComponents = new Set(updates.map((update) => update.componentId))
+  const updatedHotspots = garageHotspots.filter((hotspot, index, all) => updatedComponents.has(hotspot.componentId) && all.findIndex((item) => item.componentId === hotspot.componentId) === index)
+  const selectedHotspot = garageHotspots.find((hotspot) => hotspot.componentId === selectedComponent)
 
-  function selectTeam(nextTeamId: string) {
-    setTeamId(nextTeamId); setSelectedComponent(undefined); setSelectedUpdateId(undefined)
-  }
-  function selectZone(componentId: CarComponentId) {
-    setSelectedComponent(componentId); setSelectedUpdateId(undefined)
-  }
-  function selectCamera(preset: CameraPresetId) {
-    setCameraPreset(preset); if (preset === 'default') { setSelectedComponent(undefined); setSelectedUpdateId(undefined) }; setViewerVersion((version) => version + 1)
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search)
+    query.set('gp', grandPrixId); query.set('team', teamId)
+    window.history.replaceState({}, '', `${window.location.pathname}?${query.toString()}`)
+  }, [grandPrixId, teamId])
+  useEffect(() => { if (selectedComponent) itemRefs.current[selectedComponent]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) }, [selectedComponent])
+  useEffect(() => {
+    let active = true
+    void loadPublishedGrandPrix(grandPrixId).then(({ dataset }) => {
+      if (!active) return
+      setPublishedUpdates((dataset?.updates ?? []).flatMap((record) => {
+        const componentId = toCarComponent(record.componentId)
+        if (!componentId) return []
+        return [{ id: record.id, teamId: record.teamId, grandPrixId: record.grandPrixId, componentId, status: record.technicalState === 'SUBMITTED' ? 'SUBMITTED' : 'SUBMITTED', presentedComponent: record.componentId, primaryReason: record.category ?? '', geometricDifference: record.sourceText, description: record.description ?? record.sourceText, source: { type: 'FIA', label: 'FIA Car Presentation Submission', document: record.sourceDocument, date: record.publishedAt }, confidence: 'CONFIRMED', magnitude: (record.magnitude ?? '') as GarageUpdate['magnitude'], objective: record.objective ?? '', area: record.area ?? '' }]
+      }))
+    })
+    return () => { active = false }
+  }, [grandPrixId])
+  function resetView() { setSelectedComponent(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1) }
+  function selectPiece(componentId: CarComponentId) { setSelectedComponent((current) => current === componentId ? undefined : componentId); setCameraPreset('default'); setFocusRequestId((value) => value + 1) }
+  function changeGrandPrix(id: string) { setGrandPrixId(id); resetView() }
+  function changeTeam(id: string) { setTeamId(id); resetView() }
+  function stepTeam(direction: 1 | -1) { const current = garageTeams.findIndex((item) => item.id === teamId); changeTeam(garageTeams[(current + direction + garageTeams.length) % garageTeams.length].id) }
+  function selectCamera(preset: CameraPresetId) { if (preset === 'default') resetView(); else { setCameraPreset(preset); setSelectedComponent(undefined) } }
+  function renderComponent(hotspot: F1TechHotspot) {
+    const componentUpdates = updates.filter((update) => update.componentId === hotspot.componentId)
+    const expanded = selectedComponent === hotspot.componentId
+    return <div className={`showroom-component${expanded ? ' showroom-component--expanded' : ''}`} key={hotspot.id} ref={(node) => { itemRefs.current[hotspot.componentId] = node }}>
+      <button type="button" className={`showroom-piece${expanded ? ' showroom-piece--selected' : ''}${componentUpdates.length ? ' showroom-piece--active' : ''}`} onClick={() => selectPiece(hotspot.componentId)} aria-expanded={expanded}>
+        <i /><span>{garageComponent(locale, hotspot.id, hotspot.label)}</span>{componentUpdates.length > 0 && <em>● {copy.updated}</em>}<b aria-hidden="true">{expanded ? '−' : '+'}</b>
+      </button>
+      {expanded && <div className="showroom-inline-detail" aria-live="polite">
+        {componentUpdates.length === 0 ? <p>{copy.noUpdate}</p> : componentUpdates.map((update) => <article className="showroom-submission" key={update.id}>
+          <header><span>{copy.updated}</span></header>
+          <dl>
+            <div><dt>{copy.whatChanged}</dt><dd>{getGarageUpdateChange(update, locale)}</dd></div>
+            <div><dt>{copy.area}</dt><dd>{garageArea(locale, update.area)}</dd></div>
+            <div><dt>{copy.objective}</dt><dd>{technicalText(locale, update.objective)}</dd></div>
+            <div><dt>{copy.magnitude}</dt><dd>{technicalText(locale, update.magnitude)}</dd></div>
+          </dl>
+        </article>)}</div>}
+    </div>
   }
 
-  return <section className="garage-page dashboard__content" style={{ '--team-primary': team.theme.primary, '--team-accent': team.theme.accent, '--team-surface': team.theme.surface } as React.CSSProperties} aria-labelledby="garage-title">
-    <div className="garage-page__intro"><div><p className="section-kicker">VISUALIZACIÓN TÉCNICA · ENTORNO DEMO</p><h1 id="garage-title">3D Garage<span>.</span></h1><p>Seleccioná un Grand Prix y un equipo para ubicar cada señal de desarrollo sobre un auto provisional de F1 TECH.</p></div><span>ORBIT<br /><i>CONTROLS</i></span></div>
-    <p className="demo-notice"><b>GARAGE V1 · DEMO</b>El coche es una representación geométrica provisional y original de F1 TECH. No incluye modelos, logos, liveries, texturas ni assets de terceros.</p>
-
-    <section className="garage-context card" aria-label="Contexto del Garage">
-      <label>GRAND PRIX<select value={grandPrixId} onChange={(event) => setGrandPrixId(event.target.value)}>{garageGrandPrix.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.circuit}</option>)}</select></label>
-      <label>EQUIPO<select value={teamId} onChange={(event) => selectTeam(event.target.value)}>{garageTeams.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
-      <div className="garage-context__team"><i /><span>PALETA F1 TECH</span><strong>{team.name}</strong></div>
-      <div className="garage-context__count"><span>UPDATES PARA EL GP</span><strong>{updates.length.toString().padStart(2, '0')} <em>DEMO</em></strong></div>
+  return <section className="showroom" style={{ '--team-primary': team.theme.primary, '--team-accent': team.theme.accent, '--team-surface': team.theme.surface } as React.CSSProperties} aria-labelledby="showroom-title">
+    <section className="showroom__stage">
+      <div className="showroom__heading"><h1 id="showroom-title">F1 TECH<span>.</span></h1></div>
+      <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><span className="showroom-gp-select"><select id="grand-prix-selector" value={grandPrixId} onChange={(event) => changeGrandPrix(event.target.value)}>{garageGrandPrix.map((item) => <option key={item.id} value={item.id}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span><strong>{team.name.toUpperCase()}</strong><span>{grandPrix.circuit}</span></div>
+      <div className="showroom__canvas"><ModelViewer asset={activeCarAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /></div>
+      <aside className="showroom-panel" aria-label={copy.components}>
+        <div className="showroom-panel__top"><p className="section-kicker">{copy.components}</p><span>{noUpdates ? copy.noSubmitted : `${updates.length.toString().padStart(2, '0')} ${copy.submitted}`}</span></div>
+        <div className="showroom-pieces">
+          {updatedHotspots.length > 0 && <section className="showroom-piece-group showroom-piece-group--updates"><h3>{copy.updated}</h3>{updatedHotspots.map(renderComponent)}</section>}
+          {garageComponentGroups.map((group) => { const remaining = group.componentIds.map((id) => garageHotspots.find((hotspot) => hotspot.id === id)).filter((item): item is F1TechHotspot => item !== undefined).filter((item) => !updatedComponents.has(item.componentId)); return remaining.length > 0 && <section className="showroom-piece-group" key={group.id}><h3>{garageCategory(locale, group.id)}</h3>{remaining.map(renderComponent)}</section> })}
+        </div>
+      </aside>
+      <div className="showroom__views" aria-label={copy.views}>{cameraPresets.map((preset) => <button type="button" className={cameraPreset === preset && !selectedComponent ? 'showroom-view showroom-view--active' : 'showroom-view'} key={preset} onClick={() => selectCamera(preset)}>{copy[preset === 'default' ? 'reset' : preset]}</button>)}</div><p className="showroom__hint">{copy.hint}</p>
+      <div className="showroom-teambar showroom-teambar--desktop" aria-label={copy.teamSelector}>{garageTeams.map((item) => { const count = publishedUpdates.filter((update) => update.teamId === item.id && update.grandPrixId === grandPrix.id).length; return <button type="button" className={item.id === teamId ? 'showroom-team showroom-team--selected' : 'showroom-team'} key={item.id} onClick={() => changeTeam(item.id)} style={{ '--item-primary': item.theme.primary } as React.CSSProperties}><i /><span>{item.name}</span><em>{count ? `${count.toString().padStart(2, '0')} ${copy.submitted}` : copy.noSubmitted}</em></button> })}</div>
+      <div className="showroom-team-mobile" aria-label={copy.teamSelector} onTouchStart={(event) => setTeamTouchStart(event.changedTouches[0].clientX)} onTouchEnd={(event) => { const start = teamTouchStart; if (start === undefined) return; const difference = event.changedTouches[0].clientX - start; if (Math.abs(difference) > 42) stepTeam(difference < 0 ? 1 : -1); setTeamTouchStart(undefined) }}>
+        <button type="button" onClick={() => stepTeam(-1)} aria-label={copy.previousTeam}>←</button><strong>{teamAbbreviations[team.id]}</strong><span>{garageTeams.findIndex((item) => item.id === team.id) + 1} {copy.teamPosition} {garageTeams.length}</span><button type="button" onClick={() => stepTeam(1)} aria-label={copy.nextTeam}>→</button>
+      </div>
     </section>
-
-    <div className="garage-page__layout"><section className="garage-viewer card"><div className="garage-viewer__top"><span>F1 TECH · PROVISIONAL 3D MODEL</span><span>{activeCarAsset ? 'ORIGINAL ASSET REGISTRADO' : 'GEOMETRÍA DEMO ACTIVA'}</span></div><div className="garage-viewer__canvas"><ModelViewer key={`${cameraPreset}-${viewerVersion}`} asset={activeCarAsset} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={updates.map((update) => update.componentId)} selectedComponent={selectedComponent} onSelectComponent={selectZone} /></div><div className="garage-viewer__legend"><i /> HOTSPOT CON ACTIVIDAD <span>{updates.length} UPDATE{updates.length === 1 ? '' : 'S'} DEMO</span></div></section>
-      <aside className="garage-inspector card"><p className="section-kicker">ZONA SELECCIONADA</p><h2>{garageHotspots.find((hotspot) => hotspot.componentId === selectedComponent)?.label ?? 'Seleccioná un hotspot'}</h2><p>{zoneUpdates.length ? `${zoneUpdates.length} actualización DEMO disponible en esta zona.` : 'Esta zona está disponible para análisis; no tiene una actualización DEMO para este equipo y GP.'}</p><div className="garage-zone-updates">{zoneUpdates.map((update) => <button type="button" className={selectedUpdate?.id === update.id ? 'garage-update-chip garage-update-chip--active' : 'garage-update-chip'} key={update.id} onClick={() => setSelectedUpdateId(update.id)}><span className={`status status--${update.status.toLowerCase().replace('_', '-')}`}>{update.status.replace('_', ' ')}</span><b>{update.objective}</b></button>)}</div><div className="garage-inspector__readout"><span>MODELO ACTIVO</span><strong>{activeCarAsset?.id ?? 'F1 TECH DEMO CAR V1'}</strong></div></aside></div>
-
-    <section className="garage-controls" aria-label="Vistas de cámara">{cameraPresets.map((preset) => <button type="button" className={preset.id === cameraPreset ? 'garage-controls__item garage-controls__item--active' : 'garage-controls__item'} key={preset.id} onClick={() => selectCamera(preset.id)}><span>CAMERA PRESET</span><b>{preset.label}</b></button>)}</section>
-    <section className="garage-future-controls" aria-label="Controles preparados para próximas versiones"><button type="button" disabled>BEFORE / AFTER · COMING NEXT</button><button type="button" disabled>EXPLODED VIEW · COMING NEXT</button><button type="button" disabled>HIDE / SHOW · COMING NEXT</button></section>
-
-    <section className="garage-update-panel card" aria-live="polite"><div><p className="section-kicker">WHAT CHANGED? · DEMO</p><h2>{selectedUpdate ? selectedUpdate.description : 'Seleccioná una zona con actividad'}</h2><p>{selectedUpdate ? selectedUpdate.analysis : 'Los hotspots con indicador muestran dónde hay una actualización DEMO disponible para el equipo seleccionado.'}</p></div>{selectedUpdate && <><div className="garage-update-facts"><div><span>OBJECTIVE</span><strong>{selectedUpdate.objective}</strong></div><div><span>MAGNITUDE</span><strong>{selectedUpdate.magnitude}</strong></div><div><span>STATUS</span><strong className={`status status--${selectedUpdate.status.toLowerCase().replace('_', '-')}`}>{selectedUpdate.status.replace('_', ' ')}</strong></div><div><span>SOURCE</span><strong>{selectedUpdate.source}</strong></div><div><span>CONFIDENCE</span><strong>{selectedUpdate.confidence}</strong></div></div><div className="garage-score"><span>F1 TECH SCORE</span><strong>{selectedUpdate.score}</strong><em>DEMO</em><dl><div><dt>AERODYNAMICS</dt><dd>{selectedUpdate.componentId === 'cooling' || selectedUpdate.componentId === 'rearSuspension' ? '—' : selectedUpdate.score}</dd></div><div><dt>MAGNITUDE</dt><dd>{selectedUpdate.magnitude}</dd></div><div><dt>CIRCUIT FIT</dt><dd>{selectedUpdate.circuitFit}</dd></div><div><dt>CONFIDENCE</dt><dd>{selectedUpdate.confidence}</dd></div></dl></div></>}</section>
   </section>
 }

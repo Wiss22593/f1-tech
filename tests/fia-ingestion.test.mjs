@@ -1,0 +1,168 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import { normalizeComponent, normalizeTeam } from '../ingestion/fia/normalizer.mjs'
+import { findDuplicateRecordIds, validateUpdate } from '../ingestion/fia/validator.mjs'
+import { fetchFiaDocumentIndex } from '../ingestion/fia/finder.mjs'
+import { parsePresentationText } from '../ingestion/fia/parser.mjs'
+import { extractPdfText } from '../ingestion/fia/extractor.mjs'
+import { mapFiaComponent, suggestFiaComponents } from '../ingestion/fia/component-registry.mjs'
+import { createPublicationPlan, publicationDecision } from '../ingestion/fia/publication.mjs'
+import { readFile } from 'node:fs/promises'
+import { eventRegistry2026, selectCurrentEvents } from '../ingestion/fia/events.mjs'
+import { buildDataChangePlan } from '../ingestion/fia/prepare-pr.mjs'
+import { JolpicaChampionshipProvider } from '../ingestion/championship/jolpica.mjs'
+import { resolveChampionshipSource } from '../ingestion/championship/source-config.mjs'
+
+const valid = {
+  id: 'monza-mercedes-rear-wing', grandPrixId: 'italian-grand-prix-2026', teamId: 'mercedes', componentId: 'rear wing',
+  source: 'FIA', sourceUrl: 'https://www.fia.com/document.pdf', sourceDocument: 'Car Presentation Submissions', sourceText: 'Revised rear wing geometry.', description: 'Revised rear wing geometry.',
+}
+
+test('normalizes only stable, known team and component ids', () => {
+  assert.equal(normalizeTeam('Red Bull'), 'red-bull-racing')
+  assert.equal(normalizeTeam('Mercedes-AMG PETRONAS F1 Team'), 'mercedes')
+  assert.equal(normalizeTeam('Visa Cash App Racing Bulls'), 'racing-bulls')
+  assert.equal(normalizeComponent('Rear Wing'), 'rear-wing')
+  assert.equal(normalizeTeam('Unknown Team'), null)
+  assert.equal(normalizeComponent('Mystery part'), null)
+})
+
+test('component registry maps explicit FIA names and only suggests ambiguous names', () => {
+  assert.equal(mapFiaComponent('Rear Wing'), 'rear-wing')
+  assert.equal(mapFiaComponent('Unrecognised wing structure'), null)
+  assert.deepEqual(suggestFiaComponents('Unrecognised wing structure'), ['front-wing', 'rear-wing'])
+})
+
+test('validator rejects records without traceable content', () => {
+  assert.deepEqual(validateUpdate(valid, ['italian-grand-prix-2026']), { valid: true, errors: [] })
+  assert.equal(validateUpdate({ ...valid, componentId: 'unknown' }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...valid, description: '' }, ['italian-grand-prix-2026']).valid, false)
+})
+
+test('duplicate source rows are detected before publication', () => {
+  assert.deepEqual(findDuplicateRecordIds([valid, { ...valid, id: 'duplicate' }]).sort(), ['duplicate', valid.id].sort())
+})
+
+test('publication gate permits only validated deterministic FIA records', () => {
+  const record = { ...valid, season: 2026, contentHash: 'a'.repeat(64), parserConfidence: 'deterministic_table', validationState: 'validated' }
+  assert.equal(publicationDecision(record, { grandPrixIds: ['italian-grand-prix-2026'], season: 2026 }).publishable, true)
+  assert.equal(publicationDecision({ ...record, parserConfidence: 'heuristic' }, { grandPrixIds: ['italian-grand-prix-2026'], season: 2026 }).publishable, false)
+  assert.equal(publicationDecision({ ...record, sourceUrl: 'https://example.test/a.pdf' }, { grandPrixIds: ['italian-grand-prix-2026'], season: 2026 }).publishable, false)
+})
+
+test('publication plan separates uncertain records into manual review without an empty replacement', () => {
+  const record = { ...valid, season: 2026, contentHash: 'a'.repeat(64), parserConfidence: 'deterministic_table', validationState: 'validated' }
+  const plan = createPublicationPlan({ document: { id: 'doc-10', title: valid.sourceDocument, sourceUrl: valid.sourceUrl, contentHash: record.contentHash, retrievedAt: '2026-09-09T00:00:00.000Z' }, records: [record], rejected: [{ sourceText: 'Unknown part', reason: 'unmapped_component' }], grandPrix: { id: 'italian-grand-prix-2026', name: 'Italian Grand Prix' }, season: 2026 })
+  assert.equal(plan.dataset.updates[0].validationState, 'published')
+  assert.equal(plan.manualReview.length, 1)
+})
+
+test('FIA finder selects only explicit official presentation PDFs', async () => {
+  const html = '<a href="/system/files/decision-document/2026_australian_grand_prix_-_car_presentation_submissions.pdf">Doc 9 - Car Presentation Submissions</a><a href="/technical.pdf">Doc 70 - Technical nonconformity</a><a href="/other.pdf">Entry List</a>'
+  const records = await fetchFiaDocumentIndex({ indexUrl: 'https://www.fia.com/documents/formula-1', grandPrixId: 'australia-2026', season: 2026, eventName: 'Australian Grand Prix', fetchFn: async () => new Response(html) })
+  assert.equal(records.length, 1)
+  assert.equal(records[0].documentId, '9')
+  assert.equal(records[0].eventId, 'australia-2026')
+  assert.match(records[0].sourceUrl, /^https:\/\/www\.fia\.com\//)
+})
+
+test('validator rejects a malformed source hash and a wrong season', () => {
+  assert.equal(validateUpdate({ ...valid, season: 2025 }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...valid, contentHash: 'not-a-sha256' }, ['italian-grand-prix-2026']).valid, false)
+})
+
+test('validator rejects a missing or non-HTTPS FIA source URL', () => {
+  assert.equal(validateUpdate({ ...valid, sourceUrl: '' }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...valid, sourceUrl: 'http://example.test/document.pdf' }, ['italian-grand-prix-2026']).valid, false)
+})
+
+test('parser fixture preserves source text and leaves unsupported editorial fields null', async () => {
+  const text = await readFile(new URL('./fixtures/fia-presentation.txt', import.meta.url), 'utf8')
+  const parsed = parsePresentationText(text, { documentId: 'doc-10', season: 2026, grandPrixId: 'italian-grand-prix-2026', sourceDocument: 'Car Presentation Submissions', sourceUrl: valid.sourceUrl, contentHash: 'a'.repeat(64) })
+  assert.equal(parsed.rejected.length, 0)
+  assert.equal(parsed.records.length, 1)
+  assert.equal(parsed.records[0].teamId, 'mercedes')
+  assert.equal(parsed.records[0].componentId, 'rear-wing')
+  assert.equal(parsed.records[0].magnitude, null)
+  assert.equal(parsed.records[0].area, null)
+  assert.match(parsed.records[0].sourceText, /Revised winglet geometry/)
+})
+
+test('PDF extractor reads the embedded text layer of the supplied FIA document', async () => {
+  const extracted = await extractPdfText(new URL('../docs/2026-italian-grand-prix-car-presentation-submissions.pdf', import.meta.url))
+  assert.equal(extracted.pageCount, 22)
+  assert.match(extracted.text, /Car Presentation Submissions/)
+  assert.ok(extracted.extractionWarnings.includes('partial_text_layer: one or more pages contain no extractable text'))
+})
+
+test('canonical 2026 registry contains all 24 official calendar rounds', () => {
+  assert.equal(eventRegistry2026.length, 24)
+  assert.equal(new Set(eventRegistry2026.map(({ id }) => id)).size, 24)
+  assert.equal(eventRegistry2026.filter(({ indexUrl }) => indexUrl).length, 14)
+})
+
+test('current event discovery selects Madrid during its verified race window', () => {
+  assert.deepEqual(selectCurrentEvents(eventRegistry2026, new Date('2026-09-12T12:00:00Z')).map(({ id }) => id), ['madrid-grand-prix-2026'])
+})
+
+test('data PR preparation allowlists datasets and rejects application files', () => {
+  const plan = buildDataChangePlan(['src/app/App.tsx', 'public/data/grands-prix/2026/a.json', 'data/grands-prix/2026.json'], new Date('2026-09-09T00:00:00Z'))
+  assert.deepEqual(plan.files, ['data/grands-prix/2026.json', 'public/data/grands-prix/2026/a.json'])
+  assert.equal(plan.safeToPropose, true)
+  assert.equal(buildDataChangePlan(['src/app/App.tsx']).safeToPropose, false)
+  assert.equal(buildDataChangePlan([]).safeToPropose, false)
+})
+
+test('advertising slots are enumerated and disabled by default', async () => {
+  const config = JSON.parse(await readFile(new URL('../src/config/ads.json', import.meta.url), 'utf8'))
+  assert.equal(config.enabled, false)
+  assert.equal(config.provider, null)
+  assert.deepEqual(config.placements.sort(), ['circuits-bottom', 'teams-bottom', 'technical-preview-inline', 'updates-bottom'])
+  const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
+  assert.doesNotMatch(garage, /AdSlot|data-ad-placement/)
+})
+
+test('championship provider maps live-shaped payloads to the stable domain contract', async () => {
+  const payloads = {
+    driverStandings: { MRData: { StandingsTable: { StandingsLists: [{ season: '2026', round: '13', DriverStandings: [{ position: '1', points: '240', Driver: { driverId: 'russell', givenName: 'George', familyName: 'Russell' }, Constructors: [{ constructorId: 'mercedes' }] }] }] } } },
+    constructorStandings: { MRData: { StandingsTable: { StandingsLists: [{ season: '2026', round: '13', ConstructorStandings: [{ position: '1', points: '400', Constructor: { constructorId: 'mercedes' } }] }] } } },
+  }
+  const fetchFn = async (url) => new Response(JSON.stringify(url.includes('driverStandings') ? payloads.driverStandings : payloads.constructorStandings))
+  const result = await new JolpicaChampionshipProvider({ fetchFn }).getSnapshot(2026)
+  assert.deepEqual(result.drivers[0], { position: 1, driverId: 'russell', driverName: 'George Russell', teamId: 'mercedes', points: 240 })
+  assert.deepEqual(result.constructors[0], { position: 1, teamId: 'mercedes', points: 400 })
+  assert.equal(result.stale, false)
+})
+
+test('championship provider exposes the last valid dataset as stale on source failure', async () => {
+  const fallback = { season: 2026, retrievedAt: '2026-09-01T00:00:00.000Z', drivers: [{ position: 1 }], constructors: [{ position: 1 }] }
+  const result = await new JolpicaChampionshipProvider({ fallback, fetchFn: async () => { throw new Error('offline') } }).getSnapshot(2026)
+  assert.equal(result.stale, true)
+  assert.equal(result.fallbackReason, 'offline')
+  assert.equal(result.retrievedAt, fallback.retrievedAt)
+})
+
+test('commercial source guard blocks Jolpica and unconfigured production credentials', () => {
+  assert.throws(() => resolveChampionshipSource({ CHAMPIONSHIP_SOURCE: 'jolpica-development' }), /NONCOMMERCIAL_CHAMPIONSHIP_SOURCE_BLOCKED/)
+  assert.throws(() => resolveChampionshipSource({ CHAMPIONSHIP_SOURCE: 'sportmonks' }), /SPORTMONKS_CREDENTIALS_REQUIRED/)
+  assert.equal(resolveChampionshipSource({ CHAMPIONSHIP_SOURCE: 'sportmonks', SPORTMONKS_API_TOKEN: 'test-token' }).productionEligible, true)
+})
+
+test('service worker keeps published JSON network-first and BGRT explicitly cached', async () => {
+  const worker = await readFile(new URL('../public/sw.js', import.meta.url), 'utf8')
+  assert.match(worker, /startsWith\('\/data\/'\)/)
+  assert.match(worker, /const BGRT_MODEL = '\/models\/bgrt-f1-concept-2026\.glb'/)
+  assert.doesNotMatch(worker, /url\.includes\('\/data\/'\)/)
+})
+
+test('six-locale catalog covers Garage labels and factual offline state', async () => {
+  const catalogue = await readFile(new URL('../src/i18n/index.ts', import.meta.url), 'utf8')
+  assert.doesNotMatch(catalogue, /components:\s*\{\s*\}/)
+  for (const locale of ['es', 'en', 'it', 'pt', 'fr', 'de']) {
+    assert.match(catalogue, new RegExp(`\\b${locale}: \\{ name:`))
+  }
+  for (const page of ['technical-preview/TechnicalPreview.tsx', 'updates/UpdatesPage.tsx', 'teams/TeamsPage.tsx']) {
+    const source = await readFile(new URL(`../src/features/${page}`, import.meta.url), 'utf8')
+    assert.match(source, /navigator\.onLine \? 'stale' : 'offline'/)
+  }
+})

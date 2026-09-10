@@ -1,0 +1,1 @@
+Car Presentation – Italian Grand Prix Mercedes-AMG PETRONAS F1 Team Updated component Primary reason for update Geometric differences compared to previous version Brief description on how the update works (min 20, max 100 words) 1 Rear Wing Circuit specific - Drag Range Revised winglet geometry. The rear wing geometry was revised for the event.

@@ -1,0 +1,69 @@
+name: FIA ingestion
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'current_gp checks registered events; backfill checks all registered 2026 events.'
+        required: true
+        default: current_gp
+        type: choice
+        options: [current_gp, backfill]
+      publish:
+        description: 'Create safe published JSON in the workflow artifact. It never writes to the repository.'
+        required: true
+        default: false
+        type: boolean
+  schedule:
+    # One weekday pass plus extra Thursday/Friday checks; GitHub schedules are best-effort.
+    - cron: '23 7 * * 1-3,6,0'
+    - cron: '23 7,13,19 * * 4,5'
+
+permissions:
+  contents: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install reproducible dependencies
+        run: npm ci
+      - name: Validate ingestion modules and contracts
+        run: |
+          node --check ingestion/fia/finder.mjs
+          node --check ingestion/fia/downloader.mjs
+          node --check ingestion/fia/extractor.mjs
+          node --check ingestion/fia/component-registry.mjs
+          node --check ingestion/fia/publication.mjs
+          node --check ingestion/fia/parser.mjs
+          node --check ingestion/fia/normalizer.mjs
+          node --check ingestion/fia/validator.mjs
+          node --check ingestion/fia/run.mjs
+          node --check ingestion/fia/backfill.mjs
+          npm test
+      - name: Discover, validate and stage only safe records
+        env:
+          REQUESTED_MODE: ${{ inputs.mode || 'current_gp' }}
+          # Scheduled runs stage safe public JSON inside the artifact; repository remains read-only.
+          REQUESTED_PUBLISH: ${{ inputs.publish || 'true' }}
+        run: |
+          if [ "$REQUESTED_MODE" = "backfill" ]; then
+            npm run fia:backfill -- --season=2026 --backfill=true --publish=$REQUESTED_PUBLISH
+          else
+            npm run fia:current -- --season=2026 --publish=$REQUESTED_PUBLISH
+          fi
+      - name: Prepare allowlisted data PR plan
+        run: node ingestion/fia/prepare-pr.mjs
+      - name: Upload auditable staging artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: fia-ingestion-${{ github.run_id }}
+          path: |
+            ingestion/output/
+            public/data/grands-prix/
+          if-no-files-found: error

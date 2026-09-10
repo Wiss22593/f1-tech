@@ -1,0 +1,40 @@
+# Disabled template. Rename to .yml only after repository Actions permissions are approved.
+name: FIA validated data PR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  data-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run fia:current -- --season=2026 --publish=true
+      - run: npm test
+      - run: node ingestion/fia/prepare-pr.mjs
+      - id: changes
+        shell: bash
+        run: |
+          safe=$(node -e "const p=require('./ingestion/output/reports/data-pr-plan.json');process.stdout.write(String(p.safeToPropose))")
+          echo "safe=$safe" >> "$GITHUB_OUTPUT"
+      - name: Create or update allowlisted data PR
+        if: steps.changes.outputs.safe == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: |
+            data/grands-prix/2026.json
+            public/data/grands-prix/2026/*.json
+          branch: automation/fia-validated-data
+          delete-branch: true
+          commit-message: data: publish validated FIA updates
+          title: data: publish validated FIA updates
+          body: Automated FIA data-only change. Review hashes, record counts and the ingestion artifact before merging.
