@@ -7,7 +7,9 @@ import { parsePresentationText } from '../ingestion/fia/parser.mjs'
 import { extractPdfText } from '../ingestion/fia/extractor.mjs'
 import { mapFiaComponent, suggestFiaComponents } from '../ingestion/fia/component-registry.mjs'
 import { createPublicationPlan, publicationDecision } from '../ingestion/fia/publication.mjs'
-import { readFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { eventRegistry2026, selectCurrentEvents } from '../ingestion/fia/events.mjs'
 import { buildDataChangePlan } from '../ingestion/fia/prepare-pr.mjs'
 import { JolpicaChampionshipProvider } from '../ingestion/championship/jolpica.mjs'
@@ -88,11 +90,37 @@ test('parser fixture preserves source text and leaves unsupported editorial fiel
   assert.match(parsed.records[0].sourceText, /Revised winglet geometry/)
 })
 
-test('PDF extractor reads the embedded text layer of the supplied FIA document', async () => {
-  const extracted = await extractPdfText(new URL('../docs/2026-italian-grand-prix-car-presentation-submissions.pdf', import.meta.url))
-  assert.equal(extracted.pageCount, 22)
-  assert.match(extracted.text, /Car Presentation Submissions/)
-  assert.ok(extracted.extractionWarnings.includes('partial_text_layer: one or more pages contain no extractable text'))
+test('PDF extractor reads a generated embedded text layer', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'f1-tech-pdf-fixture-'))
+  const path = join(directory, 'text-layer.pdf')
+  const stream = 'BT /F1 18 Tf 72 720 Td (F1 TECH extractor fixture) Tj ET'
+  const objects = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+    `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
+  ]
+  let pdf = '%PDF-1.4\n'
+  const offsets = [0]
+  for (const [index, object] of objects.entries()) {
+    offsets.push(Buffer.byteLength(pdf, 'ascii'))
+    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`
+  }
+  const xrefOffset = Buffer.byteLength(pdf, 'ascii')
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`
+  pdf += offsets.slice(1).map((offset) => `${String(offset).padStart(10, '0')} 00000 n \n`).join('')
+  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`
+
+  try {
+    await writeFile(path, pdf, 'ascii')
+    const extracted = await extractPdfText(path)
+    assert.equal(extracted.pageCount, 1)
+    assert.equal(extracted.text, 'F1 TECH extractor fixture')
+    assert.deepEqual(extracted.extractionWarnings, [])
+  } finally {
+    await rm(directory, { recursive: true, force: true })
+  }
 })
 
 test('canonical 2026 registry contains all 24 official calendar rounds', () => {
