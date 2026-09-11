@@ -40,21 +40,6 @@ jobs:
         if: steps.window.outputs.relevant != 'true'
         run: echo "No GP is within the configured ingestion window. Nothing to publish."
 
-      - name: Verify GITHUB_TOKEN write scope without changing the repository
-        if: steps.window.outputs.relevant == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          permission=$(gh api "repos/${GITHUB_REPOSITORY}" --jq 'if (.permissions | type) == "object" then (.permissions.push | tostring) else "unknown" end')
-          if [ "$permission" = "false" ]; then
-            echo "::error title=CONTENTS_WRITE_UNAVAILABLE::GITHUB_TOKEN does not have repository write permission."
-            exit 1
-          fi
-          if [ "$permission" = "unknown" ]; then
-            echo "::warning title=WRITE_PERMISSION_NOT_INTROSPECTABLE::The API did not expose token push permission; an actual data push remains the definitive check."
-          fi
-
       - name: Install reproducible dependencies
         if: steps.window.outputs.relevant == 'true'
         run: npm ci
