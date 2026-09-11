@@ -1,0 +1,39 @@
+{
+  "text": "Mercedes-AMG PETRONAS F1 Team Updated component Primary reason for update Geometric differences compared to previous version Brief description on how the update works",
+  "pages": [
+    {
+      "pageNumber": 1,
+      "items": [
+        { "text": "Mercedes-AMG PETRONAS F1 Team", "x": 300, "y": 140, "width": 240, "height": 12 },
+        { "text": "Updated", "x": 110, "y": 110, "width": 45, "height": 10 },
+        { "text": "component", "x": 110, "y": 96, "width": 55, "height": 10 },
+        { "text": "Primary reason", "x": 190, "y": 110, "width": 80, "height": 10 },
+        { "text": "for update", "x": 205, "y": 96, "width": 55, "height": 10 },
+        { "text": "Geometric differences compared to", "x": 300, "y": 110, "width": 190, "height": 10 },
+        { "text": "previous version", "x": 355, "y": 96, "width": 85, "height": 10 },
+        { "text": "Brief description on how the update works", "x": 540, "y": 110, "width": 220, "height": 10 },
+        { "text": "(min 20, max 100 words)", "x": 580, "y": 96, "width": 130, "height": 10 },
+        { "text": "1", "x": 82, "y": 70, "width": 6, "height": 10 },
+        { "text": "Rear Wing", "x": 112, "y": 70, "width": 50, "height": 10 },
+        { "text": "Performance -", "x": 190, "y": 76, "width": 70, "height": 10 },
+        { "text": "Local Load", "x": 205, "y": 64, "width": 50, "height": 10 },
+        { "text": "Revised upper", "x": 290, "y": 76, "width": 90, "height": 10 },
+        { "text": "plane geometry", "x": 290, "y": 64, "width": 95, "height": 10 },
+        { "text": "The revised surface changes the local pressure distribution", "x": 530, "y": 82, "width": 230, "height": 10 },
+        { "text": "without truncating this second line of the description.", "x": 530, "y": 68, "width": 220, "height": 10 },
+        { "text": "2", "x": 82, "y": 25, "width": 6, "height": 10 },
+        { "text": "Rear Wing", "x": 112, "y": 25, "width": 50, "height": 10 },
+        { "text": "Reliability", "x": 200, "y": 25, "width": 55, "height": 10 },
+        { "text": "Stronger mounting", "x": 290, "y": 25, "width": 100, "height": 10 },
+        { "text": "The mounting was strengthened for reliable operation.", "x": 530, "y": 25, "width": 220, "height": 10 }
+      ]
+    },
+    {
+      "pageNumber": 2,
+      "items": [
+        { "text": "Williams", "x": 390, "y": 140, "width": 60, "height": 12 },
+        { "text": "No updates submitted for this event.", "x": 72, "y": 100, "width": 210, "height": 10 }
+      ]
+    }
+  ]
+}

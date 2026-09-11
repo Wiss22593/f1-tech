@@ -13,7 +13,7 @@ export interface TeamTheme {
 export interface UpdateSource { type: 'FIA'; label: string; document: string; date: string }
 export interface GarageUpdate {
   id: string; teamId: string; grandPrixId: string; componentId: CarComponentId; status: 'SUBMITTED'
-  presentedComponent: string; primaryReason: string; geometricDifference: string; description: string
+  presentedComponent: string | null; primaryReason: string | null; geometricDifference: string | null; description: string | null
   source: UpdateSource; confidence: 'CONFIRMED'; magnitude: 'BAJA' | 'MEDIA' | 'ALTA'; objective: string; area: string
   analysis?: string; score?: number; circuitFit?: 'ALTO' | 'MEDIO' | 'BAJO'
 }
@@ -128,15 +128,68 @@ const spanishPublishedDescriptions: Record<string, string> = {
   'italian-grand-prix-2026-doc-10-cadillac-diffuser-2': 'Un pequeño vane vertical en el borde interior de la pared lateral del difusor mejora el rendimiento de los canales exteriores del piso y aumenta la carga trasera.',
 }
 
-const spanishComponentNames: Partial<Record<CarComponentId, string>> = {
-  frontWing: 'el alerón delantero', nose: 'la carrocería delantera', floor: 'el piso', diffuser: 'el difusor', rearWing: 'el alerón trasero', sidepods: 'los pontones', cooling: 'la refrigeración', engineCover: 'la carrocería', chassis: 'el chasis', halo: 'el Halo', frontSuspension: 'la suspensión delantera', rearSuspension: 'la suspensión trasera', frontBrake: 'los frenos delanteros', rearBrake: 'los frenos traseros', wheels: 'las ruedas y los neumáticos',
+type GarageUpdateContent = Pick<GarageUpdate, 'presentedComponent' | 'primaryReason' | 'geometricDifference' | 'description'>
+
+const spanishMadridUpdates: Record<string, GarageUpdateContent> = {
+  'madrid-grand-prix-2026-doc-11-mclaren-rear-wing-1': {
+    presentedComponent: 'Alerón trasero',
+    primaryReason: 'Rendimiento – Acondicionamiento del flujo',
+    geometricDifference: 'Elementos adicionales del alerón trasero',
+    description: 'Se han añadido elementos adicionales al alerón trasero, mejorando el acondicionamiento del flujo hacia el plano principal y los elementos del flap del alerón trasero.',
+  },
+  'madrid-grand-prix-2026-doc-11-mercedes-rear-wing-1': {
+    presentedComponent: 'Alerón trasero',
+    primaryReason: 'Específico del circuito – Rango de resistencia aerodinámica',
+    geometricDifference: 'Se redujo la envergadura del winglet central del alerón trasero',
+    description: 'Reducir la envergadura del winglet central montado sobre el flap del alerón trasero disminuye la carga aerodinámica local y la resistencia en una proporción adecuada para la relación carga/resistencia de Madrid.',
+  },
+  'madrid-grand-prix-2026-doc-11-red-bull-racing-floor-2': {
+    presentedComponent: 'Bib del piso',
+    primaryReason: 'Fiabilidad',
+    geometricDifference: 'Cambio geométrico entre el piso y el chasis',
+    description: 'Cuando se flexiona, se han modificado el laminado y la forma para eliminar idealmente el deterioro de la estructura y de las superficies aerodinámicas mediante la reducción de la deformación local.',
+  },
+  'madrid-grand-prix-2026-doc-11-ferrari-rear-suspension-1': {
+    presentedComponent: 'Suspensión trasera',
+    primaryReason: 'Rendimiento – Carga local',
+    geometricDifference: 'Reperfilado del carenado del brazo trasero del triángulo superior trasero',
+    description: 'Pequeña actualización del perfil del carenado de la suspensión trasera, adaptando la incidencia general y la distribución de carga a lo largo de la envergadura, lo que aporta un beneficio de carga local.',
+  },
+  'madrid-grand-prix-2026-doc-11-alpine-floor-1': {
+    presentedComponent: 'Tabla del piso',
+    primaryReason: 'Rendimiento – Carga local',
+    geometricDifference: 'Adición de un elemento a la tabla delantera del piso',
+    description: 'La tabla delantera del piso se ha optimizado para mejorar la distribución de presión local y la gestión del flujo, generando carga aerodinámica local de manera eficiente.',
+  },
+  'madrid-grand-prix-2026-doc-11-cadillac-rear-wing-1': {
+    presentedComponent: 'Flap del alerón trasero',
+    primaryReason: 'Rendimiento – Carga local',
+    geometricDifference: 'Winglet actualizado en el borde de salida del flap del alerón trasero',
+    description: 'La reintroducción de un winglet central revisado en el borde de salida del flap del alerón trasero sirve para generar más carga aerodinámica posterior, a la vez que mejora la estabilidad aerodinámica general en una variedad de condiciones de funcionamiento.',
+  },
+  'madrid-grand-prix-2026-doc-11-cadillac-diffuser-2': {
+    presentedComponent: 'Vane del difusor',
+    primaryReason: 'Rendimiento – Carga local',
+    geometricDifference: 'Adición de un vane al borde de salida interior de la pared lateral exterior del difusor',
+    description: 'Se ha añadido un pequeño vane vertical de giro al borde de salida interior de la pared lateral exterior del difusor, lo que mejora el rendimiento aerodinámico en los canales exteriores del piso y aumenta la carga en la parte trasera del auto.',
+  },
 }
 
-export function getGarageUpdateChange(update: GarageUpdate, locale: GarageContentLocale) {
-  if (locale !== 'es') return update.geometricDifference || update.description
-  return spanishPublishedDescriptions[update.id]
-    ?? spanishChangeTranslations[update.id]
-    ?? `La FIA publicó una actualización técnica para ${spanishComponentNames[update.componentId] ?? 'este componente'}. El texto original se conserva en el dataset publicado.`
+export function getGarageUpdateContent(update: GarageUpdate, locale: GarageContentLocale): GarageUpdateContent {
+  if (locale !== 'es') return {
+    presentedComponent: update.presentedComponent,
+    primaryReason: update.primaryReason,
+    geometricDifference: update.geometricDifference,
+    description: update.description,
+  }
+  const madridTranslation = spanishMadridUpdates[update.id]
+  if (madridTranslation) return madridTranslation
+  return {
+    presentedComponent: update.presentedComponent,
+    primaryReason: update.primaryReason,
+    geometricDifference: spanishChangeTranslations[update.id] ?? update.geometricDifference,
+    description: spanishPublishedDescriptions[update.id] ?? update.description,
+  }
 }
 
 export const noUpdatesSubmitted = [{ teamId: 'audi', grandPrixId: monza }] as const

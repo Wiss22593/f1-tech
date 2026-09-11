@@ -24,8 +24,8 @@ if (!document) throw new Error('Requested FIA document was not found; previous d
 const download = await downloadDocument(document, resolve('ingestion/raw'))
 const extraction = await extractPdfText(download.path)
 if (!extraction.text) throw new Error(`unsupported_pdf: ${extraction.extractionWarnings.join('; ')}`)
-const parserVersion = 'fia-table-v1'
-const parsed = parsePresentationText(extraction.text, { documentId: document.id, season, grandPrixId: args['grand-prix'], sourceDocument: document.title, sourceUrl: document.sourceUrl, sourceLanguage: 'en', contentHash: download.contentHash, parserVersion })
+const parserVersion = 'fia-table-v2'
+const parsed = parsePresentationText(extraction, { documentId: document.id, season, grandPrixId: args['grand-prix'], sourceDocument: document.title, sourceUrl: document.sourceUrl, sourceLanguage: 'en', contentHash: download.contentHash, parserVersion })
 const duplicates = new Set(findDuplicateRecordIds(parsed.records)); const rejected = [...parsed.rejected]
 const validated = []
 for (const record of parsed.records) {
@@ -47,7 +47,7 @@ let publishedPath = null
 let alreadyPublished = false
 const targetPath = resolve(args['publish-output'] ?? `public/data/grands-prix/${season}/${args['grand-prix']}.json`)
 if (args.publish === 'true') {
-  try { const current = JSON.parse(await readFile(targetPath, 'utf8')); alreadyPublished = current?.sourceDocument?.documentHash === download.contentHash && current?.schemaVersion === publication.dataset?.schemaVersion } catch { /* first publication */ }
+  try { const current = JSON.parse(await readFile(targetPath, 'utf8')); alreadyPublished = current?.sourceDocument?.documentHash === download.contentHash && current?.schemaVersion === publication.dataset?.schemaVersion && current?.parserVersion === parserVersion } catch { /* first publication */ }
   if (publication.dataset) publishedPath = alreadyPublished ? targetPath : await writePublishedDatasetAtomically(targetPath, publication.dataset)
 }
 const status = publication.dataset ? (alreadyPublished ? 'UNCHANGED' : args.publish === 'true' ? 'PROCESSED' : 'VALIDATED') : 'MANUAL_REVIEW_ONLY'

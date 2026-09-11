@@ -18,7 +18,8 @@ import { resolveChampionshipSource } from '../ingestion/championship/source-conf
 
 const valid = {
   id: 'monza-mercedes-rear-wing', grandPrixId: 'italian-grand-prix-2026', teamId: 'mercedes', componentId: 'rear wing',
-  source: 'FIA', sourceUrl: 'https://www.fia.com/document.pdf', sourceDocument: 'Car Presentation Submissions', sourceText: 'Revised rear wing geometry.', description: 'Revised rear wing geometry.',
+  componentName: 'Rear Wing', primaryReason: 'Performance - Local Load', geometricDifference: 'Revised rear wing geometry.', briefDescription: 'The revised surface changes local load.',
+  source: 'FIA', sourceUrl: 'https://www.fia.com/document.pdf', sourceDocument: 'Car Presentation Submissions', sourceText: 'Rear Wing | Performance - Local Load | Revised rear wing geometry. | The revised surface changes local load.', description: 'The revised surface changes local load.',
 }
 
 test('normalizes only stable, known team and component ids', () => {
@@ -39,7 +40,7 @@ test('component registry maps explicit FIA names and only suggests ambiguous nam
 test('validator rejects records without traceable content', () => {
   assert.deepEqual(validateUpdate(valid, ['italian-grand-prix-2026']), { valid: true, errors: [] })
   assert.equal(validateUpdate({ ...valid, componentId: 'unknown' }, ['italian-grand-prix-2026']).valid, false)
-  assert.equal(validateUpdate({ ...valid, description: '' }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...valid, briefDescription: null, geometricDifference: null }, ['italian-grand-prix-2026']).valid, false)
 })
 
 test('duplicate source rows are detected before publication', () => {
@@ -138,6 +139,38 @@ test('parser fixture preserves source text and leaves unsupported editorial fiel
   assert.match(parsed.records[0].sourceText, /Revised winglet geometry/)
 })
 
+test('layout parser preserves the four FIA columns, multiline cells and repeated components', async () => {
+  const extraction = JSON.parse(await readFile(new URL('./fixtures/fia-presentation-layout.json', import.meta.url), 'utf8'))
+  const parsed = parsePresentationText(extraction, { documentId: 'doc-layout', season: 2026, grandPrixId: 'italian-grand-prix-2026', sourceDocument: 'Car Presentation Submissions', sourceUrl: valid.sourceUrl, contentHash: 'a'.repeat(64) })
+  assert.equal(parsed.rejected.length, 0)
+  assert.equal(parsed.records.length, 2)
+  assert.deepEqual(parsed.records[0], { ...parsed.records[0], componentName: 'Rear Wing', primaryReason: 'Performance - Local Load', geometricDifference: 'Revised upper plane geometry', briefDescription: 'The revised surface changes the local pressure distribution without truncating this second line of the description.' })
+  assert.equal(parsed.records[1].componentId, 'rear-wing')
+  assert.equal(parsed.records[1].primaryReason, 'Reliability')
+  assert.match(parsed.records[0].sourceText, /^Rear Wing \| Performance - Local Load \|/)
+})
+
+test('Garage has no invented FIA fallback and keeps Spanish presentation copy separate from English source data', async () => {
+  const garageData = await readFile(new URL('../src/features/garage/data.ts', import.meta.url), 'utf8')
+  assert.doesNotMatch(garageData, /La FIA publicó una actualización técnica para/)
+  assert.match(garageData, /spanishMadridUpdates/)
+  assert.match(garageData, /if \(locale !== 'es'\)/)
+})
+
+test('published Madrid dataset preserves valid FIA column fields in English', async () => {
+  const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
+  assert.equal(dataset.sourceDocument.documentHash, 'c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7')
+  assert.ok(dataset.updates.length > 0)
+  for (const update of dataset.updates) {
+    assert.equal(update.sourceLanguage, 'en')
+    assert.ok(update.componentName)
+    assert.ok(update.primaryReason)
+    assert.ok(update.geometricDifference || update.briefDescription)
+    assert.match(update.sourceText, /\|/)
+    assert.deepEqual(validateUpdate(update, ['madrid-grand-prix-2026']), { valid: true, errors: [] })
+  }
+})
+
 test('PDF extractor reads a generated embedded text layer', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'f1-tech-pdf-fixture-'))
   const path = join(directory, 'text-layer.pdf')
@@ -165,6 +198,7 @@ test('PDF extractor reads a generated embedded text layer', async () => {
     const extracted = await extractPdfText(path)
     assert.equal(extracted.pageCount, 1)
     assert.equal(extracted.text, 'F1 TECH extractor fixture')
+    assert.equal(extracted.pages[0].items[0].text, 'F1 TECH extractor fixture')
     assert.deepEqual(extracted.extractionWarnings, [])
   } finally {
     await rm(directory, { recursive: true, force: true })

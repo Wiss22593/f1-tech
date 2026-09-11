@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { activeCarAsset, type CameraPresetId, type CarComponentId, type F1TechHotspot } from '../../three/assets'
 import { ModelViewer } from '../../three/ModelViewer'
-import { garageComponentGroups, garageGrandPrix, garageHotspots, garageTeams, getGarageUpdateChange, type GarageUpdate } from './data'
-import { garageArea, garageCategory, garageComponent, garageGrandPrixName, garageText, technicalText, uiText, type Locale } from '../../i18n'
+import { garageComponentGroups, garageGrandPrix, garageHotspots, garageTeams, getGarageUpdateContent, type GarageUpdate } from './data'
+import { garageCategory, garageComponent, garageGrandPrixName, garageText, uiText, type Locale } from '../../i18n'
 import { loadPublishedGrandPrix, toCarComponent } from '../../services/fia/published-dataset'
 
 const cameraPresets: CameraPresetId[] = ['default', 'front', 'rear', 'side', 'top']
 const teamAbbreviations: Record<string, string> = { mercedes: 'MER', ferrari: 'FER', mclaren: 'MCL', 'red-bull-racing': 'RBR', 'racing-bulls': 'RB', 'aston-martin': 'AST', alpine: 'ALP', haas: 'HAA', audi: 'AUD', williams: 'WIL', cadillac: 'CAD' }
-const cleanMobileUpdateText = (text: string) => text.replace(/^\s*\d{1,2}[.)-]?\s+(?=\p{L})/u, '')
 const defaultGrandPrix = [...garageGrandPrix].reverse().find(({ status }) => status === 'completed') ?? garageGrandPrix[0]
 
 export function GaragePage({ locale }: { locale: Locale }) {
@@ -48,7 +47,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
       setPublishedUpdates((dataset?.updates ?? []).flatMap((record) => {
         const componentId = toCarComponent(record.componentId)
         if (!componentId) return []
-        return [{ id: record.id, teamId: record.teamId, grandPrixId: record.grandPrixId, componentId, status: record.technicalState === 'SUBMITTED' ? 'SUBMITTED' : 'SUBMITTED', presentedComponent: record.componentId, primaryReason: record.category ?? '', geometricDifference: record.sourceText, description: record.description ?? record.sourceText, source: { type: 'FIA', label: 'FIA Car Presentation Submission', document: record.sourceDocument, date: record.publishedAt }, confidence: 'CONFIRMED', magnitude: (record.magnitude ?? '') as GarageUpdate['magnitude'], objective: record.objective ?? '', area: record.area ?? '' }]
+        return [{ id: record.id, teamId: record.teamId, grandPrixId: record.grandPrixId, componentId, status: 'SUBMITTED', presentedComponent: record.componentName ?? null, primaryReason: record.primaryReason ?? record.category, geometricDifference: record.geometricDifference ?? null, description: record.briefDescription ?? record.description ?? record.sourceText, source: { type: 'FIA', label: 'FIA Car Presentation Submission', document: record.sourceDocument, date: record.publishedAt }, confidence: 'CONFIRMED', magnitude: (record.magnitude ?? '') as GarageUpdate['magnitude'], objective: record.objective ?? '', area: record.area ?? '' }]
       }))
     })
     return () => { active = false }
@@ -59,20 +58,15 @@ export function GaragePage({ locale }: { locale: Locale }) {
   function changeTeam(id: string) { setTeamId(id); resetView() }
   function selectCamera(preset: CameraPresetId) { if (preset === 'default') resetView(); else { setCameraPreset(preset); setSelectedComponent(undefined) } }
   function renderUpdateDetails(componentUpdates: GarageUpdate[]) {
-    return componentUpdates.length === 0 ? <p>{copy.noUpdate}</p> : componentUpdates.map((update) => <article className="showroom-submission" key={update.id}>
-      <header><span>{copy.updated}</span></header>
-      <dl>
-        <div><dt>{copy.whatChanged}</dt><dd>{getGarageUpdateChange(update, locale)}</dd></div>
-        <div><dt>{copy.area}</dt><dd>{garageArea(locale, update.area)}</dd></div>
-        <div><dt>{copy.objective}</dt><dd>{technicalText(locale, update.objective)}</dd></div>
-        <div><dt>{copy.magnitude}</dt><dd>{technicalText(locale, update.magnitude)}</dd></div>
-      </dl>
-    </article>)
-  }
-  function renderMobileUpdateDetails(componentUpdates: GarageUpdate[]) {
-    return componentUpdates.map((update) => <article className="showroom-submission" key={update.id}>
-      <p>{cleanMobileUpdateText(getGarageUpdateChange(update, locale))}</p>
-    </article>)
+    return componentUpdates.length === 0 ? <p>{copy.noUpdate}</p> : componentUpdates.map((update) => {
+      const content = getGarageUpdateContent(update, locale)
+      return <article className="showroom-submission" key={update.id}>
+        {content.presentedComponent && <h3>{content.presentedComponent}</h3>}
+        {content.primaryReason && <p className="showroom-submission__reason">{content.primaryReason}</p>}
+        {content.geometricDifference && <p className="showroom-submission__geometry">{content.geometricDifference}</p>}
+        {content.description && <p className="showroom-submission__description">{content.description}</p>}
+      </article>
+    })
   }
   function renderComponent(hotspot: F1TechHotspot) {
     const componentUpdates = updates.filter((update) => update.componentId === hotspot.componentId)
@@ -102,7 +96,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
       </div>
       {selectedHotspot && updatedComponents.has(selectedHotspot.componentId) && <section className="showroom-mobile-detail" aria-live="polite">
         <header><h2>{garageComponent(locale, selectedHotspot.id, selectedHotspot.label)}</h2><button type="button" onClick={() => selectPiece(selectedHotspot.componentId)} aria-label={copy.closeDetail}>×</button></header>
-        <div className="showroom-mobile-detail__body">{renderMobileUpdateDetails(updates.filter((update) => update.componentId === selectedHotspot.componentId))}</div>
+        <div className="showroom-mobile-detail__body">{renderUpdateDetails(updates.filter((update) => update.componentId === selectedHotspot.componentId))}</div>
       </section>}
       <aside className="showroom-panel" aria-label={copy.components}>
         <div className="showroom-panel__top"><p className="section-kicker">{copy.components}</p><span>{noUpdates ? copy.noSubmitted : `${updates.length.toString().padStart(2, '0')} ${copy.submitted}`}</span></div>

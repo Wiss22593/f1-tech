@@ -52,6 +52,10 @@
 .showroom-inline-detail dl div { grid-template-columns: 78px 1fr; }
 .showroom-inline-detail dt { font-size: .5rem; font-weight: 700; letter-spacing: .08em; }
 .showroom-inline-detail dd { font-size: .72rem; font-weight: 500; line-height: 1.5; }
+.showroom-submission h3 { margin: 0; color: #f4f7fb; font-size: .82rem; font-weight: 800; line-height: 1.25; }
+.showroom-submission__reason { margin: .28rem 0 0; color: var(--team-accent); font: 700 .52rem 'DM Mono', monospace; line-height: 1.4; letter-spacing: .035em; }
+.showroom-submission__geometry { margin: .48rem 0 0; color: #dce2ea; font-size: .68rem; font-weight: 650; line-height: 1.45; }
+.showroom-submission__description { margin: .42rem 0 0; color: #aeb6c2; font-size: .64rem; line-height: 1.55; }
 .showroom-team span { font-size: .76rem; font-weight: 800; }
 .showroom-team em { font-size: .48rem; font-weight: 600; }
 @media (max-width: 600px) { .showroom-gp-select { min-width: min(270px, calc(100vw - 2.5rem)); }.showroom-piece { font-size: .78rem; }.showroom-inline-detail dd { font-size: .68rem; } }
@@ -136,7 +140,10 @@
   .showroom-mobile-detail__body { max-height: min(16svh, 104px); overflow-y: auto; padding: 0 .64rem .62rem; overscroll-behavior: contain; }
   .showroom-mobile-detail__body .showroom-submission { padding-top: .46rem; border-top: 1px solid rgba(192,202,217,.1); }
   .showroom-mobile-detail__body .showroom-submission:first-child { border-top: 0; }
-  .showroom-mobile-detail__body p { margin: 0; color: #edf1f6; font-size: .66rem; line-height: 1.48; overflow-wrap: anywhere; }
+  .showroom-mobile-detail__body .showroom-submission h3 { font-size: .82rem; }
+  .showroom-mobile-detail__body .showroom-submission__reason { margin-top: .25rem; color: var(--team-accent); font-size: .53rem; }
+  .showroom-mobile-detail__body .showroom-submission__geometry { margin-top: .42rem; color: #f0f3f7; font-size: .68rem; line-height: 1.45; overflow-wrap: anywhere; }
+  .showroom-mobile-detail__body .showroom-submission__description { margin-top: .38rem; color: #c4cbd5; font-size: .66rem; line-height: 1.5; overflow-wrap: anywhere; }
   .showroom__views { display: none; }
   .showroom__hint { display: none; }
   .showroom-team-mobile { z-index: 4; display: grid; min-height: 90px; overflow: hidden; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: stretch; padding: 0; }

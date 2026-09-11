@@ -12,9 +12,14 @@ export async function extractPdfText(path) {
   try {
     document = await task.promise
     const pages = []
+    const layoutPages = []
     for (let pageNumber = 1; pageNumber <= document.numPages; pageNumber += 1) {
       const page = await document.getPage(pageNumber); const content = await page.getTextContent()
-      pages.push(content.items.map((item) => ('str' in item ? item.str : '')).join(' ').replace(/\s+/g, ' ').trim())
+      const items = content.items.flatMap((item) => 'str' in item && item.str.trim()
+        ? [{ text: item.str.trim(), x: item.transform[4], y: item.transform[5], width: item.width, height: item.height }]
+        : [])
+      layoutPages.push({ pageNumber, items })
+      pages.push(items.map(({ text }) => text).join(' ').replace(/\s+/g, ' ').trim())
     }
     let metadata = {}
     try { metadata = (await document.getMetadata()).info ?? {} } catch { /* Metadata is optional. */ }
@@ -22,7 +27,7 @@ export async function extractPdfText(path) {
     const extractionWarnings = []
     if (!text) extractionWarnings.push('unsupported_pdf: no embedded text layer found; OCR is intentionally disabled')
     if (pages.some((page) => !page)) extractionWarnings.push('partial_text_layer: one or more pages contain no extractable text')
-    return { text, pageCount: document.numPages, metadata, extractionWarnings }
+    return { text, pages: layoutPages, pageCount: document.numPages, metadata, extractionWarnings }
   } finally {
     await task.destroy()
   }

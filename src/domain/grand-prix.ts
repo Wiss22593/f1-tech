@@ -9,6 +9,7 @@ export interface GrandPrix {
 export interface TeamWeekendData { grandPrixId: string; teamId: string; updates: readonly TechnicalUpdateRecord[] }
 export interface TechnicalUpdateRecord {
   id: string; grandPrixId: string; teamId: string; componentId: StableComponentId; category: string | null
+  componentName?: string | null; primaryReason?: string | null; geometricDifference?: string | null; briefDescription?: string | null
   source: string; sourceDocument: string; sourceText: string; sourceLanguage: string
   translations: Partial<Record<'es' | 'en' | 'it' | 'pt' | 'fr' | 'de', string>>
   description: string | null; area: string | null; objective: string | null; magnitude: string | null
