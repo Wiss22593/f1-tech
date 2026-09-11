@@ -49,7 +49,7 @@ function OriginalModel({ asset, theme }: { asset: F1TechCarAsset; theme: ViewerT
         // `livery` is the painted body; clearing its baked texture on the cloned
         // material gives every team a reliably visible identity without blackening
         // carbon, glass/cockpit or wheel surfaces.
-        if (themed.name === 'livery' && themed.color) {
+        if (asset.liveryMode === 'team-theme' && themed.name === 'livery' && themed.color) {
           // Source hue is removed, while the original metallic/roughness map is
           // retained. The body reads as a PBR surface; carbon, cockpit and wheels
           // are untouched because their materials are not themed.
@@ -80,7 +80,7 @@ diffuseColor.rgb = mix(diffuseColor.rgb, f1TechAccent, f1TechAccentMask);`)
       })
       node.material = Array.isArray(node.material) ? themedMaterials : themedMaterials[0]
     })
-  }, [model, theme])
+  }, [asset.liveryMode, model, theme])
   return <primitive object={model} scale={asset.scale} rotation={asset.rotation} />
 }
 

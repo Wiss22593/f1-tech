@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { activeCarAsset, type CameraPresetId, type CarComponentId, type F1TechHotspot } from '../../three/assets'
+import { getCarAssetForTeam, type CameraPresetId, type CarComponentId, type F1TechHotspot } from '../../three/assets'
 import { ModelViewer } from '../../three/ModelViewer'
 import { garageComponentGroups, garageGrandPrix, garageHotspots, garageTeams, getGarageUpdateContent, type GarageUpdate } from './data'
 import { garageCategory, garageComponent, garageGrandPrixName, garageText, uiText, type Locale } from '../../i18n'
@@ -36,6 +36,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const grandPrix = garageGrandPrix.find((item) => item.id === grandPrixId) ?? defaultGrandPrix
   const selectableGrandPrix = garageGrandPrix.filter(({ id }) => publishedGrandPrixIds.has(id))
   const team = garageTeams.find((item) => item.id === teamId) ?? garageTeams[0]
+  const carAsset = getCarAssetForTeam(team.id)
   const updates = publishedUpdates.filter((update) => update.teamId === team.id && update.grandPrixId === grandPrix.id)
   const noUpdates = updates.length === 0
   const updatedComponents = new Set(updates.flatMap((update) => update.componentId ? [update.componentId] : []))
@@ -138,7 +139,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     <section className="showroom__stage">
       <div className="showroom__heading"><h1 id="showroom-title">F1 TECH<span>.</span></h1></div>
       <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><span className="showroom-gp-select"><select id="grand-prix-selector" value={grandPrixId} onChange={(event) => changeGrandPrix(event.target.value)}>{selectableGrandPrix.map((item) => <option key={item.id} value={item.id}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span><strong>{team.name.toUpperCase()}</strong><span>{grandPrix.circuit}</span></div>
-      <div className="showroom__canvas"><ModelViewer asset={activeCarAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
+      <div className="showroom__canvas"><ModelViewer asset={carAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
       <div className="showroom-mobile-toolbar">
         <div className={`showroom-mobile-updates${mobileUpdatesExpanded ? ' showroom-mobile-updates--expanded' : ''}`} aria-label={uiText(locale, 'updatesTitle')}>
           <h2>{uiText(locale, 'updatesTitle')}</h2>
