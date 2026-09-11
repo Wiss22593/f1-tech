@@ -33,6 +33,14 @@ export function createPublicationPlan({ document, records, rejected = [], grandP
   }
 }
 
+/** Hash, schema and parser version together define a byte-stable publication rerun. */
+export function isPublishedDatasetCurrent(current, candidate, contentHash, parserVersion) {
+  return Boolean(candidate
+    && current?.sourceDocument?.documentHash === contentHash
+    && current?.schemaVersion === candidate.schemaVersion
+    && current?.parserVersion === parserVersion)
+}
+
 /** Write-replace avoids replacing a working public file with a partial result. */
 export async function writePublishedDatasetAtomically(filePath, dataset) {
   if (!dataset?.updates?.length) throw new Error('Refusing to replace a published dataset with an empty or invalid dataset.')

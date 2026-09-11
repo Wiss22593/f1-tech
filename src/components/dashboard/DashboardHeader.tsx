@@ -8,7 +8,7 @@ const localeNames: Record<Locale, string> = { es: 'ES', en: 'EN', it: 'IT', pt: 
 
 export function DashboardHeader({ activeSection, locale, onLocaleChange, onNavigate }: DashboardHeaderProps) {
   return (
-    <header className="dashboard-header">
+    <header className={`dashboard-header dashboard-header--${activeSection}`}>
       <Wordmark locale={locale} />
       <span className="dashboard-header__divider" />
       <nav id="main-navigation" className="main-nav" aria-label={t(locale).common.primaryNavigation}>

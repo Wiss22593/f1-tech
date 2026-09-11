@@ -25,7 +25,12 @@
         { "text": "Rear Wing", "x": 112, "y": 25, "width": 50, "height": 10 },
         { "text": "Reliability", "x": 200, "y": 25, "width": 55, "height": 10 },
         { "text": "Stronger mounting", "x": 290, "y": 25, "width": 100, "height": 10 },
-        { "text": "The mounting was strengthened for reliable operation.", "x": 530, "y": 25, "width": 220, "height": 10 }
+        { "text": "The mounting was strengthened for reliable operation.", "x": 530, "y": 25, "width": 220, "height": 10 },
+        { "text": "3", "x": 82, "y": -20, "width": 6, "height": 10 },
+        { "text": "Front Drum", "x": 112, "y": -20, "width": 60, "height": 10 },
+        { "text": "Performance - Flow Conditioning", "x": 190, "y": -20, "width": 130, "height": 10 },
+        { "text": "Front lip reprofiled", "x": 290, "y": -20, "width": 105, "height": 10 },
+        { "text": "The revised lip improves attachment through steering conditions.", "x": 530, "y": -20, "width": 230, "height": 10 }
       ]
     },
     {

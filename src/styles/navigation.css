@@ -20,6 +20,7 @@
   .main-nav__link { min-width: 0; min-height: 29px; overflow: hidden; border: 1px solid rgba(198,205,216,.1); border-radius: 2px; padding: .18rem .25rem; font-size: clamp(.43rem, 1.65vw, .52rem); line-height: 1.15; text-align: center; text-overflow: ellipsis; white-space: normal; }
   .main-nav__link--active { border-color: rgba(239,52,59,.42); background: rgba(239,52,59,.07); }
   .main-nav__link--active::after { right: 18%; bottom: 0; left: 18%; width: auto; height: 2px; }
+  .dashboard-header--garage .main-nav { display: none; }
   .placeholder-page { padding-top: 3.5rem; }
   .placeholder-page__visual { min-height: 140px; }
 }

@@ -8,6 +8,7 @@ import { loadPublishedGrandPrix, toCarComponent } from '../../services/fia/publi
 const cameraPresets: CameraPresetId[] = ['default', 'front', 'rear', 'side', 'top']
 const teamAbbreviations: Record<string, string> = { mercedes: 'MER', ferrari: 'FER', mclaren: 'MCL', 'red-bull-racing': 'RBR', 'racing-bulls': 'RB', 'aston-martin': 'AST', alpine: 'ALP', haas: 'HAA', audi: 'AUD', williams: 'WIL', cadillac: 'CAD' }
 const defaultGrandPrix = [...garageGrandPrix].reverse().find(({ status }) => status === 'completed') ?? garageGrandPrix[0]
+const withoutOrdinalPrefix = (text: string) => text.replace(/^\s*\d+[.)-]?\s+/, '')
 
 export function GaragePage({ locale }: { locale: Locale }) {
   const copy = garageText(locale)
@@ -27,6 +28,8 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const updatedComponents = new Set(updates.map((update) => update.componentId))
   const updatedHotspots = garageHotspots.filter((hotspot, index, all) => updatedComponents.has(hotspot.componentId) && all.findIndex((item) => item.componentId === hotspot.componentId) === index)
   const selectedHotspot = garageHotspots.find((hotspot) => hotspot.componentId === selectedComponent)
+  const selectedUpdates = selectedHotspot ? updates.filter((update) => update.componentId === selectedHotspot.componentId) : []
+  const selectedMobileContent = selectedUpdates[0] ? getGarageUpdateContent(selectedUpdates[0], locale) : null
   const mobileUpdateLimit = 3
   const mobileHotspots = mobileUpdatesExpanded ? updatedHotspots : updatedHotspots.slice(0, mobileUpdateLimit)
   const hiddenMobileUpdates = Math.max(updatedHotspots.length - mobileUpdateLimit, 0)
@@ -68,6 +71,13 @@ export function GaragePage({ locale }: { locale: Locale }) {
       </article>
     })
   }
+  function renderMobileUpdateDetails(componentUpdates: GarageUpdate[]) {
+    return componentUpdates.map((update) => {
+      const content = getGarageUpdateContent(update, locale)
+      const description = content.description ?? content.geometricDifference
+      return description && <article className="showroom-submission" key={update.id}><p className="showroom-submission__description">{withoutOrdinalPrefix(description)}</p></article>
+    })
+  }
   function renderComponent(hotspot: F1TechHotspot) {
     const componentUpdates = updates.filter((update) => update.componentId === hotspot.componentId)
     const expanded = selectedComponent === hotspot.componentId
@@ -83,7 +93,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     <section className="showroom__stage">
       <div className="showroom__heading"><h1 id="showroom-title">F1 TECH<span>.</span></h1></div>
       <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><span className="showroom-gp-select"><select id="grand-prix-selector" value={grandPrixId} onChange={(event) => changeGrandPrix(event.target.value)}>{garageGrandPrix.map((item) => <option key={item.id} value={item.id}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span><strong>{team.name.toUpperCase()}</strong><span>{grandPrix.circuit}</span></div>
-      <div className="showroom__canvas"><ModelViewer asset={activeCarAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /></div>
+      <div className="showroom__canvas"><ModelViewer asset={activeCarAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
       <div className="showroom-mobile-toolbar">
         <div className={`showroom-mobile-updates${mobileUpdatesExpanded ? ' showroom-mobile-updates--expanded' : ''}`} aria-label={uiText(locale, 'updatesTitle')}>
           <h2>{uiText(locale, 'updatesTitle')}</h2>
@@ -92,11 +102,10 @@ export function GaragePage({ locale }: { locale: Locale }) {
             {hiddenMobileUpdates > 0 && <button type="button" className="showroom-mobile-updates__more" onClick={() => setMobileUpdatesExpanded((expanded) => !expanded)} aria-expanded={mobileUpdatesExpanded}>{mobileUpdatesExpanded ? '−' : `+${hiddenMobileUpdates} ${copy.more}`}</button>}
           </>}
         </div>
-        <button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button>
       </div>
       {selectedHotspot && updatedComponents.has(selectedHotspot.componentId) && <section className="showroom-mobile-detail" aria-live="polite">
-        <header><h2>{garageComponent(locale, selectedHotspot.id, selectedHotspot.label)}</h2><button type="button" onClick={() => selectPiece(selectedHotspot.componentId)} aria-label={copy.closeDetail}>×</button></header>
-        <div className="showroom-mobile-detail__body">{renderUpdateDetails(updates.filter((update) => update.componentId === selectedHotspot.componentId))}</div>
+        <header><h2>{withoutOrdinalPrefix(selectedMobileContent?.presentedComponent ?? garageComponent(locale, selectedHotspot.id, selectedHotspot.label))}</h2><button type="button" onClick={() => selectPiece(selectedHotspot.componentId)} aria-label={copy.closeDetail}>×</button></header>
+        <div className="showroom-mobile-detail__body">{renderMobileUpdateDetails(selectedUpdates)}</div>
       </section>}
       <aside className="showroom-panel" aria-label={copy.components}>
         <div className="showroom-panel__top"><p className="section-kicker">{copy.components}</p><span>{noUpdates ? copy.noSubmitted : `${updates.length.toString().padStart(2, '0')} ${copy.submitted}`}</span></div>

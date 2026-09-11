@@ -6,7 +6,7 @@ import { fetchFiaDocumentIndex, isPresentationTitle } from '../ingestion/fia/fin
 import { parsePresentationText } from '../ingestion/fia/parser.mjs'
 import { extractPdfText } from '../ingestion/fia/extractor.mjs'
 import { mapFiaComponent, suggestFiaComponents } from '../ingestion/fia/component-registry.mjs'
-import { createPublicationPlan, publicationDecision } from '../ingestion/fia/publication.mjs'
+import { createPublicationPlan, isPublishedDatasetCurrent, publicationDecision } from '../ingestion/fia/publication.mjs'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -142,12 +142,20 @@ test('parser fixture preserves source text and leaves unsupported editorial fiel
 test('layout parser preserves the four FIA columns, multiline cells and repeated components', async () => {
   const extraction = JSON.parse(await readFile(new URL('./fixtures/fia-presentation-layout.json', import.meta.url), 'utf8'))
   const parsed = parsePresentationText(extraction, { documentId: 'doc-layout', season: 2026, grandPrixId: 'italian-grand-prix-2026', sourceDocument: 'Car Presentation Submissions', sourceUrl: valid.sourceUrl, contentHash: 'a'.repeat(64) })
-  assert.equal(parsed.rejected.length, 0)
+  assert.equal(parsed.rejected.length, 1)
   assert.equal(parsed.records.length, 2)
   assert.deepEqual(parsed.records[0], { ...parsed.records[0], componentName: 'Rear Wing', primaryReason: 'Performance - Local Load', geometricDifference: 'Revised upper plane geometry', briefDescription: 'The revised surface changes the local pressure distribution without truncating this second line of the description.' })
   assert.equal(parsed.records[1].componentId, 'rear-wing')
   assert.equal(parsed.records[1].primaryReason, 'Reliability')
   assert.match(parsed.records[0].sourceText, /^Rear Wing \| Performance - Local Load \|/)
+  assert.deepEqual(parsed.rejected[0], {
+    page: 1,
+    teamDetected: 'mercedes',
+    rawComponentText: 'Front Drum',
+    sourceText: 'Front Drum | Performance - Flow Conditioning | Front lip reprofiled | The revised lip improves attachment through steering conditions.',
+    reason: 'unmapped_component',
+    suggestedComponentIds: ['front-wing', 'front-suspension'],
+  })
 })
 
 test('Garage has no invented FIA fallback and keeps Spanish presentation copy separate from English source data', async () => {
@@ -169,6 +177,22 @@ test('published Madrid dataset preserves valid FIA column fields in English', as
     assert.match(update.sourceText, /\|/)
     assert.deepEqual(validateUpdate(update, ['madrid-grand-prix-2026']), { valid: true, errors: [] })
   }
+})
+
+test('Madrid reconciliation preserves all deterministic rows and the Mercedes published row', async () => {
+  const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
+  const counts = Object.fromEntries(dataset.teams.map((teamId) => [teamId, dataset.updates.filter((update) => update.teamId === teamId).length]))
+  assert.equal(dataset.updates.length, 7)
+  assert.deepEqual(counts, { mclaren: 1, mercedes: 1, 'red-bull-racing': 1, ferrari: 1, alpine: 1, cadillac: 2 })
+  assert.equal(dataset.updates.find((update) => update.teamId === 'mercedes')?.componentName, 'Rear Wing')
+  assert.equal(dataset.parserVersion, 'fia-table-v2')
+})
+
+test('Madrid reruns are idempotent for the same hash, schema and parser version', async () => {
+  const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v2'), true)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, 'b'.repeat(64), 'fia-table-v2'), false)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v3'), false)
 })
 
 test('PDF extractor reads a generated embedded text layer', async () => {
