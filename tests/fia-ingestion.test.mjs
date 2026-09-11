@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { normalizeComponent, normalizeTeam } from '../ingestion/fia/normalizer.mjs'
 import { findDuplicateRecordIds, validateUpdate } from '../ingestion/fia/validator.mjs'
-import { fetchFiaDocumentIndex } from '../ingestion/fia/finder.mjs'
+import { fetchFiaDocumentIndex, isPresentationTitle } from '../ingestion/fia/finder.mjs'
 import { parsePresentationText } from '../ingestion/fia/parser.mjs'
 import { extractPdfText } from '../ingestion/fia/extractor.mjs'
 import { mapFiaComponent, suggestFiaComponents } from '../ingestion/fia/component-registry.mjs'
@@ -60,13 +60,60 @@ test('publication plan separates uncertain records into manual review without an
   assert.equal(plan.manualReview.length, 1)
 })
 
-test('FIA finder selects only explicit official presentation PDFs', async () => {
-  const html = '<a href="/system/files/decision-document/2026_australian_grand_prix_-_car_presentation_submissions.pdf">Doc 9 - Car Presentation Submissions</a><a href="/technical.pdf">Doc 70 - Technical nonconformity</a><a href="/other.pdf">Entry List</a>'
+test('FIA finder supports the legacy direct-PDF structure and rejects technical infringement', async () => {
+  const html = await readFile(new URL('./fixtures/fia-index-legacy.html', import.meta.url), 'utf8')
   const records = await fetchFiaDocumentIndex({ indexUrl: 'https://www.fia.com/documents/formula-1', grandPrixId: 'australia-2026', season: 2026, eventName: 'Australian Grand Prix', fetchFn: async () => new Response(html) })
   assert.equal(records.length, 1)
   assert.equal(records[0].documentId, '9')
   assert.equal(records[0].eventId, 'australia-2026')
   assert.match(records[0].sourceUrl, /^https:\/\/www\.fia\.com\//)
+  assert.equal(isPresentationTitle('Doc 70 - Technical Infringement'), false)
+  assert.equal(isPresentationTitle('Decision - Car Presentation Submissions'), false)
+})
+
+test('FIA finder reads the current nested Madrid structure and detects Doc 11', async () => {
+  const html = await readFile(new URL('./fixtures/fia-index-current-madrid.html', import.meta.url), 'utf8')
+  const records = await fetchFiaDocumentIndex({ indexUrl: 'https://www.fia.com/documents/championships/f1/season/2026/event/Spanish%20Grand%20Prix', grandPrixId: 'madrid-grand-prix-2026', season: 2026, eventName: 'Spanish Grand Prix', fetchFn: async () => new Response(html) })
+  assert.equal(records.length, 1)
+  assert.equal(records[0].documentId, '11')
+  assert.equal(records[0].title, 'Doc 11 - Car Presentation Submissions')
+  assert.match(records[0].sourceUrl, /2026_spanish_grand_prix_-_car_presentation_submissions\.pdf$/)
+})
+
+test('FIA finder falls back to the season index and stays scoped to the exact event block', async () => {
+  const indexUrl = 'https://www.fia.com/documents/championships/f1/season/2026/event/Spanish%20Grand%20Prix'
+  const seasonUrl = 'https://www.fia.com/documents/championships/f1/season/2026'
+  const seasonHtml = await readFile(new URL('./fixtures/fia-season-multi-event.html', import.meta.url), 'utf8')
+  const calls = []
+  const fetchFn = async (url) => {
+    calls.push(url)
+    return new Response(url === indexUrl ? '<div class="event-title active">Spanish Grand Prix</div><a href="/entry.pdf">Doc 10 - Entry List</a>' : seasonHtml)
+  }
+  const records = await fetchFiaDocumentIndex({ indexUrl, grandPrixId: 'madrid-grand-prix-2026', season: 2026, eventName: 'Spanish Grand Prix', fetchFn })
+  assert.deepEqual(calls, [indexUrl, seasonUrl])
+  assert.equal(records.length, 1)
+  assert.equal(records[0].documentId, '11')
+  assert.match(records[0].sourceUrl, /spanish_grand_prix/)
+  assert.doesNotMatch(records[0].sourceUrl, /italian_grand_prix/)
+})
+
+test('FIA season fallback never takes a presentation document from another GP', async () => {
+  const indexUrl = 'https://www.fia.com/documents/championships/f1/season/2026/event/Spanish%20Grand%20Prix'
+  const seasonHtml = '<div class="event-title">Italian Grand Prix</div><a href="/system/files/decision-document/italian_car_presentation_submissions.pdf"><div class="title">Doc 10 - Car Presentation Submissions</div></a><div class="event-title active">Spanish Grand Prix</div><a href="/entry.pdf"><div class="title">Doc 11 - Entry List</div></a>'
+  const records = await fetchFiaDocumentIndex({ indexUrl, grandPrixId: 'madrid-grand-prix-2026', season: 2026, eventName: 'Spanish Grand Prix', fetchFn: async (url) => new Response(url === indexUrl ? '' : seasonHtml) })
+  assert.deepEqual(records, [])
+})
+
+test('FIA finder follows an official intermediate link to its final official PDF', async () => {
+  const indexUrl = 'https://www.fia.com/documents/championships/f1/season/2026/event/Spanish%20Grand%20Prix'
+  const intermediateUrl = 'https://www.fia.com/document/madrid-car-presentation'
+  const html = `<a href="${intermediateUrl}">Doc 11 - Car Presentation Submissions</a>`
+  const records = await fetchFiaDocumentIndex({
+    indexUrl, grandPrixId: 'madrid-grand-prix-2026', season: 2026, eventName: 'Spanish Grand Prix',
+    fetchFn: async (url) => new Response(url === intermediateUrl ? '<a href="/system/files/decision-document/madrid_car_presentation_submissions.pdf">Download PDF</a>' : html),
+  })
+  assert.equal(records.length, 1)
+  assert.equal(records[0].sourceUrl, 'https://www.fia.com/system/files/decision-document/madrid_car_presentation_submissions.pdf')
 })
 
 test('validator rejects a malformed source hash and a wrong season', () => {
