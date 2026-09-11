@@ -7,12 +7,12 @@ export function validateUpdate(record, grandPrixIds, season = 2026) {
   if (!grandPrixIds.includes(record?.grandPrixId)) errors.push('invalid grandPrixId')
   if (record?.season !== undefined && record.season !== season) errors.push('invalid season')
   if (!normalizeTeam(record?.teamId)) errors.push('invalid teamId')
-  if (!normalizeComponent(record?.componentId)) errors.push('invalid componentId')
+  if (record?.componentId !== null && record?.componentId !== undefined && !normalizeComponent(record.componentId)) errors.push('invalid componentId')
   if (!record?.componentName?.trim()) errors.push('missing componentName')
   if (!record?.sourceDocument?.trim() || record?.source !== 'FIA') errors.push('invalid FIA source document')
   if (!isOfficialFiaUrl(record?.sourceUrl)) errors.push('invalid official FIA sourceUrl')
   if (!record?.sourceText?.trim()) errors.push('missing sourceText')
-  if (!record?.briefDescription?.trim() && !record?.geometricDifference?.trim()) errors.push('missing traceable update detail')
+  if (!record?.briefDescription?.trim()) errors.push('missing briefDescription')
   if (record?.contentHash !== undefined && !/^[a-f0-9]{64}$/i.test(record.contentHash)) errors.push('invalid contentHash')
   return { valid: errors.length === 0, errors }
 }
@@ -21,7 +21,8 @@ export function validateUpdate(record, grandPrixIds, season = 2026) {
 export function findDuplicateRecordIds(records) {
   const seen = new Map(); const duplicates = new Set()
   for (const record of records) {
-    const key = [record?.grandPrixId, normalizeTeam(record?.teamId), normalizeComponent(record?.componentId), record?.sourceDocument, record?.sourceText].join('|')
+    const factualComponent = normalizeComponent(record?.componentId) ?? record?.componentName?.trim().toLowerCase() ?? null
+    const key = [record?.grandPrixId, normalizeTeam(record?.teamId), factualComponent, record?.sourceDocument, record?.sourceText].join('|')
     if (seen.has(key)) { duplicates.add(seen.get(key)); duplicates.add(record.id) } else seen.set(key, record.id)
   }
   return [...duplicates]

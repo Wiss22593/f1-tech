@@ -35,10 +35,15 @@ export function createPublicationPlan({ document, records, rejected = [], grandP
 
 /** Hash, schema and parser version together define a byte-stable publication rerun. */
 export function isPublishedDatasetCurrent(current, candidate, contentHash, parserVersion) {
-  return Boolean(candidate
-    && current?.sourceDocument?.documentHash === contentHash
-    && current?.schemaVersion === candidate.schemaVersion
-    && current?.parserVersion === parserVersion)
+  if (!candidate
+    || current?.sourceDocument?.documentHash !== contentHash
+    || current?.schemaVersion !== candidate.schemaVersion
+    || current?.parserVersion !== parserVersion) return false
+  const stableUpdates = (updates = []) => [...updates]
+    .map(({ publishedAt: _publishedAt, ...update }) => update)
+    .sort((a, b) => String(a.id).localeCompare(String(b.id)))
+  return JSON.stringify(stableUpdates(current.updates)) === JSON.stringify(stableUpdates(candidate.updates))
+    && JSON.stringify(current.validation ?? null) === JSON.stringify(candidate.validation ?? null)
 }
 
 /** Write-replace avoids replacing a working public file with a partial result. */

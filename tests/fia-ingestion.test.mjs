@@ -15,6 +15,7 @@ import { buildDataChangePlan } from '../ingestion/fia/prepare-pr.mjs'
 import { buildAutoPublishChangePlan, validateAutoPublishDataset } from '../ingestion/fia/auto-publish.mjs'
 import { JolpicaChampionshipProvider } from '../ingestion/championship/jolpica.mjs'
 import { resolveChampionshipSource } from '../ingestion/championship/source-config.mjs'
+import { selectLatestPublishedGrandPrixId } from '../src/services/fia/latest-published.mjs'
 
 const valid = {
   id: 'monza-mercedes-rear-wing', grandPrixId: 'italian-grand-prix-2026', teamId: 'mercedes', componentId: 'rear wing',
@@ -52,6 +53,13 @@ test('publication gate permits only validated deterministic FIA records', () => 
   assert.equal(publicationDecision(record, { grandPrixIds: ['italian-grand-prix-2026'], season: 2026 }).publishable, true)
   assert.equal(publicationDecision({ ...record, parserConfidence: 'heuristic' }, { grandPrixIds: ['italian-grand-prix-2026'], season: 2026 }).publishable, false)
   assert.equal(publicationDecision({ ...record, sourceUrl: 'https://example.test/a.pdf' }, { grandPrixIds: ['italian-grand-prix-2026'], season: 2026 }).publishable, false)
+})
+
+test('a complete FIA row without a hotspot remains factual and publishable', () => {
+  const record = { ...valid, id: 'madrid-mercedes-front-drum', grandPrixId: 'madrid-grand-prix-2026', componentId: null, componentName: 'Front Drum', visualizable: false, season: 2026, contentHash: 'a'.repeat(64), parserConfidence: 'deterministic_table', validationState: 'validated' }
+  assert.deepEqual(validateUpdate(record, ['madrid-grand-prix-2026']), { valid: true, errors: [] })
+  assert.equal(publicationDecision(record, { grandPrixIds: ['madrid-grand-prix-2026'], season: 2026 }).publishable, true)
+  assert.equal(record.componentId, null)
 })
 
 test('publication plan separates uncertain records into manual review without an empty replacement', () => {
@@ -142,20 +150,13 @@ test('parser fixture preserves source text and leaves unsupported editorial fiel
 test('layout parser preserves the four FIA columns, multiline cells and repeated components', async () => {
   const extraction = JSON.parse(await readFile(new URL('./fixtures/fia-presentation-layout.json', import.meta.url), 'utf8'))
   const parsed = parsePresentationText(extraction, { documentId: 'doc-layout', season: 2026, grandPrixId: 'italian-grand-prix-2026', sourceDocument: 'Car Presentation Submissions', sourceUrl: valid.sourceUrl, contentHash: 'a'.repeat(64) })
-  assert.equal(parsed.rejected.length, 1)
-  assert.equal(parsed.records.length, 2)
+  assert.equal(parsed.rejected.length, 0)
+  assert.equal(parsed.records.length, 3)
   assert.deepEqual(parsed.records[0], { ...parsed.records[0], componentName: 'Rear Wing', primaryReason: 'Performance - Local Load', geometricDifference: 'Revised upper plane geometry', briefDescription: 'The revised surface changes the local pressure distribution without truncating this second line of the description.' })
   assert.equal(parsed.records[1].componentId, 'rear-wing')
   assert.equal(parsed.records[1].primaryReason, 'Reliability')
   assert.match(parsed.records[0].sourceText, /^Rear Wing \| Performance - Local Load \|/)
-  assert.deepEqual(parsed.rejected[0], {
-    page: 1,
-    teamDetected: 'mercedes',
-    rawComponentText: 'Front Drum',
-    sourceText: 'Front Drum | Performance - Flow Conditioning | Front lip reprofiled | The revised lip improves attachment through steering conditions.',
-    reason: 'unmapped_component',
-    suggestedComponentIds: ['front-wing', 'front-suspension'],
-  })
+  assert.deepEqual(parsed.records[2], { ...parsed.records[2], componentId: null, visualizable: false, componentName: 'Front Drum', primaryReason: 'Performance - Flow Conditioning', geometricDifference: 'Front lip reprofiled', briefDescription: 'The revised lip improves attachment through steering conditions.' })
 })
 
 test('Garage has no invented FIA fallback and keeps Spanish presentation copy separate from English source data', async () => {
@@ -182,10 +183,36 @@ test('published Madrid dataset preserves valid FIA column fields in English', as
 test('Madrid reconciliation preserves all deterministic rows and the Mercedes published row', async () => {
   const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
   const counts = Object.fromEntries(dataset.teams.map((teamId) => [teamId, dataset.updates.filter((update) => update.teamId === teamId).length]))
-  assert.equal(dataset.updates.length, 7)
-  assert.deepEqual(counts, { mclaren: 1, mercedes: 1, 'red-bull-racing': 1, ferrari: 1, alpine: 1, cadillac: 2 })
-  assert.equal(dataset.updates.find((update) => update.teamId === 'mercedes')?.componentName, 'Rear Wing')
+  assert.equal(dataset.updates.length, 10)
+  assert.deepEqual(counts, { mclaren: 1, mercedes: 3, 'red-bull-racing': 2, ferrari: 1, alpine: 1, cadillac: 2 })
+  assert.deepEqual(dataset.updates.filter((update) => update.teamId === 'mercedes').map(({ componentName }) => componentName), ['Rear Wing', 'Exhaust Tailpipe', 'Front Drum'])
+  assert.deepEqual(dataset.updates.filter((update) => update.teamId === 'red-bull-racing').map(({ componentName }) => componentName), ['Rear Corner', 'Floor Bib'])
+  assert.deepEqual(dataset.updates.filter((update) => update.visualizable === false).map(({ componentId }) => componentId), [null, null, null])
+  assert.equal(dataset.validation.manualReview, 0)
   assert.equal(dataset.parserVersion, 'fia-table-v2')
+})
+
+test('Development Battle counts every factual published row, including non-visualizable updates', async () => {
+  const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
+  const counts = dataset.updates.reduce((result, update) => ({ ...result, [update.teamId]: (result[update.teamId] ?? 0) + 1 }), {})
+  assert.equal(counts.mercedes, 3)
+  assert.equal(counts['red-bull-racing'], 2)
+  assert.equal(Object.values(counts).reduce((sum, count) => sum + count, 0), 10)
+})
+
+test('latest published GP ignores newer future or no-document events without datasets', () => {
+  const published = new Set(['italian-grand-prix-2026', 'madrid-grand-prix-2026'])
+  assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, published), 'madrid-grand-prix-2026')
+  assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, new Set(['italian-grand-prix-2026'])), 'italian-grand-prix-2026')
+  assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, published), 'madrid-grand-prix-2026')
+})
+
+test('Garage opens text-only updates without assigning a fake camera component', async () => {
+  const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
+  assert.match(garage, /setSelectedUpdateId\(selecting \? update\.id : undefined\)/)
+  assert.match(garage, /if \(!update\.componentId\) return/)
+  assert.match(garage, /nonVisualizableUpdates\.map\(renderTextOnlyUpdate\)/)
+  assert.match(garage, /findLatestPublishedGrandPrix\(\)/)
 })
 
 test('Madrid reruns are idempotent for the same hash, schema and parser version', async () => {

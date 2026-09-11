@@ -15,5 +15,5 @@ export const normalizeTeam = (value = '') => {
   return teams.find(([, id]) => normalized === id)?.[1] ?? teams.find(([term]) => normalized.includes(term))?.[1] ?? null
 }
 export const normalizeComponent = (value = '') => {
-  return mapFiaComponent(value)
+  return mapFiaComponent(value ?? '')
 }

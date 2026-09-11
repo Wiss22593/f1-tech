@@ -15,7 +15,7 @@ import { teams } from '../teams/data'
 import { AdSlot } from '../../components/ads/AdSlot'
 
 const displayTeam = (id: string) => teams.find((team) => team.id === id)?.name ?? id
-const previewUpdate = (update: PublishedUpdate): TechnicalUpdate => ({ team: displayTeam(update.teamId), component: update.componentId, status: update.technicalState, objective: update.objective ?? update.sourceText, magnitude: (update.magnitude ?? '—') as TechnicalUpdate['magnitude'], source: 'FIA', confidence: 100 })
+const previewUpdate = (update: PublishedUpdate): TechnicalUpdate => ({ team: displayTeam(update.teamId), component: update.componentName ?? update.componentId ?? '—', status: update.technicalState, objective: update.objective ?? update.sourceText, magnitude: (update.magnitude ?? '—') as TechnicalUpdate['magnitude'], source: 'FIA', confidence: 100 })
 
 export function TechnicalPreview({ locale }: { locale: Locale }) {
   const copy = t(locale).preview

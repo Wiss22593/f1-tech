@@ -24,7 +24,7 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
   const [publishedUpdates, setPublishedUpdates] = useState<PublishedUpdate[]>([])
   const [dataState, setDataState] = useState<'fresh' | 'stale' | 'offline' | 'error'>('fresh')
   useEffect(() => { void loadPublishedSeason().then((result) => { setPublishedUpdates(result.updates); setDataState(result.stale ? (navigator.onLine ? 'stale' : 'offline') : result.errors.length ? 'error' : 'fresh') }) }, [])
-  const records: PublicUpdateView[] = publishedUpdates.map((update) => ({ id: update.id, grandPrixId: update.grandPrixId, team: teams.find((item) => item.id === update.teamId)?.name ?? update.teamId, state: update.technicalState, area: update.area ?? '—', component: update.componentId, objective: update.objective ?? update.sourceText, magnitude: update.magnitude ?? '—', source: 'FIA' }))
+  const records: PublicUpdateView[] = publishedUpdates.map((update) => ({ id: update.id, grandPrixId: update.grandPrixId, team: teams.find((item) => item.id === update.teamId)?.name ?? update.teamId, state: update.technicalState, area: update.area ?? '—', component: update.componentName ?? update.componentId ?? '—', objective: update.objective ?? update.sourceText, magnitude: update.magnitude ?? '—', source: 'FIA' }))
   const teamNames = [...new Set(records.map((update) => update.team))]
   const grandPrixIds = [...new Set(records.map((update) => update.grandPrixId))]
   const components = [...new Set(records.map((update) => update.component))]

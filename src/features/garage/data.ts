@@ -12,7 +12,7 @@ export interface TeamTheme {
 }
 export interface UpdateSource { type: 'FIA'; label: string; document: string; date: string }
 export interface GarageUpdate {
-  id: string; teamId: string; grandPrixId: string; componentId: CarComponentId; status: 'SUBMITTED'
+  id: string; teamId: string; grandPrixId: string; componentId: CarComponentId | null; visualizable?: boolean; status: 'SUBMITTED'
   presentedComponent: string | null; primaryReason: string | null; geometricDifference: string | null; description: string | null
   source: UpdateSource; confidence: 'CONFIRMED'; magnitude: 'BAJA' | 'MEDIA' | 'ALTA'; objective: string; area: string
   analysis?: string; score?: number; circuitFit?: 'ALTO' | 'MEDIO' | 'BAJO'
@@ -21,7 +21,7 @@ export interface GarageUpdate {
 export type GarageContentLocale = 'es' | 'en' | 'it' | 'pt' | 'fr' | 'de'
 
 /** The Garage selector is a view of the canonical event registry, never a second event list. */
-export const garageGrandPrix = grandsPrix2026.filter(({ id, status }) => status === 'completed' || id === 'madrid-grand-prix-2026')
+export const garageGrandPrix = grandsPrix2026
 
 const theme = (bodyBase: string, bodySecondary: string, accent: string, highlight: string, metallic: string, surface: string, materialMetalness = .58, materialRoughness = .3, materialEmissiveIntensity = .018): TeamTheme => ({ bodyBase, bodySecondary, accent, highlight, metallic, surface, materialMetalness, materialRoughness, materialEmissiveIntensity, carbon: '#101318', glass: '#0a0e14', wheel: '#1b212a', brake: accent, neutral: highlight, primary: bodyBase, secondary: bodySecondary })
 export const teamThemes: Record<string, TeamTheme> = {
@@ -142,6 +142,24 @@ const spanishMadridUpdates: Record<string, GarageUpdateContent> = {
     primaryReason: 'Específico del circuito – Rango de resistencia aerodinámica',
     geometricDifference: 'Se redujo la envergadura del winglet central del alerón trasero',
     description: 'Reducir la envergadura del winglet central montado sobre el flap del alerón trasero disminuye la carga aerodinámica local y la resistencia en una proporción adecuada para la relación carga/resistencia de Madrid.',
+  },
+  'madrid-grand-prix-2026-doc-11-mercedes-exhaust-tailpipe-2': {
+    presentedComponent: 'Tubo de escape',
+    primaryReason: 'Específico del circuito – Rango de resistencia aerodinámica',
+    geometricDifference: 'Winglet adicional detrás del escape',
+    description: 'Se añadió un winglet para aumentar el giro del flujo del escape y generar carga y resistencia en una proporción adecuada para la relación carga/resistencia de Madrid.',
+  },
+  'madrid-grand-prix-2026-doc-11-mercedes-front-drum-3': {
+    presentedComponent: 'Tambor delantero',
+    primaryReason: 'Rendimiento – Acondicionamiento del flujo',
+    geometricDifference: 'Labio delantero reperfilado',
+    description: 'El labio delantero fue reperfilado para mejorar la adherencia del flujo en todas las condiciones de giro y, como resultado, mejorar el flujo hacia la parte trasera del auto.',
+  },
+  'madrid-grand-prix-2026-doc-11-red-bull-racing-rear-corner-1': {
+    presentedComponent: 'Conjunto de esquina trasera',
+    primaryReason: 'Fiabilidad',
+    geometricDifference: 'Conjunto de carrocería de la rueda trasera',
+    description: 'Continuando el trabajo de Monza, el nuevo fuelle más robusto incorpora winglets detrás de los carenados de suspensión para recuperar la carga de carreras anteriores manteniendo sellada la carrocería de la rueda.',
   },
   'madrid-grand-prix-2026-doc-11-red-bull-racing-floor-2': {
     presentedComponent: 'Bib del piso',

@@ -1,11 +1,11 @@
 import { normalizeComponent, normalizeTeam } from './normalizer.mjs'
-import { suggestFiaComponents } from './component-registry.mjs'
 
 const teamMarkers = /McLaren Mastercard F1 Team|Mercedes-AMG PETRONAS F1 Team|Oracle Red Bull Racing\.?|S\s*cuderia Ferrari HP|Williams|Visa Cash App Racing Bulls|Aston Martin Aramco F1 Team|\*TGR HAAS F1 TEAM\*|Audi Revolut F1 Team|BWT Alpine F1 Team|C\s*adillac/gi
 const entryStart = /(?:^|\s)(\d+)\s+(.+?)(?=\s+(?:Performance|Circuit specific|Reliability|Flow Conditioning)\b)/gi
 const tableHeader = /Updated component|Primary reason for update|Geometric differences compared to previous version|Brief description on how the update works/gi
 
 const cleanCell = (value = '') => typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() || null : null
+const slug = (value = '') => value.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 const joinCell = (items) => cleanCell([...items]
   .sort((a, b) => Math.abs(b.y - a.y) > 1.5 ? b.y - a.y : a.x - b.x)
   .map(({ text }) => text)
@@ -14,15 +14,16 @@ const joinCell = (items) => cleanCell([...items]
 function createRecord(fields, context, teamId, rowNumber) {
   const componentId = normalizeComponent(fields.componentName ?? '')
   const sourceText = cleanCell([fields.componentName, fields.primaryReason, fields.geometricDifference, fields.briefDescription].filter(Boolean).join(' | '))
-  if (!teamId || !componentId) return {
+  if (!teamId) return {
     rejected: {
       page: fields.page ?? null, teamDetected: teamId, rawComponentText: fields.componentName, sourceText,
-      reason: !teamId ? 'unmapped_team' : 'unmapped_component', suggestedComponentIds: componentId ? [] : suggestFiaComponents(fields.componentName ?? ''),
+      reason: 'unmapped_team', suggestedComponentIds: [],
     },
   }
+  const componentKey = componentId ?? slug(fields.componentName ?? '')
   return {
     record: {
-      id: `${context.documentId}-${teamId}-${componentId}-${rowNumber}`, season: context.season, grandPrixId: context.grandPrixId, teamId, componentId,
+      id: `${context.documentId}-${teamId}-${componentKey}-${rowNumber}`, season: context.season, grandPrixId: context.grandPrixId, teamId, componentId, visualizable: Boolean(componentId),
       componentName: fields.componentName, primaryReason: fields.primaryReason, geometricDifference: fields.geometricDifference, briefDescription: fields.briefDescription,
       category: fields.primaryReason, source: 'FIA', sourceUrl: context.sourceUrl ?? null, sourceDocument: context.sourceDocument, sourceText,
       sourceLanguage: context.sourceLanguage ?? 'en', translations: {}, description: fields.briefDescription, area: null, objective: null,
@@ -99,8 +100,8 @@ function parseFlattenedText(text, context) {
 }
 
 /**
- * Parses FIA's text-layer table conservatively. Unknown teams/components are
- * rejected for manual review; no technical analysis is invented from prose.
+ * Parses FIA's text-layer table conservatively. A factual component name does
+ * not need a 3D mapping; uncertain teams or incomplete rows still go to review.
  */
 export function parsePresentationText(input, context) {
   if (typeof input === 'object' && Array.isArray(input?.pages)) {

@@ -19,7 +19,8 @@ export interface NormalizedCarPresentation extends FiaDocumentRecord {
   season: number
   grandPrixId: string
   teamId: string
-  componentId: CarComponentId
+  componentId: CarComponentId | null
+  visualizable: boolean
   sourceTextOriginal: string
   translations: Partial<Record<Exclude<Locale, 'en'>, string>>
   area?: string

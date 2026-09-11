@@ -2,7 +2,7 @@ import type { CarComponentId } from '../../three/assets'
 import { grandsPrix2026 } from '../../data/grands-prix/2026'
 
 export interface PublishedUpdate {
-  id: string; grandPrixId: string; teamId: string; componentId: string
+  id: string; grandPrixId: string; teamId: string; componentId: string | null; visualizable?: boolean
   componentName?: string | null; primaryReason?: string | null; geometricDifference?: string | null; briefDescription?: string | null
   category: string | null; source: 'FIA'; sourceUrl: string; sourceDocument: string; sourceText: string; sourceLanguage: string
   translations: Record<string, string>; description: string | null; area: string | null; objective: string | null; magnitude: string | null
@@ -33,7 +33,7 @@ export async function loadPublishedGrandPrix(grandPrixId: string, season = 2026)
   }
 }
 
-export function toCarComponent(componentId: string): CarComponentId | null { return stableToCarComponent[componentId] ?? null }
+export function toCarComponent(componentId: string | null | undefined): CarComponentId | null { return componentId ? stableToCarComponent[componentId] ?? null : null }
 
 /** Reads every known event but exposes only the records that cleared publication. */
 export async function loadPublishedSeason(season = 2026): Promise<PublishedSeasonResult> {
