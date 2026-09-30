@@ -74,7 +74,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
       if (!active) return
       setPublishedUpdates((dataset?.updates ?? []).map((record) => {
         const componentId = record.visualizable === false ? null : toCarComponent(record.componentId)
-        return { id: record.id, teamId: record.teamId, grandPrixId: record.grandPrixId, componentId, visualizable: Boolean(componentId), status: 'SUBMITTED', presentedComponent: record.componentName ?? null, primaryReason: record.primaryReason ?? record.category, geometricDifference: record.geometricDifference ?? null, description: record.briefDescription ?? record.description ?? record.sourceText, source: { type: 'FIA', label: 'FIA Car Presentation Submission', document: record.sourceDocument, date: record.publishedAt }, confidence: 'CONFIRMED', magnitude: (record.magnitude ?? '') as GarageUpdate['magnitude'], objective: record.objective ?? '', area: record.area ?? '' }
+        return { fiaRecord: record, id: record.id, teamId: record.teamId, grandPrixId: record.grandPrixId, componentId, visualizable: Boolean(componentId), status: 'SUBMITTED', presentedComponent: record.componentName ?? null, primaryReason: record.primaryReason ?? record.category, geometricDifference: record.geometricDifference ?? null, description: record.briefDescription ?? record.description ?? record.sourceText, source: { type: 'FIA', label: 'FIA Car Presentation Submission', document: record.sourceDocument, date: record.publishedAt }, confidence: 'CONFIRMED', magnitude: (record.magnitude ?? '') as GarageUpdate['magnitude'], objective: record.objective ?? '', area: record.area ?? '' }
       }))
     })
     return () => { active = false }
@@ -111,7 +111,11 @@ export function GaragePage({ locale }: { locale: Locale }) {
     return componentUpdates.map((update) => {
       const content = getGarageUpdateContent(update, locale)
       const description = content.description ?? content.geometricDifference
-      return description && <article className="showroom-submission" key={update.id}><p className="showroom-submission__description">{withoutOrdinalPrefix(description)}</p></article>
+      return description && <article className="showroom-submission" key={update.id}>
+        {locale === 'es' && content.primaryReason && <p className="showroom-submission__reason">{content.primaryReason}</p>}
+        {locale === 'es' && content.geometricDifference && <p className="showroom-submission__geometry">{content.geometricDifference}</p>}
+        <p className="showroom-submission__description">{withoutOrdinalPrefix(description)}</p>
+      </article>
     })
   }
   function renderComponent(hotspot: F1TechHotspot) {

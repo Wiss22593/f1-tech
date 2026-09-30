@@ -1,3 +1,4 @@
+import { localizeFiaUpdate } from '../../services/fia/localization.mjs'
 import { useEffect, useState } from 'react'
 import { EventCountdown } from '../../components/dashboard/EventCountdown'
 import { InsightPanels } from '../../components/dashboard/InsightPanels'
@@ -15,7 +16,10 @@ import { teams } from '../teams/data'
 import { AdSlot } from '../../components/ads/AdSlot'
 
 const displayTeam = (id: string) => teams.find((team) => team.id === id)?.name ?? id
-const previewUpdate = (update: PublishedUpdate): TechnicalUpdate => ({ team: displayTeam(update.teamId), component: update.componentName ?? update.componentId ?? '—', status: update.technicalState, objective: update.objective ?? update.sourceText, magnitude: (update.magnitude ?? '—') as TechnicalUpdate['magnitude'], source: 'FIA', confidence: 100 })
+const previewUpdate = (update: PublishedUpdate, locale: Locale): TechnicalUpdate => {
+  const content = localizeFiaUpdate(update, locale)
+  return ({ team: displayTeam(update.teamId), component: content.componentLabel, status: update.technicalState, objective: content.summary, magnitude: (update.magnitude ?? '—') as TechnicalUpdate['magnitude'], source: 'FIA', confidence: 100 })
+}
 
 export function TechnicalPreview({ locale }: { locale: Locale }) {
   const copy = t(locale).preview
@@ -30,7 +34,7 @@ export function TechnicalPreview({ locale }: { locale: Locale }) {
       {updates.length === 0 && <p className="demo-notice">{copy.demo}</p>}
       <TeamBattle teams={teamUpdates} locale={locale} />
       <DevelopmentRanking teams={teamUpdates} locale={locale} />
-      <section className="dashboard-section"><SectionHeading title={uiText(locale, 'previewUpdates')} eyebrow={uiText(locale, 'latestUpdates')} /><div className="updates-grid">{updates.map((update) => <UpdateCard key={update.id} update={previewUpdate(update)} locale={locale} />)}</div></section>
+      <section className="dashboard-section"><SectionHeading title={uiText(locale, 'previewUpdates')} eyebrow={uiText(locale, 'latestUpdates')} /><div className="updates-grid">{updates.map((update) => <UpdateCard key={update.id} update={previewUpdate(update, locale)} locale={locale} />)}</div></section>
       <section className="dashboard-section"><SectionHeading title="F1 TECH Score" eyebrow={uiText(locale, 'comparative')} /><div className="score-grid">{demoScores.map((score) => <ScoreCard key={score.label} {...score} locale={locale} />)}</div></section>
       <InsightPanels locale={locale} />
       <PredictionPanel locale={locale} />

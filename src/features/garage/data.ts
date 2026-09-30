@@ -1,3 +1,5 @@
+import type { PublishedUpdate } from '../../services/fia/published-dataset'
+import { localizeFiaUpdate } from '../../services/fia/localization.mjs'
 import { teams } from '../teams/data'
 import type { CarComponentId, F1TechHotspot } from '../../three/assets'
 import { grandsPrix2026 } from '../../data/grands-prix/2026'
@@ -15,6 +17,7 @@ export interface GarageUpdate {
   id: string; teamId: string; grandPrixId: string; componentId: CarComponentId | null; visualizable?: boolean; status: 'SUBMITTED'
   presentedComponent: string | null; primaryReason: string | null; geometricDifference: string | null; description: string | null
   source: UpdateSource; confidence: 'CONFIRMED'; magnitude: 'BAJA' | 'MEDIA' | 'ALTA'; objective: string; area: string
+  fiaRecord?: PublishedUpdate
   analysis?: string; score?: number; circuitFit?: 'ALTO' | 'MEDIO' | 'BAJO'
 }
 
@@ -105,108 +108,18 @@ const spanishChangeTranslations: Record<string, string> = {
   'cadillac-diffuser-vane': 'Añadido un vane al borde de salida interior de la pared lateral exterior del difusor.',
 }
 
-// Presentation-only translations for the published Monza records. The canonical
-// FIA source text remains untouched in public/data and is still available to the
-// other product views and audit trail.
-const spanishPublishedDescriptions: Record<string, string> = {
-  'italian-grand-prix-2026-doc-10-mclaren-rear-wing-1': 'El alerón trasero modifica la posición del flap en modo recta y utiliza un beam wing con menos carga para lograr una mayor reducción de la resistencia aerodinámica.',
-  'italian-grand-prix-2026-doc-10-mclaren-floor-2': 'Una pequeña modificación de los elementos auxiliares del piso mejora el acondicionamiento del flujo, el rendimiento aerodinámico del piso y la reducción de la resistencia.',
-  'italian-grand-prix-2026-doc-10-mercedes-rear-wing-1': 'La retirada de varios winglets del alerón trasero reduce la carga local y la resistencia aerodinámica en una proporción adecuada para Monza.',
-  'italian-grand-prix-2026-doc-10-red-bull-racing-floor-2': 'El perfil revisado del borde del bib modifica el flujo para generar más carga local y mejorar la estabilidad aerodinámica.',
-  'italian-grand-prix-2026-doc-10-red-bull-racing-front-wing-4': 'El vane recortado del endplate del alerón delantero busca mejorar la carga generada aguas abajo por el piso.',
-  'italian-grand-prix-2026-doc-10-ferrari-floor-1': 'La optimización de la tabla del piso adapta el auto a las características de Monza y reduce la resistencia aerodinámica con una relación favorable respecto de la pérdida de carga.',
-  'italian-grand-prix-2026-doc-10-williams-halo-1': 'Una aleta vertical alrededor del Halo modifica la distribución de presión y el flujo aguas abajo para mejorar la eficiencia específica de Monza.',
-  'italian-grand-prix-2026-doc-10-williams-front-wing-2': 'Se redujo la cuerda de los elementos del alerón delantero para adecuar el balance del auto a las exigencias de Monza.',
-  'italian-grand-prix-2026-doc-10-williams-floor-3': 'Un recorte local en la tabla del piso modifica el equilibrio entre carga y resistencia aerodinámica en la parte delantera del piso principal.',
-  'italian-grand-prix-2026-doc-10-racing-bulls-rear-wing-1': 'El nuevo conjunto del alerón trasero permite un mayor recorrido del flap en modo recta y una reducción eficiente de la resistencia aerodinámica.',
-  'italian-grand-prix-2026-doc-10-aston-martin-front-suspension-1': 'El carenado exterior de un elemento de la suspensión delantera fue modificado para alinearse mejor con el flujo incidente.',
-  'italian-grand-prix-2026-doc-10-aston-martin-floor-2': 'La geometría delante del neumático trasero mejora el flujo hacia la cara inferior del piso y aumenta la carga generada en esa zona.',
-  'italian-grand-prix-2026-doc-10-haas-floor-1': 'El nuevo piso delantero optimiza la zona principal de expansión y la geometría lateral para mejorar la eficiencia, la carga y el rendimiento aerodinámico general.',
-  'italian-grand-prix-2026-doc-10-alpine-front-wing-1': 'El vane del endplate fue rediseñado para aumentar la carga local y mejorar el campo de flujo de la zona.',
-  'italian-grand-prix-2026-doc-10-alpine-rear-wing-2': 'Se retiró el carenado del pod de modo recta para adaptar el alerón trasero a la configuración de baja resistencia de Monza.',
-  'italian-grand-prix-2026-doc-10-cadillac-floor-1': 'La nueva posición del soporte delantero de la tabla del piso mejora el flujo hacia la parte trasera, la estabilidad estructural y la carga aerodinámica posterior.',
-  'italian-grand-prix-2026-doc-10-cadillac-diffuser-2': 'Un pequeño vane vertical en el borde interior de la pared lateral del difusor mejora el rendimiento de los canales exteriores del piso y aumenta la carga trasera.',
-}
-
 type GarageUpdateContent = Pick<GarageUpdate, 'presentedComponent' | 'primaryReason' | 'geometricDifference' | 'description'>
 
-const spanishMadridUpdates: Record<string, GarageUpdateContent> = {
-  'madrid-grand-prix-2026-doc-11-mclaren-rear-wing-1': {
-    presentedComponent: 'Alerón trasero',
-    primaryReason: 'Rendimiento – Acondicionamiento del flujo',
-    geometricDifference: 'Elementos adicionales del alerón trasero',
-    description: 'Se han añadido elementos adicionales al alerón trasero, mejorando el acondicionamiento del flujo hacia el plano principal y los elementos del flap del alerón trasero.',
-  },
-  'madrid-grand-prix-2026-doc-11-mercedes-rear-wing-1': {
-    presentedComponent: 'Alerón trasero',
-    primaryReason: 'Específico del circuito – Rango de resistencia aerodinámica',
-    geometricDifference: 'Se redujo la envergadura del winglet central del alerón trasero',
-    description: 'Reducir la envergadura del winglet central montado sobre el flap del alerón trasero disminuye la carga aerodinámica local y la resistencia en una proporción adecuada para la relación carga/resistencia de Madrid.',
-  },
-  'madrid-grand-prix-2026-doc-11-mercedes-exhaust-tailpipe-2': {
-    presentedComponent: 'Tubo de escape',
-    primaryReason: 'Específico del circuito – Rango de resistencia aerodinámica',
-    geometricDifference: 'Winglet adicional detrás del escape',
-    description: 'Se añadió un winglet para aumentar el giro del flujo del escape y generar carga y resistencia en una proporción adecuada para la relación carga/resistencia de Madrid.',
-  },
-  'madrid-grand-prix-2026-doc-11-mercedes-front-drum-3': {
-    presentedComponent: 'Tambor delantero',
-    primaryReason: 'Rendimiento – Acondicionamiento del flujo',
-    geometricDifference: 'Labio delantero reperfilado',
-    description: 'El labio delantero fue reperfilado para mejorar la adherencia del flujo en todas las condiciones de giro y, como resultado, mejorar el flujo hacia la parte trasera del auto.',
-  },
-  'madrid-grand-prix-2026-doc-11-red-bull-racing-rear-corner-1': {
-    presentedComponent: 'Conjunto de esquina trasera',
-    primaryReason: 'Fiabilidad',
-    geometricDifference: 'Conjunto de carrocería de la rueda trasera',
-    description: 'Continuando el trabajo de Monza, el nuevo fuelle más robusto incorpora winglets detrás de los carenados de suspensión para recuperar la carga de carreras anteriores manteniendo sellada la carrocería de la rueda.',
-  },
-  'madrid-grand-prix-2026-doc-11-red-bull-racing-floor-2': {
-    presentedComponent: 'Bib del piso',
-    primaryReason: 'Fiabilidad',
-    geometricDifference: 'Cambio geométrico entre el piso y el chasis',
-    description: 'Cuando se flexiona, se han modificado el laminado y la forma para eliminar idealmente el deterioro de la estructura y de las superficies aerodinámicas mediante la reducción de la deformación local.',
-  },
-  'madrid-grand-prix-2026-doc-11-ferrari-rear-suspension-1': {
-    presentedComponent: 'Suspensión trasera',
-    primaryReason: 'Rendimiento – Carga local',
-    geometricDifference: 'Reperfilado del carenado del brazo trasero del triángulo superior trasero',
-    description: 'Pequeña actualización del perfil del carenado de la suspensión trasera, adaptando la incidencia general y la distribución de carga a lo largo de la envergadura, lo que aporta un beneficio de carga local.',
-  },
-  'madrid-grand-prix-2026-doc-11-alpine-floor-1': {
-    presentedComponent: 'Tabla del piso',
-    primaryReason: 'Rendimiento – Carga local',
-    geometricDifference: 'Adición de un elemento a la tabla delantera del piso',
-    description: 'La tabla delantera del piso se ha optimizado para mejorar la distribución de presión local y la gestión del flujo, generando carga aerodinámica local de manera eficiente.',
-  },
-  'madrid-grand-prix-2026-doc-11-cadillac-rear-wing-1': {
-    presentedComponent: 'Flap del alerón trasero',
-    primaryReason: 'Rendimiento – Carga local',
-    geometricDifference: 'Winglet actualizado en el borde de salida del flap del alerón trasero',
-    description: 'La reintroducción de un winglet central revisado en el borde de salida del flap del alerón trasero sirve para generar más carga aerodinámica posterior, a la vez que mejora la estabilidad aerodinámica general en una variedad de condiciones de funcionamiento.',
-  },
-  'madrid-grand-prix-2026-doc-11-cadillac-diffuser-2': {
-    presentedComponent: 'Vane del difusor',
-    primaryReason: 'Rendimiento – Carga local',
-    geometricDifference: 'Adición de un vane al borde de salida interior de la pared lateral exterior del difusor',
-    description: 'Se ha añadido un pequeño vane vertical de giro al borde de salida interior de la pared lateral exterior del difusor, lo que mejora el rendimiento aerodinámico en los canales exteriores del piso y aumenta la carga en la parte trasera del auto.',
-  },
-}
-
 export function getGarageUpdateContent(update: GarageUpdate, locale: GarageContentLocale): GarageUpdateContent {
-  if (locale !== 'es') return {
-    presentedComponent: update.presentedComponent,
-    primaryReason: update.primaryReason,
-    geometricDifference: update.geometricDifference,
-    description: update.description,
+  if (update.fiaRecord) {
+    const content = localizeFiaUpdate(update.fiaRecord, locale)
+    return { presentedComponent: content.componentName, primaryReason: content.primaryReason, geometricDifference: content.geometricDifference, description: content.briefDescription }
   }
-  const madridTranslation = spanishMadridUpdates[update.id]
-  if (madridTranslation) return madridTranslation
   return {
     presentedComponent: update.presentedComponent,
     primaryReason: update.primaryReason,
-    geometricDifference: spanishChangeTranslations[update.id] ?? update.geometricDifference,
-    description: spanishPublishedDescriptions[update.id] ?? update.description,
+    geometricDifference: locale === 'es' ? spanishChangeTranslations[update.id] ?? update.geometricDifference : update.geometricDifference,
+    description: update.description,
   }
 }
 

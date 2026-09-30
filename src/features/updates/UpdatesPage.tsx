@@ -1,3 +1,4 @@
+import { localizeFiaUpdate } from '../../services/fia/localization.mjs'
 import { useEffect, useMemo, useState } from 'react'
 import { demoGrandPrix, type UpdateStatus } from './data'
 import { dataStateText, t, type Locale, technicalText, uiText } from '../../i18n'
@@ -7,7 +8,7 @@ import { grandsPrix2026 } from '../../data/grands-prix/2026'
 import { AdSlot } from '../../components/ads/AdSlot'
 
 type FilterValue<T extends string> = T | 'Todos'
-type PublicUpdateView = { id: string; grandPrixId: string; team: string; state: UpdateStatus; area: string; component: string; objective: string; magnitude: string; source: string }
+type PublicUpdateView = { id: string; grandPrixId: string; team: string; state: UpdateStatus; area: string; component: string; componentKey: string; objective: string; magnitude: string; source: string }
 
 function statusClass(status: UpdateStatus) {
   return status.toLowerCase().replace('_', '-')
@@ -24,14 +25,17 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
   const [publishedUpdates, setPublishedUpdates] = useState<PublishedUpdate[]>([])
   const [dataState, setDataState] = useState<'fresh' | 'stale' | 'offline' | 'error'>('fresh')
   useEffect(() => { void loadPublishedSeason().then((result) => { setPublishedUpdates(result.updates); setDataState(result.stale ? (navigator.onLine ? 'stale' : 'offline') : result.errors.length ? 'error' : 'fresh') }) }, [])
-  const records: PublicUpdateView[] = publishedUpdates.map((update) => ({ id: update.id, grandPrixId: update.grandPrixId, team: teams.find((item) => item.id === update.teamId)?.name ?? update.teamId, state: update.technicalState, area: update.area ?? '—', component: update.componentName ?? update.componentId ?? '—', objective: update.objective ?? update.sourceText, magnitude: update.magnitude ?? '—', source: 'FIA' }))
+  const records: PublicUpdateView[] = publishedUpdates.map((update) => {
+    const content = localizeFiaUpdate(update, locale)
+    return ({ id: update.id, grandPrixId: update.grandPrixId, team: teams.find((item) => item.id === update.teamId)?.name ?? update.teamId, state: update.technicalState, area: update.area ?? '—', component: content.componentLabel, componentKey: update.componentName ?? update.componentId ?? '—', objective: content.summary, magnitude: update.magnitude ?? '—', source: 'FIA' })
+  })
   const teamNames = [...new Set(records.map((update) => update.team))]
   const grandPrixIds = [...new Set(records.map((update) => update.grandPrixId))]
-  const components = [...new Set(records.map((update) => update.component))]
+  const components = [...new Map(records.map((update) => [update.componentKey, update.component])).entries()]
   const areas = [...new Set(records.map((update) => update.area))]
   const statuses = [...new Set(records.map((update) => update.state))]
   const visibleUpdates = useMemo(() => records.filter((update) =>
-    (team === 'Todos' || update.team === team) && (grandPrixId === 'Todos' || update.grandPrixId === grandPrixId) && (component === 'Todos' || update.component === component) && (status === 'Todos' || update.state === status) && (area === 'Todos' || update.area === area)
+    (team === 'Todos' || update.team === team) && (grandPrixId === 'Todos' || update.grandPrixId === grandPrixId) && (component === 'Todos' || update.componentKey === component) && (status === 'Todos' || update.state === status) && (area === 'Todos' || update.area === area)
   ), [records, team, grandPrixId, component, status, area])
 
   return <section className="updates-page dashboard__content" aria-labelledby="updates-title">
@@ -53,7 +57,7 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
     <section className="updates-controls" aria-label={uiText(locale, 'filters')}>
       <label>{dataStateText(locale, 'grandPrix')}<select value={grandPrixId} onChange={(event) => setGrandPrixId(event.target.value)}><option value="Todos">{uiText(locale, 'all')}</option>{grandPrixIds.map((id) => <option key={id} value={id}>{grandsPrix2026.find((item) => item.id === id)?.name ?? id}</option>)}</select></label>
       <label>{uiText(locale, 'team')}<select value={team} onChange={(event) => setTeam(event.target.value)}><option value="Todos">{uiText(locale, 'all')}</option>{teamNames.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
-      <label>{dataStateText(locale, 'component')}<select value={component} onChange={(event) => setComponent(event.target.value)}><option value="Todos">{uiText(locale, 'all')}</option>{components.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+      <label>{dataStateText(locale, 'component')}<select value={component} onChange={(event) => setComponent(event.target.value)}><option value="Todos">{uiText(locale, 'all')}</option>{components.map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
       <label>{uiText(locale, 'state')}<select value={status} onChange={(event) => setStatus(event.target.value as FilterValue<UpdateStatus>)}><option value="Todos">{uiText(locale, 'all')}</option>{statuses.map((item) => <option key={item} value={item}>{technicalText(locale, item)}</option>)}</select></label>
       <label>{uiText(locale, 'area')}<select value={area} onChange={(event) => setArea(event.target.value)}><option value="Todos">{uiText(locale, 'all')}</option>{areas.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
       <button type="button" onClick={() => { setGrandPrixId('Todos'); setTeam('Todos'); setComponent('Todos'); setStatus('Todos'); setArea('Todos') }}>{uiText(locale, 'clearFilters')}</button>

@@ -162,8 +162,8 @@ test('layout parser preserves the four FIA columns, multiline cells and repeated
 test('Garage has no invented FIA fallback and keeps Spanish presentation copy separate from English source data', async () => {
   const garageData = await readFile(new URL('../src/features/garage/data.ts', import.meta.url), 'utf8')
   assert.doesNotMatch(garageData, /La FIA publicó una actualización técnica para/)
-  assert.match(garageData, /spanishMadridUpdates/)
-  assert.match(garageData, /if \(locale !== 'es'\)/)
+  assert.match(garageData, /localizeFiaUpdate\(update\.fiaRecord, locale\)/)
+  assert.doesNotMatch(garageData, /spanishMadridUpdates|spanishPublishedDescriptions/)
 })
 
 test('published Madrid dataset preserves valid FIA column fields in English', async () => {
