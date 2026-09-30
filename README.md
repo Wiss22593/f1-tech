@@ -1,4 +1,4 @@
-# F1 TECH
+# F1 TECH.
 
 F1 TECH es una plataforma independiente de análisis técnico pre-race. Ordena señales de desarrollo, actualizaciones, objetivos técnicos y compatibilidad con el circuito antes de un Gran Premio; no es un medio de noticias generalista.
 
