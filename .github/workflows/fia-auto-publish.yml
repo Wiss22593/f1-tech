@@ -3,10 +3,10 @@ name: FIA auto-publish
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron is UTC. These two entries cover Thu/Fri 06:17–23:47
+    # GitHub cron is UTC. These two entries cover every day 06:17–23:47
     # in America/Argentina/Buenos_Aires. Scheduled starts are best-effort.
-    - cron: '17,47 9-23 * * 4,5'
-    - cron: '17,47 0-2 * * 5,6'
+    - cron: '17,47 9-23 * * *'
+    - cron: '17,47 0-2 * * *'
 
 permissions:
   contents: write
@@ -60,7 +60,7 @@ jobs:
 
       - name: Discover and atomically publish deterministic records
         if: steps.window.outputs.relevant == 'true'
-        run: npm run fia:current -- --season=2026 --publish=true
+        run: npm run fia:current -- --season=2026 --window=true --publish=true
 
       - name: Run the complete test suite
         if: steps.window.outputs.relevant == 'true'

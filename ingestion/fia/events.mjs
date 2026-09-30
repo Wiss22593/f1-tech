@@ -20,10 +20,10 @@ function dateInTimeZone(at, timeZone) {
 
 /**
  * Scheduled automation is relevant only from the day before an event through
- * its final day. Date comparison uses the product's operating timezone rather
+ * the day after its final day. Date comparison uses the product's operating timezone rather
  * than the runner's UTC calendar day.
  */
-export function selectIngestionWindowEvents(events, at = new Date(), { daysBefore = 1, daysAfter = 0, timeZone = 'America/Argentina/Buenos_Aires' } = {}) {
+export function selectIngestionWindowEvents(events, at = new Date(), { daysBefore = 1, daysAfter = 1, timeZone = 'America/Argentina/Buenos_Aires' } = {}) {
   const day = Date.parse(`${dateInTimeZone(at, timeZone)}T00:00:00Z`)
   const oneDay = 24 * 60 * 60 * 1000
   return events.filter((event) => {

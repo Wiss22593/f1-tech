@@ -2,9 +2,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { normalizeComponent, normalizeTeam } from '../ingestion/fia/normalizer.mjs'
 import { findDuplicateRecordIds, validateUpdate } from '../ingestion/fia/validator.mjs'
-import { fetchFiaDocumentIndex, isPresentationTitle } from '../ingestion/fia/finder.mjs'
+import { fetchFiaDocumentIndex, isPresentationTitle, resolveFiaEventIndex } from '../ingestion/fia/finder.mjs'
 import { parsePresentationText } from '../ingestion/fia/parser.mjs'
-import { extractPdfText } from '../ingestion/fia/extractor.mjs'
+import { extractPdfText, extractTableLines } from '../ingestion/fia/extractor.mjs'
 import { mapFiaComponent, suggestFiaComponents } from '../ingestion/fia/component-registry.mjs'
 import { createPublicationPlan, isPublishedDatasetCurrent, publicationDecision } from '../ingestion/fia/publication.mjs'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
@@ -259,7 +259,7 @@ test('PDF extractor reads a generated embedded text layer', async () => {
 test('canonical 2026 registry contains all 24 official calendar rounds', () => {
   assert.equal(eventRegistry2026.length, 24)
   assert.equal(new Set(eventRegistry2026.map(({ id }) => id)).size, 24)
-  assert.equal(eventRegistry2026.filter(({ indexUrl }) => indexUrl).length, 14)
+  assert.equal(eventRegistry2026.filter(({ indexUrl }) => indexUrl).length, 16)
 })
 
 test('current event discovery selects Madrid during its verified race window', () => {
@@ -364,4 +364,109 @@ test('six-locale catalog covers Garage labels and factual offline state', async 
     const source = await readFile(new URL(`../src/features/${page}`, import.meta.url), 'utf8')
     assert.match(source, /navigator\.onLine \? 'stale' : 'offline'/)
   }
+})
+
+test('Thursday activity is watched Wednesday through the day after the verified finish', () => {
+  for (const at of ['2026-09-23T12:00:00Z', '2026-09-24T12:00:00Z', '2026-09-27T12:00:00Z']) {
+    assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date(at)).map(({ id }) => id), ['azerbaijan-2026'])
+  }
+  assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date('2026-09-28T12:00:00Z')), [])
+  assert.equal(selectCurrentEvents(eventRegistry2026, new Date('2026-09-24T12:00:00Z'))[0].id, 'azerbaijan-2026')
+})
+
+test('Sepang has one FIA Bahrain identity and resolves an advertised official index without aliases', async () => {
+  const event = eventRegistry2026.find(({ id }) => id === 'bahrain-2026')
+  assert.equal(event.eventName, 'Bahrain Grand Prix')
+  assert.equal(event.country, 'Malaysia')
+  assert.equal(event.circuit, 'Sepang International Circuit')
+  const path = '/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072/event/Bahrain%20Grand%20Prix'
+  const fetchFn = async () => new Response(`<option value="${path}">Bahrain Grand Prix</option>`)
+  assert.equal(await resolveFiaEventIndex({ ...event, indexUrl: null }, { fetchFn }), 'https://www.fia.com' + path)
+  assert.equal(await resolveFiaEventIndex({ ...event, eventName: 'Malaysia Grand Prix', indexUrl: null }, { fetchFn }), null)
+  assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date('2026-10-01T12:00:00Z')).map(({ id }) => id), ['bahrain-2026'])
+})
+
+test('a primary index returning other event blocks never publishes their documents', async () => {
+  const html = '<div class="event-title">Azerbaijan Grand Prix</div><a href="/baku.pdf">Doc 11 - Car Presentation Submissions</a>'
+  const result = await fetchFiaDocumentIndex({ indexUrl: eventRegistry2026.find(({ id }) => id === 'bahrain-2026').indexUrl, grandPrixId: 'bahrain-2026', eventName: 'Bahrain Grand Prix', season: 2026, fetchFn: async () => new Response(html) })
+  assert.deepEqual(result, [])
+})
+
+test('recovered Thursday document remains deterministic and latest published advances only with real data', async () => {
+  const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/azerbaijan-2026.json', import.meta.url), 'utf8'))
+  assert.equal(dataset.updates.length, 38)
+  assert.equal(dataset.validation.manualReview, 0)
+  assert.equal(validateAutoPublishDataset(dataset, 'public/data/grands-prix/2026/azerbaijan-2026.json').valid, true)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v3'), true)
+  const ids = new Set(['madrid-grand-prix-2026', 'azerbaijan-2026'])
+  assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, ids), 'azerbaijan-2026')
+  ids.add('bahrain-2026')
+  assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, ids), 'bahrain-2026')
+})
+
+test('scheduled workflow uses the general runner for exactly the window selected by its guard', async () => {
+  const workflow = await readFile(new URL('../.github/workflows/fia-auto-publish.yml', import.meta.url), 'utf8')
+  assert.match(workflow, /fia:current -- --season=2026 --window=true --publish=true/)
+  assert.match(workflow, /contents: write/)
+  assert.match(workflow, /cron: '17,47 9-23 \* \* \*'/)
+  assert.match(workflow, /cron: '17,47 0-2 \* \* \*'/)
+  const runner = await readFile(new URL('../ingestion/fia/backfill.mjs', import.meta.url), 'utf8')
+  assert.match(runner, /status: 'NO_DOCUMENT_FOUND'/)
+  assert.match(runner, /results.some\(\(\{ status \}\) => status === 'ERROR'\)/)
+})
+
+test('historical published datasets remain byte-identical after newline normalization', async () => {
+  const { createHash } = await import('node:crypto')
+  const hashes = JSON.parse(await readFile(new URL('./fixtures/historical-dataset-hashes.json', import.meta.url), 'utf8'))
+  for (const [file, expected] of Object.entries(hashes)) {
+    const text = await readFile(new URL('../public/data/grands-prix/2026/' + file, import.meta.url), 'utf8')
+    assert.equal(createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex'), expected, file)
+  }
+})
+
+test('real runner treats no document as success and preserves an existing dataset', async () => {
+  const { execFile } = await import('node:child_process')
+  const { promisify } = await import('node:util')
+  const { fileURLToPath } = await import('node:url')
+  const directory = await mkdtemp(join(tmpdir(), 'fia-empty-run-'))
+  const target = join(directory, 'existing.json')
+  const prior = '{"existing":"preserved"}\n'
+  await writeFile(target, prior)
+  try {
+    const preload = 'data:text/javascript,' + encodeURIComponent('globalThis.fetch = async () => new Response("<div class=event-title>Bahrain Grand Prix</div>")')
+    const { stdout } = await promisify(execFile)(process.execPath, ['--import', preload, fileURLToPath(new URL('../ingestion/fia/run.mjs', import.meta.url)), '--index-url=https://www.fia.com/documents/season/2026/event/Bahrain%20Grand%20Prix', '--grand-prix=bahrain-2026', '--event-name=Bahrain Grand Prix', '--allow-empty=true', '--publish=true', '--publish-output=' + target], { cwd: directory })
+    assert.equal(JSON.parse(stdout).status, 'NO_DOCUMENT_FOUND')
+    assert.equal(await readFile(target, 'utf8'), prior)
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+
+test('painted table borders preserve merged cells and consecutive headerless continuation pages', async () => {
+  const extraction = JSON.parse(await readFile(new URL('./fixtures/fia-merged-continuation-layout.json', import.meta.url), 'utf8'))
+  const parsed = parsePresentationText(extraction, { documentId: 'merged', grandPrixId: 'azerbaijan-2026', season: 2026 })
+  assert.equal(parsed.records.length, 25)
+  assert.equal(parsed.rejected.length, 0)
+  const audi = parsed.records.filter(({ teamId }) => teamId === 'audi')
+  assert.equal(audi.length, 14)
+  for (const group of [[0,1,2], [4,5,6], [7,8], [9,10], [11,12,13]]) {
+    for (const i of group) {
+      assert.equal(audi[i].primaryReason, audi[group[0]].primaryReason)
+      assert.equal(audi[i].geometricDifference, audi[group[0]].geometricDifference)
+      assert.equal(audi[i].briefDescription, audi[group[0]].briefDescription)
+    }
+  }
+  assert.match(audi[0].briefDescription, /the new package\.$/)
+  assert.equal(parsed.records.filter(({ teamId }) => teamId === 'mclaren').at(-1).componentName, 'Rear Wing')
+  const racingBulls = parsed.records.filter(({ teamId }) => teamId === 'racing-bulls')
+  assert.equal(racingBulls[1].briefDescription, racingBulls[2].briefDescription)
+})
+
+test('extractor keeps painted table borders in text coordinates and excludes clipping/backgrounds', async () => {
+  const { OPS } = await import('pdfjs-dist/legacy/build/pdf.mjs')
+  const lines = extractTableLines({
+    fnArray: [OPS.save, OPS.transform, OPS.constructPath, OPS.constructPath, OPS.constructPath, OPS.restore, OPS.constructPath],
+    argsArray: [null, [1,0,0,1,10,20], [OPS.fill, [], [0,0,100,.5]], [OPS.endPath, [], [0,0,100,.5]], [OPS.fill, [], [0,0,100,100]], null, [OPS.fill, [], [3,4,3.5,44]]],
+  })
+  assert.deepEqual(lines.horizontal, [{ x1:10, x2:110, y:20.25 }])
+  assert.deepEqual(lines.vertical, [{ x:3.25, y1:4, y2:44 }])
 })

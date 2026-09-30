@@ -41,7 +41,7 @@ function extractEventBlock(html, eventName, required) {
   const markers = [...html.matchAll(markerPattern)]
   const target = normalizeEventName(eventName)
   const markerIndex = markers.findIndex((match) => normalizeEventName(match[1]) === target)
-  if (markerIndex < 0) return required ? null : html
+  if (markerIndex < 0) return required || markers.length ? null : html
   const start = markers[markerIndex].index ?? 0
   const end = markers[markerIndex + 1]?.index ?? html.length
   return html.slice(start, end)
@@ -118,4 +118,20 @@ export async function fetchFiaDocumentIndex({ indexUrl, grandPrixId, season, eve
   if (!fallbackResponse.ok) throw new Error(`FIA season index request failed: ${fallbackResponse.status}`)
   const fallbackHtml = await fallbackResponse.text()
   return documentsFromHtml({ html: fallbackHtml, pageUrl: seasonIndexUrl, grandPrixId, season, eventName, fetchFn, requireEventScope: true })
+}
+
+/** Resolve only exact event links advertised by the official season index. */
+export async function resolveFiaEventIndex(event, { season = 2026, fetchFn = fetch } = {}) {
+  if (event.indexUrl) return event.indexUrl
+  const seasonUrl = 'https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-' + season + '-' + (season === 2026 ? '2072' : '')
+  if (season !== 2026) throw new Error('Unsupported FIA season index; configure its official identifier.')
+  const response = await fetchFn(seasonUrl, requestOptions())
+  if (!response.ok) throw new Error('FIA season index request failed: ' + response.status)
+  const html = await response.text()
+  for (const match of html.matchAll(/<option\b[^>]*value=["']([^"']+)["'][^>]*>([\s\S]*?)<\/option>/gi)) {
+    if (normalizeEventName(match[2]) !== normalizeEventName(event.eventName)) continue
+    const url = new URL(match[1], seasonUrl)
+    if (isOfficialFiaUrl(url.href) && url.pathname.includes('/season/season-' + season + '-2072/event/')) return url.href
+  }
+  return null
 }

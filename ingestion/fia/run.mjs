@@ -24,7 +24,7 @@ if (!document) throw new Error('Requested FIA document was not found; previous d
 const download = await downloadDocument(document, resolve('ingestion/raw'))
 const extraction = await extractPdfText(download.path)
 if (!extraction.text) throw new Error(`unsupported_pdf: ${extraction.extractionWarnings.join('; ')}`)
-const parserVersion = 'fia-table-v2'
+const parserVersion = 'fia-table-v3'
 const parsed = parsePresentationText(extraction, { documentId: document.id, season, grandPrixId: args['grand-prix'], sourceDocument: document.title, sourceUrl: document.sourceUrl, sourceLanguage: 'en', contentHash: download.contentHash, parserVersion })
 const duplicates = new Set(findDuplicateRecordIds(parsed.records)); const rejected = [...parsed.rejected]
 const validated = []

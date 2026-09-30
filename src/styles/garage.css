@@ -150,3 +150,9 @@
   .showroom-team-mobile__item--active { border-top-color: var(--item-primary); color: #fff; background: color-mix(in srgb, var(--item-primary) 18%, rgba(255,255,255,.035)); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--item-primary) 35%, transparent); }
   .showroom-team-mobile__item--active i { opacity: 1; box-shadow: 0 0 9px var(--item-primary); }
 }
+
+/* Native desktop GP menu: keep the closed dark control and scope away from mobile. */
+@media (min-width: 601px) {
+  .showroom-gp-select select option,
+  .showroom-gp-select select optgroup { background: #fff; color: #111; }
+}
