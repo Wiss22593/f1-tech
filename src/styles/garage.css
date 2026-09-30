@@ -167,3 +167,47 @@
 }
 
 .showroom-teambar--desktop .showroom-team em { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.3; letter-spacing: 0; }
+
+/* Team comparison: compact, elevated controls with a prominent factual count. */
+.showroom-teambar--desktop { gap: 4px; padding: 5px 6px; }
+.showroom-teambar--desktop .showroom-team {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center;
+  gap: 6px; min-height: 72px; padding: 7px 8px 7px 12px; border: 1px solid rgba(220,230,245,.1);
+  border-radius: 4px; background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03); text-align: left;
+  transition: background .16s ease, border-color .16s ease;
+}
+.showroom-teambar--desktop .showroom-team > i { position: absolute; top: 12px; bottom: 12px; left: 4px; width: 2px; height: auto; border-radius: 1px; background: var(--item-primary); opacity: .75; box-shadow: none; }
+.showroom-teambar--desktop .showroom-team > .showroom-team-name { grid-column: 1; overflow: visible; color: #d3d9e2; font: 800 clamp(.6rem, .76vw, .75rem) 'Manrope', sans-serif; line-height: 1.15; letter-spacing: -.02em; text-overflow: clip; }
+.showroom-teambar--desktop .showroom-team:hover { border-color: rgba(220,230,245,.28); background: rgba(255,255,255,.075); }
+.showroom-teambar--desktop .showroom-team--selected { border-color: color-mix(in srgb, var(--item-primary) 55%, #9fa9b8); background: linear-gradient(145deg, color-mix(in srgb, var(--item-primary) 17%, #1a202a), #141921); box-shadow: inset 0 2px 0 var(--item-primary); }
+.showroom-teambar--desktop .showroom-team--selected > i { width: 3px; opacity: 1; }
+.showroom-teambar--desktop .showroom-team--selected > .showroom-team-name { color: #fff; }
+.showroom-team .showroom-team-count { grid-column: 1; display: grid; align-content: start; justify-items: start; min-height: 36px; gap: 2px; margin: 0; color: #d6dee9; font-style: normal; line-height: 1; }
+.showroom-team .showroom-team-count strong { color: #f6f8fc; font: 800 1.45rem 'Manrope', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.055em; line-height: 1; }
+.showroom-team .showroom-team-count span { grid-column: auto; overflow: visible; color: #c2ccd9; font: 500 .56rem 'DM Mono', monospace; line-height: 1.2; letter-spacing: -.02em; text-overflow: clip; }
+.showroom-team .showroom-team-count--empty { min-height: 36px; align-content: center; }
+.showroom-team .showroom-team-count--empty span { color: #aab5c4; font: 600 .57rem 'Manrope', sans-serif; line-height: 1.3; }
+.showroom-team[data-team='mercedes'] > .showroom-team-name, .showroom-team[data-team='aston-martin'] > .showroom-team-name { font-weight: 600; letter-spacing: .04em; }
+.showroom-team[data-team='ferrari'] > .showroom-team-name, .showroom-team[data-team='haas'] > .showroom-team-name { font-weight: 800; letter-spacing: -.045em; text-transform: uppercase; }
+.showroom-team[data-team='mclaren'] > .showroom-team-name { letter-spacing: .02em; }
+.showroom-team[data-team='red-bull-racing'] > .showroom-team-name { font-style: italic; letter-spacing: -.035em; }
+.showroom-team[data-team='racing-bulls'] > .showroom-team-name { font-weight: 600; }
+.showroom-team[data-team='alpine'] > .showroom-team-name, .showroom-team[data-team='audi'] > .showroom-team-name { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.showroom-team[data-team='williams'] > .showroom-team-name { font-family: 'DM Mono', monospace; font-weight: 500; letter-spacing: -.035em; }
+.showroom-team[data-team='cadillac'] > .showroom-team-name { font-family: Georgia, serif; font-weight: 700; letter-spacing: .035em; }
+.showroom-team:focus-visible, .showroom-team-mobile__item:focus-visible { outline: 2px solid #e5edf7; outline-offset: -3px; }
+@media (min-width: 601px) { .showroom-gp-select select option:disabled { color: #888; background: #fff; } }
+@media (max-width: 600px) {
+  .showroom-team-mobile { gap: 3px; min-height: 122px; padding: 4px; background: #090c12; }
+  .showroom-team-mobile .showroom-team-mobile__item { align-content: center; gap: 3px; min-height: 56px; padding: 5px 2px; border: 1px solid rgba(220,230,245,.12); border-radius: 3px; color: #d0d8e3; background: linear-gradient(145deg, #181e28, #0d1119); transition: background .16s ease, border-color .16s ease; }
+  .showroom-team-mobile__item > i { top: 6px; bottom: 6px; left: 1px; opacity: .75; box-shadow: none; }
+  .showroom-team-mobile__item > .showroom-team-name { font: 800 .67rem 'Manrope', sans-serif; letter-spacing: .025em; }
+  .showroom-team-mobile__item .showroom-team-count { display: grid; justify-items: center; gap: 2px; margin: 0; font-style: normal; }
+  .showroom-team-mobile__item .showroom-team-count strong { color: #f6f8fc; font: 800 1.1rem 'Manrope', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.04em; line-height: 1; }
+  .showroom-team-mobile__item .showroom-team-count span { color: #c4cedc; padding: 0; font: 600 .39rem 'Manrope', sans-serif; letter-spacing: -.025em; line-height: 1.1; overflow-wrap: anywhere; }
+  .showroom-team-mobile__item .showroom-team-count--empty { min-height: 27px; align-content: center; }
+  .showroom-team-mobile .showroom-team-mobile__item--active { color: #fff; border-color: color-mix(in srgb, var(--item-primary) 55%, #9fa9b8); background: linear-gradient(145deg, color-mix(in srgb, var(--item-primary) 20%, #202631), #141921); box-shadow: inset 0 2px 0 var(--item-primary); }
+  .showroom-team-mobile__item--active > i { opacity: 1; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) { .showroom-teambar--desktop .showroom-team, .showroom-team-mobile .showroom-team-mobile__item { transition: none; } }

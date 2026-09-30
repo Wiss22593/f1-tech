@@ -1,3 +1,4 @@
+import { remainingGrandPrixName } from './remaining-grand-prix.mjs'
 export { garageUpdateCount } from './update-count.mjs'
 export type Locale = 'es' | 'en' | 'it' | 'pt' | 'fr' | 'de'
 
@@ -78,7 +79,7 @@ const garageLabels: Record<Locale, { categories: Record<string, string>; compone
 export const garageText = (locale: Locale) => garageMessages[locale]
 export const garageCategory = (locale: Locale, id: string) => garageLabels[locale].categories[id] ?? id
 export const garageComponent = (locale: Locale, id: string, fallback: string) => garageLabels[locale].components[id] ?? garageLabels.en.components[id] ?? fallback
-export const garageGrandPrixName = (locale: Locale, id: string, fallback: string) => garageLabels[locale].grandPrix[id] ?? garageLabels.en.grandPrix[id] ?? fallback
+export const garageGrandPrixName = (locale: Locale, id: string, fallback: string) => garageLabels[locale].grandPrix[id] ?? remainingGrandPrixName(locale, id) ?? garageLabels.en.grandPrix[id] ?? fallback
 const areaKeys: Record<string, string> = { 'Aerodinámica': 'aerodynamics', 'Carrocería': 'bodywork', 'Suspensión': 'suspension', 'Unidad de potencia': 'powerUnit', 'Frenos': 'brakes', 'Refrigeración': 'cooling' }
 const areaTranslations: Record<Locale, Record<string, string>> = {
   es: { aerodynamics: 'Aerodinámica', bodywork: 'Carrocería', suspension: 'Suspensión', powerUnit: 'Unidad de potencia', brakes: 'Frenos', cooling: 'Refrigeración' },
