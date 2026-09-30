@@ -63,7 +63,7 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
       <button type="button" onClick={() => { setGrandPrixId('Todos'); setTeam('Todos'); setComponent('Todos'); setStatus('Todos'); setArea('Todos') }}>{uiText(locale, 'clearFilters')}</button>
     </section>
 
-    <div className="updates-page__result"><p>{uiText(locale, 'shownRecords')} <b>{visibleUpdates.length.toString().padStart(2, '0')}</b></p><span>{uiText(locale, 'sourcesMetrics')}</span></div>
+    <div className="updates-page__result"><p>{uiText(locale, 'shownRecords')} <b>{visibleUpdates.length}</b></p><span>{uiText(locale, 'sourcesMetrics')}</span></div>
     <div className="updates-page__grid">
       {visibleUpdates.map((update) => <article className="technical-update-card card" key={update.id}>
         <header><span>{update.team} · {update.area}</span><b className={`status status--${statusClass(update.state)}`}>{technicalText(locale, update.state)}</b></header>

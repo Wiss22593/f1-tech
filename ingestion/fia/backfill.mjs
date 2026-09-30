@@ -1,13 +1,14 @@
+import { defaultSeason } from '../../src/domain/calendar.mjs'
 import { spawn } from 'node:child_process'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { resolveFiaEventIndex } from './finder.mjs'
-import { eventRegistry2026, selectCurrentEvents, selectIngestionWindowEvents } from './events.mjs'
+import { eventRegistry, selectCurrentEvents, selectIngestionWindowEvents } from './events.mjs'
 
 const args = Object.fromEntries(process.argv.slice(2).filter((value) => value.startsWith('--')).map((value) => { const [key, ...rest] = value.slice(2).split('='); return [key, rest.join('=') || true] }))
-const season = Number(args.season ?? 2026)
+const season = Number(args.season ?? defaultSeason(eventRegistry))
 if (args.backfill !== 'true' && args.current !== 'true') throw new Error('Use --backfill=true or --current=true.')
-const allEvents = eventRegistry2026.filter((event) => event.id.includes(String(season)))
+const allEvents = eventRegistry.filter((event) => event.season === season)
 const events = args.window === 'true' ? selectIngestionWindowEvents(allEvents, args.at ? new Date(String(args.at)) : new Date()) : args.current === 'true' ? selectCurrentEvents(allEvents, args.at ? new Date(String(args.at)) : new Date()) : allEvents
 const results = []
 for (const event of events) {

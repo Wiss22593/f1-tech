@@ -1,8 +1,9 @@
+import { createComponentIsolation, type ComponentIsolation } from './component-isolation.mjs'
 import { Billboard, Environment, Html, Lightformer, Line, OrbitControls, useGLTF } from '@react-three/drei'
-import { Canvas, useThree } from '@react-three/fiber'
-import { Component, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { ACESFilmicToneMapping, Color, Mesh, Vector3, type WebGLProgramParametersWithUniforms } from 'three'
+import { ACESFilmicToneMapping, Color, Vector3, type WebGLProgramParametersWithUniforms } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { CameraPresetId, CarComponentId, F1TechCarAsset, F1TechHotspot } from './assets'
 import { garageText, type Locale } from '../i18n'
@@ -35,53 +36,52 @@ function CameraPreset({ position }: { position: [number, number, number] }) {
   return null
 }
 
-function OriginalModel({ asset, theme }: { asset: F1TechCarAsset; theme: ViewerTheme }) {
+function OriginalModel({ asset, theme, selectedComponent }: { asset: F1TechCarAsset; theme: ViewerTheme; selectedComponent?: CarComponentId }) {
   const { scene } = useGLTF(asset.path)
   const model = useMemo(() => scene.clone(true), [scene])
-  useEffect(() => {
-    model.traverse((node) => {
-      if (!(node instanceof Mesh)) return
-      node.castShadow = true; node.receiveShadow = true
-      const materials = Array.isArray(node.material) ? node.material : [node.material]
-      const themedMaterials = materials.map((material) => {
-        const themed = material.clone() as typeof material & { color?: { set: (value: string) => void }; emissive?: { set: (value: string) => void }; map?: unknown; roughness?: number; metalness?: number; envMapIntensity?: number; emissiveIntensity?: number; needsUpdate?: boolean }
-        // Inspected GLB materials: carbon_mat, cockpit_mat, livery and Wheels. Only
-        // `livery` is the painted body; clearing its baked texture on the cloned
-        // material gives every team a reliably visible identity without blackening
-        // carbon, glass/cockpit or wheel surfaces.
-        if (asset.liveryMode === 'team-theme' && themed.name === 'livery' && themed.color) {
-          // Source hue is removed, while the original metallic/roughness map is
-          // retained. The body reads as a PBR surface; carbon, cockpit and wheels
-          // are untouched because their materials are not themed.
-          themed.map = null; themed.color.set(theme.bodyBase); themed.roughness = theme.materialRoughness; themed.metalness = theme.materialMetalness; themed.envMapIntensity = .62
-          themed.emissive?.set(theme.accent); themed.emissiveIntensity = theme.materialEmissiveIntensity; themed.needsUpdate = true
-          // A single, scoped shader pass gives the shared BGRT body its own
-          // F1 TECH language: a secondary plane and a narrow accent ribbon.
-          // `onBeforeCompile` always receives a fresh source, so these markers
-          // cannot accumulate across team switches.
-          themed.onBeforeCompile = (shader: WebGLProgramParametersWithUniforms) => {
-            shader.uniforms.f1TechBodySecondary = { value: new Color(theme.bodySecondary) }
-            shader.uniforms.f1TechAccent = { value: new Color(theme.accent) }
-            shader.vertexShader = shader.vertexShader
-              .replace('#include <common>', '#include <common>\nvarying vec3 vF1TechLiveryPosition;')
-              .replace('#include <begin_vertex>', '#include <begin_vertex>\nvF1TechLiveryPosition = transformed;')
-            shader.fragmentShader = shader.fragmentShader
-              .replace('#include <common>', '#include <common>\nuniform vec3 f1TechBodySecondary;\nuniform vec3 f1TechAccent;\nvarying vec3 vF1TechLiveryPosition;')
-              .replace('#include <color_fragment>', `#include <color_fragment>
+  const isolation = useRef<ComponentIsolation | null>(null)
+  useFrame((_, delta) => { isolation.current?.step(delta) })
+  useLayoutEffect(() => {
+    const controller = createComponentIsolation(model, asset.id, (material) => {
+      const themed = material.clone() as typeof material & { color?: { set: (value: string) => void }; emissive?: { set: (value: string) => void }; map?: unknown; roughness?: number; metalness?: number; envMapIntensity?: number; emissiveIntensity?: number; needsUpdate?: boolean }
+      // Inspected GLB materials: carbon_mat, cockpit_mat, livery and Wheels. Only
+      // `livery` is the painted body; clearing its baked texture on the cloned
+      // material gives every team a reliably visible identity without blackening
+      // carbon, glass/cockpit or wheel surfaces.
+      if (asset.liveryMode === 'team-theme' && themed.name === 'livery' && themed.color) {
+        // Source hue is removed, while the original metallic/roughness map is
+        // retained. The body reads as a PBR surface; carbon, cockpit and wheels
+        // are untouched because their materials are not themed.
+        themed.map = null; themed.color.set(theme.bodyBase); themed.roughness = theme.materialRoughness; themed.metalness = theme.materialMetalness; themed.envMapIntensity = .62
+        themed.emissive?.set(theme.accent); themed.emissiveIntensity = theme.materialEmissiveIntensity; themed.needsUpdate = true
+        // A single, scoped shader pass gives the shared BGRT body its own
+        // F1 TECH language: a secondary plane and a narrow accent ribbon.
+        // `onBeforeCompile` always receives a fresh source, so these markers
+        // cannot accumulate across team switches.
+        themed.onBeforeCompile = (shader: WebGLProgramParametersWithUniforms) => {
+          shader.uniforms.f1TechBodySecondary = { value: new Color(theme.bodySecondary) }
+          shader.uniforms.f1TechAccent = { value: new Color(theme.accent) }
+          shader.vertexShader = shader.vertexShader
+            .replace('#include <common>', '#include <common>\nvarying vec3 vF1TechLiveryPosition;')
+            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvF1TechLiveryPosition = transformed;')
+          shader.fragmentShader = shader.fragmentShader
+            .replace('#include <common>', '#include <common>\nuniform vec3 f1TechBodySecondary;\nuniform vec3 f1TechAccent;\nvarying vec3 vF1TechLiveryPosition;')
+            .replace('#include <color_fragment>', `#include <color_fragment>
 float f1TechSweep = sin(vF1TechLiveryPosition.z * 4.6 + vF1TechLiveryPosition.x * 2.1);
 float f1TechSecondaryMask = smoothstep(0.46, 0.86, f1TechSweep) * 0.38;
 float f1TechAccentMask = smoothstep(0.88, 0.97, f1TechSweep) * 0.72;
 diffuseColor.rgb = mix(diffuseColor.rgb, f1TechBodySecondary, f1TechSecondaryMask);
 diffuseColor.rgb = mix(diffuseColor.rgb, f1TechAccent, f1TechAccentMask);`)
-          }
-          themed.customProgramCacheKey = () => `f1-tech-livery-${theme.bodyBase}-${theme.bodySecondary}-${theme.accent}`
         }
-        return themed
-      })
-      node.material = Array.isArray(node.material) ? themedMaterials : themedMaterials[0]
+        themed.customProgramCacheKey = () => `f1-tech-livery-${theme.bodyBase}-${theme.bodySecondary}-${theme.accent}`
+      }
+      return themed
     })
-  }, [asset.liveryMode, model, theme])
-  return <primitive object={model} scale={asset.scale} rotation={asset.rotation} />
+    isolation.current = controller
+    return () => { controller.dispose(); isolation.current = null }
+  }, [asset.id, asset.liveryMode, model, theme])
+  useLayoutEffect(() => { isolation.current?.select(selectedComponent) }, [asset.id, model, selectedComponent, theme])
+  return <primitive object={model} scale={asset.scale} rotation={asset.rotation} dispose={null} />
 }
 
 function CameraFocus({ hotspot, controlsRef, requestId, defaultPosition, positionScale = 1 }: { hotspot?: F1TechHotspot; controlsRef: React.RefObject<OrbitControlsImpl | null>; requestId?: number; defaultPosition: [number, number, number]; positionScale?: number }) {
@@ -106,11 +106,6 @@ function CameraFocus({ hotspot, controlsRef, requestId, defaultPosition, positio
   return null
 }
 
-function InspectionHighlight({ hotspot, color }: { hotspot?: F1TechHotspot; color: string }) {
-  if (!hotspot) return null
-  return <pointLight position={hotspot.position} color={color} intensity={1.25} distance={2.1} decay={2} />
-}
-
 function TechnicalCallouts({ hotspots, activeComponents, onFocus }: Pick<ViewerProps, 'hotspots' | 'activeComponents'> & { onFocus: (hotspot: F1TechHotspot) => void }) {
   const [hoveredId, setHoveredId] = useState<string>()
   const [selectedHotspotId, setSelectedHotspotId] = useState<string>()
@@ -125,7 +120,7 @@ function TechnicalCallouts({ hotspots, activeComponents, onFocus }: Pick<ViewerP
   })}</>
 }
 
-export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedHotspot, focusRequestId, showCallouts = true, onSelectComponent }: ViewerProps) {
+export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedComponent, selectedHotspot, focusRequestId, showCallouts = true, onSelectComponent }: ViewerProps) {
   const mobile = useMobileViewer()
   const cameraPosition = useMemo<[number, number, number]>(() => {
     const position = asset.cameraPresets[cameraPreset]
@@ -136,5 +131,5 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const inspectionHotspot = selectedHotspot ?? focusedHotspot
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: .96 }} camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ambientLight intensity={.2} /><hemisphereLight args={['#91a4bb', '#090a0d', .48]} /><directionalLight castShadow position={[4.5, 7, 5]} intensity={2.8} color="#fff6eb" shadow-mapSize={[2048, 2048]} shadow-radius={8} shadow-bias={-.0001} /><directionalLight position={[-5, 2.5, 3]} intensity={.7} color="#a8c8ef" /><directionalLight position={[2.5, 4, -5]} intensity={1.25} color="#d5e0f0" /><Environment resolution={128}><Lightformer form="rect" intensity={2.6} color="#f6f8fc" position={[0, 6, 4]} scale={[9, 4, 1]} /><Lightformer form="rect" intensity={1.15} color="#b8d6f4" position={[-5, 2, 2]} scale={[4, 2, 1]} /><Lightformer form="rect" intensity={1.75} color="#e9edf4" position={[3, 3, -5]} scale={[5, 2, 1]} /></Environment><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel asset={asset} theme={theme} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh><InspectionHighlight hotspot={inspectionHotspot} color={theme.accent} />{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: .96 }} camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ambientLight intensity={.2} /><hemisphereLight args={['#91a4bb', '#090a0d', .48]} /><directionalLight castShadow position={[4.5, 7, 5]} intensity={2.8} color="#fff6eb" shadow-mapSize={[2048, 2048]} shadow-radius={8} shadow-bias={-.0001} /><directionalLight position={[-5, 2.5, 3]} intensity={.7} color="#a8c8ef" /><directionalLight position={[2.5, 4, -5]} intensity={1.25} color="#d5e0f0" /><Environment resolution={128}><Lightformer form="rect" intensity={2.6} color="#f6f8fc" position={[0, 6, 4]} scale={[9, 4, 1]} /><Lightformer form="rect" intensity={1.15} color="#b8d6f4" position={[-5, 2, 2]} scale={[4, 2, 1]} /><Lightformer form="rect" intensity={1.75} color="#e9edf4" position={[3, 3, -5]} scale={[5, 2, 1]} /></Environment><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel asset={asset} theme={theme} selectedComponent={selectedComponent ?? (showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

@@ -3,10 +3,8 @@ name: FIA auto-publish
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron is UTC. These two entries cover every day 06:17–23:47
-    # in America/Argentina/Buenos_Aires. Scheduled starts are best-effort.
-    - cron: '17,47 9-23 * * *'
-    - cron: '17,47 0-2 * * *'
+    # Generic UTC cadence, including night-time FP1. Starts are best-effort.
+    - cron: '17,47 * * * *'
 
 permissions:
   contents: write
@@ -32,22 +30,29 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Check whether a GP is in the ingestion window
+      - name: Resolve the current official calendar and FP1 watch window
         id: window
-        run: node ingestion/fia/auto-publish.mjs window
+        run: node --use-system-ca ingestion/fia/auto-publish.mjs window
 
       - name: Exit successfully outside an ingestion window
         if: steps.window.outputs.relevant != 'true'
-        run: echo "No GP is within the configured ingestion window. Nothing to publish."
+        run: echo "No verified FP1 watch window is active. Nothing to publish."
+
+      - name: Discover presentation document and check whether its bytes changed
+        id: discovery
+        if: steps.window.outputs.relevant == 'true'
+        run: node --use-system-ca ingestion/fia/scheduled.mjs --resolution=ingestion/output/calendar/watch-event.json --preflight=true
 
       - name: Install reproducible dependencies
-        if: steps.window.outputs.relevant == 'true'
+        if: steps.discovery.outputs.needs_pipeline == 'true'
         run: npm ci
 
       - name: Validate ingestion modules
-        if: steps.window.outputs.relevant == 'true'
+        if: steps.discovery.outputs.needs_pipeline == 'true'
         run: |
           node --check ingestion/fia/auto-publish.mjs
+          node --check ingestion/fia/official-calendar.mjs
+          node --check ingestion/fia/scheduled.mjs
           node --check ingestion/fia/finder.mjs
           node --check ingestion/fia/downloader.mjs
           node --check ingestion/fia/extractor.mjs
@@ -59,15 +64,15 @@ jobs:
           node --check ingestion/fia/backfill.mjs
 
       - name: Discover and atomically publish deterministic records
-        if: steps.window.outputs.relevant == 'true'
-        run: npm run fia:current -- --season=2026 --window=true --publish=true
+        if: steps.discovery.outputs.needs_pipeline == 'true'
+        run: node --use-system-ca ingestion/fia/scheduled.mjs --resolution=ingestion/output/calendar/watch-event.json --publish=true
 
       - name: Run the complete test suite
-        if: steps.window.outputs.relevant == 'true'
+        if: steps.discovery.outputs.needs_pipeline == 'true'
         run: npm test
 
       - name: Enforce final validation and the data-only allowlist
-        if: steps.window.outputs.relevant == 'true'
+        if: steps.discovery.outputs.needs_pipeline == 'true'
         id: guard
         env:
           AUTO_PUBLISH_EXPECTED_EVENT_ID: ${{ steps.window.outputs.event_id }}

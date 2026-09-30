@@ -1,0 +1,347 @@
+{
+  "bgrt-f1-concept-2026-evaluation": {
+    "file": "bgrt-f1-concept-2026.glb",
+    "sha256": "bdef86a049372691492063d45643455e44035eb7280068932510cf797c69f23a",
+    "meshRules": [
+      {
+        "node": "carbon",
+        "primitive": 0,
+        "vertices": 74112,
+        "indices": 403410,
+        "positionHash": "f90eed08",
+        "indexHash": "c9e92a47",
+        "weldPrecision": 10000,
+        "components": {
+          "floor": [
+            {
+              "firstTriangle": 2,
+              "triangles": 27628
+            }
+          ],
+          "frontWing": [
+            {
+              "firstTriangle": 8,
+              "triangles": 2272
+            },
+            {
+              "firstTriangle": 2280,
+              "triangles": 2272
+            }
+          ],
+          "rearWing": [
+            {
+              "firstTriangle": 54366,
+              "triangles": 1936
+            },
+            {
+              "firstTriangle": 56302,
+              "triangles": 1936
+            },
+            {
+              "firstTriangle": 58238,
+              "triangles": 2688
+            },
+            {
+              "firstTriangle": 60926,
+              "triangles": 1664
+            },
+            {
+              "firstTriangle": 62590,
+              "triangles": 1664
+            }
+          ]
+        }
+      },
+      {
+        "node": "Livery",
+        "primitive": 0,
+        "vertices": 70870,
+        "indices": 359946,
+        "positionHash": "2fd058d8",
+        "indexHash": "182a28c0",
+        "weldPrecision": 1000000,
+        "components": {
+          "frontWing": [
+            {
+              "firstTriangle": 13662,
+              "triangles": 616
+            },
+            {
+              "firstTriangle": 13758,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 13886,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 15686,
+              "triangles": 616
+            },
+            {
+              "firstTriangle": 15782,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 15910,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 17856,
+              "triangles": 384
+            },
+            {
+              "firstTriangle": 18240,
+              "triangles": 384
+            },
+            {
+              "firstTriangle": 90690,
+              "triangles": 2048
+            },
+            {
+              "firstTriangle": 92738,
+              "triangles": 2048
+            },
+            {
+              "firstTriangle": 94786,
+              "triangles": 2048
+            },
+            {
+              "firstTriangle": 96834,
+              "triangles": 2784
+            },
+            {
+              "firstTriangle": 99618,
+              "triangles": 2784
+            },
+            {
+              "firstTriangle": 102402,
+              "triangles": 2800
+            },
+            {
+              "firstTriangle": 105202,
+              "triangles": 2800
+            }
+          ],
+          "rearWing": [
+            {
+              "firstTriangle": 54,
+              "triangles": 2480
+            },
+            {
+              "firstTriangle": 2534,
+              "triangles": 2480
+            },
+            {
+              "firstTriangle": 5014,
+              "triangles": 1152
+            },
+            {
+              "firstTriangle": 5206,
+              "triangles": 224
+            },
+            {
+              "firstTriangle": 5270,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 17710,
+              "triangles": 66
+            },
+            {
+              "firstTriangle": 17776,
+              "triangles": 80
+            }
+          ]
+        }
+      }
+    ],
+    "objects": {
+      "wheels": [
+        "FL_Wheel",
+        "FR_Wheel",
+        "RL_Wheel",
+        "RR_Wheel"
+      ]
+    }
+  },
+  "alpine-a526-formulatech-evaluation": {
+    "file": "alpine-a526-formulatech.glb",
+    "sha256": "6d1f8f5680ab4c627fb8e4b82fc089c5fe047ccb0c45961c3673d394c9a9fd03",
+    "meshRules": [
+      {
+        "node": "carbon",
+        "primitive": 0,
+        "vertices": 74112,
+        "indices": 403410,
+        "positionHash": "f90eed08",
+        "indexHash": "c9e92a47",
+        "weldPrecision": 10000,
+        "components": {
+          "floor": [
+            {
+              "firstTriangle": 2,
+              "triangles": 27628
+            }
+          ],
+          "frontWing": [
+            {
+              "firstTriangle": 8,
+              "triangles": 2272
+            },
+            {
+              "firstTriangle": 2280,
+              "triangles": 2272
+            }
+          ],
+          "rearWing": [
+            {
+              "firstTriangle": 54366,
+              "triangles": 1936
+            },
+            {
+              "firstTriangle": 56302,
+              "triangles": 1936
+            },
+            {
+              "firstTriangle": 58238,
+              "triangles": 2688
+            },
+            {
+              "firstTriangle": 60926,
+              "triangles": 1664
+            },
+            {
+              "firstTriangle": 62590,
+              "triangles": 1664
+            }
+          ]
+        }
+      },
+      {
+        "node": "Livery",
+        "primitive": 1,
+        "vertices": 17468,
+        "indices": 88401,
+        "positionHash": "27a22e52",
+        "indexHash": "a2b7f9f8",
+        "weldPrecision": 1000000,
+        "components": {
+          "frontWing": [
+            {
+              "firstTriangle": 17737,
+              "triangles": 2048
+            },
+            {
+              "firstTriangle": 19785,
+              "triangles": 2048
+            },
+            {
+              "firstTriangle": 21833,
+              "triangles": 2048
+            },
+            {
+              "firstTriangle": 23881,
+              "triangles": 2784
+            },
+            {
+              "firstTriangle": 26665,
+              "triangles": 2784
+            }
+          ],
+          "rearWing": [
+            {
+              "firstTriangle": 0,
+              "triangles": 2480
+            },
+            {
+              "firstTriangle": 2480,
+              "triangles": 2480
+            },
+            {
+              "firstTriangle": 4960,
+              "triangles": 1152
+            },
+            {
+              "firstTriangle": 5152,
+              "triangles": 224
+            },
+            {
+              "firstTriangle": 5216,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 11078,
+              "triangles": 66
+            },
+            {
+              "firstTriangle": 11144,
+              "triangles": 80
+            }
+          ]
+        }
+      },
+      {
+        "node": "Livery",
+        "primitive": 2,
+        "vertices": 7640,
+        "indices": 35007,
+        "positionHash": "5b10c926",
+        "indexHash": "c76bf648",
+        "weldPrecision": 1000000,
+        "components": {
+          "frontWing": [
+            {
+              "firstTriangle": 782,
+              "triangles": 616
+            },
+            {
+              "firstTriangle": 878,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 1006,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 2806,
+              "triangles": 616
+            },
+            {
+              "firstTriangle": 2902,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 3030,
+              "triangles": 704
+            },
+            {
+              "firstTriangle": 4830,
+              "triangles": 384
+            },
+            {
+              "firstTriangle": 5214,
+              "triangles": 384
+            },
+            {
+              "firstTriangle": 6024,
+              "triangles": 2800
+            },
+            {
+              "firstTriangle": 8824,
+              "triangles": 2800
+            }
+          ]
+        }
+      }
+    ],
+    "objects": {
+      "wheels": [
+        "FL_Wheel",
+        "FR_Wheel",
+        "RL_Wheel",
+        "RR_Wheel"
+      ]
+    }
+  }
+}

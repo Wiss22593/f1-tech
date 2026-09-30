@@ -212,7 +212,7 @@ test('Garage opens text-only updates without assigning a fake camera component',
   assert.match(garage, /setSelectedUpdateId\(selecting \? update\.id : undefined\)/)
   assert.match(garage, /if \(!update\.componentId\) return/)
   assert.match(garage, /nonVisualizableUpdates\.map\(renderTextOnlyUpdate\)/)
-  assert.match(garage, /findLatestPublishedGrandPrix\(\)/)
+  assert.match(garage, /findPublishedGrandPrix\(\)/)
 })
 
 test('Madrid reruns are idempotent for the same hash, schema and parser version', async () => {
@@ -266,7 +266,7 @@ test('current event discovery selects Madrid during its verified race window', (
   assert.deepEqual(selectCurrentEvents(eventRegistry2026, new Date('2026-09-12T12:00:00Z')).map(({ id }) => id), ['madrid-grand-prix-2026'])
 })
 
-test('scheduled auto-publication uses the Buenos Aires GP window and exits early otherwise', () => {
+test('legacy backfill date-window helper remains compatible with historical fixtures', () => {
   assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date('2026-09-11T02:47:00Z')).map(({ id }) => id), ['madrid-grand-prix-2026'])
   assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date('2026-09-17T12:00:00Z')), [])
 })
@@ -366,7 +366,7 @@ test('six-locale catalog covers Garage labels and factual offline state', async 
   }
 })
 
-test('Thursday activity is watched Wednesday through the day after the verified finish', () => {
+test('legacy backfill date-window covers the recovered Thursday event', () => {
   for (const at of ['2026-09-23T12:00:00Z', '2026-09-24T12:00:00Z', '2026-09-27T12:00:00Z']) {
     assert.deepEqual(selectIngestionWindowEvents(eventRegistry2026, new Date(at)).map(({ id }) => id), ['azerbaijan-2026'])
   }
@@ -404,12 +404,13 @@ test('recovered Thursday document remains deterministic and latest published adv
   assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, ids), 'bahrain-2026')
 })
 
-test('scheduled workflow uses the general runner for exactly the window selected by its guard', async () => {
+test('scheduled workflow uses verified FP1, generic 24-hour cron and guarded preflight', async () => {
   const workflow = await readFile(new URL('../.github/workflows/fia-auto-publish.yml', import.meta.url), 'utf8')
-  assert.match(workflow, /fia:current -- --season=2026 --window=true --publish=true/)
+  assert.match(workflow, /scheduled\.mjs --resolution=ingestion\/output\/calendar\/watch-event\.json --publish=true/)
+  assert.match(workflow, /--preflight=true/)
+  assert.match(workflow, /needs_pipeline == 'true'/)
   assert.match(workflow, /contents: write/)
-  assert.match(workflow, /cron: '17,47 9-23 \* \* \*'/)
-  assert.match(workflow, /cron: '17,47 0-2 \* \* \*'/)
+  assert.match(workflow, /cron: '17,47 \* \* \* \*'/)
   const runner = await readFile(new URL('../ingestion/fia/backfill.mjs', import.meta.url), 'utf8')
   assert.match(runner, /status: 'NO_DOCUMENT_FOUND'/)
   assert.match(runner, /results.some\(\(\{ status \}\) => status === 'ERROR'\)/)

@@ -3,7 +3,7 @@ export type TechnicalState = 'ANNOUNCED' | 'SUBMITTED' | 'TESTED' | 'RUNNING' | 
 export type StableComponentId = 'front-wing' | 'nose' | 'floor' | 'diffuser' | 'rear-wing' | 'sidepods' | 'cooling' | 'engine-cover' | 'airbox' | 'cockpit' | 'halo' | 'front-suspension' | 'rear-suspension' | 'brakes' | 'wheels-tyres'
 export interface GrandPrix {
   id: string; season: number; name: string; country: string; city?: string; circuit: string
-  startDate: string | null; endDate: string | null; status: 'scheduled' | 'completed' | 'pending'
+  startDate: string | null; endDate: string | null; status: 'scheduled' | 'completed' | 'pending' | 'cancelled'
   sourceMetadata?: { source: string; retrievedAt?: string }
 }
 export interface TeamWeekendData { grandPrixId: string; teamId: string; updates: readonly TechnicalUpdateRecord[] }

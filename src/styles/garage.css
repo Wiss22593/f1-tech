@@ -156,3 +156,14 @@
   .showroom-gp-select select option,
   .showroom-gp-select select optgroup { background: #fff; color: #111; }
 }
+
+/* Keep year and GP on one row; both reuse the existing native menu styling. */
+.showroom__selectors { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: .5rem; width: 430px; }
+.showroom__selectors .showroom-gp-select { min-width: 0; }
+.showroom-season-select select { letter-spacing: 0; padding-inline: .65rem 1.6rem; }
+@media (max-width: 600px) {
+  .showroom__selectors { width: 100%; grid-template-columns: 68px minmax(0, 1fr); gap: .4rem; }
+  .showroom__selectors .showroom-gp-select select { font-size: .64rem; padding-left: .65rem; padding-right: 1.65rem; letter-spacing: .02em; }
+}
+
+.showroom-teambar--desktop .showroom-team em { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.3; letter-spacing: 0; }

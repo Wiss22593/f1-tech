@@ -2,7 +2,7 @@ import type { PublishedUpdate } from '../../services/fia/published-dataset'
 import { localizeFiaUpdate } from '../../services/fia/localization.mjs'
 import { teams } from '../teams/data'
 import type { CarComponentId, F1TechHotspot } from '../../three/assets'
-import { grandsPrix2026 } from '../../data/grands-prix/2026'
+import { grandsPrix } from '../../data/grands-prix'
 
 /** Single visual source of truth for the selector and the 3D car. */
 export interface TeamTheme {
@@ -24,7 +24,7 @@ export interface GarageUpdate {
 export type GarageContentLocale = 'es' | 'en' | 'it' | 'pt' | 'fr' | 'de'
 
 /** The Garage selector is a view of the canonical event registry, never a second event list. */
-export const garageGrandPrix = grandsPrix2026
+export const garageGrandPrix = grandsPrix
 
 const theme = (bodyBase: string, bodySecondary: string, accent: string, highlight: string, metallic: string, surface: string, materialMetalness = .58, materialRoughness = .3, materialEmissiveIntensity = .018): TeamTheme => ({ bodyBase, bodySecondary, accent, highlight, metallic, surface, materialMetalness, materialRoughness, materialEmissiveIntensity, carbon: '#101318', glass: '#0a0e14', wheel: '#1b212a', brake: accent, neutral: highlight, primary: bodyBase, secondary: bodySecondary })
 export const teamThemes: Record<string, TeamTheme> = {

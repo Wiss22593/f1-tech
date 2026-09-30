@@ -106,14 +106,17 @@ export function deriveSeasonIndexUrl(indexUrl) {
  * Submissions; technical decisions and infringement documents are ignored.
  */
 export async function fetchFiaDocumentIndex({ indexUrl, grandPrixId, season, eventName, fetchFn = fetch }) {
-  const response = await fetchFn(indexUrl, requestOptions())
-  if (!response.ok) throw new Error(`FIA index request failed: ${response.status}`)
-  const html = await response.text()
-  const primary = await documentsFromHtml({ html, pageUrl: indexUrl, grandPrixId, season, eventName, fetchFn, requireEventScope: false })
-  if (primary.length) return primary
+  let primaryError
+  try {
+    const response = await fetchFn(indexUrl, requestOptions())
+    if (!response.ok) throw new Error(`FIA index request failed: ${response.status}`)
+    const html = await response.text()
+    const primary = await documentsFromHtml({ html, pageUrl: indexUrl, grandPrixId, season, eventName, fetchFn, requireEventScope: false })
+    if (primary.length) return primary
+  } catch (error) { primaryError = error }
 
   const seasonIndexUrl = deriveSeasonIndexUrl(indexUrl)
-  if (!seasonIndexUrl || seasonIndexUrl === indexUrl) return []
+  if (!seasonIndexUrl || seasonIndexUrl === indexUrl) { if (primaryError) throw primaryError; return [] }
   const fallbackResponse = await fetchFn(seasonIndexUrl, requestOptions())
   if (!fallbackResponse.ok) throw new Error(`FIA season index request failed: ${fallbackResponse.status}`)
   const fallbackHtml = await fallbackResponse.text()
@@ -123,15 +126,16 @@ export async function fetchFiaDocumentIndex({ indexUrl, grandPrixId, season, eve
 /** Resolve only exact event links advertised by the official season index. */
 export async function resolveFiaEventIndex(event, { season = 2026, fetchFn = fetch } = {}) {
   if (event.indexUrl) return event.indexUrl
-  const seasonUrl = 'https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-' + season + '-' + (season === 2026 ? '2072' : '')
-  if (season !== 2026) throw new Error('Unsupported FIA season index; configure its official identifier.')
+  const seasonUrl = event.seasonIndexUrl ?? (season === 2026 ? 'https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072' : null)
+  if (!seasonUrl) return null
+  if (!isOfficialFiaUrl(seasonUrl)) throw new Error('Non-official FIA season index')
   const response = await fetchFn(seasonUrl, requestOptions())
   if (!response.ok) throw new Error('FIA season index request failed: ' + response.status)
   const html = await response.text()
   for (const match of html.matchAll(/<option\b[^>]*value=["']([^"']+)["'][^>]*>([\s\S]*?)<\/option>/gi)) {
     if (normalizeEventName(match[2]) !== normalizeEventName(event.eventName)) continue
     const url = new URL(match[1], seasonUrl)
-    if (isOfficialFiaUrl(url.href) && url.pathname.includes('/season/season-' + season + '-2072/event/')) return url.href
+    if (isOfficialFiaUrl(url.href) && url.pathname.includes('/season/season-' + season + '-') && url.pathname.includes('/event/')) return url.href
   }
   return null
 }
