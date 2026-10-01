@@ -1328,7 +1328,7 @@
   },
   "alpine-a526-formulatech-evaluation": {
     "file": "alpine-a526-formulatech.glb",
-    "sha256": "6d1f8f5680ab4c627fb8e4b82fc089c5fe047ccb0c45961c3673d394c9a9fd03",
+    "sha256": "b0cff510d87ada36dc345f583fa8e25a74eaf4bf210f1c2f4ec4cff65dc7700b",
     "meshRules": [
       {
         "node": "carbon",
@@ -1902,102 +1902,12 @@
       {
         "node": "Livery",
         "primitive": 1,
-        "vertices": 17468,
-        "indices": 88401,
-        "positionHash": "27a22e52",
-        "indexHash": "a2b7f9f8",
+        "vertices": 14568,
+        "indices": 73923,
+        "positionHash": "3d61dc0b",
+        "indexHash": "2c86d2ed",
         "partition": "indexed",
         "components": {
-          "frontWing": [
-            {
-              "firstTriangle": 17737,
-              "triangles": 896
-            },
-            {
-              "firstTriangle": 18249,
-              "triangles": 960
-            },
-            {
-              "firstTriangle": 18781,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 19273,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 19401,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 19785,
-              "triangles": 896
-            },
-            {
-              "firstTriangle": 20297,
-              "triangles": 896
-            },
-            {
-              "firstTriangle": 20829,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 20957,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 21321,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 21449,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 21833,
-              "triangles": 896
-            },
-            {
-              "firstTriangle": 22345,
-              "triangles": 896
-            },
-            {
-              "firstTriangle": 22877,
-              "triangles": 128
-            },
-            {
-              "firstTriangle": 23005,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 23497,
-              "triangles": 64
-            },
-            {
-              "firstTriangle": 23881,
-              "triangles": 2040
-            },
-            {
-              "firstTriangle": 23977,
-              "triangles": 744
-            },
-            {
-              "firstTriangle": 26665,
-              "triangles": 1972
-            },
-            {
-              "firstTriangle": 26761,
-              "triangles": 556
-            },
-            {
-              "firstTriangle": 29193,
-              "triangles": 68
-            },
-            {
-              "firstTriangle": 29197,
-              "triangles": 188
-            }
-          ],
           "rearWing": [
             {
               "firstTriangle": 0,
@@ -2148,14 +2058,78 @@
               "triangles": 5196
             }
           ],
-          "sidepods": [
+          "frontWing": [
             {
-              "firstTriangle": 16527,
-              "triangles": 14
+              "firstTriangle": 17705,
+              "triangles": 896
             },
             {
-              "firstTriangle": 16541,
-              "triangles": 18
+              "firstTriangle": 18217,
+              "triangles": 960
+            },
+            {
+              "firstTriangle": 18749,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 19241,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 19369,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 19753,
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 20265,
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 20797,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 20925,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 21289,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 21417,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 21801,
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 22313,
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 22845,
+              "triangles": 128
+            },
+            {
+              "firstTriangle": 22973,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 23465,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 23849,
+              "triangles": 378
+            },
+            {
+              "firstTriangle": 24227,
+              "triangles": 396
             }
           ]
         }
@@ -2163,10 +2137,10 @@
       {
         "node": "Livery",
         "primitive": 2,
-        "vertices": 7640,
-        "indices": 35007,
-        "positionHash": "5b10c926",
-        "indexHash": "c76bf648",
+        "vertices": 10630,
+        "indices": 49389,
+        "positionHash": "a2e7faa6",
+        "indexHash": "3dbd1fa1",
         "partition": "indexed",
         "components": {
           "frontWing": [
@@ -2412,34 +2386,58 @@
             },
             {
               "firstTriangle": 6024,
+              "triangles": 1662
+            },
+            {
+              "firstTriangle": 6120,
+              "triangles": 744
+            },
+            {
+              "firstTriangle": 8430,
+              "triangles": 1576
+            },
+            {
+              "firstTriangle": 8526,
+              "triangles": 556
+            },
+            {
+              "firstTriangle": 10562,
+              "triangles": 68
+            },
+            {
+              "firstTriangle": 10566,
+              "triangles": 188
+            },
+            {
+              "firstTriangle": 10818,
               "triangles": 1300
             },
             {
-              "firstTriangle": 6248,
+              "firstTriangle": 11042,
               "triangles": 1300
             },
             {
-              "firstTriangle": 6472,
+              "firstTriangle": 11266,
               "triangles": 100
             },
             {
-              "firstTriangle": 6476,
+              "firstTriangle": 11270,
               "triangles": 100
             },
             {
-              "firstTriangle": 8824,
+              "firstTriangle": 13618,
               "triangles": 1300
             },
             {
-              "firstTriangle": 9048,
+              "firstTriangle": 13842,
               "triangles": 1300
             },
             {
-              "firstTriangle": 9272,
+              "firstTriangle": 14066,
               "triangles": 100
             },
             {
-              "firstTriangle": 9276,
+              "firstTriangle": 14070,
               "triangles": 100
             }
           ],
@@ -2496,10 +2494,10 @@
       {
         "node": "Livery",
         "primitive": 0,
-        "vertices": 46380,
-        "indices": 236892,
-        "positionHash": "e194a819",
-        "indexHash": "a5f5fa07",
+        "vertices": 46384,
+        "indices": 236988,
+        "positionHash": "35b56a9c",
+        "indexHash": "c126928c",
         "partition": "indexed",
         "components": {
           "nose": [
@@ -2528,19 +2526,19 @@
               "triangles": 96
             },
             {
-              "firstTriangle": 65011,
+              "firstTriangle": 65043,
               "triangles": 42
             },
             {
-              "firstTriangle": 65031,
+              "firstTriangle": 65063,
               "triangles": 70
             },
             {
-              "firstTriangle": 65413,
+              "firstTriangle": 65445,
               "triangles": 96
             },
             {
-              "firstTriangle": 65429,
+              "firstTriangle": 65461,
               "triangles": 2
             }
           ],
@@ -2563,7 +2561,7 @@
             },
             {
               "firstTriangle": 33957,
-              "triangles": 5564
+              "triangles": 5596
             },
             {
               "firstTriangle": 34469,
@@ -2574,7 +2572,7 @@
               "triangles": 414
             },
             {
-              "firstTriangle": 46677,
+              "firstTriangle": 46709,
               "triangles": 334
             }
           ],
@@ -2600,15 +2598,15 @@
               "triangles": 6324
             },
             {
-              "firstTriangle": 44497,
+              "firstTriangle": 44529,
               "triangles": 294
             },
             {
-              "firstTriangle": 44681,
+              "firstTriangle": 44713,
               "triangles": 108
             },
             {
-              "firstTriangle": 46829,
+              "firstTriangle": 46861,
               "triangles": 438
             }
           ],
@@ -2618,129 +2616,129 @@
               "triangles": 16
             },
             {
-              "firstTriangle": 46047,
+              "firstTriangle": 46079,
               "triangles": 16
             }
           ],
           "mirrors": [
             {
-              "firstTriangle": 66934,
+              "firstTriangle": 66966,
               "triangles": 374
             },
             {
-              "firstTriangle": 66950,
+              "firstTriangle": 66982,
               "triangles": 186
             },
             {
-              "firstTriangle": 66966,
+              "firstTriangle": 66998,
               "triangles": 390
             },
             {
-              "firstTriangle": 66990,
+              "firstTriangle": 67022,
               "triangles": 30
-            },
-            {
-              "firstTriangle": 66998,
-              "triangles": 508
             },
             {
               "firstTriangle": 67030,
-              "triangles": 1444
-            },
-            {
-              "firstTriangle": 67190,
-              "triangles": 164
-            },
-            {
-              "firstTriangle": 67902,
-              "triangles": 1376
-            },
-            {
-              "firstTriangle": 68110,
-              "triangles": 316
-            },
-            {
-              "firstTriangle": 70450,
-              "triangles": 952
-            },
-            {
-              "firstTriangle": 72462,
-              "triangles": 374
-            },
-            {
-              "firstTriangle": 72478,
-              "triangles": 182
-            },
-            {
-              "firstTriangle": 72494,
-              "triangles": 390
-            },
-            {
-              "firstTriangle": 72518,
-              "triangles": 30
-            },
-            {
-              "firstTriangle": 72526,
               "triangles": 508
             },
             {
-              "firstTriangle": 72558,
+              "firstTriangle": 67062,
               "triangles": 1444
             },
             {
-              "firstTriangle": 72718,
+              "firstTriangle": 67222,
               "triangles": 164
             },
             {
-              "firstTriangle": 73430,
+              "firstTriangle": 67934,
               "triangles": 1376
             },
             {
-              "firstTriangle": 73638,
+              "firstTriangle": 68142,
               "triangles": 316
             },
             {
-              "firstTriangle": 75978,
+              "firstTriangle": 70482,
               "triangles": 952
             },
             {
-              "firstTriangle": 77990,
+              "firstTriangle": 72494,
+              "triangles": 374
+            },
+            {
+              "firstTriangle": 72510,
+              "triangles": 182
+            },
+            {
+              "firstTriangle": 72526,
+              "triangles": 390
+            },
+            {
+              "firstTriangle": 72550,
+              "triangles": 30
+            },
+            {
+              "firstTriangle": 72558,
+              "triangles": 508
+            },
+            {
+              "firstTriangle": 72590,
+              "triangles": 1444
+            },
+            {
+              "firstTriangle": 72750,
+              "triangles": 164
+            },
+            {
+              "firstTriangle": 73462,
+              "triangles": 1376
+            },
+            {
+              "firstTriangle": 73670,
+              "triangles": 316
+            },
+            {
+              "firstTriangle": 76010,
+              "triangles": 952
+            },
+            {
+              "firstTriangle": 78022,
               "triangles": 82
             },
             {
-              "firstTriangle": 78000,
+              "firstTriangle": 78032,
               "triangles": 42
             },
             {
-              "firstTriangle": 78014,
+              "firstTriangle": 78046,
               "triangles": 82
             },
             {
-              "firstTriangle": 78024,
+              "firstTriangle": 78056,
               "triangles": 46
             },
             {
-              "firstTriangle": 78030,
+              "firstTriangle": 78062,
               "triangles": 96
             },
             {
-              "firstTriangle": 78050,
+              "firstTriangle": 78082,
               "triangles": 96
             },
             {
-              "firstTriangle": 78076,
+              "firstTriangle": 78108,
               "triangles": 8
             },
             {
-              "firstTriangle": 78080,
+              "firstTriangle": 78112,
               "triangles": 8
             },
             {
-              "firstTriangle": 78184,
+              "firstTriangle": 78216,
               "triangles": 8
             },
             {
-              "firstTriangle": 78186,
+              "firstTriangle": 78218,
               "triangles": 8
             }
           ]
