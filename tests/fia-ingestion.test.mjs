@@ -210,7 +210,8 @@ test('latest published GP ignores newer future or no-document events without dat
 test('Garage opens text-only updates without assigning a fake camera component', async () => {
   const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
   assert.match(garage, /setSelectedUpdateId\(selecting \? update\.id : undefined\)/)
-  assert.match(garage, /if \(!update\.componentId\) return/)
+  assert.match(garage, /if \(!update\.componentId\) \{ setSelectedComponent\(undefined\)/)
+  assert.match(garage, /selectedComponentName=\{selectedUpdate\?\.fiaRecord\?\.componentName/)
   assert.match(garage, /nonVisualizableUpdates\.map\(renderTextOnlyUpdate\)/)
   assert.match(garage, /findPublishedGrandPrix\(\)/)
 })

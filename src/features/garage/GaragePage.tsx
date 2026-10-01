@@ -103,7 +103,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
   function selectUpdate(update: GarageUpdate) {
     const selecting = selectedUpdateId !== update.id
     setSelectedUpdateId(selecting ? update.id : undefined)
-    if (!update.componentId) return
+    if (!update.componentId) { setSelectedComponent(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1); return }
     setSelectedComponent(selecting ? update.componentId : undefined)
     setCameraPreset('default'); setFocusRequestId((value) => value + 1)
   }
@@ -162,7 +162,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     <section className="showroom__stage">
       <div className="showroom__heading"><h1 id="showroom-title">F1 TECH<span>.</span></h1></div>
       <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><div className="showroom__selectors"><label className="sr-only" htmlFor="season-selector">{copy.season}</label><span className="showroom-gp-select showroom-season-select"><select id="season-selector" value={season} onChange={(event) => changeSeason(Number(event.target.value))}>{seasons.map(year => <option key={year} value={year}>{year}</option>)}</select></span><span className="showroom-gp-select"><select id="grand-prix-selector" value={grandPrixId} disabled={!publishedResolved} onChange={(event) => changeGrandPrix(event.target.value)}>{!grandPrixId && <option value="" disabled>{copy.noPublished}</option>}{selectableGrandPrix.map((item) => <option key={item.id} value={item.id} disabled={!publishedGrandPrixIds.has(item.id)}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span></div><strong>{team.name.toUpperCase()}</strong><span>{grandPrixId ? grandPrix.circuit : null}</span></div>
-      <div className="showroom__canvas"><ModelViewer asset={carAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedUpdate && !selectedUpdate.componentId ? undefined : selectedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
+      <div className="showroom__canvas"><ModelViewer asset={carAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedUpdate && !selectedUpdate.componentId ? undefined : selectedComponent} selectedComponentName={selectedUpdate?.fiaRecord?.componentName ?? selectedUpdate?.presentedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
       <div className="showroom-mobile-toolbar">
         <div className={`showroom-mobile-updates${mobileUpdatesExpanded ? ' showroom-mobile-updates--expanded' : ''}`} aria-label={uiText(locale, 'updatesTitle')}>
           <h2>{uiText(locale, 'updatesTitle')}</h2>

@@ -1,3 +1,4 @@
+import { resolveInspectionComponent } from './component-mapping.mjs'
 import { createComponentIsolation, type ComponentIsolation } from './component-isolation.mjs'
 import { Billboard, Environment, Html, Lightformer, Line, OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -9,7 +10,7 @@ import type { CameraPresetId, CarComponentId, F1TechCarAsset, F1TechHotspot } fr
 import { garageText, type Locale } from '../i18n'
 
 type ViewerTheme = { primary: string; secondary: string; bodyBase: string; bodySecondary: string; accent: string; highlight: string; carbon: string; metallic: string; glass: string; wheel: string; brake: string; neutral: string; surface: string; materialMetalness: number; materialRoughness: number; materialEmissiveIntensity: number }
-type ViewerProps = { asset: F1TechCarAsset; locale: Locale; cameraPreset: CameraPresetId; theme: ViewerTheme; hotspots: F1TechHotspot[]; activeComponents: readonly CarComponentId[]; selectedComponent?: CarComponentId; selectedHotspot?: F1TechHotspot; focusRequestId?: number; showCallouts?: boolean; onSelectComponent: (componentId: CarComponentId) => void }
+type ViewerProps = { asset: F1TechCarAsset; locale: Locale; cameraPreset: CameraPresetId; theme: ViewerTheme; hotspots: F1TechHotspot[]; activeComponents: readonly CarComponentId[]; selectedComponent?: CarComponentId; selectedComponentName?: string | null; selectedHotspot?: F1TechHotspot; focusRequestId?: number; showCallouts?: boolean; onSelectComponent: (componentId: CarComponentId) => void }
 const mobileCameraScale = 1.5
 
 function useMobileViewer() {
@@ -78,9 +79,16 @@ diffuseColor.rgb = mix(diffuseColor.rgb, f1TechAccent, f1TechAccentMask);`)
       return themed
     })
     isolation.current = controller
-    return () => { controller.dispose(); isolation.current = null }
+    // Non-enumerable, read-only runtime diagnostic; no production UI or logging.
+    Object.defineProperty(model, 'componentFocusDiagnostics', { configurable: true, value: () => controller.snapshot() })
+    return () => { controller.dispose(); isolation.current = null; Reflect.deleteProperty(model, 'componentFocusDiagnostics') }
   }, [asset.id, asset.liveryMode, model, theme])
-  useLayoutEffect(() => { isolation.current?.select(selectedComponent) }, [asset.id, model, selectedComponent, theme])
+  useLayoutEffect(() => {
+    isolation.current?.select(selectedComponent)
+    if (import.meta.env.DEV && new URLSearchParams(window.location.search).has('focusDebug')) {
+      console.debug('[Component Focus V3]', { asset: asset.id, component: selectedComponent, targets: isolation.current?.resolveTargets(selectedComponent) ?? [] })
+    }
+  }, [asset.id, model, selectedComponent, theme])
   return <primitive object={model} scale={asset.scale} rotation={asset.rotation} dispose={null} />
 }
 
@@ -93,7 +101,7 @@ function CameraFocus({ hotspot, controlsRef, requestId, defaultPosition, positio
     const destination = hotspot ? new Vector3(...hotspot.inspectionView.position) : new Vector3(...defaultPosition)
     if (hotspot && positionScale !== 1) destination.sub(target).multiplyScalar(positionScale).add(target)
     const startedAt = performance.now(); const duration = hotspot?.inspectionView.duration ?? 620
-    controls.maxPolarAngle = hotspot?.id === 'floor' ? Math.PI - .08 : Math.PI / 2.08
+    controls.maxPolarAngle = hotspot && ['floor', 'diffuser'].includes(hotspot.id) ? Math.PI - .08 : Math.PI / 2.08
     let frame = 0; controls.enabled = false
     const animate = (now: number) => {
       const progress = Math.min((now - startedAt) / duration, 1); const eased = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2
@@ -120,7 +128,7 @@ function TechnicalCallouts({ hotspots, activeComponents, onFocus }: Pick<ViewerP
   })}</>
 }
 
-export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedComponent, selectedHotspot, focusRequestId, showCallouts = true, onSelectComponent }: ViewerProps) {
+export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedComponent, selectedComponentName, selectedHotspot, focusRequestId, showCallouts = true, onSelectComponent }: ViewerProps) {
   const mobile = useMobileViewer()
   const cameraPosition = useMemo<[number, number, number]>(() => {
     const position = asset.cameraPresets[cameraPreset]
@@ -129,7 +137,20 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   }, [asset, cameraPreset, mobile])
   const controlsRef = useRef<OrbitControlsImpl>(null); const [focusedHotspot, setFocusedHotspot] = useState<F1TechHotspot>()
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
-  const inspectionHotspot = selectedHotspot ?? focusedHotspot
+  const inspectionComponent = resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
+  const cornerComponent = inspectionComponent === 'frontCorner' ? 'frontSuspension' : inspectionComponent === 'rearCorner' ? 'rearSuspension' : undefined
+  const sourceHotspot = (cornerComponent ? hotspots.find(hotspot => hotspot.componentId === cornerComponent) : undefined) ?? selectedHotspot ?? focusedHotspot
+  // Frame the audited arms from above the tyres and keep the entire underside in view.
+  const inspectionHotspot = useMemo(() => {
+    if (!sourceHotspot) return undefined
+    const views: Partial<Record<CarComponentId, F1TechHotspot['inspectionView']>> = {
+      frontSuspension: { position: [-3.2, 3.4, 4.8], target: [0, .48, 1.15], duration: 780 },
+      rearSuspension: { position: [-3, 3.6, -5.1], target: [0, .58, -1.35], duration: 800 },
+      floor: { position: [3.9, -3.9, 4.3], target: [0, .12, -.2], duration: 940 },
+    }
+    const view = views[sourceHotspot.componentId]
+    return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
+  }, [sourceHotspot])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: .96 }} camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ambientLight intensity={.2} /><hemisphereLight args={['#91a4bb', '#090a0d', .48]} /><directionalLight castShadow position={[4.5, 7, 5]} intensity={2.8} color="#fff6eb" shadow-mapSize={[2048, 2048]} shadow-radius={8} shadow-bias={-.0001} /><directionalLight position={[-5, 2.5, 3]} intensity={.7} color="#a8c8ef" /><directionalLight position={[2.5, 4, -5]} intensity={1.25} color="#d5e0f0" /><Environment resolution={128}><Lightformer form="rect" intensity={2.6} color="#f6f8fc" position={[0, 6, 4]} scale={[9, 4, 1]} /><Lightformer form="rect" intensity={1.15} color="#b8d6f4" position={[-5, 2, 2]} scale={[4, 2, 1]} /><Lightformer form="rect" intensity={1.75} color="#e9edf4" position={[3, 3, -5]} scale={[5, 2, 1]} /></Environment><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel asset={asset} theme={theme} selectedComponent={selectedComponent ?? (showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: .96 }} camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ambientLight intensity={.2} /><hemisphereLight args={['#91a4bb', '#090a0d', .48]} /><directionalLight castShadow position={[4.5, 7, 5]} intensity={2.8} color="#fff6eb" shadow-mapSize={[2048, 2048]} shadow-radius={8} shadow-bias={-.0001} /><directionalLight position={[-5, 2.5, 3]} intensity={.7} color="#a8c8ef" /><directionalLight position={[2.5, 4, -5]} intensity={1.25} color="#d5e0f0" /><Environment resolution={128}><Lightformer form="rect" intensity={2.6} color="#f6f8fc" position={[0, 6, 4]} scale={[9, 4, 1]} /><Lightformer form="rect" intensity={1.15} color="#b8d6f4" position={[-5, 2, 2]} scale={[4, 2, 1]} /><Lightformer form="rect" intensity={1.75} color="#e9edf4" position={[3, 3, -5]} scale={[5, 2, 1]} /><Lightformer form="rect" intensity={2.6} color="#c2cfdf" position={[0, -3, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[12, 9, 1]} /></Environment><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel asset={asset} theme={theme} selectedComponent={inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }
