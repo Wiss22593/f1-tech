@@ -105,7 +105,7 @@ try {
     await page.reload(); const reloaded = await ready(alpine)
     assert.equal(reloaded.livery.length, 3)
     assert.ok(reloaded.livery.every(m => m.map && m.width === 4096))
-    assert.ok(requests.some(r => r.url.endsWith('/models/alpine-a526-formulatech.glb') && r.status === 200))
+    assert.ok(requests.some(r => r.url.endsWith('/models/alpine-a526-colapinto.glb') && r.status === 200))
     assert.ok(requests.every(r => !/apex/i.test(r.url)))
     assert.deepEqual(errors, [])
     if (output) await page.screenshot({ path: join(output, `alpine-${viewport.width}-reset.png`) })

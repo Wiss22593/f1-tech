@@ -1327,7 +1327,7 @@
     }
   },
   "alpine-a526-formulatech-evaluation": {
-    "file": "alpine-a526-formulatech.glb",
+    "file": "alpine-a526-colapinto.glb",
     "sha256": "a398ea532f3b6d71f434b5a86cfb6ef558019107ff71ac24fb4c87f99e7f90d6",
     "meshRules": [
       {

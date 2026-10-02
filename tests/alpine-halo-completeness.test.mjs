@@ -5,7 +5,7 @@ import { createComponentIsolation } from '../src/three/component-isolation.mjs'
 import { componentMeshMappings } from '../src/three/component-mapping.mjs'
 const id = 'alpine-a526-formulatech-evaluation'
 test('Alpine halo includes full ring and fittings but excludes mirror and cockpit islands', async () => {
- const { scene } = await loadAuditScene('public/models/alpine-a526-formulatech.glb')
+ const { scene } = await loadAuditScene('public/models/alpine-a526-colapinto.glb')
  const mesh = scene.getObjectByName('GEO_MAIN_BODY_3_366'), geometry = mesh.geometry, material = mesh.material
  const originalFaces = Array.from(geometry.index.array)
  const c = createComponentIsolation(scene, id)
@@ -26,7 +26,7 @@ test('Alpine halo includes full ring and fittings but excludes mirror and cockpi
  c.dispose();assert.equal(mesh.geometry,geometry);assert.equal(mesh.material,material)
 })
 test('Alpine halo fails closed when the mixed BODY mesh fingerprint changes', async () => {
- const {scene} = await loadAuditScene('public/models/alpine-a526-formulatech.glb')
+ const {scene} = await loadAuditScene('public/models/alpine-a526-colapinto.glb')
  const map = structuredClone(componentMeshMappings[id]);map.meshRules[0].positionHash = 'invalid'
  const c = createComponentIsolation(scene,id,undefined,map)
  assert.ok(!c.highlightable.includes('halo'))

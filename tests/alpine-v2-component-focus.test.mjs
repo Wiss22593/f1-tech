@@ -53,7 +53,7 @@ for (const Type of [MeshStandardMaterial, MeshPhysicalMaterial]) {
 }
 
 test('actual Alpine V2 keeps Physical paint/clearcoat and Standard carbon through every component transition', async () => {
-  const { scene } = await loadAuditScene('public/models/alpine-a526-formulatech.glb')
+  const { scene } = await loadAuditScene('public/models/alpine-a526-colapinto.glb')
   const source = new Map(materials(scene).map(material => [material.name, parameters(material)]))
   assert.ok(source.size > 0)
   const controller = createComponentIsolation(scene, 'alpine-a526-formulatech-evaluation')

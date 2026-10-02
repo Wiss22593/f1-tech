@@ -6,7 +6,7 @@ import { createComponentIsolation } from '../src/three/component-isolation.mjs'
 import { alpineAssetId, alpineInspectionViews, resolveAlpineFocus } from '../src/three/alpine-focus.mjs'
 import { resolveInspectionComponent } from '../src/three/component-mapping.mjs'
 
-const file='public/models/alpine-a526-formulatech.glb'
+const file='public/models/alpine-a526-colapinto.glb'
 test('Alpine: every eligible component has a standalone camera that encloses its real targets', async () => {
  const {scene}=await loadAuditScene(file), c=createComponentIsolation(scene,alpineAssetId)
  for(const component of c.highlightable) {

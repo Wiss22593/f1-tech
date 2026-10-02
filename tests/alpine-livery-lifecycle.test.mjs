@@ -16,7 +16,7 @@ test('9216px authored atlas is bounded proportionally; small textures remain unc
 })
 
 test('failed authored image decoding cannot be accepted as a successful white GLTF', async () => {
-  const {scene,gltf} = await loadAuditScene('public/models/alpine-a526-formulatech.glb')
+  const {scene,gltf} = await loadAuditScene('public/models/alpine-a526-colapinto.glb')
   const associations = new Map()
   scene.traverse(mesh => { if(mesh.isMesh) for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material]) associations.set(m,{materials:gltf.materials.findIndex(def=>def.name===m.name)}) })
   const result = {scene,parser:{json:gltf,associations}}
@@ -26,7 +26,7 @@ test('failed authored image decoding cannot be accepted as a successful white GL
 })
 
 test('Alpine texture channels and every base material survive focus, GP cleanup, remount and reload cycles', async () => {
-  const {scene,gltf} = await loadAuditScene('public/models/alpine-a526-formulatech.glb')
+  const {scene,gltf} = await loadAuditScene('public/models/alpine-a526-colapinto.glb')
   const materials = new Set()
   scene.traverse(mesh => { if(mesh.isMesh) for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material]) materials.add(m) })
   // CPU geometry audit omits image decoding. Supply real authored channel and
