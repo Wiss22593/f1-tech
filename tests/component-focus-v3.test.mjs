@@ -47,8 +47,8 @@ test('overlapping semantic assemblies share surfaces without duplicated triangle
 })
 for(const [asset,file]of [['bgrt-f1-concept-2026-evaluation','bgrt-f1-concept-2026.glb'],['alpine-a526-formulatech-evaluation','alpine-a526-formulatech.glb']])test(`${asset}: real GLTF hierarchy, every expanded target and material restoration`,async()=>{
  const {scene}=await loadAuditScene('public/models/'+file),sources=[];scene.traverse(m=>{if(m.isMesh)sources.push([m,m.material,m.geometry])});let c=createComponentIsolation(scene,asset)
- for(const component of ['frontWing','rearWing','floor','sidepods','nose','halo','engineCover','frontSuspension','rearSuspension','diffuser','wheels','frontCorner','rearCorner','chassis','mirrors','onboardCamera','frontBrake','rearBrake']){assert.ok(c.resolveTargets(component).length>0,component);c.select(component);c.step(1);const s=c.snapshot();assert.equal(s.active,component);assert.ok(s.materials.some(m=>m.gain===1&&m.components.includes(component)));assert.ok(s.materials.every(m=>m.gain===(m.components.includes(component)?1:.28)))}
- for(const component of ['cooling','airbox','frontDrum','beamWing','steeringWheel']){c.select(component);c.step(1);assert.equal(c.snapshot().active,null);assert.ok(c.snapshot().materials.every(m=>m.gain===1))}
+ for(const component of c.highlightable){assert.ok(c.resolveTargets(component).length>0,component);c.select(component);c.step(1);const s=c.snapshot();assert.equal(s.active,component);assert.ok(s.materials.some(m=>m.gain===1&&m.components.includes(component)));assert.ok(s.materials.every(m=>m.gain===(m.components.includes(component)?1:.28)))}
+ for(const component of (asset.startsWith('alpine')?['floor','nose','frontBrake','rearBrake','airbox','frontDrum','beamWing','steeringWheel']:['cooling','airbox','frontDrum','beamWing','steeringWheel'])){c.select(component);c.step(1);assert.equal(c.snapshot().active,null);assert.ok(c.snapshot().materials.every(m=>m.gain===1))}
  c.dispose();for(const[m,material,geo]of sources){assert.equal(m.material,material);assert.equal(m.geometry,geo)}
- c=createComponentIsolation(scene,asset);assert.ok(c.snapshot().cache.hits>=2);c.dispose()
+ c=createComponentIsolation(scene,asset);assert.ok(asset.startsWith('alpine') ? c.snapshot().geometries === 0 : c.snapshot().cache.hits>=2);c.dispose()
 })

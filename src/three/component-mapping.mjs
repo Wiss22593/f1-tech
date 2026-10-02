@@ -26,7 +26,7 @@ export function connectedTriangleParts(position, index, precision) {
   return [...parts.values()]
 }
 const aliases = {
-  frontwing: 'frontWing', frontwingendplate: 'frontWing', rearwing: 'rearWing', rearwingendplate: 'rearWing', floor: 'floor', flooredge: 'floor', floorbody: 'floor', floorfences: 'floor', floorleadingedgedevices: 'floor',
+  cooling: 'cooling', radiators: 'cooling', frontwing: 'frontWing', frontwingendplate: 'frontWing', rearwing: 'rearWing', rearwingendplate: 'rearWing', floor: 'floor', flooredge: 'floor', floorbody: 'floor', floorfences: 'floor', floorleadingedgedevices: 'floor',
   sidepods: 'sidepods', sidepod: 'sidepods', sidepodinlet: 'sidepods', nose: 'nose', halo: 'halo', enginecover: 'engineCover', cokeenginecover: 'engineCover',
   frontsuspension: 'frontSuspension', rearsuspension: 'rearSuspension', diffuser: 'diffuser', wheels: 'wheels', wheelstyres: 'wheels',
   frontcorner: 'frontCorner', rearcorner: 'rearCorner', frontbrake: 'frontBrake', rearbrake: 'rearBrake', cockpit: 'chassis', chassis: 'chassis', steeringwheel: 'steeringWheel', onboardcamera: 'onboardCamera', tvcamera: 'onboardCamera', mirrors: 'mirrors', mirror: 'mirrors', frontwheels: 'frontWheels', rearwheels: 'rearWheels',

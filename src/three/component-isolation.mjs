@@ -20,7 +20,7 @@ function isolationChannel(material, components) {
       .replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.rgb *= f1TechIsolationGain;')
   }
   material.customProgramCacheKey = () => `${cacheKey}|f1-tech-component-isolation-v3`
-  return { material, components, uniform, start: 1, target: 1 }
+  return { material, components, uniform, start: 1, target: 1, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
 }
 
 function cloneOriginalMaterial(material) {
@@ -113,6 +113,10 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     for (const name of names) {
       const object = resolveComponentNode(model, name), descendants = []
       object?.traverse(node => { if (node.isMesh) descendants.push(node) })
+      const fingerprint = mapping?.objectFingerprints?.[name]
+      const mesh = descendants[0]
+      const fingerprintValid = !fingerprint || (descendants.length === 1 && mesh.geometry.index && geometryArrayHash(mesh.geometry.attributes.position.array) === fingerprint.positionHash && geometryArrayHash(mesh.geometry.index.array) === fingerprint.indexHash)
+      if (!fingerprintValid) { fail(component, 'object geometry fingerprint mismatch ' + name); continue }
       if (!descendants.length) {
         fail(component, 'missing or ambiguous object ' + name)
         continue
@@ -156,7 +160,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
   const filter = labels => [...(labels ?? [])].filter(component => highlightable.includes(component))
   const channels = [], originals = [], ownedGeometries = []
   for (const mesh of meshes) {
-    originals.push({ mesh, geometry: mesh.geometry, material: mesh.material, castShadow: mesh.castShadow, receiveShadow: mesh.receiveShadow })
+    originals.push({ mesh, geometry: mesh.geometry, material: mesh.material, castShadow: mesh.castShadow, receiveShadow: mesh.receiveShadow, renderOrder: mesh.renderOrder })
     mesh.castShadow = true
     mesh.receiveShadow = true
     const entry = entries.get(mesh)
@@ -202,6 +206,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     }
   }
 
+  let mode = 'normal'
   let active, elapsed = isolationDuration, disposed = false
   const targetList = component => {
     const canonical = normalizeComponentId(component) ?? component
@@ -213,8 +218,19 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       if (disposed) return
       const canonical = normalizeComponentId(component) ?? component
       active = targetList(canonical).length && channels.some(channel => channel.components.includes(canonical)) ? canonical : undefined
+      mode = !active ? 'normal' : mapping?.internalComponents?.includes(active) ? 'internal' : 'external'
       elapsed = 0
       for (const channel of channels) {
+        const target = active && channel.components.includes(active)
+        Object.assign(channel.material, channel.baseline)
+        if (mode === 'internal') {
+          // Opaque targets bypass occluder depth; ghost groups never write depth.
+          channel.material.transparent = !target
+          channel.material.opacity = target ? 1 : 0.10
+          channel.material.depthWrite = false
+          channel.material.depthTest = !target
+        }
+        channel.material.needsUpdate = true
         channel.start = channel.uniform.value
         channel.target = !active || channel.components.includes(active) ? 1 : isolationBrightness
       }
@@ -231,12 +247,13 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     resolveTargets: targetList,
     snapshot() {
       return {
-        assetId, active: active ?? null, highlightable: [...highlightable],
+        assetId, mode, active: active ?? null, highlightable: [...highlightable],
         targetCount: active ? targetList(active).length : 0,
         targets: Object.fromEntries(highlightable.map(component => [component, targetList(component)])),
         failures: [...failures], cache: { ...cache },
         materials: channels.map(channel => ({
           component: channel.components[0] ?? null, components: [...channel.components],
+          opacity: channel.material.opacity, transparent: channel.material.transparent, depthWrite: channel.material.depthWrite, depthTest: channel.material.depthTest,
           gain: channel.uniform.value, uuid: channel.material.uuid,
         })),
         geometries: ownedGeometries.length, disposed,
@@ -255,6 +272,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
         original.mesh.material = original.material
         original.mesh.castShadow = original.castShadow
         original.mesh.receiveShadow = original.receiveShadow
+        original.mesh.renderOrder = original.renderOrder
       }
       for (const geometry of ownedGeometries) geometry.dispose()
     },
