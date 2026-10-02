@@ -72,7 +72,8 @@ export function GaragePage({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!publishedResolved) return
     const query = new URLSearchParams(window.location.search)
-    if (grandPrixId) query.set('gp', grandPrixId); else query.delete('gp')
+    // Keep automatic selection automatic on reload; explicit historical links remain stable.
+    if (grandPrixId && requestedSelection.current.gp) query.set('gp', grandPrixId); else query.delete('gp')
     query.set('team', teamId)
     window.history.replaceState({}, '', `${window.location.pathname}?${query.toString()}`)
   }, [grandPrixId, teamId, publishedResolved])

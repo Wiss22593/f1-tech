@@ -1,3 +1,4 @@
+import { matchesEventName } from './event-matching.mjs'
 import identities from '../../data/grands-prix/f1-identities.json' with { type: 'json' }
 import { calendarState, localSessionToUtc, watchDecision } from '../../src/domain/calendar.mjs'
 const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
@@ -47,18 +48,19 @@ export function parseF1Race(html) {
 }
 export function reconcileCalendar(registry, fiaEvents, f1Events) {
   const diagnostics = [], events = []
-  const fiaNames = new Map(fiaEvents.map(e => [nameKey(e.eventName), e]))
-  for (const fia of fiaEvents) if (!registry.some(e => nameKey(e.eventName) === nameKey(fia.eventName))) diagnostics.push({ status: 'MANUAL_REVIEW', reason: 'UNMAPPED_FIA_EVENT', eventName: fia.eventName })
+  for (const fia of fiaEvents) if (!registry.some(e => matchesEventName(e, fia.eventName))) diagnostics.push({ status: 'MANUAL_REVIEW', reason: 'UNMAPPED_FIA_EVENT', eventName: fia.eventName })
   for (const f1 of f1Events) {
     const matches = registry.filter(e => (e.f1Slug ?? identities[e.eventName]) === f1.slug)
-    const event = matches.length === 1 ? matches[0] : null, fia = event && fiaNames.get(nameKey(event.eventName))
+    const event = matches.length === 1 ? matches[0] : null
+    const fiaMatches = event ? fiaEvents.filter(fia => matchesEventName(event, fia.eventName)) : []
+    const fia = fiaMatches.length === 1 ? fiaMatches[0] : null
     if (!event || !fia) { diagnostics.push({ status: 'MANUAL_REVIEW', reason: 'UNMAPPED_OFFICIAL_EVENT', slug: f1.slug }); continue }
     if (fia.status === 'cancelled') continue
     events.push({ ...event, ...f1, status: 'scheduled', fiaCircuit: fia.circuit })
     if (event.startDate !== f1.startDate || event.endDate !== f1.endDate || nameKey(fia.circuit) !== nameKey(event.circuit) && !nameKey(event.circuit).includes(nameKey(fia.circuit))) diagnostics.push({ status: 'OFFICIAL_CHANGE', id: event.id, before: { startDate: event.startDate, endDate: event.endDate, circuit: event.circuit }, after: { startDate: f1.startDate, endDate: f1.endDate, fiaCircuit: fia.circuit } })
   }
   for (const fia of fiaEvents.filter(e => e.status !== 'cancelled')) {
-    const registered = registry.find(e => nameKey(e.eventName) === nameKey(fia.eventName))
+    const registered = registry.find(e => matchesEventName(e, fia.eventName))
     if (registered && !f1Events.some(e => e.slug === (registered.f1Slug ?? identities[registered.eventName]))) diagnostics.push({ status: 'MANUAL_REVIEW', reason: 'OFFICIAL_SCHEDULE_MISSING', eventName: fia.eventName })
   }
   for (const fia of fiaEvents.filter(e => e.status === 'cancelled')) diagnostics.push({ status: 'CANCELLED', eventName: fia.eventName })
@@ -80,7 +82,7 @@ export async function resolveOfficialCalendar(registry, { season, at = new Date(
   const clock = calendarState(events, at), candidate = clock.current ?? clock.next
   if (!candidate) return { status: 'NO_UPCOMING_EVENT', relevant: false, event: null, diagnostics, sources: [fiaUrl, f1Url] }
   const race = parseF1Race(await officialHtml(candidate.sourceUrl, fetchFn))
-  if (nameKey(race.meetingName) !== nameKey(candidate.eventName) || Number(race.season) !== season) return { status: 'MANUAL_REVIEW', relevant: false, event: null, diagnostics: [...diagnostics, { reason: 'RACE_IDENTITY_MISMATCH' }], sources: [fiaUrl, f1Url] }
+  if (!matchesEventName(candidate, race.meetingName) || Number(race.season) !== season) return { status: 'MANUAL_REVIEW', relevant: false, event: null, diagnostics: [...diagnostics, { reason: 'RACE_IDENTITY_MISMATCH' }], sources: [fiaUrl, f1Url] }
   if (race.meetingStartDate?.slice(0,10) !== candidate.startDate || race.meetingEndDate?.slice(0,10) !== candidate.endDate) return { status: 'MANUAL_REVIEW', relevant: false, event: null, diagnostics: [...diagnostics, { reason: 'CALENDAR_SESSION_DATES_DISAGREE' }], sources: [fiaUrl, f1Url, candidate.sourceUrl] }
   // Sprint weekends still have p1. If absent, use only an explicitly labelled first practice.
   const first = race.meetingSessions?.find(s => s.session === 'p1' || (s.sessionType === 'Practice' && Number(s.sessionNumber) === 1))

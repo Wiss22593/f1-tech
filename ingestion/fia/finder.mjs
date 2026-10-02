@@ -1,3 +1,4 @@
+import { matchesEventName } from './event-matching.mjs'
 /** Injected discovery keeps FIA URL discovery out of React and does not assume a Friday publication. */
 export async function findDocuments(fetchDocumentIndex, grandPrixId) {
   const index = await fetchDocumentIndex(grandPrixId)
@@ -11,7 +12,6 @@ const requestOptions = () => ({
 
 const stripHtml = (value = '') => value.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
 const normalizeTitle = (value = '') => stripHtml(value).replace(/[–—]/g, '-').replace(/\s+Published on\b.*$/i, '').trim()
-const normalizeEventName = (value = '') => stripHtml(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
 
 /** Only the explicit FIA document name is accepted; generic technical wording is never sufficient. */
 export function isPresentationTitle(value = '') {
@@ -36,11 +36,12 @@ function directPdfUrl(value) {
   }
 }
 
-function extractEventBlock(html, eventName, required) {
+function extractEventBlock(html, event, required) {
   const markerPattern = /<div\b[^>]*class=["'][^"']*\bevent-title\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi
   const markers = [...html.matchAll(markerPattern)]
-  const target = normalizeEventName(eventName)
-  const markerIndex = markers.findIndex((match) => normalizeEventName(match[1]) === target)
+  const matching = markers.flatMap((match, index) => matchesEventName(event, match[1]) ? [index] : [])
+  if (matching.length > 1) throw new Error('manual_review: ambiguous FIA event blocks')
+  const markerIndex = matching[0] ?? -1
   if (markerIndex < 0) return required || markers.length ? null : html
   const start = markers[markerIndex].index ?? 0
   const end = markers[markerIndex + 1]?.index ?? html.length
@@ -77,7 +78,7 @@ async function resolveOfficialPdf(candidateUrl, fetchFn) {
 }
 
 async function documentsFromHtml({ html, pageUrl, grandPrixId, season, eventName, fetchFn, requireEventScope }) {
-  const eventBlock = extractEventBlock(html, eventName, requireEventScope)
+  const eventBlock = extractEventBlock(html, { id: grandPrixId, season, eventName }, requireEventScope)
   if (!eventBlock) return []
   const retrievedAt = new Date().toISOString()
   const documents = []
@@ -113,7 +114,7 @@ export async function fetchFiaDocumentIndex({ indexUrl, grandPrixId, season, eve
     const html = await response.text()
     const primary = await documentsFromHtml({ html, pageUrl: indexUrl, grandPrixId, season, eventName, fetchFn, requireEventScope: false })
     if (primary.length) return primary
-  } catch (error) { primaryError = error }
+  } catch (error) { if (error.message.startsWith('manual_review:')) throw error; primaryError = error }
 
   const seasonIndexUrl = deriveSeasonIndexUrl(indexUrl)
   if (!seasonIndexUrl || seasonIndexUrl === indexUrl) { if (primaryError) throw primaryError; return [] }
@@ -132,10 +133,12 @@ export async function resolveFiaEventIndex(event, { season = 2026, fetchFn = fet
   const response = await fetchFn(seasonUrl, requestOptions())
   if (!response.ok) throw new Error('FIA season index request failed: ' + response.status)
   const html = await response.text()
+  const matchedUrls = new Set()
   for (const match of html.matchAll(/<option\b[^>]*value=["']([^"']+)["'][^>]*>([\s\S]*?)<\/option>/gi)) {
-    if (normalizeEventName(match[2]) !== normalizeEventName(event.eventName)) continue
+    if (!matchesEventName({ ...event, season: event.season ?? season }, match[2])) continue
     const url = new URL(match[1], seasonUrl)
-    if (isOfficialFiaUrl(url.href) && url.pathname.includes('/season/season-' + season + '-') && url.pathname.includes('/event/')) return url.href
+    if (isOfficialFiaUrl(url.href) && url.pathname.includes('/season/season-' + season + '-') && url.pathname.includes('/event/')) matchedUrls.add(url.href)
   }
-  return null
+  if (matchedUrls.size > 1) throw new Error('manual_review: ambiguous FIA event indexes')
+  return [...matchedUrls][0] ?? null
 }
