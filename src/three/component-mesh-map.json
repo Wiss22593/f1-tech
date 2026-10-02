@@ -1329,7 +1329,70 @@
   "alpine-a526-formulatech-evaluation": {
     "file": "alpine-a526-formulatech.glb",
     "sha256": "a398ea532f3b6d71f434b5a86cfb6ef558019107ff71ac24fb4c87f99e7f90d6",
-    "meshRules": [],
+    "meshRules": [
+      {
+        "node": "GEO_MAIN_BODY_3_366",
+        "primitive": 0,
+        "partition": "indexed",
+        "vertices": 18252,
+        "indices": 99168,
+        "positionHash": "5eee0635",
+        "indexHash": "eea3ac3a",
+        "components": {
+          "halo": [
+            {
+              "firstTriangle": 0,
+              "triangles": 3954
+            },
+            {
+              "firstTriangle": 33,
+              "triangles": 3688
+            },
+            {
+              "firstTriangle": 77,
+              "triangles": 247
+            },
+            {
+              "firstTriangle": 16605,
+              "triangles": 247
+            },
+            {
+              "firstTriangle": 3779,
+              "triangles": 228
+            },
+            {
+              "firstTriangle": 20307,
+              "triangles": 228
+            }
+          ]
+        }
+      },
+      {
+        "node": "GEO_MAIN_STICKERS_368",
+        "primitive": 0,
+        "partition": "indexed",
+        "vertices": 11120,
+        "indices": 58686,
+        "positionHash": "89a1cdb7",
+        "indexHash": "974b892d",
+        "components": {
+          "halo": [
+            {
+              "firstTriangle": 2398,
+              "triangles": 3502
+            },
+            {
+              "firstTriangle": 6642,
+              "triangles": 575
+            },
+            {
+              "firstTriangle": 16423,
+              "triangles": 575
+            }
+          ]
+        }
+      }
+    ],
     "objects": {
       "frontWing": [
         "GEO_CB1_FW_ENDPLATE_L_459",

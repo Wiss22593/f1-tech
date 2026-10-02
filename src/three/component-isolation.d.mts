@@ -8,7 +8,7 @@ export interface ComponentIsolation {
   select(component?: CarComponentId): void
   resolveTargets(component?: CarComponentId): GeometryTarget[]
   step(delta: number): boolean
-  snapshot(): { assetId: string; mode: 'normal' | 'external' | 'internal'; active: CarComponentId | null; highlightable: CarComponentId[]; materials: Array<{ component: CarComponentId | null; components: CarComponentId[]; gain: number; focusTint: number; uuid: string }>; targetCount: number; targets: Partial<Record<CarComponentId, GeometryTarget[]>>; cache: { hits: number; misses: number }; failures: { component: string; reason: string }[]; geometries: number; disposed: boolean }
+  snapshot(): { assetId: string; mode: 'normal' | 'external' | 'internal'; active: CarComponentId | null; highlightable: CarComponentId[]; materials: Array<{ component: CarComponentId | null; components: CarComponentId[]; gain: number; focusTint: number; haloContrast: number; uuid: string }>; targetCount: number; targets: Partial<Record<CarComponentId, GeometryTarget[]>>; cache: { hits: number; misses: number }; failures: { component: string; reason: string }[]; geometries: number; disposed: boolean }
   dispose(): void
 }
 export function createComponentIsolation(model: Object3D, assetId: string, cloneMaterial?: (material: Material) => Material): ComponentIsolation

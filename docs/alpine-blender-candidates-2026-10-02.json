@@ -1,0 +1,1309 @@
+{
+  "assetSha256": "a398ea532f3b6d71f434b5a86cfb6ef558019107ff71ac24fb4c87f99e7f90d6",
+  "coordinateSpace": "GLTF world before viewer scale 1.1",
+  "note": "Candidates for manual identification, never confirmed mappings. Geometry may combine regions; hub does not imply brake. No absence inferred from unnamed meshes.",
+  "categories": {
+    "nose": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_MAIN_BODY_1_362",
+          "sourceName": "GEO_MAIN_BODY_1_362",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6914610862731934,
+            0.18217672407627106,
+            0.36365461349487305
+          ],
+          "max": [
+            0.6914610862731934,
+            0.7034962177276611,
+            2.9899673461914062
+          ],
+          "center": [
+            0,
+            0.4428364709019661,
+            1.6768109798431396
+          ],
+          "triangles": 20476
+        },
+        {
+          "name": "GEO_MAIN_BODY_1B_363",
+          "sourceName": "GEO_MAIN_BODY_1B_363",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.15722891688346863,
+            0.6724860072135925,
+            0.9474581480026245
+          ],
+          "max": [
+            0.15722891688346863,
+            0.6859570145606995,
+            1.1713194847106934
+          ],
+          "center": [
+            0,
+            0.679221510887146,
+            1.059388816356659
+          ],
+          "triangles": 417
+        },
+        {
+          "name": "GEO_CB1_1_344",
+          "sourceName": "GEO_CB1_1_344",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7069962024688721,
+            0.04129229485988617,
+            -2.2379002571105957
+          ],
+          "max": [
+            0.7069962024688721,
+            0.57151198387146,
+            2.6070146560668945
+          ],
+          "center": [
+            0,
+            0.30640213936567307,
+            0.18455719947814941
+          ],
+          "triangles": 36512
+        }
+      ]
+    },
+    "floor": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_1_344",
+          "sourceName": "GEO_CB1_1_344",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7069962024688721,
+            0.04129229485988617,
+            -2.2379002571105957
+          ],
+          "max": [
+            0.7069962024688721,
+            0.57151198387146,
+            2.6070146560668945
+          ],
+          "center": [
+            0,
+            0.30640213936567307,
+            0.18455719947814941
+          ],
+          "triangles": 36512
+        },
+        {
+          "name": "GEO_CB1_3_346",
+          "sourceName": "GEO_CB1_3_346",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7955237030982971,
+            0.09279176592826843,
+            -1.8298760652542114
+          ],
+          "max": [
+            0.7955237030982971,
+            0.3052594065666199,
+            1.2737116813659668
+          ],
+          "center": [
+            0,
+            0.19902558624744415,
+            -0.2780821919441223
+          ],
+          "triangles": 39790
+        },
+        {
+          "name": "GEO_GEN_2_354",
+          "sourceName": "GEO_GEN_2_354",
+          "materials": [
+            {
+              "name": "Material_4",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.24041195213794708,
+            0.031103715300559998,
+            -1.3460806608200073
+          ],
+          "max": [
+            0.16390837728977203,
+            1.1278375387191772,
+            2.0491862297058105
+          ],
+          "center": [
+            -0.038251787424087524,
+            0.5794706270098686,
+            0.3515527844429016
+          ],
+          "triangles": 2190
+        }
+      ]
+    },
+    "diffuser": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_1_344",
+          "sourceName": "GEO_CB1_1_344",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7069962024688721,
+            0.04129229485988617,
+            -2.2379002571105957
+          ],
+          "max": [
+            0.7069962024688721,
+            0.57151198387146,
+            2.6070146560668945
+          ],
+          "center": [
+            0,
+            0.30640213936567307,
+            0.18455719947814941
+          ],
+          "triangles": 36512
+        },
+        {
+          "name": "GEO_CB1_3_346",
+          "sourceName": "GEO_CB1_3_346",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7955237030982971,
+            0.09279176592826843,
+            -1.8298760652542114
+          ],
+          "max": [
+            0.7955237030982971,
+            0.3052594065666199,
+            1.2737116813659668
+          ],
+          "center": [
+            0,
+            0.19902558624744415,
+            -0.2780821919441223
+          ],
+          "triangles": 39790
+        },
+        {
+          "name": "GEO_GEN_1_353",
+          "sourceName": "GEO_GEN_1_353",
+          "materials": [
+            {
+              "name": "Material_4",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.32403692603111267,
+            0.25785398483276367,
+            -2.4483635425567627
+          ],
+          "max": [
+            0.32403692603111267,
+            0.8561077117919922,
+            2.783806324005127
+          ],
+          "center": [
+            0,
+            0.5569808483123779,
+            0.16772139072418213
+          ],
+          "triangles": 2520
+        }
+      ]
+    },
+    "sidepods": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_MAIN_BODY_2_364",
+          "sourceName": "GEO_MAIN_BODY_2_364",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7140082120895386,
+            0.14949147403240204,
+            -1.6172329187393188
+          ],
+          "max": [
+            0.7140082120895386,
+            1.0376396179199219,
+            0.47897791862487793
+          ],
+          "center": [
+            0,
+            0.593565545976162,
+            -0.5691275000572205
+          ],
+          "triangles": 35562
+        },
+        {
+          "name": "GEO_CB1_2_345",
+          "sourceName": "GEO_CB1_2_345",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.614150881767273,
+            0.29387566447257996,
+            -1.617018461227417
+          ],
+          "max": [
+            0.614150881767273,
+            0.9045525789260864,
+            0.3026837408542633
+          ],
+          "center": [
+            0,
+            0.5992141216993332,
+            -0.6571673601865768
+          ],
+          "triangles": 3540
+        },
+        {
+          "name": "GEO_CB2_2_348",
+          "sourceName": "GEO_CB2_2_348",
+          "materials": [
+            {
+              "name": "Material_1",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.624787449836731,
+            0.164349764585495,
+            -0.8464372158050537
+          ],
+          "max": [
+            0.624787449836731,
+            1.0212496519088745,
+            0.6468508243560791
+          ],
+          "center": [
+            0,
+            0.5927997082471848,
+            -0.0997931957244873
+          ],
+          "triangles": 1846
+        },
+        {
+          "name": "GEO_MAIN_STICKERS_368",
+          "sourceName": "GEO_MAIN_STICKERS_368",
+          "materials": [
+            {
+              "name": "MAIN_STICKERS_ALPINE",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7410162687301636,
+            0.11300822347402573,
+            -2.4496829509735107
+          ],
+          "max": [
+            0.7410162687301636,
+            0.9174621105194092,
+            0.8092031478881836
+          ],
+          "center": [
+            0,
+            0.5152351669967175,
+            -0.8202399015426636
+          ],
+          "triangles": 19562
+        }
+      ]
+    },
+    "engineCover": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_MAIN_BODY_2_364",
+          "sourceName": "GEO_MAIN_BODY_2_364",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7140082120895386,
+            0.14949147403240204,
+            -1.6172329187393188
+          ],
+          "max": [
+            0.7140082120895386,
+            1.0376396179199219,
+            0.47897791862487793
+          ],
+          "center": [
+            0,
+            0.593565545976162,
+            -0.5691275000572205
+          ],
+          "triangles": 35562
+        },
+        {
+          "name": "GEO_CB1_2_345",
+          "sourceName": "GEO_CB1_2_345",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.614150881767273,
+            0.29387566447257996,
+            -1.617018461227417
+          ],
+          "max": [
+            0.614150881767273,
+            0.9045525789260864,
+            0.3026837408542633
+          ],
+          "center": [
+            0,
+            0.5992141216993332,
+            -0.6571673601865768
+          ],
+          "triangles": 3540
+        },
+        {
+          "name": "GEO_EXT_1_350",
+          "sourceName": "GEO_EXT_1_350",
+          "materials": [
+            {
+              "name": "Material_2",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6616995334625244,
+            0.29387566447257996,
+            -2.0882039070129395
+          ],
+          "max": [
+            0.6616995334625244,
+            0.9045525789260864,
+            0.6970075368881226
+          ],
+          "center": [
+            0,
+            0.5992141216993332,
+            -0.6955981850624084
+          ],
+          "triangles": 1960
+        },
+        {
+          "name": "GEO_MAIN_STICKERS_368",
+          "sourceName": "GEO_MAIN_STICKERS_368",
+          "materials": [
+            {
+              "name": "MAIN_STICKERS_ALPINE",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7410162687301636,
+            0.11300822347402573,
+            -2.4496829509735107
+          ],
+          "max": [
+            0.7410162687301636,
+            0.9174621105194092,
+            0.8092031478881836
+          ],
+          "center": [
+            0,
+            0.5152351669967175,
+            -0.8202399015426636
+          ],
+          "triangles": 19562
+        }
+      ]
+    },
+    "airbox": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_MAIN_BODY_2_364",
+          "sourceName": "GEO_MAIN_BODY_2_364",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.7140082120895386,
+            0.14949147403240204,
+            -1.6172329187393188
+          ],
+          "max": [
+            0.7140082120895386,
+            1.0376396179199219,
+            0.47897791862487793
+          ],
+          "center": [
+            0,
+            0.593565545976162,
+            -0.5691275000572205
+          ],
+          "triangles": 35562
+        },
+        {
+          "name": "GEO_CB2_2_348",
+          "sourceName": "GEO_CB2_2_348",
+          "materials": [
+            {
+              "name": "Material_1",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.624787449836731,
+            0.164349764585495,
+            -0.8464372158050537
+          ],
+          "max": [
+            0.624787449836731,
+            1.0212496519088745,
+            0.6468508243560791
+          ],
+          "center": [
+            0,
+            0.5927997082471848,
+            -0.0997931957244873
+          ],
+          "triangles": 1846
+        },
+        {
+          "name": "GEO_CB1_2_345",
+          "sourceName": "GEO_CB1_2_345",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.614150881767273,
+            0.29387566447257996,
+            -1.617018461227417
+          ],
+          "max": [
+            0.614150881767273,
+            0.9045525789260864,
+            0.3026837408542633
+          ],
+          "center": [
+            0,
+            0.5992141216993332,
+            -0.6571673601865768
+          ],
+          "triangles": 3540
+        }
+      ]
+    },
+    "frontBrake": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_HUB_LF_381",
+          "sourceName": "GEO_CB1_HUB_LF_381",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            0.5202429890632629,
+            0.08891178667545319,
+            1.461158275604248
+          ],
+          "max": [
+            0.6817130446434021,
+            0.5911954641342163,
+            2.0493271350860596
+          ],
+          "center": [
+            0.6009780168533325,
+            0.34005362540483475,
+            1.7552427053451538
+          ],
+          "triangles": 5956
+        },
+        {
+          "name": "GEO_CB1_HUB_RF_399",
+          "sourceName": "GEO_CB1_HUB_RF_399",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6817130446434021,
+            0.08891178667545319,
+            1.461158275604248
+          ],
+          "max": [
+            -0.5202429890632629,
+            0.5911954641342163,
+            2.0493271350860596
+          ],
+          "center": [
+            -0.6009780168533325,
+            0.34005362540483475,
+            1.7552427053451538
+          ],
+          "triangles": 5956
+        },
+        {
+          "name": "GEO_SUSP_SKINNED_SUB1_497",
+          "sourceName": "GEO_SUSP_SKINNED_SUB1_497",
+          "materials": [
+            {
+              "name": "Material_2",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6359602808952332,
+            0.28072255849838257,
+            -1.8925384283065796
+          ],
+          "max": [
+            0.6359602808952332,
+            0.5919709205627441,
+            1.8432974815368652
+          ],
+          "center": [
+            0,
+            0.43634673953056335,
+            -0.024620473384857178
+          ],
+          "triangles": 24530
+        }
+      ]
+    },
+    "rearBrake": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_HUB_LR_391",
+          "sourceName": "GEO_CB1_HUB_LR_391",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            0.440865695476532,
+            0.11870197206735611,
+            -1.9977521896362305
+          ],
+          "max": [
+            0.5632643699645996,
+            0.5759555101394653,
+            -1.352657437324524
+          ],
+          "center": [
+            0.5020650327205658,
+            0.3473287411034107,
+            -1.6752048134803772
+          ],
+          "triangles": 6178
+        },
+        {
+          "name": "GEO_CB1_HUB_RR_409",
+          "sourceName": "GEO_CB1_HUB_RR_409",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.5632643699645996,
+            0.11870197206735611,
+            -1.9977521896362305
+          ],
+          "max": [
+            -0.440865695476532,
+            0.5759555101394653,
+            -1.352657437324524
+          ],
+          "center": [
+            -0.5020650327205658,
+            0.3473287411034107,
+            -1.6752048134803772
+          ],
+          "triangles": 6178
+        },
+        {
+          "name": "GEO_SUSP_SKINNED_SUB1_497",
+          "sourceName": "GEO_SUSP_SKINNED_SUB1_497",
+          "materials": [
+            {
+              "name": "Material_2",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6359602808952332,
+            0.28072255849838257,
+            -1.8925384283065796
+          ],
+          "max": [
+            0.6359602808952332,
+            0.5919709205627441,
+            1.8432974815368652
+          ],
+          "center": [
+            0,
+            0.43634673953056335,
+            -0.024620473384857178
+          ],
+          "triangles": 24530
+        }
+      ]
+    },
+    "frontDrum": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_HUB_LF_381",
+          "sourceName": "GEO_CB1_HUB_LF_381",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            0.5202429890632629,
+            0.08891178667545319,
+            1.461158275604248
+          ],
+          "max": [
+            0.6817130446434021,
+            0.5911954641342163,
+            2.0493271350860596
+          ],
+          "center": [
+            0.6009780168533325,
+            0.34005362540483475,
+            1.7552427053451538
+          ],
+          "triangles": 5956
+        },
+        {
+          "name": "GEO_CB1_HUB_RF_399",
+          "sourceName": "GEO_CB1_HUB_RF_399",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6817130446434021,
+            0.08891178667545319,
+            1.461158275604248
+          ],
+          "max": [
+            -0.5202429890632629,
+            0.5911954641342163,
+            2.0493271350860596
+          ],
+          "center": [
+            -0.6009780168533325,
+            0.34005362540483475,
+            1.7552427053451538
+          ],
+          "triangles": 5956
+        }
+      ]
+    },
+    "rearDrum": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_HUB_LR_391",
+          "sourceName": "GEO_CB1_HUB_LR_391",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            0.440865695476532,
+            0.11870197206735611,
+            -1.9977521896362305
+          ],
+          "max": [
+            0.5632643699645996,
+            0.5759555101394653,
+            -1.352657437324524
+          ],
+          "center": [
+            0.5020650327205658,
+            0.3473287411034107,
+            -1.6752048134803772
+          ],
+          "triangles": 6178
+        },
+        {
+          "name": "GEO_CB1_HUB_RR_409",
+          "sourceName": "GEO_CB1_HUB_RR_409",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.5632643699645996,
+            0.11870197206735611,
+            -1.9977521896362305
+          ],
+          "max": [
+            -0.440865695476532,
+            0.5759555101394653,
+            -1.352657437324524
+          ],
+          "center": [
+            -0.5020650327205658,
+            0.3473287411034107,
+            -1.6752048134803772
+          ],
+          "triangles": 6178
+        }
+      ]
+    },
+    "beamWing": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_MAIN_REARWING_453",
+          "sourceName": "GEO_MAIN_REARWING_453",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.5713872313499451,
+            0.3587202727794647,
+            -2.433688163757324
+          ],
+          "max": [
+            0.5713872313499451,
+            0.9778878688812256,
+            -1.8425021171569824
+          ],
+          "center": [
+            0,
+            0.6683040708303452,
+            -2.1380951404571533
+          ],
+          "triangles": 15768
+        },
+        {
+          "name": "GEO_CB1_RW_SKINNED_495",
+          "sourceName": "GEO_CB1_RW_SKINNED_495",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.3546762466430664,
+            0.3869774341583252,
+            -2.1184725761413574
+          ],
+          "max": [
+            0.3546762466430664,
+            0.8550042510032654,
+            -1.7800419330596924
+          ],
+          "center": [
+            0,
+            0.6209908425807953,
+            -1.949257254600525
+          ],
+          "triangles": 7446
+        },
+        {
+          "name": "GEO_CB1_RW_455",
+          "sourceName": "GEO_CB1_RW_455",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.5715130567550659,
+            0.8064764142036438,
+            -2.430373191833496
+          ],
+          "max": [
+            0.5715130567550659,
+            0.9719283580780029,
+            -2.270432472229004
+          ],
+          "center": [
+            0,
+            0.8892023861408234,
+            -2.35040283203125
+          ],
+          "triangles": 966
+        }
+      ]
+    },
+    "coolingLouvres": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_EXT_VENTS_1A_410",
+          "sourceName": "GEO_EXT_VENTS_1A_410",
+          "materials": [
+            {
+              "name": "Material_2",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.42054879665374756,
+            0.46951431035995483,
+            -0.7015542984008789
+          ],
+          "max": [
+            0.42054879665374756,
+            0.6765422821044922,
+            -0.5206365585327148
+          ],
+          "center": [
+            0,
+            0.5730282962322235,
+            -0.6110954284667969
+          ],
+          "triangles": 202
+        },
+        {
+          "name": "GEO_MAIN_VENTS_1A_411",
+          "sourceName": "GEO_MAIN_VENTS_1A_411",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.42080649733543396,
+            0.46951431035995483,
+            -0.7015542984008789
+          ],
+          "max": [
+            0.42080649733543396,
+            0.677031397819519,
+            -0.5206365585327148
+          ],
+          "center": [
+            0,
+            0.5732728540897369,
+            -0.6110954284667969
+          ],
+          "triangles": 846
+        },
+        {
+          "name": "GEO_EXT_VENTS_1B_412",
+          "sourceName": "GEO_EXT_VENTS_1B_412",
+          "materials": [
+            {
+              "name": "Material_2",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6001097559928894,
+            0.47170642018318176,
+            -0.3850928843021393
+          ],
+          "max": [
+            0.6001097559928894,
+            0.6376826167106628,
+            0.2109018713235855
+          ],
+          "center": [
+            0,
+            0.5546945184469223,
+            -0.08709550648927689
+          ],
+          "triangles": 448
+        },
+        {
+          "name": "GEO_MAIN_VENTS_1B_413",
+          "sourceName": "GEO_MAIN_VENTS_1B_413",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.6001097559928894,
+            0.47170642018318176,
+            -0.3850928843021393
+          ],
+          "max": [
+            0.6001097559928894,
+            0.6395946741104126,
+            0.2109023928642273
+          ],
+          "center": [
+            0,
+            0.5556505471467972,
+            -0.087095245718956
+          ],
+          "triangles": 3320
+        }
+      ]
+    },
+    "onboardCamera": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_CB1_4_347",
+          "sourceName": "GEO_CB1_4_347",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.16022631525993347,
+            0.30856120586395264,
+            -2.4522995948791504
+          ],
+          "max": [
+            0.15990914404392242,
+            1.1710487604141235,
+            2.0855069160461426
+          ],
+          "center": [
+            -0.00015858560800552368,
+            0.7398049831390381,
+            -0.1833963394165039
+          ],
+          "triangles": 6531
+        },
+        {
+          "name": "GEO_MAIN_BODY_4_367",
+          "sourceName": "GEO_MAIN_BODY_4_367",
+          "materials": [
+            {
+              "name": "MAIN_BODY_ALPINE_FINAL",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.12553973495960236,
+            1.100103735923767,
+            -0.2896571159362793
+          ],
+          "max": [
+            0.12639740109443665,
+            1.1403783559799194,
+            -0.1224103569984436
+          ],
+          "center": [
+            0.0004288330674171448,
+            1.1202410459518433,
+            -0.20603373646736145
+          ],
+          "triangles": 342
+        },
+        {
+          "name": "GEO_EXT_4_351",
+          "sourceName": "GEO_EXT_4_351",
+          "materials": [
+            {
+              "name": "Material_2",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.26080989837646484,
+            0.30099570751190186,
+            -2.4483954906463623
+          ],
+          "max": [
+            0.07387332618236542,
+            0.6937696933746338,
+            2.077040433883667
+          ],
+          "center": [
+            -0.09346828609704971,
+            0.4973827004432678,
+            -0.18567752838134766
+          ],
+          "triangles": 5230
+        }
+      ]
+    },
+    "steeringWheel": {
+      "status": "ambiguous_candidates",
+      "candidates": [
+        {
+          "name": "GEO_SW_ME_A_219",
+          "sourceName": "GEO_SW_ME_A_219",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.1339920163154602,
+            0.5333572030067444,
+            0.6183996796607971
+          ],
+          "max": [
+            0.1339920163154602,
+            0.6829761862754822,
+            0.6914804577827454
+          ],
+          "center": [
+            0,
+            0.6081666946411133,
+            0.6549400687217712
+          ],
+          "triangles": 11712
+        },
+        {
+          "name": "GEO_SW_ME_B_220",
+          "sourceName": "GEO_SW_ME_B_220",
+          "materials": [
+            {
+              "name": "Material_5",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.14952212572097778,
+            0.514289915561676,
+            0.6158328056335449
+          ],
+          "max": [
+            0.14952212572097778,
+            0.6817410588264465,
+            0.7472793459892273
+          ],
+          "center": [
+            0,
+            0.5980154871940613,
+            0.6815560758113861
+          ],
+          "triangles": 21108
+        },
+        {
+          "name": "LR_GEO_SW_ME_A_315",
+          "sourceName": "LR_GEO_SW_ME_A_315",
+          "materials": [
+            {
+              "name": "Material_0",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.1339920163154602,
+            0.5341129302978516,
+            0.6183997392654419
+          ],
+          "max": [
+            0.1339920163154602,
+            0.6829760670661926,
+            0.691216766834259
+          ],
+          "center": [
+            0,
+            0.6085444986820221,
+            0.6548082530498505
+          ],
+          "triangles": 2036
+        },
+        {
+          "name": "LR_GEO_SW_ME_B_316",
+          "sourceName": "LR_GEO_SW_ME_B_316",
+          "materials": [
+            {
+              "name": "Material_5",
+              "transparent": false,
+              "opacity": 1,
+              "side": 0
+            }
+          ],
+          "min": [
+            -0.14796936511993408,
+            0.5143119692802429,
+            0.6163837313652039
+          ],
+          "max": [
+            0.14796936511993408,
+            0.6817409992218018,
+            0.7472794055938721
+          ],
+          "center": [
+            0,
+            0.5980264842510223,
+            0.681831568479538
+          ],
+          "triangles": 4522
+        }
+      ]
+    }
+  }
+}

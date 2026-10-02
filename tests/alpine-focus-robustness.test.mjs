@@ -49,7 +49,7 @@ test('Alpine: private semantic material pooling preserves originals, disposes on
   for(const m of owned)m.addEventListener('dispose',()=>disposals.set(m,disposals.get(m)+1))
   for(const component of ['frontWing','rearSuspension','frontSuspension',undefined]){
    c.select(component);c.step(1)
-   assert.ok(c.snapshot().materials.every(m=>m.focusTint===(component && m.components.includes(component) ? .22 : 0)))
+   assert.ok(c.snapshot().materials.every(m=>m.focusTint===0))
    assert.deepEqual(c.snapshot().materials.map(m=>m.uuid),ids)
    for(const m of owned)assert.equal(m.version,versions.get(m),'external focus recompiles shader')
   }

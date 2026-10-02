@@ -8,20 +8,20 @@ export const isolationBrightness = 0.28
 export const isolationDuration = 0.28
 
 /** Final display-color gain preserves textures, PBR parameters, livery and shadows. */
-function isolationChannel(material, components, alpine = false) {
-  const uniform = { value: 1 }, tint = { value: 0 }
+function isolationChannel(material, components, alpineHalo = false) {
+  const uniform = { value: 1 }, haloContrast = { value: 0 }
   const beforeCompile = material.onBeforeCompile
   const cacheKey = material.customProgramCacheKey()
   material.onBeforeCompile = function (shader, renderer) {
     beforeCompile.call(this, shader, renderer)
     shader.uniforms.f1TechIsolationGain = uniform
-    if (alpine) shader.uniforms.f1TechFocusTint = tint
+    if (alpineHalo) shader.uniforms.f1TechHaloContrast = haloContrast
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nuniform float f1TechIsolationGain;' + (alpine ? '\nuniform float f1TechFocusTint;' : ''))
-      .replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.rgb *= f1TechIsolationGain;' + (alpine ? '\ngl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.35, 0.85, 1.0), f1TechFocusTint);' : ''))
+      .replace('#include <common>', '#include <common>\nuniform float f1TechIsolationGain;' + (alpineHalo ? '\nuniform float f1TechHaloContrast;' : ''))
+      .replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.rgb *= f1TechIsolationGain;' + (alpineHalo ? '\ngl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(1.0), f1TechHaloContrast);' : ''))
   }
-  material.customProgramCacheKey = () => `${cacheKey}|f1-tech-component-isolation-v3${alpine ? "-alpine-tint" : ""}`
-  return { material, components, uniform, tint, start: 1, target: 1, tintStart: 0, tintTarget: 0, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
+  material.customProgramCacheKey = () => `${cacheKey}|f1-tech-component-isolation-v3${alpineHalo ? "-halo-contrast" : ""}`
+  return { material, components, uniform, haloContrast, contrastStart: 0, contrastTarget: 0, start: 1, target: 1, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
 }
 
 function cloneOriginalMaterial(material) {
@@ -173,7 +173,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     const key = [...components].sort().join('|')
     if (!buckets.has(key)) {
       const material = cloneMaterial(source)
-      channels.push(isolationChannel(material, components, true))
+      channels.push(isolationChannel(material, components, components.includes('halo')))
       buckets.set(key, material)
     }
     return buckets.get(key)
@@ -245,8 +245,10 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
           channel.material.depthTest = !target
         }
         if (assetId !== "alpine-a526-formulatech-evaluation" || wasTransparent !== channel.material.transparent) channel.material.needsUpdate = true
-        channel.tintStart = channel.tint.value
-        channel.tintTarget = assetId === "alpine-a526-formulatech-evaluation" && target ? (mode === "internal" ? .7 : .22) : 0
+        // Only Alpine Halo needs a neutral contrast lift: its black coating stays
+        // black under a multiplicative gain. Other focus categories keep authored color.
+        channel.contrastStart = channel.haloContrast.value
+        channel.contrastTarget = assetId === 'alpine-a526-formulatech-evaluation' && active === 'halo' && target ? .12 : 0
         channel.start = channel.uniform.value
         channel.target = !active || channel.components.includes(active) ? 1 : isolationBrightness
       }
@@ -256,7 +258,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       elapsed = Math.min(elapsed + delta, isolationDuration)
       const progress = elapsed / isolationDuration, eased = progress * progress * (3 - 2 * progress)
       for (const channel of channels) {
-        channel.tint.value = progress === 1 ? channel.tintTarget : channel.tintStart + (channel.tintTarget - channel.tintStart) * eased
+        channel.haloContrast.value = progress === 1 ? channel.contrastTarget : channel.contrastStart + (channel.contrastTarget - channel.contrastStart) * eased
         channel.uniform.value = progress === 1 ? channel.target : channel.start + (channel.target - channel.start) * eased
       }
       return elapsed < isolationDuration
@@ -271,7 +273,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
         materials: channels.map(channel => ({
           component: channel.components[0] ?? null, components: [...channel.components],
           opacity: channel.material.opacity, transparent: channel.material.transparent, depthWrite: channel.material.depthWrite, depthTest: channel.material.depthTest,
-          gain: channel.uniform.value, focusTint: channel.tint.value, uuid: channel.material.uuid,
+          gain: channel.uniform.value, focusTint: 0, haloContrast: channel.haloContrast.value, uuid: channel.material.uuid,
         })),
         geometries: ownedGeometries.length, disposed,
       }
@@ -282,7 +284,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       active = undefined
       for (const channel of channels) {
         channel.uniform.value = 1
-        channel.tint.value = 0
+        channel.haloContrast.value = 0
         channel.material.dispose()
       }
       for (const original of originals) {
