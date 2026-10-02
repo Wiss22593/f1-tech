@@ -1,3 +1,4 @@
+import { configureAuthoredLiveryLoader } from './authored-livery.mjs'
 import { resolveInspectionComponent } from './component-mapping.mjs'
 import { createComponentIsolation, type ComponentIsolation } from './component-isolation.mjs'
 import { Billboard, Environment, Html, Lightformer, Line, OrbitControls, useGLTF } from '@react-three/drei'
@@ -31,6 +32,28 @@ class ViewerErrorBoundary extends Component<{ children: ReactNode; fallback: Rea
   render() { return this.state.failed ? this.props.fallback : this.props.children }
 }
 
+function ShowroomLighting({ authored }: { authored: boolean }) {
+  return authored ? <>
+    <hemisphereLight args={['#E2E2E2', '#BABABA', 2.4]} />
+    <directionalLight castShadow position={[5.95, 5.14, 1.48]} intensity={3.2} color="#ffffff" shadow-mapSize={[2048, 2048]} shadow-radius={4} shadow-bias={-.0001} shadow-normalBias={.02} shadow-camera-left={-5} shadow-camera-right={5} shadow-camera-top={5} shadow-camera-bottom={-5} shadow-camera-near={.1} shadow-camera-far={20} />
+    <Environment background={false} environmentIntensity={.5} resolution={256}><Lightformer form="rect" intensity={2} color="#ffffff" position={[0, 6, 2]} rotation={[-Math.PI / 2, 0, 0]} scale={[9, 4, 1]} />
+    <Lightformer form="rect" intensity={1} color="#E2E2E2" position={[-5, 2, 0]} rotation={[0, Math.PI / 2, 0]} scale={[6, 3, 1]} />
+    <Lightformer form="rect" intensity={1} color="#E2E2E2" position={[5, 3, -2]} rotation={[0, -Math.PI / 2, 0]} scale={[6, 3, 1]} />
+    </Environment>
+  </> : <>
+    <ambientLight intensity={.2} />
+    <hemisphereLight args={['#91a4bb', '#090a0d', .48]} />
+    <directionalLight castShadow position={[4.5, 7, 5]} intensity={2.8} color="#fff6eb" shadow-mapSize={[2048, 2048]} shadow-radius={8} shadow-bias={-.0001} />
+    <directionalLight position={[-5, 2.5, 3]} intensity={.7} color="#a8c8ef" />
+    <directionalLight position={[2.5, 4, -5]} intensity={1.25} color="#d5e0f0" />
+    <Environment resolution={128}><Lightformer form="rect" intensity={2.6} color="#f6f8fc" position={[0, 6, 4]} scale={[9, 4, 1]} />
+    <Lightformer form="rect" intensity={1.15} color="#b8d6f4" position={[-5, 2, 2]} scale={[4, 2, 1]} />
+    <Lightformer form="rect" intensity={1.75} color="#e9edf4" position={[3, 3, -5]} scale={[5, 2, 1]} />
+    <Lightformer form="rect" intensity={2.6} color="#c2cfdf" position={[0, -3, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[12, 9, 1]} />
+    </Environment>
+  </>
+}
+
 function CameraPreset({ position }: { position: [number, number, number] }) {
   const { camera } = useThree()
   useEffect(() => { camera.position.set(...position); camera.lookAt(0, .55, 0) }, [camera, position])
@@ -38,13 +61,14 @@ function CameraPreset({ position }: { position: [number, number, number] }) {
 }
 
 function OriginalModel({ asset, theme, selectedComponent, onReady }: { onReady: (value: { assetId: string; components: CarComponentId[] }) => void; asset: F1TechCarAsset; theme: ViewerTheme; selectedComponent?: CarComponentId }) {
-  const { scene } = useGLTF(asset.path)
+  const { scene } = useGLTF(asset.path, true, true, configureAuthoredLiveryLoader)
   const model = useMemo(() => scene.clone(true), [scene])
   const isolation = useRef<ComponentIsolation | null>(null)
   useFrame((_, delta) => { isolation.current?.step(delta) })
   useLayoutEffect(() => {
     const controller = createComponentIsolation(model, asset.id, (material) => {
       const themed = material.clone() as typeof material & { color?: { set: (value: string) => void }; emissive?: { set: (value: string) => void }; map?: unknown; roughness?: number; metalness?: number; envMapIntensity?: number; emissiveIntensity?: number; needsUpdate?: boolean }
+      themed.dithering = true
       // Inspected GLB materials: carbon_mat, cockpit_mat, livery and Wheels. Only
       // `livery` is the painted body; clearing its baked texture on the cloned
       // material gives every team a reliably visible identity without blackening
@@ -132,13 +156,16 @@ function TechnicalCallouts({ hotspots, activeComponents, onFocus }: Pick<ViewerP
 export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedComponent, selectedComponentName, selectedHotspot, focusRequestId, showCallouts = true, onSelectComponent }: ViewerProps) {
   const mobile = useMobileViewer()
   const cameraPosition = useMemo<[number, number, number]>(() => {
-    const position = asset.cameraPresets[cameraPreset]
+    const original = asset.cameraPresets[cameraPreset]
+    const factor = asset.liveryMode === 'authored' && cameraPreset === 'default' ? 1.27 : 1
+    const position: [number, number, number] = [original[0] * factor, .55 + (original[1] - .55) * factor, original[2] * factor]
     if (!mobile) return position
     return [position[0] * mobileCameraScale, .55 + (position[1] - .55) * mobileCameraScale, position[2] * mobileCameraScale]
   }, [asset, cameraPreset, mobile])
   const controlsRef = useRef<OrbitControlsImpl>(null); const [focusedHotspot, setFocusedHotspot] = useState<F1TechHotspot>()
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const [availability, setAvailability] = useState<{ assetId: string; components: CarComponentId[] }>({ assetId: '', components: [] })
+  useEffect(() => { setFocusedHotspot(undefined) }, [asset.id, locale, cameraPreset, focusRequestId])
   const requestedComponent = resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
   const inspectionComponent = availability.assetId === asset.id && requestedComponent && availability.components.includes(requestedComponent) ? requestedComponent : undefined
   const cornerComponent = inspectionComponent === 'frontCorner' ? 'frontSuspension' : inspectionComponent === 'rearCorner' ? 'rearSuspension' : undefined
@@ -155,5 +182,5 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
     return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
   }, [sourceHotspot, inspectionComponent, asset.id])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: .96 }} camera={{ position: cameraPosition, fov: 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ambientLight intensity={.2} /><hemisphereLight args={['#91a4bb', '#090a0d', .48]} /><directionalLight castShadow position={[4.5, 7, 5]} intensity={2.8} color="#fff6eb" shadow-mapSize={[2048, 2048]} shadow-radius={8} shadow-bias={-.0001} /><directionalLight position={[-5, 2.5, 3]} intensity={.7} color="#a8c8ef" /><directionalLight position={[2.5, 4, -5]} intensity={1.25} color="#d5e0f0" /><Environment resolution={128}><Lightformer form="rect" intensity={2.6} color="#f6f8fc" position={[0, 6, 4]} scale={[9, 4, 1]} /><Lightformer form="rect" intensity={1.15} color="#b8d6f4" position={[-5, 2, 2]} scale={[4, 2, 1]} /><Lightformer form="rect" intensity={1.75} color="#e9edf4" position={[3, 3, -5]} scale={[5, 2, 1]} /><Lightformer form="rect" intensity={2.6} color="#c2cfdf" position={[0, -3, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[12, 9, 1]} /></Environment><CameraPreset position={cameraPosition} /><ViewerErrorBoundary fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel onReady={setAvailability} asset={asset} theme={theme} selectedComponent={inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} /><ViewerErrorBoundary key={asset.id} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel key={asset.id} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

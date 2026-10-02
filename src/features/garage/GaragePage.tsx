@@ -94,6 +94,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     })
     return () => { active = false }
   }, [grandPrixId, season, publishedResolved, publishedGrandPrixIds])
+  useEffect(() => { setSelectedComponent(undefined); setSelectedUpdateId(undefined); setFocusRequestId(value => value + 1) }, [locale])
   function resetView() { setSelectedComponent(undefined); setSelectedUpdateId(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1); setMobileUpdatesExpanded(false) }
   function selectPiece(componentId: CarComponentId) {
     const selecting = selectedComponent !== componentId
@@ -111,7 +112,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
   function changeSeason(year: number) { requestedSelection.current = { season: year, gp: null }; setSeason(year); setGrandPrixId(selectPublishedGarageGrandPrix(resolvedGrandPrix, publishedGrandPrixIds, year) ?? ''); resetView() }
   function changeGrandPrix(id: string) { if (!publishedGrandPrixIds.has(id) || !selectableGrandPrix.some(event => event.id === id)) return; requestedSelection.current = { season, gp: id }; setGrandPrixId(id); resetView() }
   function changeTeam(id: string) { setTeamId(id); resetView() }
-  function selectCamera(preset: CameraPresetId) { if (preset === 'default') resetView(); else { setCameraPreset(preset); setSelectedComponent(undefined) } }
+  function selectCamera(preset: CameraPresetId) { if (preset === 'default') resetView(); else { setCameraPreset(preset); setSelectedComponent(undefined); setSelectedUpdateId(undefined); setFocusRequestId(value => value + 1) } }
   function renderTeamCount(count: number) {
     const label = garageUpdateCount(locale, count)
     return <em className={count === 0 ? 'showroom-team-count showroom-team-count--empty' : 'showroom-team-count'}>{count > 0 ? <><strong>{count}</strong>{' '}<span>{label.slice(String(count).length + 1)}</span></> : <span>{label}</span>}</em>

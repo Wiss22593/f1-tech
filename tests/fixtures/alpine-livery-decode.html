@@ -1,0 +1,19 @@
+<!doctype html><html><body><script type="module">
+import { GLTFLoader } from '/node_modules/three-stdlib/loaders/GLTFLoader.js'
+import { configureAuthoredLiveryLoader, assertAuthoredTextures } from '/src/three/authored-livery.mjs'
+const bitmap = window.createImageBitmap.bind(window)
+window.createImageBitmap = async (blob,...args) => {
+  const bytes = new DataView(await blob.arrayBuffer())
+  if (bytes.byteLength > 24 && bytes.getUint32(16) === 9216) throw new Error('Controlled failure of oversized Alpine atlas')
+  return bitmap(blob,...args)
+}
+function inventory(scene) {const materials=new Set();scene.traverse(mesh=>{if(mesh.isMesh)for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material])materials.add(m)});return [...materials].map(m=>({name:m.name,map:!!m.map,channel:m.map?.channel,width:m.map?.image.width,height:m.map?.image.height}))}
+try {
+ const baseline=await new GLTFLoader().loadAsync('/models/alpine-a526-formulatech.glb')
+ const loader=new GLTFLoader();configureAuthoredLiveryLoader(loader)
+ const protectedModel=await loader.loadAsync('/models/alpine-a526-formulatech.glb')
+ let baselineValidation;try {assertAuthoredTextures(baseline)} catch(error) {baselineValidation=error.message}
+ window.result={baselineValidation,baseline:inventory(baseline.scene),protected:inventory(protectedModel.scene)}
+} catch(error) {window.result={error:error.message}}
+</script></body></html>
+
