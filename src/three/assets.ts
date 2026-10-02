@@ -26,7 +26,16 @@ const mercedesCarAsset: F1TechCarAsset = {
   metadata: { author: 'User-provided Mercedes W17 Antonelli', license: 'User-provided local evaluation', createdAt: '2026-10-02' },
 }
 
-export const carAssetRegistry: readonly F1TechCarAsset[] = [bgrtCarAsset, alpineCarAsset, mercedesCarAsset]
+const additionalTeamAssets: F1TechCarAsset[] = Object.entries(teamModelManifest)
+  .filter(([teamId]) => teamId !== 'alpine' && teamId !== 'mercedes')
+  .map(([teamId, model]) => ({
+    ...mercedesCarAsset,
+    id: model.assetId,
+    path: model.path,
+    attribution: `User-provided ${teamId} for local evaluation`,
+    metadata: { ...mercedesCarAsset.metadata, author: `User-provided ${teamId}` },
+  }))
+export const carAssetRegistry: readonly F1TechCarAsset[] = [bgrtCarAsset, alpineCarAsset, mercedesCarAsset, ...additionalTeamAssets]
 const assetsById = new Map(carAssetRegistry.map(asset => [asset.id, asset]))
 export function getCarAssetForTeam(teamId: string): F1TechCarAsset {
   const model = resolveTeamModel(teamId)

@@ -12,6 +12,29 @@ const teamSource = await readFile(new URL('../src/features/teams/data.ts', impor
 const teamCode = transpileModule(teamSource, { compilerOptions: { module: ModuleKind.ESNext } }).outputText
 const { teams } = await import(`data:text/javascript;base64,${Buffer.from(teamCode).toString('base64')}`)
 
+const expectedPaths = {
+  alpine: '/models/alpine-a526-colapinto.glb',
+  mercedes: '/models/mercedes-w17-antonelli.glb',
+  ferrari: '/models/ferrari-sf26-leclerc.glb',
+  'red-bull-racing': '/models/red-bull-rb22-verstappen.glb',
+  mclaren: '/models/mclaren-mcl40-norris.glb',
+  'racing-bulls': '/models/racing-bulls-vcarb03-lindblad.glb',
+  haas: '/models/haas-vf26-bearman.glb',
+  audi: '/models/audi-r26-bortoleto.glb',
+  williams: '/models/williams-fw48-albon.glb',
+  'aston-martin': '/models/aston-martin-amr26-alonso.glb',
+  cadillac: '/models/cadillac-mac26-perez.glb',
+}
+test('each of the eleven teams resolves its exact custom GLB with a unique identity', () => {
+  for (const [teamId, path] of Object.entries(expectedPaths)) {
+    assert.equal(resolveTeamModel(teamId).path, path)
+    assert.equal(resolveTeamModel(teamId).kind, 'custom')
+    assert.equal(getCarAssetForTeam(teamId).path, path)
+    assert.equal(getCarAssetForTeam(teamId).liveryMode, 'authored')
+  }
+  assert.equal(new Set(teams.map(team => getCarAssetForTeam(team.id).id)).size, 11)
+})
+
 test('manifest explicitly covers the same eleven teams as Garage', () => {
   assert.equal(teams.length, 11)
   assert.deepEqual(Object.keys(teamModelManifest).sort(), teams.map(team => team.id).sort())
@@ -27,10 +50,8 @@ test('Alpine and Mercedes resolve their custom GLBs and preserve authored livery
     assert.equal(getCarAssetForTeam(team).path, teamModelManifest[team].path)
   }
 })
-test('nine pending teams and unknown IDs retain BGRT; Apex cannot be selected', () => {
-  const pending = teams.filter(team => !['alpine', 'mercedes'].includes(team.id))
-  assert.equal(pending.length, 9)
-  for (const id of [...pending.map(team => team.id), 'unknown', 'apex', 'constructor', '__proto__', '']) {
+test('unknown IDs retain defensive BGRT; Apex cannot be selected', () => {
+  for (const id of ['unknown', 'apex', 'constructor', '__proto__', '']) {
     assert.equal(resolveTeamModel(id), bgrtModel)
     assert.equal(getCarAssetForTeam(id).path, '/models/bgrt-f1-concept-2026.glb')
     assert.equal(getCarAssetForTeam(id).liveryMode, 'team-theme')
@@ -40,15 +61,20 @@ test('nine pending teams and unknown IDs retain BGRT; Apex cannot be selected', 
 test('team round trips restore the same model independently of GP, locale and component', async () => {
   const initial = getCarAssetForTeam('alpine')
   for (const gp of ['bahrain-2026', 'italy-2026']) for (const locale of ['es', 'en']) for (const component of [undefined, 'halo', 'rearWing']) {
-    for (const team of ['alpine', 'mercedes', 'ferrari', 'mercedes', 'alpine']) {
+    for (const team of [...teams.map(team => team.id), ...teams.map(team => team.id).reverse()]) {
       const asset = Reflect.apply(getCarAssetForTeam, undefined, [team, { gp, locale, component }])
       assert.equal(asset, getCarAssetForTeam(team))
-      assert.equal(asset.path, resolveTeamModel(team).path)
+      assert.equal(asset.path, expectedPaths[team])
     }
     assert.equal(getCarAssetForTeam('alpine'), initial)
   }
   const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
   assert.match(garage, /getCarAssetForTeam\(team\.id\)/)
+  const viewer = await readFile(new URL('../src/three/ModelViewer.tsx', import.meta.url), 'utf8')
+  assert.match(viewer, /useGLTF\(asset\.path,/)
+  assert.match(viewer, /<OriginalModel key=\{asset\.id\}/)
+  assert.match(viewer, /<ViewerErrorBoundary key=\{asset\.id\}/)
+  assert.match(viewer, /scene\.clone\(true\)/)
 })
 test('all selected paths exist as valid GLB containers with canonical custom filenames', async () => {
   for (const model of new Set(Object.values(teamModelManifest))) {
