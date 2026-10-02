@@ -36,18 +36,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Wing | Performance - Flow Conditioning | Additional Rear Wing Furniture | Additional elements have been added to the rear wing, improving flow conditioning onto the rear wing mainplane and flap elements.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Rear Wing\",\"Performance - Flow Conditioning\",\"Additional Rear Wing Furniture\",\"Additional elements have been added to the rear wing, improving flow conditioning onto the rear wing mainplane and flap elements.\",\"Rear Wing | Performance - Flow Conditioning | Additional Rear Wing Furniture | Additional elements have been added to the rear wing, improving flow conditioning onto the rear wing mainplane and flap elements.\"]",
+          "componentName": "Alerón trasero",
+          "primaryReason": "Rendimiento – Acondicionamiento del flujo",
+          "geometricDifference": "Elementos adicionales del alerón trasero",
+          "briefDescription": "Se han añadido elementos adicionales al alerón trasero, mejorando el acondicionamiento del flujo hacia el plano principal y los elementos del flap del alerón trasero."
+        }
+      },
       "description": "Additional elements have been added to the rear wing, improving flow conditioning onto the rear wing mainplane and flap elements.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-mercedes-rear-wing-1",
@@ -65,18 +77,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Wing | Circuit specific - Drag Range | Rear wing central winglet span reduced | Reducing the span of the central winglet mounted above the rear wing flap sheds local downforce and drag at a ratio appropriate for Madrid L/D.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Rear Wing\",\"Circuit specific - Drag Range\",\"Rear wing central winglet span reduced\",\"Reducing the span of the central winglet mounted above the rear wing flap sheds local downforce and drag at a ratio appropriate for Madrid L/D.\",\"Rear Wing | Circuit specific - Drag Range | Rear wing central winglet span reduced | Reducing the span of the central winglet mounted above the rear wing flap sheds local downforce and drag at a ratio appropriate for Madrid L/D.\"]",
+          "componentName": "Alerón trasero",
+          "primaryReason": "Específico del circuito – Rango de resistencia aerodinámica",
+          "geometricDifference": "Se redujo la envergadura del winglet central del alerón trasero",
+          "briefDescription": "Reducir la envergadura del winglet central montado sobre el flap del alerón trasero disminuye la carga aerodinámica local y la resistencia en una proporción adecuada para la relación carga/resistencia de Madrid."
+        }
+      },
       "description": "Reducing the span of the central winglet mounted above the rear wing flap sheds local downforce and drag at a ratio appropriate for Madrid L/D.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-mercedes-exhaust-tailpipe-2",
@@ -94,18 +118,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Exhaust Tailpipe | Circuit specific - Drag Range | Additional winglet added behind exhaust | Additional winglet added to increase exhaust flow turning to generate load and drag at a ratio appropriate for Madrid L/D.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Exhaust Tailpipe\",\"Circuit specific - Drag Range\",\"Additional winglet added behind exhaust\",\"Additional winglet added to increase exhaust flow turning to generate load and drag at a ratio appropriate for Madrid L/D.\",\"Exhaust Tailpipe | Circuit specific - Drag Range | Additional winglet added behind exhaust | Additional winglet added to increase exhaust flow turning to generate load and drag at a ratio appropriate for Madrid L/D.\"]",
+          "componentName": "Tubo de escape",
+          "primaryReason": "Específico del circuito – Rango de resistencia aerodinámica",
+          "geometricDifference": "Winglet adicional detrás del escape",
+          "briefDescription": "Se añadió un winglet para aumentar el giro del flujo del escape y generar carga y resistencia en una proporción adecuada para la relación carga/resistencia de Madrid."
+        }
+      },
       "description": "Additional winglet added to increase exhaust flow turning to generate load and drag at a ratio appropriate for Madrid L/D.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-mercedes-front-drum-3",
@@ -123,18 +159,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Drum | Performance - Flow Conditioning | Front lip reprofiled | Front lip reprofiled to improve flow attachment through all steer conditions, resulting in improved flow to the rear of the car.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Front Drum\",\"Performance - Flow Conditioning\",\"Front lip reprofiled\",\"Front lip reprofiled to improve flow attachment through all steer conditions, resulting in improved flow to the rear of the car.\",\"Front Drum | Performance - Flow Conditioning | Front lip reprofiled | Front lip reprofiled to improve flow attachment through all steer conditions, resulting in improved flow to the rear of the car.\"]",
+          "componentName": "Tambor delantero",
+          "primaryReason": "Rendimiento – Acondicionamiento del flujo",
+          "geometricDifference": "Labio delantero reperfilado",
+          "briefDescription": "El labio delantero fue reperfilado para mejorar la adherencia del flujo en todas las condiciones de giro y, como resultado, mejorar el flujo hacia la parte trasera del auto."
+        }
+      },
       "description": "Front lip reprofiled to improve flow attachment through all steer conditions, resulting in improved flow to the rear of the car.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-red-bull-racing-rear-corner-1",
@@ -152,18 +200,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Corner | Reliability | Rear wheel bodywork assembly | Continuing the work from Monza, the new and more robust gaitor gains winglets downstream of the suspension fairings seeking to restore the load of earlier races whilst maintaining a sealed wheel bodywork.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing.",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Rear Corner\",\"Reliability\",\"Rear wheel bodywork assembly\",\"Continuing the work from Monza, the new and more robust gaitor gains winglets downstream of the suspension fairings seeking to restore the load of earlier races whilst maintaining a sealed wheel bodywork.\",\"Rear Corner | Reliability | Rear wheel bodywork assembly | Continuing the work from Monza, the new and more robust gaitor gains winglets downstream of the suspension fairings seeking to restore the load of earlier races whilst maintaining a sealed wheel bodywork.\"]",
+          "componentName": "Conjunto de esquina trasera",
+          "primaryReason": "Fiabilidad",
+          "geometricDifference": "Conjunto de carrocería de la rueda trasera",
+          "briefDescription": "Continuando el trabajo de Monza, el nuevo fuelle más robusto incorpora winglets detrás de los carenados de suspensión para recuperar la carga de carreras anteriores manteniendo sellada la carrocería de la rueda."
+        }
+      },
       "description": "Continuing the work from Monza, the new and more robust gaitor gains winglets downstream of the suspension fairings seeking to restore the load of earlier races whilst maintaining a sealed wheel bodywork.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-red-bull-racing-floor-2",
@@ -181,18 +241,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor Bib | Reliability | A geometric change between floor and chassis | When deflected, the laminate and shape have been altered to ideally eliminate deterioration of the structure and aerodynamic surfaces by reducing the local strain.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing.",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Floor Bib\",\"Reliability\",\"A geometric change between floor and chassis\",\"When deflected, the laminate and shape have been altered to ideally eliminate deterioration of the structure and aerodynamic surfaces by reducing the local strain.\",\"Floor Bib | Reliability | A geometric change between floor and chassis | When deflected, the laminate and shape have been altered to ideally eliminate deterioration of the structure and aerodynamic surfaces by reducing the local strain.\"]",
+          "componentName": "Bib del piso",
+          "primaryReason": "Fiabilidad",
+          "geometricDifference": "Cambio geométrico entre el piso y el chasis",
+          "briefDescription": "Cuando se flexiona, se han modificado el laminado y la forma para eliminar idealmente el deterioro de la estructura y de las superficies aerodinámicas mediante la reducción de la deformación local."
+        }
+      },
       "description": "When deflected, the laminate and shape have been altered to ideally eliminate deterioration of the structure and aerodynamic surfaces by reducing the local strain.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-ferrari-rear-suspension-1",
@@ -210,18 +282,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Suspension | Performance - Local Load | Rear top wishbone rearward leg fairing reprofiling | Small update on rear suspension fairing profile, adapting the overall incidence and spanwise loading distribution, simply returning a local load benefit",
+      "sourcePage": 8,
+      "sourceTeamHeading": "Scuderia Ferrari HP",
+      "sourceHeadingPage": 8,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Rear Suspension\",\"Performance - Local Load\",\"Rear top wishbone rearward leg fairing reprofiling\",\"Small update on rear suspension fairing profile, adapting the overall incidence and spanwise loading distribution, simply returning a local load benefit\",\"Rear Suspension | Performance - Local Load | Rear top wishbone rearward leg fairing reprofiling | Small update on rear suspension fairing profile, adapting the overall incidence and spanwise loading distribution, simply returning a local load benefit\"]",
+          "componentName": "Suspensión trasera",
+          "primaryReason": "Rendimiento – Carga local",
+          "geometricDifference": "Reperfilado del carenado del brazo trasero del triángulo superior trasero",
+          "briefDescription": "Pequeña actualización del perfil del carenado de la suspensión trasera, adaptando la incidencia general y la distribución de carga a lo largo de la envergadura, lo que aporta un beneficio de carga local."
+        }
+      },
       "description": "Small update on rear suspension fairing profile, adapting the overall incidence and spanwise loading distribution, simply returning a local load benefit",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-alpine-floor-1",
@@ -239,18 +323,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor board | Performance - Local Load | Addition of an element to the forward floor board | The forward floor board has been optimised to improve the local pressure distribution and flow management, generating efficient local downforce.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "BWT Alpine F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Floor board\",\"Performance - Local Load\",\"Addition of an element to the forward floor board\",\"The forward floor board has been optimised to improve the local pressure distribution and flow management, generating efficient local downforce.\",\"Floor board | Performance - Local Load | Addition of an element to the forward floor board | The forward floor board has been optimised to improve the local pressure distribution and flow management, generating efficient local downforce.\"]",
+          "componentName": "Tabla del piso",
+          "primaryReason": "Rendimiento – Carga local",
+          "geometricDifference": "Adición de un elemento a la tabla delantera del piso",
+          "briefDescription": "La tabla delantera del piso se ha optimizado para mejorar la distribución de presión local y la gestión del flujo, generando carga aerodinámica local de manera eficiente."
+        }
+      },
       "description": "The forward floor board has been optimised to improve the local pressure distribution and flow management, generating efficient local downforce.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-cadillac-rear-wing-1",
@@ -268,18 +364,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Wing Flap | Performance - Local Load | Updated Rear Wing Flap Trailing Edge Winglet | The reintroduction of a revised Rear Wing Flap central trailing edge winglet serves to generate more rear aerodynamic load, whilst improving overall aerodynamic stability throughout a range of operating conditions",
+      "sourcePage": 17,
+      "sourceTeamHeading": "Cadillac",
+      "sourceHeadingPage": 17,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Rear Wing Flap\",\"Performance - Local Load\",\"Updated Rear Wing Flap Trailing Edge Winglet\",\"The reintroduction of a revised Rear Wing Flap central trailing edge winglet serves to generate more rear aerodynamic load, whilst improving overall aerodynamic stability throughout a range of operating conditions\",\"Rear Wing Flap | Performance - Local Load | Updated Rear Wing Flap Trailing Edge Winglet | The reintroduction of a revised Rear Wing Flap central trailing edge winglet serves to generate more rear aerodynamic load, whilst improving overall aerodynamic stability throughout a range of operating conditions\"]",
+          "componentName": "Flap del alerón trasero",
+          "primaryReason": "Rendimiento – Carga local",
+          "geometricDifference": "Winglet actualizado en el borde de salida del flap del alerón trasero",
+          "briefDescription": "La reintroducción de un winglet central revisado en el borde de salida del flap del alerón trasero sirve para generar más carga aerodinámica posterior, a la vez que mejora la estabilidad aerodinámica general en una variedad de condiciones de funcionamiento."
+        }
+      },
       "description": "The reintroduction of a revised Rear Wing Flap central trailing edge winglet serves to generate more rear aerodynamic load, whilst improving overall aerodynamic stability throughout a range of operating conditions",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "madrid-grand-prix-2026-doc-11-cadillac-diffuser-2",
@@ -297,18 +405,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Diffuser Vane | Performance – Local Load | Addition of vane to inner trailing edge of outboard diffuser sidewall | A small vertical turning vane has been added to the inner trailing edge of the outboard diffuser sidewall, which improves aerodynamic performance in the outer floor channels and increases the load at the rear of the car",
+      "sourcePage": 17,
+      "sourceTeamHeading": "Cadillac",
+      "sourceHeadingPage": 17,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7\",\"Diffuser Vane\",\"Performance – Local Load\",\"Addition of vane to inner trailing edge of outboard diffuser sidewall\",\"A small vertical turning vane has been added to the inner trailing edge of the outboard diffuser sidewall, which improves aerodynamic performance in the outer floor channels and increases the load at the rear of the car\",\"Diffuser Vane | Performance – Local Load | Addition of vane to inner trailing edge of outboard diffuser sidewall | A small vertical turning vane has been added to the inner trailing edge of the outboard diffuser sidewall, which improves aerodynamic performance in the outer floor channels and increases the load at the rear of the car\"]",
+          "componentName": "Vane del difusor",
+          "primaryReason": "Rendimiento – Carga local",
+          "geometricDifference": "Adición de un vane al borde de salida interior de la pared lateral exterior del difusor",
+          "briefDescription": "Se ha añadido un pequeño vane vertical de giro al borde de salida interior de la pared lateral exterior del difusor, lo que mejora el rendimiento aerodinámico en los canales exteriores del piso y aumenta la carga en la parte trasera del auto."
+        }
+      },
       "description": "A small vertical turning vane has been added to the inner trailing edge of the outboard diffuser sidewall, which improves aerodynamic performance in the outer floor channels and increases the load at the rear of the car",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-11T17:41:04.786Z",
+      "publishedAt": "2026-10-02T12:21:32.082Z",
       "contentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v2"
+      "parserVersion": "fia-table-v4"
     }
   ],
   "sourceDocument": {
@@ -317,11 +437,11 @@
     "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
     "documentId": "11",
     "documentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
-    "retrievedAt": "2026-09-11T17:41:04.088Z"
+    "retrievedAt": "2026-10-02T11:47:26.427Z"
   },
-  "retrievedAt": "2026-09-11T17:41:04.088Z",
-  "publishedAt": "2026-09-11T17:41:04.786Z",
-  "parserVersion": "fia-table-v2",
+  "retrievedAt": "2026-10-02T11:47:26.427Z",
+  "publishedAt": "2026-10-02T12:21:32.082Z",
+  "parserVersion": "fia-table-v4",
   "validation": {
     "recordsReceived": 10,
     "recordsPublished": 10,

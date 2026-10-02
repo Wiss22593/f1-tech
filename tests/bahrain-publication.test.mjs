@@ -38,7 +38,7 @@ test('official Doc 12 publishes fourteen factual rows and becomes the default la
   assert.equal(dataset.sourceDocument.documentId, '12')
   assert.equal(dataset.sourceDocument.sourceUrl, 'https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf')
   assert.deepEqual(dataset.validation, { recordsReceived: 14, recordsPublished: 14, manualReview: 0 })
-  assert.deepEqual(dataset.updates.reduce((counts,row)=>(counts[row.teamId]=(counts[row.teamId]??0)+1,counts),{}), { mclaren: 1, mercedes: 7, 'red-bull-racing': 2, 'racing-bulls': 2, haas: 1, alpine: 1 })
+  assert.deepEqual(dataset.updates.reduce((counts,row)=>(counts[row.teamId]=(counts[row.teamId]??0)+1,counts),{}), { mclaren: 1, mercedes: 7, 'red-bull-racing': 1, ferrari: 1, 'racing-bulls': 2, haas: 1, alpine: 1 })
   const ids = new Set(['azerbaijan-2026', dataset.grandPrix.id])
   assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, ids), 'bahrain-2026')
   assert.equal(selectPublishedGarageGrandPrix(eventRegistry2026, ids, 2026), 'bahrain-2026')

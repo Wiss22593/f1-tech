@@ -135,16 +135,12 @@ test('validator rejects a missing or non-HTTPS FIA source URL', () => {
   assert.equal(validateUpdate({ ...valid, sourceUrl: 'http://example.test/document.pdf' }, ['italian-grand-prix-2026']).valid, false)
 })
 
-test('parser fixture preserves source text and leaves unsupported editorial fields null', async () => {
+test('flattened text without a page heading and cell geometry is review-only', async () => {
   const text = await readFile(new URL('./fixtures/fia-presentation.txt', import.meta.url), 'utf8')
   const parsed = parsePresentationText(text, { documentId: 'doc-10', season: 2026, grandPrixId: 'italian-grand-prix-2026', sourceDocument: 'Car Presentation Submissions', sourceUrl: valid.sourceUrl, contentHash: 'a'.repeat(64) })
-  assert.equal(parsed.rejected.length, 0)
-  assert.equal(parsed.records.length, 1)
-  assert.equal(parsed.records[0].teamId, 'mercedes')
-  assert.equal(parsed.records[0].componentId, 'rear-wing')
-  assert.equal(parsed.records[0].magnitude, null)
-  assert.equal(parsed.records[0].area, null)
-  assert.match(parsed.records[0].sourceText, /Revised winglet geometry/)
+  assert.equal(parsed.records.length, 0)
+  assert.ok(parsed.rejected.length > 0)
+  assert.ok(parsed.rejected.every(row=>row.reason==='unstructured_pdf_text_requires_layout'))
 })
 
 test('layout parser preserves the four FIA columns, multiline cells and repeated components', async () => {
@@ -189,7 +185,7 @@ test('Madrid reconciliation preserves all deterministic rows and the Mercedes pu
   assert.deepEqual(dataset.updates.filter((update) => update.teamId === 'red-bull-racing').map(({ componentName }) => componentName), ['Rear Corner', 'Floor Bib'])
   assert.deepEqual(dataset.updates.filter((update) => update.visualizable === false).map(({ componentId }) => componentId), [null, null, null])
   assert.equal(dataset.validation.manualReview, 0)
-  assert.equal(dataset.parserVersion, 'fia-table-v2')
+  assert.equal(dataset.parserVersion, 'fia-table-v4')
 })
 
 test('Development Battle counts every factual published row, including non-visualizable updates', async () => {
@@ -218,8 +214,8 @@ test('Garage opens text-only updates without assigning a fake camera component',
 
 test('Madrid reruns are idempotent for the same hash, schema and parser version', async () => {
   const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
-  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v2'), true)
-  assert.equal(isPublishedDatasetCurrent(dataset, dataset, 'b'.repeat(64), 'fia-table-v2'), false)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v4'), true)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, 'b'.repeat(64), 'fia-table-v4'), false)
   assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v3'), false)
 })
 
@@ -398,7 +394,7 @@ test('recovered Thursday document remains deterministic and latest published adv
   assert.equal(dataset.updates.length, 38)
   assert.equal(dataset.validation.manualReview, 0)
   assert.equal(validateAutoPublishDataset(dataset, 'public/data/grands-prix/2026/azerbaijan-2026.json').valid, true)
-  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v3'), true)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v4'), true)
   const ids = new Set(['madrid-grand-prix-2026', 'azerbaijan-2026'])
   assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, ids), 'azerbaijan-2026')
   ids.add('bahrain-2026')
@@ -417,12 +413,13 @@ test('scheduled workflow uses verified FP1, generic 24-hour cron and guarded pre
   assert.match(runner, /results.some\(\(\{ status \}\) => status === 'ERROR'\)/)
 })
 
-test('historical published datasets remain byte-identical after newline normalization', async () => {
-  const { createHash } = await import('node:crypto')
-  const hashes = JSON.parse(await readFile(new URL('./fixtures/historical-dataset-hashes.json', import.meta.url), 'utf8'))
-  for (const [file, expected] of Object.entries(hashes)) {
-    const text = await readFile(new URL('../public/data/grands-prix/2026/' + file, import.meta.url), 'utf8')
-    assert.equal(createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex'), expected, file)
+test('all historical datasets use the strict reconstructed source contract', async () => {
+  const { readdir } = await import('node:fs/promises')
+  const directory = new URL('../public/data/grands-prix/2026/', import.meta.url)
+  for (const file of (await readdir(directory)).filter(f=>f.endsWith('.json'))) {
+    const dataset=JSON.parse(await readFile(new URL(file,directory),'utf8'))
+    assert.equal(dataset.parserVersion,'fia-table-v4',file)
+    assert.ok(dataset.updates.every(row=>row.sourcePage && row.sourceTeamHeading),file)
   }
 })
 
@@ -443,14 +440,15 @@ test('real runner treats no document as success and preserves an existing datase
 })
 
 
-test('painted table borders preserve merged cells and consecutive headerless continuation pages', async () => {
+test('painted borders preserve merged cells while headerless continuations require review', async () => {
   const extraction = JSON.parse(await readFile(new URL('./fixtures/fia-merged-continuation-layout.json', import.meta.url), 'utf8'))
   const parsed = parsePresentationText(extraction, { documentId: 'merged', grandPrixId: 'azerbaijan-2026', season: 2026 })
-  assert.equal(parsed.records.length, 25)
-  assert.equal(parsed.rejected.length, 0)
+  assert.equal(parsed.records.length, 17)
+  assert.equal(parsed.rejected.length, 8)
+  assert.ok(parsed.rejected.every(row=>row.reason==='unmapped_team' && !row.sourceTeamHeading))
   const audi = parsed.records.filter(({ teamId }) => teamId === 'audi')
-  assert.equal(audi.length, 14)
-  for (const group of [[0,1,2], [4,5,6], [7,8], [9,10], [11,12,13]]) {
+  assert.equal(audi.length, 7)
+  for (const group of [[0,1,2], [4,5,6]]) {
     for (const i of group) {
       assert.equal(audi[i].primaryReason, audi[group[0]].primaryReason)
       assert.equal(audi[i].geometricDifference, audi[group[0]].geometricDifference)
@@ -458,9 +456,6 @@ test('painted table borders preserve merged cells and consecutive headerless con
     }
   }
   assert.match(audi[0].briefDescription, /the new package\.$/)
-  assert.equal(parsed.records.filter(({ teamId }) => teamId === 'mclaren').at(-1).componentName, 'Rear Wing')
-  const racingBulls = parsed.records.filter(({ teamId }) => teamId === 'racing-bulls')
-  assert.equal(racingBulls[1].briefDescription, racingBulls[2].briefDescription)
 })
 
 test('extractor keeps painted table borders in text coordinates and excludes clipping/backgrounds', async () => {

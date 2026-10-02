@@ -42,7 +42,8 @@ export function localizeFiaUpdate(record, locale) {
     missingFields: [],
   }
 
-  const reviewed = catalogue[record.id]
+  const embedded=record.translations?.es
+  const reviewed = embedded?.sourceKey === fiaLocalizationSourceKey(record) ? {sourceKey:embedded.sourceKey,es:Object.fromEntries(fields.map(f=>[f,embedded[f]]))} : catalogue[record.id]
   const missingFields = []
   const localized = reviewed?.sourceKey === fiaLocalizationSourceKey(record) ? { ...reviewed.es } : Object.fromEntries(fields.map(field => {
     const source = field === 'componentName' ? original[field] ?? record.componentId : original[field]
@@ -51,6 +52,12 @@ export function localizeFiaUpdate(record, locale) {
     if (!translation) missingFields.push(field)
     return [field, translation ?? pending]
   }))
+  for (const field of fields) {
+    if (original[field] && (!localized[field] || localized[field] === pending)) {
+      if (!missingFields.includes(field)) missingFields.push(field)
+      localized[field] = pending
+    }
+  }
   return {
     ...localized,
     componentLabel: localized.componentName ?? '—',

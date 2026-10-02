@@ -23,7 +23,7 @@ export async function runScheduled({ resolution, at = new Date(), publish = fals
   if (checkNow) return { status: 'DOCUMENT_FOUND_DRY_RUN', needsPipeline: false, document }
   const current = await readDataset(path)
   // Compare actual bytes before saying UNCHANGED; an amended PDF at the same URL is detected.
-  if (current && validateAutoPublishDataset(current, path).valid && current.parserVersion === 'fia-table-v3' && current.sourceDocument?.sourceUrl === document.sourceUrl) {
+  if (current && validateAutoPublishDataset(current, path).valid && current.parserVersion === 'fia-table-v4' && current.sourceDocument?.sourceUrl === document.sourceUrl) {
     const fetched = await download(document, resolve('ingestion/raw'))
     if (current.sourceDocument.documentHash === fetched.contentHash) return { status: 'UNCHANGED', needsPipeline: false, document, contentHash: fetched.contentHash }
   }

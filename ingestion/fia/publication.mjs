@@ -1,3 +1,4 @@
+import { localizeFiaUpdate, fiaLocalizationSourceKey } from '../../src/services/fia/localization.mjs'
 import { mkdir, rename, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { findDuplicateRecordIds, validateUpdate } from './validator.mjs'
@@ -14,6 +15,7 @@ export function publicationDecision(record, { grandPrixIds, season }) {
   if (!officialFiaSource(record?.sourceUrl)) errors.push('non_official_fia_source')
   if (record?.parserConfidence !== 'deterministic_table') errors.push('insufficient_parser_confidence')
   if (record?.validationState !== 'validated') errors.push('record_not_validated')
+  if(record?.parserVersion==='fia-table-v4'&&!localizeFiaUpdate(record,'es').complete)errors.push('missing reviewed Spanish translation')
   return { publishable: errors.length === 0, errors }
 }
 
@@ -23,12 +25,16 @@ export function createPublicationPlan({ document, records, rejected = [], grandP
   for (const record of records) {
     const decision = publicationDecision(record, { grandPrixIds: [grandPrix.id], season })
     if (duplicates.has(record.id)) decision.errors.push('duplicate_record')
-    if (decision.errors.length) manualReview.push({ id: record.id, sourceText: record.sourceText ?? null, reason: decision.errors, suggestedComponentIds: [] })
-    else published.push({ ...record, validationState: 'published', publishedAt: new Date().toISOString() })
+    if (decision.errors.length) manualReview.push({ ...record, reason: decision.errors, suggestedComponentIds: [] })
+    else {
+      const es=record.parserVersion==='fia-table-v4'?localizeFiaUpdate(record,'es'):null
+      const translations=es?{...record.translations,es:{sourceKey:fiaLocalizationSourceKey(record),...Object.fromEntries(['componentName','primaryReason','geometricDifference','briefDescription'].map(f=>[f,es[f]]))}}:record.translations
+      published.push({...record,translations,validationState:'published',publishedAt:new Date().toISOString()})
+    }
   }
   const publishedAt = published[0]?.publishedAt ?? null
   return {
-    dataset: published.length ? { schemaVersion, grandPrix, season, teams: [...new Set(published.map(({ teamId }) => teamId))], updates: published, sourceDocument: { id: document.id, title: document.title, sourceUrl: document.sourceUrl, documentId: document.documentId ?? null, documentHash: document.contentHash, retrievedAt: document.retrievedAt }, retrievedAt: document.retrievedAt, publishedAt, parserVersion, validation: { recordsReceived: records.length, recordsPublished: published.length, manualReview: manualReview.length } } : null,
+    dataset: published.length ? { schemaVersion, grandPrix, season, teams: [...new Set(published.map(({ teamId }) => teamId))], updates: published, sourceDocument: { id: document.id, title: document.title, sourceUrl: document.sourceUrl, documentId: document.documentId ?? null, documentHash: document.contentHash, retrievedAt: document.retrievedAt }, retrievedAt: document.retrievedAt, publishedAt, parserVersion, validation: { recordsReceived: records.length + rejected.length, recordsPublished: published.length, manualReview: manualReview.length } } : null,
     manualReview,
   }
 }

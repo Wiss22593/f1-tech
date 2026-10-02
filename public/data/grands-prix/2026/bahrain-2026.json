@@ -15,6 +15,7 @@
     "mclaren",
     "mercedes",
     "red-bull-racing",
+    "ferrari",
     "racing-bulls",
     "haas",
     "alpine"
@@ -36,18 +37,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Coke/Engine Cover | Circuit specific - Cooling Range | High Cooling Bodywork | To meet the high cooling demands of this and the upcoming circuits, a new engine cover aiming at increased cooling massflow has been designed.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Coke/Engine Cover\",\"Circuit specific - Cooling Range\",\"High Cooling Bodywork\",\"To meet the high cooling demands of this and the upcoming circuits, a new engine cover aiming at increased cooling massflow has been designed.\",\"Coke/Engine Cover | Circuit specific - Cooling Range | High Cooling Bodywork | To meet the high cooling demands of this and the upcoming circuits, a new engine cover aiming at increased cooling massflow has been designed.\"]",
+          "componentName": "Zona de estrechamiento trasero / Cubierta del motor",
+          "primaryReason": "Específico del circuito - Rango de refrigeración",
+          "geometricDifference": "Carrocería de alta refrigeración",
+          "briefDescription": "Para responder a las elevadas demandas de refrigeración de este circuito y de los próximos, se ha diseñado una nueva cubierta del motor destinada a aumentar el caudal másico de refrigeración."
+        }
+      },
       "description": "To meet the high cooling demands of this and the upcoming circuits, a new engine cover aiming at increased cooling massflow has been designed.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.898Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-floor-1",
@@ -65,18 +78,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Floor Board | Performance – Local Load | Reprofiled horizontal elements, and vertical slotted upper element added. | Reprofiled elements and new vertical elements added to improve local pressure distribution, reduce separations at the extremes of the operating envelope, and improve flow to the rear of the car, resulting in increased load.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Floor Board\",\"Performance – Local Load\",\"Reprofiled horizontal elements, and vertical slotted upper element added.\",\"Reprofiled elements and new vertical elements added to improve local pressure distribution, reduce separations at the extremes of the operating envelope, and improve flow to the rear of the car, resulting in increased load.\",\"Floor Board | Performance – Local Load | Reprofiled horizontal elements, and vertical slotted upper element added. | Reprofiled elements and new vertical elements added to improve local pressure distribution, reduce separations at the extremes of the operating envelope, and improve flow to the rear of the car, resulting in increased load.\"]",
+          "componentName": "Panel del piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Elementos horizontales con perfiles modificados y adición de un elemento superior vertical ranurado.",
+          "briefDescription": "Elementos con perfiles modificados y nuevos elementos verticales añadidos para mejorar la distribución local de presión, reducir las separaciones en los extremos del rango de funcionamiento y mejorar el flujo hacia la parte trasera del coche, aumentando la carga."
+        }
+      },
       "description": "Reprofiled elements and new vertical elements added to improve local pressure distribution, reduce separations at the extremes of the operating envelope, and improve flow to the rear of the car, resulting in increased load.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.898Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-floor-2",
@@ -94,18 +119,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Floor Leading Edge | Performance - Flow Conditioning | Reprofiled and additional down-washing elements added. | Additional down-washing elements increase local load and outwash, improving flow to the rear of the car and increasing rear floor load.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Floor Leading Edge\",\"Performance - Flow Conditioning\",\"Reprofiled and additional down-washing elements added.\",\"Additional down-washing elements increase local load and outwash, improving flow to the rear of the car and increasing rear floor load.\",\"Floor Leading Edge | Performance - Flow Conditioning | Reprofiled and additional down-washing elements added. | Additional down-washing elements increase local load and outwash, improving flow to the rear of the car and increasing rear floor load.\"]",
+          "componentName": "Borde de ataque del piso",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Adición de elementos con perfiles modificados que dirigen el flujo hacia abajo.",
+          "briefDescription": "Los elementos adicionales que dirigen el flujo hacia abajo aumentan la carga local y el flujo hacia el exterior, mejorando el flujo hacia la parte trasera del coche y aumentando la carga de la parte trasera del piso."
+        }
+      },
       "description": "Additional down-washing elements increase local load and outwash, improving flow to the rear of the car and increasing rear floor load.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.898Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-floor-3",
@@ -123,18 +160,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Floor Corner | Performance - Flow Conditioning | Additional slots and reprofiled elements. | Re-optimisation of floor corner slot arrangement to both increase local load and to also improve flow into the diffuser and hence rear load.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Floor Corner\",\"Performance - Flow Conditioning\",\"Additional slots and reprofiled elements.\",\"Re-optimisation of floor corner slot arrangement to both increase local load and to also improve flow into the diffuser and hence rear load.\",\"Floor Corner | Performance - Flow Conditioning | Additional slots and reprofiled elements. | Re-optimisation of floor corner slot arrangement to both increase local load and to also improve flow into the diffuser and hence rear load.\"]",
+          "componentName": "Zona lateral del piso",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Ranuras adicionales y elementos con perfiles modificados.",
+          "briefDescription": "Reoptimización de la disposición de ranuras de la zona lateral del piso para aumentar la carga local y mejorar también el flujo hacia el difusor y, por tanto, la carga trasera."
+        }
+      },
       "description": "Re-optimisation of floor corner slot arrangement to both increase local load and to also improve flow into the diffuser and hence rear load.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.898Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-floor-4",
@@ -152,18 +201,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Floor Body | Performance – Local Load | Reprofiled diffuser roof, sidewall, and winglet. | Through re-optimisation of the diffuser roof and sidewall we have increased local load and improved robustness throughout the operating envelope.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 4,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Floor Body\",\"Performance – Local Load\",\"Reprofiled diffuser roof, sidewall, and winglet.\",\"Through re-optimisation of the diffuser roof and sidewall we have increased local load and improved robustness throughout the operating envelope.\",\"Floor Body | Performance – Local Load | Reprofiled diffuser roof, sidewall, and winglet. | Through re-optimisation of the diffuser roof and sidewall we have increased local load and improved robustness throughout the operating envelope.\"]",
+          "componentName": "Cuerpo del piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Techo, pared lateral y aletín del difusor con perfiles modificados.",
+          "briefDescription": "Mediante la reoptimización del techo y la pared lateral del difusor hemos aumentado la carga local y mejorado la robustez en todo el rango de funcionamiento."
+        }
+      },
       "description": "Through re-optimisation of the diffuser roof and sidewall we have increased local load and improved robustness throughout the operating envelope.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.898Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-rear-suspension-5",
@@ -181,18 +242,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Rear Suspension | Performance – Local Load | Reprofiled suspension fairings. | Track rod and driveshaft camber re-distributed to increase local load whilst improving coupling with diffuser winglet and rear drum furniture.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 5,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Rear Suspension\",\"Performance – Local Load\",\"Reprofiled suspension fairings.\",\"Track rod and driveshaft camber re-distributed to increase local load whilst improving coupling with diffuser winglet and rear drum furniture.\",\"Rear Suspension | Performance – Local Load | Reprofiled suspension fairings. | Track rod and driveshaft camber re-distributed to increase local load whilst improving coupling with diffuser winglet and rear drum furniture.\"]",
+          "componentName": "Suspensión trasera",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Carenados de la suspensión con perfiles modificados.",
+          "briefDescription": "Redistribución de la curvatura de la barra de dirección y el semieje para aumentar la carga local y mejorar el acoplamiento con el aletín del difusor y los elementos auxiliares del tambor trasero."
+        }
+      },
       "description": "Track rod and driveshaft camber re-distributed to increase local load whilst improving coupling with diffuser winglet and rear drum furniture.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-rear-corner-6",
@@ -210,18 +283,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Rear Corner | Performance – Local Load | Rear winglet span and position change. | Chord and position of the rear drum winglets re- optimised to work with above fairing update and to improve rear tyre wake control across the operating envelope.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 6,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Rear Corner\",\"Performance – Local Load\",\"Rear winglet span and position change.\",\"Chord and position of the rear drum winglets re- optimised to work with above fairing update and to improve rear tyre wake control across the operating envelope.\",\"Rear Corner | Performance – Local Load | Rear winglet span and position change. | Chord and position of the rear drum winglets re- optimised to work with above fairing update and to improve rear tyre wake control across the operating envelope.\"]",
+          "componentName": "Conjunto trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Cambio de envergadura y posición del aletín trasero.",
+          "briefDescription": "Cuerda y posición de los aletines del tambor trasero reoptimizadas para trabajar con la actualización del carenado anterior y mejorar el control de la estela del neumático trasero en todo el rango de funcionamiento."
+        }
+      },
       "description": "Chord and position of the rear drum winglets re- optimised to work with above fairing update and to improve rear tyre wake control across the operating envelope.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-mercedes-rear-bodywork-7",
@@ -239,18 +324,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Rear Bodywork | Performance - Flow Conditioning | Reduce volume, increased sideview ramp. | Reduce volume and increased sideview ramp increases downwash to the rear floor and rear drum, resulting in more load.",
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "sourceHeadingPage": 4,
+      "sourceRowNumber": 7,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Rear Bodywork\",\"Performance - Flow Conditioning\",\"Reduce volume, increased sideview ramp.\",\"Reduce volume and increased sideview ramp increases downwash to the rear floor and rear drum, resulting in more load.\",\"Rear Bodywork | Performance - Flow Conditioning | Reduce volume, increased sideview ramp. | Reduce volume and increased sideview ramp increases downwash to the rear floor and rear drum, resulting in more load.\"]",
+          "componentName": "Carrocería trasera",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Volumen reducido y rampa más pronunciada en la vista lateral.",
+          "briefDescription": "La reducción de volumen y la rampa más pronunciada en la vista lateral aumentan el flujo descendente hacia la parte trasera del piso y el tambor trasero, generando más carga."
+        }
+      },
       "description": "Reduce volume and increased sideview ramp increases downwash to the rear floor and rear drum, resulting in more load.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-red-bull-racing-floor-1",
@@ -268,24 +365,36 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Floor Board | Performance - Local Load | Revised Floor Board geometry | Applied above the existing floor foot geometry, the new board realises development work to extract more load locally whilst maintaining flow stability behind the front tyres.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Floor Board\",\"Performance - Local Load\",\"Revised Floor Board geometry\",\"Applied above the existing floor foot geometry, the new board realises development work to extract more load locally whilst maintaining flow stability behind the front tyres.\",\"Floor Board | Performance - Local Load | Revised Floor Board geometry | Applied above the existing floor foot geometry, the new board realises development work to extract more load locally whilst maintaining flow stability behind the front tyres.\"]",
+          "componentName": "Panel del piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Geometría revisada del panel del piso",
+          "briefDescription": "Aplicado sobre la geometría existente del pie del piso, el nuevo panel materializa el desarrollo realizado para extraer más carga local y mantener la estabilidad del flujo detrás de los neumáticos delanteros."
+        }
+      },
       "description": "Applied above the existing floor foot geometry, the new board realises development work to extract more load locally whilst maintaining flow stability behind the front tyres.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
-      "id": "bahrain-2026-doc-12-red-bull-racing-diffuser-1",
+      "id": "bahrain-2026-doc-12-ferrari-diffuser-1",
       "season": 2026,
       "grandPrixId": "bahrain-2026",
-      "teamId": "red-bull-racing",
+      "teamId": "ferrari",
       "componentId": "diffuser",
       "visualizable": true,
       "componentName": "Diffuser",
@@ -297,18 +406,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Diffuser | Performance - Local Load | Diffuser outboard winglet cascade element development | Not Sepang track specific, this very localized development around the diffuser winglet cascade is providing a favourable additional downforce across the entire car operating envelope",
+      "sourcePage": 8,
+      "sourceTeamHeading": "Scuderia Ferrari HP",
+      "sourceHeadingPage": 8,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Diffuser\",\"Performance - Local Load\",\"Diffuser outboard winglet cascade element development\",\"Not Sepang track specific, this very localized development around the diffuser winglet cascade is providing a favourable additional downforce across the entire car operating envelope\",\"Diffuser | Performance - Local Load | Diffuser outboard winglet cascade element development | Not Sepang track specific, this very localized development around the diffuser winglet cascade is providing a favourable additional downforce across the entire car operating envelope\"]",
+          "componentName": "Difusor",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Desarrollo de los elementos de la cascada de aletines exteriores del difusor",
+          "briefDescription": "Sin ser específico del circuito de Sepang, este desarrollo muy localizado alrededor de la cascada de aletines del difusor proporciona carga aerodinámica adicional favorable en todo el rango de funcionamiento del coche"
+        }
+      },
       "description": "Not Sepang track specific, this very localized development around the diffuser winglet cascade is providing a favourable additional downforce across the entire car operating envelope",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-racing-bulls-front-wing-1",
@@ -326,18 +447,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Front Wing | Circuit specific - Balance Range | New front flap | A longer chord flap for the front wing that was introduced at the previous event increases the load that can be generated by the wing, meeting the aero balance requirements for this circuit.",
+      "sourcePage": 11,
+      "sourceTeamHeading": "Visa Cash App Racing Bulls",
+      "sourceHeadingPage": 11,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Front Wing\",\"Circuit specific - Balance Range\",\"New front flap\",\"A longer chord flap for the front wing that was introduced at the previous event increases the load that can be generated by the wing, meeting the aero balance requirements for this circuit.\",\"Front Wing | Circuit specific - Balance Range | New front flap | A longer chord flap for the front wing that was introduced at the previous event increases the load that can be generated by the wing, meeting the aero balance requirements for this circuit.\"]",
+          "componentName": "Alerón delantero",
+          "primaryReason": "Específico del circuito - Rango de equilibrio",
+          "geometricDifference": "Nuevo flap delantero",
+          "briefDescription": "Un flap de mayor cuerda para el alerón delantero introducido en el evento anterior aumenta la carga que puede generar el alerón, cumpliendo los requisitos de equilibrio aerodinámico de este circuito."
+        }
+      },
       "description": "A longer chord flap for the front wing that was introduced at the previous event increases the load that can be generated by the wing, meeting the aero balance requirements for this circuit.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-racing-bulls-rear-wing-2",
@@ -355,18 +488,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Rear Wing | Performance - Local Load | Revised rear wing auxiliary components | An improved design of the rear wing support components allows the rear wing to perform more effectively, increasing the efficiency of load generated.",
+      "sourcePage": 11,
+      "sourceTeamHeading": "Visa Cash App Racing Bulls",
+      "sourceHeadingPage": 11,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Rear Wing\",\"Performance - Local Load\",\"Revised rear wing auxiliary components\",\"An improved design of the rear wing support components allows the rear wing to perform more effectively, increasing the efficiency of load generated.\",\"Rear Wing | Performance - Local Load | Revised rear wing auxiliary components | An improved design of the rear wing support components allows the rear wing to perform more effectively, increasing the efficiency of load generated.\"]",
+          "componentName": "Alerón trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Componentes auxiliares revisados del alerón trasero",
+          "briefDescription": "Un diseño mejorado de los componentes de soporte del alerón trasero permite que éste trabaje con mayor eficacia, aumentando la eficiencia de la carga generada."
+        }
+      },
       "description": "An improved design of the rear wing support components allows the rear wing to perform more effectively, increasing the efficiency of load generated.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-haas-rear-impact-structure-1",
@@ -384,18 +529,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Rear Impact Structure | Performance – Local Load | Updated Rear Impact Structure geometry | An additional Rear Impact Structure device will be available on track, enabling targeted tuning of the car’s characteristics for this circuit.",
+      "sourcePage": 14,
+      "sourceTeamHeading": "*TGR HAAS F1 TEAM*",
+      "sourceHeadingPage": 14,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Rear Impact Structure\",\"Performance – Local Load\",\"Updated Rear Impact Structure geometry\",\"An additional Rear Impact Structure device will be available on track, enabling targeted tuning of the car’s characteristics for this circuit.\",\"Rear Impact Structure | Performance – Local Load | Updated Rear Impact Structure geometry | An additional Rear Impact Structure device will be available on track, enabling targeted tuning of the car’s characteristics for this circuit.\"]",
+          "componentName": "Estructura de impacto trasera",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Geometría actualizada de la estructura de impacto trasera",
+          "briefDescription": "Habrá un dispositivo adicional de la estructura de impacto trasera disponible en pista, permitiendo ajustar de forma específica las características del coche para este circuito."
+        }
+      },
       "description": "An additional Rear Impact Structure device will be available on track, enabling targeted tuning of the car’s characteristics for this circuit.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "bahrain-2026-doc-12-alpine-front-corner-1",
@@ -413,18 +570,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 12 - Car Presentation Submissions",
       "sourceText": "Front Corner | Performance – Brake Cooling | Revised front drum exit | The front drum exit has been trimmed to increase brake cooling capacity, improving thermal management for the upcoming high-demand tracks.",
+      "sourcePage": 17,
+      "sourceTeamHeading": "BWT Alpine F1 Team",
+      "sourceHeadingPage": 17,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c\",\"Front Corner\",\"Performance – Brake Cooling\",\"Revised front drum exit\",\"The front drum exit has been trimmed to increase brake cooling capacity, improving thermal management for the upcoming high-demand tracks.\",\"Front Corner | Performance – Brake Cooling | Revised front drum exit | The front drum exit has been trimmed to increase brake cooling capacity, improving thermal management for the upcoming high-demand tracks.\"]",
+          "componentName": "Conjunto delantero",
+          "primaryReason": "Rendimiento - Refrigeración de los frenos",
+          "geometricDifference": "Salida revisada del tambor delantero",
+          "briefDescription": "Se ha recortado la salida del tambor delantero para aumentar la capacidad de refrigeración de los frenos y mejorar la gestión térmica para los próximos circuitos de alta exigencia."
+        }
+      },
       "description": "The front drum exit has been trimmed to increase brake cooling capacity, improving thermal management for the upcoming high-demand tracks.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-10-02T11:16:23.765Z",
+      "publishedAt": "2026-10-02T12:21:31.899Z",
       "contentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     }
   ],
   "sourceDocument": {
@@ -433,11 +602,11 @@
     "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
     "documentId": "12",
     "documentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
-    "retrievedAt": "2026-10-02T11:16:22.416Z"
+    "retrievedAt": "2026-10-02T11:47:06.199Z"
   },
-  "retrievedAt": "2026-10-02T11:16:22.416Z",
-  "publishedAt": "2026-10-02T11:16:23.765Z",
-  "parserVersion": "fia-table-v3",
+  "retrievedAt": "2026-10-02T11:47:06.199Z",
+  "publishedAt": "2026-10-02T12:21:31.898Z",
+  "parserVersion": "fia-table-v4",
   "validation": {
     "recordsReceived": 14,
     "recordsPublished": 14,

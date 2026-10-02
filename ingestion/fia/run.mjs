@@ -3,9 +3,8 @@ import { resolve } from 'node:path'
 import { downloadDocument } from './downloader.mjs'
 import { extractPdfText } from './extractor.mjs'
 import { fetchFiaDocumentIndex } from './finder.mjs'
-import { parsePresentationText } from './parser.mjs'
-import { findDuplicateRecordIds, validateUpdate } from './validator.mjs'
-import { createPublicationPlan, isPublishedDatasetCurrent, writeJson, writePublishedDatasetAtomically } from './publication.mjs'
+import { reconstructPresentation, parserVersion } from './reconstruct.mjs'
+import { isPublishedDatasetCurrent, writeJson, writePublishedDatasetAtomically } from './publication.mjs'
 
 const args = Object.fromEntries(process.argv.slice(2).filter((value) => value.startsWith('--')).map((value) => {
   const [key, ...rest] = value.slice(2).split('='); return [key, rest.join('=') || true]
@@ -24,24 +23,16 @@ if (!document) throw new Error('Requested FIA document was not found; previous d
 const download = await downloadDocument(document, resolve('ingestion/raw'))
 const extraction = await extractPdfText(download.path)
 if (!extraction.text) throw new Error(`unsupported_pdf: ${extraction.extractionWarnings.join('; ')}`)
-const parserVersion = 'fia-table-v3'
-const parsed = parsePresentationText(extraction, { documentId: document.id, season, grandPrixId: args['grand-prix'], sourceDocument: document.title, sourceUrl: document.sourceUrl, sourceLanguage: 'en', contentHash: download.contentHash, parserVersion })
-const duplicates = new Set(findDuplicateRecordIds(parsed.records)); const rejected = [...parsed.rejected]
-const validated = []
-for (const record of parsed.records) {
-  const result = validateUpdate(record, [args['grand-prix']], season)
-  if (duplicates.has(record.id)) rejected.push({ id: record.id, reason: 'duplicate_record' })
-  else if (!result.valid) rejected.push({ id: record.id, reason: result.errors })
-  else validated.push({ ...record, validationState: 'validated' })
-}
 const enrichedDocument = { ...document, contentHash: download.contentHash, path: download.path }
-const review = { generatedAt: new Date().toISOString(), publicationGate: args.publish === 'true' ? 'safe_publish_requested' : 'draft_only', document: enrichedDocument, extraction: { pageCount: extraction.pageCount, metadata: extraction.metadata, extractionWarnings: extraction.extractionWarnings, textLength: extraction.text.length }, records: validated, rejected }
+const grandPrix = { id: args['grand-prix'], season, name: args['grand-prix-name'] ?? args['event-name'], country: args.country ?? null, circuit: args.circuit ?? null, startDate: args['start-date'] ?? null, endDate: args['end-date'] ?? null, status: 'scheduled' }
+const reconstruction=reconstructPresentation(extraction,enrichedDocument,grandPrix,season)
+const {parsed,validated,rejected}=reconstruction
+const publication=reconstruction
+const review = { generatedAt: new Date().toISOString(), publicationGate: args.publish === 'true' ? 'safe_publish_requested' : 'draft_only', document: enrichedDocument, extraction: { pageCount: extraction.pageCount, metadata: extraction.metadata, extractionWarnings: extraction.extractionWarnings, textLength: extraction.text.length }, records: validated, rejected, pageAudit: parsed.pageAudit, discarded: parsed.discarded, appliedReviews: parsed.appliedReviews }
 await mkdir(outputDirectory, { recursive: true })
 const outputPath = resolve(outputDirectory, `${args['grand-prix']}-${document.documentId ?? 'document'}-review.json`)
 await writeFile(outputPath, `${JSON.stringify(review, null, 2)}\n`)
 const validatedPath = await writeJson(resolve('ingestion/output/validated', `${args['grand-prix']}-${document.documentId ?? 'document'}.json`), { ...review, records: validated, rejected: [] })
-const grandPrix = { id: args['grand-prix'], season, name: args['grand-prix-name'] ?? args['event-name'], country: args.country ?? null, circuit: args.circuit ?? null, startDate: args['start-date'] ?? null, endDate: args['end-date'] ?? null, status: 'scheduled' }
-const publication = createPublicationPlan({ document: enrichedDocument, records: validated, rejected, grandPrix, season, parserVersion })
 const manualReviewPath = await writeJson(resolve('ingestion/output/manual-review', `${args['grand-prix']}-${document.documentId ?? 'document'}.json`), { generatedAt: new Date().toISOString(), grandPrixId: args['grand-prix'], document: enrichedDocument, records: publication.manualReview })
 let publishedPath = null
 let alreadyPublished = false
