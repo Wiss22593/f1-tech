@@ -1,4 +1,7 @@
+import { teamModelManifest } from './model-manifest.mjs'
 import { resolveInspectionComponent } from './component-mapping.mjs'
+const formulaAlphaAssetIds = new Set(Object.values(teamModelManifest).map(asset => asset.assetId))
+export function isFormulaAlphaAsset(assetId) { return formulaAlphaAssetIds.has(assetId) }
 export const alpineAssetId = 'alpine-a526-formulatech-evaluation'
 // World coordinates include the authored 1.1 viewer scale. Unsupported pieces have no camera.
 export const alpineInspectionViews = {

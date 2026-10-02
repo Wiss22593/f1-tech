@@ -160,10 +160,10 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
   const highlightable = [...targets.keys()].filter(component => !invalid.has(component) && targets.get(component).length > 0)
   const filter = labels => [...(labels ?? [])].filter(component => highlightable.includes(component))
   const channels = [], originals = [], ownedGeometries = []
-  // Share private Alpine clones only by source identity AND semantic membership.
+  // Share private Formula Alpha clones only by source identity AND semantic membership.
   const materialBuckets = new Map()
   const privateMaterial = (source, components) => {
-    if (assetId !== 'alpine-a526-formulatech-evaluation') {
+    if (mapping?.geometryProfile !== 'formula-alpha-2026') {
       const material = cloneMaterial(source)
       channels.push(isolationChannel(material, components))
       return material
@@ -244,11 +244,11 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
           channel.material.depthWrite = false
           channel.material.depthTest = !target
         }
-        if (assetId !== "alpine-a526-formulatech-evaluation" || wasTransparent !== channel.material.transparent) channel.material.needsUpdate = true
-        // Only Alpine Halo needs a neutral contrast lift: its black coating stays
+        if (mapping?.geometryProfile !== 'formula-alpha-2026' || wasTransparent !== channel.material.transparent) channel.material.needsUpdate = true
+        // Only Formula Alpha Halo needs a neutral contrast lift: its black coating stays
         // black under a multiplicative gain. Other focus categories keep authored color.
         channel.contrastStart = channel.haloContrast.value
-        channel.contrastTarget = assetId === 'alpine-a526-formulatech-evaluation' && active === 'halo' && target ? .12 : 0
+        channel.contrastTarget = mapping?.geometryProfile === 'formula-alpha-2026' && active === 'halo' && target ? .12 : 0
         channel.start = channel.uniform.value
         channel.target = !active || channel.components.includes(active) ? 1 : isolationBrightness
       }

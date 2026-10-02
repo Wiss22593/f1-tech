@@ -1,4 +1,4 @@
-import { alpineAssetId, alpineInspectionViews, resolveAlpineFocus } from './alpine-focus.mjs'
+import { isFormulaAlphaAsset, alpineInspectionViews, resolveAlpineFocus } from './alpine-focus.mjs'
 import { configureAuthoredLiveryLoader } from './authored-livery.mjs'
 import { resolveInspectionComponent } from './component-mapping.mjs'
 import { createComponentIsolation, type ComponentIsolation } from './component-isolation.mjs'
@@ -170,8 +170,8 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const [availability, setAvailability] = useState<{ assetId: string; components: CarComponentId[] }>({ assetId: '', components: [] })
   useEffect(() => { setFocusedHotspot(undefined) }, [asset.id, locale, cameraPreset, focusRequestId])
-  const isAlpine = asset.id === alpineAssetId
-  const requestedComponent = isAlpine
+  const isFormulaAlpha = isFormulaAlphaAsset(asset.id)
+  const requestedComponent = isFormulaAlpha
     ? resolveAlpineFocus(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, availability.assetId === asset.id ? availability.components : [])
     : resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
   const inspectionComponent = availability.assetId === asset.id && requestedComponent && availability.components.includes(requestedComponent) ? requestedComponent : undefined
@@ -180,7 +180,7 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   // Frame the audited arms from above the tyres and keep the entire underside in view.
   const inspectionHotspot = useMemo(() => {
     if (!inspectionComponent) return undefined
-    if (isAlpine) {
+    if (isFormulaAlpha) {
       const view = alpineInspectionViews[inspectionComponent]
       const anchor = hotspots.find(hotspot => hotspot.componentId === inspectionComponent) ?? sourceHotspot
       return view ? { ...(anchor ?? { label: '', position: view.target, calloutOffset: [0, 0, 0] as [number, number, number], description: '' }), id: inspectionComponent, componentId: inspectionComponent, inspectionView: view } : undefined
@@ -193,7 +193,7 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
     }
     const view = views[sourceHotspot.componentId]
     return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
-  }, [sourceHotspot, inspectionComponent, isAlpine, hotspots])
+  }, [sourceHotspot, inspectionComponent, isFormulaAlpha, hotspots])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40} /><ViewerErrorBoundary key={asset.id} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel key={asset.id} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={isAlpine ? inspectionComponent : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40} /><ViewerErrorBoundary key={asset.id} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel key={asset.id} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={isFormulaAlpha ? inspectionComponent : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

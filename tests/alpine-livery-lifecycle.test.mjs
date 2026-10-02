@@ -33,12 +33,15 @@ test('Alpine texture channels and every base material survive focus, GP cleanup,
   // color-space metadata; browser regression independently decodes the PNGs.
   for(const m of materials) {
     const def = gltf.materials.find(def=>def.name===m.name)
-    m.map = new Texture(); m.map.channel = def.pbrMetallicRoughness.baseColorTexture.texCoord ?? 0
-    m.map.colorSpace = SRGBColorSpace
+    const texture = def.pbrMetallicRoughness?.baseColorTexture
+    if (texture) {
+      m.map = new Texture(); m.map.channel = texture.texCoord ?? 0
+      m.map.colorSpace = SRGBColorSpace
+    }
   }
   const bases = new Map([...materials].map(m=>[m,state(m)]))
   let textureDisposals=0
-  for(const m of materials) m.map.addEventListener('dispose',()=>textureDisposals++)
+  for(const m of materials) m.map?.addEventListener('dispose',()=>textureDisposals++)
   for(let gp=0;gp<6;gp++) {
     const model=scene.clone(true), original=[]
     model.traverse(mesh=>{if(mesh.isMesh)original.push([mesh,mesh.material,mesh.geometry,mesh.renderOrder])})
@@ -48,7 +51,9 @@ test('Alpine texture channels and every base material survive focus, GP cleanup,
         c.select(component);c.step(1)
         for(const [m,base] of bases) assert.deepEqual(state(m),base)
         model.traverse(mesh=>{if(mesh.isMesh)for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material]) {
-          assert.ok(m.map);assert.ok(!materials.has(m));assert.equal(m.map.channel,gltf.materials.find(def=>def.name===m.name).pbrMetallicRoughness.baseColorTexture.texCoord??0)
+          const texture=gltf.materials.find(def=>def.name===m.name).pbrMetallicRoughness?.baseColorTexture
+          assert.ok(!materials.has(m))
+          if(texture){assert.ok(m.map);assert.equal(m.map.channel,texture.texCoord??0)}else assert.equal(m.map,null)
         }})
       }
       c.select(undefined);c.step(1)

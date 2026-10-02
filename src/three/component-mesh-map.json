@@ -1328,7 +1328,7 @@
   },
   "alpine-a526-formulatech-evaluation": {
     "file": "alpine-a526-colapinto.glb",
-    "sha256": "a398ea532f3b6d71f434b5a86cfb6ef558019107ff71ac24fb4c87f99e7f90d6",
+    "sha256": "006cbe59ba6813d24ca5650443e34245cf2f8f977f385c6e98b134ee04594e69",
     "meshRules": [
       {
         "node": "GEO_MAIN_BODY_3_366",
@@ -1420,13 +1420,9 @@
         "GEO_GEN_DRS_1_427",
         "GEO_GEN_DRS_2_429",
         "GEO_GEN_RW_452",
-        "GEO_GEN_SCREWS_DRS_430",
-        "GEO_GEN_SCREWS_RW_451",
         "GEO_MAIN_DRS_431",
         "GEO_MAIN_REARWING_453",
-        "GEO_MAIN_STICKERS_DRS_432",
-        "GEO_MAIN_STICKERS_RW_454",
-        "GEO_MAIN_STICKERS_RW_B_457"
+        "GEO_MAIN_STICKERS_RW_454"
       ],
       "halo": [
         "GEO_MAIN_HALO_HR_86",
@@ -1659,8 +1655,8 @@
         "indexHash": "55adc155"
       },
       "GEO_MAIN_STICKERS_RW_454": {
-        "positionHash": "2f4c60c5",
-        "indexHash": "3feb9f06"
+        "positionHash": "440586a1",
+        "indexHash": "4b18c8c1"
       },
       "GEO_MAIN_STICKERS_RW_B_457": {
         "positionHash": "aae2c829",
@@ -1934,6 +1930,7 @@
         "positionHash": "a2bcb08c",
         "indexHash": "f061338a"
       }
-    }
+    },
+    "geometryProfile": "formula-alpha-2026"
   }
 }

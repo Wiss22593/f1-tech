@@ -1,5 +1,12 @@
 import mappings from './component-mesh-map.json' with { type: 'json' }
-export const componentMeshMappings = mappings
+import { teamModelManifest } from './model-manifest.mjs'
+// All eleven current exports share the audited Formula Alpha geometry. Each
+// selector still validates its geometry fingerprint; skins never select pieces.
+const formulaAlphaMapping = mappings['alpine-a526-formulatech-evaluation']
+export const componentMeshMappings = {
+  ...mappings,
+  ...Object.fromEntries(Object.values(teamModelManifest).map(asset => [asset.assetId, formulaAlphaMapping])),
+}
 export function geometryArrayHash(array) {
   let hash = 2166136261
   for (const byte of new Uint8Array(array.buffer, array.byteOffset, array.byteLength)) hash = Math.imul(hash ^ byte, 16777619)
@@ -52,7 +59,7 @@ export function resolveComponentNode(model, name) {
   return matches.length === 1 ? matches[0] : null
 }
 /** Kept as a pure inventory gate; runtime additionally requires real resolved targets. */
-export function resolveHighlightableComponents(assetId, validRules, objectNames, mapping = mappings[assetId]) {
+export function resolveHighlightableComponents(assetId, validRules, objectNames, mapping = componentMeshMappings[assetId]) {
   if (!mapping) return []
   const components = new Set((mapping.meshRules ?? []).flatMap(rule => Object.keys(rule.components)))
   const result = [...components].filter(component => mapping.meshRules.every(rule => !rule.components[component] || validRules.includes(rule)))
