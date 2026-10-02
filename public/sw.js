@@ -22,6 +22,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return
   const url = new URL(event.request.url)
+  // Vite modules are mutable URLs; a stale module can mix incompatible revisions.
+  if (/^\/(?:src|node_modules|@vite|@fs|@id)\//.test(url.pathname) || url.pathname === '/@react-refresh') return
   // Published JSON prefers freshness and retains only the last successful response offline.
   if (url.pathname.startsWith('/data/')) {
     event.respondWith(networkFirst(event.request))
