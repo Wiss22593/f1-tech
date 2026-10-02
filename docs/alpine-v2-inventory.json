@@ -41293,8 +41293,10 @@
             0.351855094631901,
             1.699999749660492
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "frontWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41365,8 +41367,10 @@
             0.3518551541492343,
             1.7000003457069397
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "frontWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41437,8 +41441,10 @@
             0.3521736115217209,
             -1.7003969550132751
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "rearWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41509,8 +41515,10 @@
             0.3521736264228821,
             -1.7003964185714722
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "rearWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41581,8 +41589,10 @@
             0.351855094631901,
             1.7000002264976501
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "frontWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41653,8 +41663,10 @@
             0.3518551541492343,
             1.6999996900558472
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "frontWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41725,8 +41737,10 @@
             0.3521735519170761,
             -1.7003968954086304
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "rearWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -41797,8 +41811,10 @@
             0.3521735668182373,
             -1.7003973126411438
           ],
-          "components": [],
-          "category": "unknown/manual-review"
+          "components": [
+            "rearWheels"
+          ],
+          "category": "audited-mapping"
         }
       ]
     },
@@ -46120,6 +46136,30 @@
           "node": "GEO_WHEEL_STATIC_RF_396",
           "meshName": "GEO_WHEEL_STATIC_RF_396",
           "triangles": 8944
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LF_SUB0_380",
+          "meshName": "TIRE_LF_SUB0_380",
+          "triangles": 1536
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LF_SUB1_379",
+          "meshName": "TIRE_LF_SUB1_379",
+          "triangles": 2560
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RF_SUB0_398",
+          "meshName": "TIRE_RF_SUB0_398",
+          "triangles": 1536
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RF_SUB1_397",
+          "meshName": "TIRE_RF_SUB1_397",
+          "triangles": 2560
         }
       ]
     },
@@ -46173,6 +46213,30 @@
           "node": "GEO_WHEEL_STATIC_RR_406",
           "meshName": "GEO_WHEEL_STATIC_RR_406",
           "triangles": 13284
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LR_SUB0_390",
+          "meshName": "TIRE_LR_SUB0_390",
+          "triangles": 2304
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LR_SUB1_389",
+          "meshName": "TIRE_LR_SUB1_389",
+          "triangles": 2816
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RR_SUB0_408",
+          "meshName": "TIRE_RR_SUB0_408",
+          "triangles": 2304
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RR_SUB1_407",
+          "meshName": "TIRE_RR_SUB1_407",
+          "triangles": 2816
         }
       ]
     },
@@ -46398,6 +46462,30 @@
           "node": "GEO_WHEEL_STATIC_RF_396",
           "meshName": "GEO_WHEEL_STATIC_RF_396",
           "triangles": 8944
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LF_SUB0_380",
+          "meshName": "TIRE_LF_SUB0_380",
+          "triangles": 1536
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LF_SUB1_379",
+          "meshName": "TIRE_LF_SUB1_379",
+          "triangles": 2560
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RF_SUB0_398",
+          "meshName": "TIRE_RF_SUB0_398",
+          "triangles": 1536
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RF_SUB1_397",
+          "meshName": "TIRE_RF_SUB1_397",
+          "triangles": 2560
         }
       ]
     },
@@ -46511,6 +46599,30 @@
           "node": "GEO_WHEEL_STATIC_RR_406",
           "meshName": "GEO_WHEEL_STATIC_RR_406",
           "triangles": 13284
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LR_SUB0_390",
+          "meshName": "TIRE_LR_SUB0_390",
+          "triangles": 2304
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LR_SUB1_389",
+          "meshName": "TIRE_LR_SUB1_389",
+          "triangles": 2816
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RR_SUB0_408",
+          "meshName": "TIRE_RR_SUB0_408",
+          "triangles": 2304
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RR_SUB1_407",
+          "meshName": "TIRE_RR_SUB1_407",
+          "triangles": 2816
         }
       ]
     },
@@ -46567,6 +46679,30 @@
         },
         {
           "type": "mesh",
+          "node": "TIRE_LF_SUB0_380",
+          "meshName": "TIRE_LF_SUB0_380",
+          "triangles": 1536
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LF_SUB1_379",
+          "meshName": "TIRE_LF_SUB1_379",
+          "triangles": 2560
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RF_SUB0_398",
+          "meshName": "TIRE_RF_SUB0_398",
+          "triangles": 1536
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RF_SUB1_397",
+          "meshName": "TIRE_RF_SUB1_397",
+          "triangles": 2560
+        },
+        {
+          "type": "mesh",
           "node": "GEO_WHEEL_BLUR_A_LR_386",
           "meshName": "GEO_WHEEL_BLUR_A_LR_386",
           "triangles": 2520
@@ -46612,6 +46748,30 @@
           "node": "GEO_WHEEL_STATIC_RR_406",
           "meshName": "GEO_WHEEL_STATIC_RR_406",
           "triangles": 13284
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LR_SUB0_390",
+          "meshName": "TIRE_LR_SUB0_390",
+          "triangles": 2304
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_LR_SUB1_389",
+          "meshName": "TIRE_LR_SUB1_389",
+          "triangles": 2816
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RR_SUB0_408",
+          "meshName": "TIRE_RR_SUB0_408",
+          "triangles": 2304
+        },
+        {
+          "type": "mesh",
+          "node": "TIRE_RR_SUB1_407",
+          "meshName": "TIRE_RR_SUB1_407",
+          "triangles": 2816
         }
       ]
     }

@@ -1,3 +1,4 @@
+import { alpineAssetId, alpineInspectionViews, resolveAlpineFocus } from './alpine-focus.mjs'
 import { configureAuthoredLiveryLoader } from './authored-livery.mjs'
 import { resolveInspectionComponent } from './component-mapping.mjs'
 import { createComponentIsolation, type ComponentIsolation } from './component-isolation.mjs'
@@ -54,9 +55,10 @@ function ShowroomLighting({ authored }: { authored: boolean }) {
   </>
 }
 
-function CameraPreset({ position }: { position: [number, number, number] }) {
+function CameraPreset({ position, fov }: { position: [number, number, number]; fov: number }) {
   const { camera } = useThree()
   useEffect(() => { camera.position.set(...position); camera.lookAt(0, .55, 0) }, [camera, position])
+  useLayoutEffect(() => { if ('fov' in camera) { camera.fov = fov; camera.updateProjectionMatrix() } }, [camera, fov])
   return null
 }
 
@@ -166,21 +168,30 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const [availability, setAvailability] = useState<{ assetId: string; components: CarComponentId[] }>({ assetId: '', components: [] })
   useEffect(() => { setFocusedHotspot(undefined) }, [asset.id, locale, cameraPreset, focusRequestId])
-  const requestedComponent = resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
+  const isAlpine = asset.id === alpineAssetId
+  const requestedComponent = isAlpine
+    ? resolveAlpineFocus(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, availability.assetId === asset.id ? availability.components : [])
+    : resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
   const inspectionComponent = availability.assetId === asset.id && requestedComponent && availability.components.includes(requestedComponent) ? requestedComponent : undefined
   const cornerComponent = inspectionComponent === 'frontCorner' ? 'frontSuspension' : inspectionComponent === 'rearCorner' ? 'rearSuspension' : undefined
   const sourceHotspot = (cornerComponent ? hotspots.find(hotspot => hotspot.componentId === cornerComponent) : undefined) ?? selectedHotspot ?? focusedHotspot
   // Frame the audited arms from above the tyres and keep the entire underside in view.
   const inspectionHotspot = useMemo(() => {
-    if (!sourceHotspot || !inspectionComponent) return undefined
+    if (!inspectionComponent) return undefined
+    if (isAlpine) {
+      const view = alpineInspectionViews[inspectionComponent]
+      const anchor = hotspots.find(hotspot => hotspot.componentId === inspectionComponent) ?? sourceHotspot
+      return view ? { ...(anchor ?? { label: '', position: view.target, calloutOffset: [0, 0, 0] as [number, number, number], description: '' }), id: inspectionComponent, componentId: inspectionComponent, inspectionView: view } : undefined
+    }
+    if (!sourceHotspot) return undefined
     const views: Partial<Record<CarComponentId, F1TechHotspot['inspectionView']>> = {
       frontSuspension: { position: [-3.2, 3.4, 4.8], target: [0, .48, 1.15], duration: 780 },
       rearSuspension: { position: [-3, 3.6, -5.1], target: [0, .58, -1.35], duration: 800 },
       floor: { position: [3.9, -3.9, 4.3], target: [0, .12, -.2], duration: 940 },
     }
-    const view = asset.id === 'alpine-a526-formulatech-evaluation' && inspectionComponent === 'cooling' ? { position: [3.4, 1.7, .6] as [number, number, number], target: [0, .225, -.58] as [number, number, number], duration: 780 } : views[sourceHotspot.componentId]
+    const view = views[sourceHotspot.componentId]
     return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
-  }, [sourceHotspot, inspectionComponent, asset.id])
+  }, [sourceHotspot, inspectionComponent, isAlpine, hotspots])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} /><ViewerErrorBoundary key={asset.id} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel key={asset.id} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40} /><ViewerErrorBoundary key={asset.id} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel key={asset.id} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={isAlpine ? inspectionComponent : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

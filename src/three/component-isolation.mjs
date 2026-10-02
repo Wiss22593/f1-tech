@@ -8,19 +8,20 @@ export const isolationBrightness = 0.28
 export const isolationDuration = 0.28
 
 /** Final display-color gain preserves textures, PBR parameters, livery and shadows. */
-function isolationChannel(material, components) {
-  const uniform = { value: 1 }
+function isolationChannel(material, components, alpine = false) {
+  const uniform = { value: 1 }, tint = { value: 0 }
   const beforeCompile = material.onBeforeCompile
   const cacheKey = material.customProgramCacheKey()
   material.onBeforeCompile = function (shader, renderer) {
     beforeCompile.call(this, shader, renderer)
     shader.uniforms.f1TechIsolationGain = uniform
+    if (alpine) shader.uniforms.f1TechFocusTint = tint
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nuniform float f1TechIsolationGain;')
-      .replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.rgb *= f1TechIsolationGain;')
+      .replace('#include <common>', '#include <common>\nuniform float f1TechIsolationGain;' + (alpine ? '\nuniform float f1TechFocusTint;' : ''))
+      .replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.rgb *= f1TechIsolationGain;' + (alpine ? '\ngl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.35, 0.85, 1.0), f1TechFocusTint);' : ''))
   }
-  material.customProgramCacheKey = () => `${cacheKey}|f1-tech-component-isolation-v3`
-  return { material, components, uniform, start: 1, target: 1, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
+  material.customProgramCacheKey = () => `${cacheKey}|f1-tech-component-isolation-v3${alpine ? "-alpine-tint" : ""}`
+  return { material, components, uniform, tint, start: 1, target: 1, tintStart: 0, tintTarget: 0, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
 }
 
 function cloneOriginalMaterial(material) {
@@ -159,6 +160,24 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
   const highlightable = [...targets.keys()].filter(component => !invalid.has(component) && targets.get(component).length > 0)
   const filter = labels => [...(labels ?? [])].filter(component => highlightable.includes(component))
   const channels = [], originals = [], ownedGeometries = []
+  // Share private Alpine clones only by source identity AND semantic membership.
+  const materialBuckets = new Map()
+  const privateMaterial = (source, components) => {
+    if (assetId !== 'alpine-a526-formulatech-evaluation') {
+      const material = cloneMaterial(source)
+      channels.push(isolationChannel(material, components))
+      return material
+    }
+    let buckets = materialBuckets.get(source)
+    if (!buckets) { buckets = new Map(); materialBuckets.set(source, buckets) }
+    const key = [...components].sort().join('|')
+    if (!buckets.has(key)) {
+      const material = cloneMaterial(source)
+      channels.push(isolationChannel(material, components, true))
+      buckets.set(key, material)
+    }
+    return buckets.get(key)
+  }
   for (const mesh of meshes) {
     originals.push({ mesh, geometry: mesh.geometry, material: mesh.material, castShadow: mesh.castShadow, receiveShadow: mesh.receiveShadow, renderOrder: mesh.renderOrder })
     mesh.castShadow = true
@@ -187,9 +206,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
           reordered.set(part.indices, offset)
           offset += part.indices.length
         }
-        const material = cloneMaterial(sourceMaterials[materialIndex])
-        materials.push(material)
-        channels.push(isolationChannel(material, components))
+        materials.push(privateMaterial(sourceMaterials[materialIndex], components))
       }
       geometry.setIndex(new BufferAttribute(reordered, 1))
       mesh.geometry = geometry
@@ -197,11 +214,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       ownedGeometries.push(geometry)
     } else {
       const components = filter(objectLabels.get(mesh))
-      const materials = (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map(source => {
-        const material = cloneMaterial(source)
-        channels.push(isolationChannel(material, components))
-        return material
-      })
+      const materials = (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map(source => privateMaterial(source, components))
       mesh.material = Array.isArray(mesh.material) ? materials : materials[0]
     }
   }
@@ -222,6 +235,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       elapsed = 0
       for (const channel of channels) {
         const target = active && channel.components.includes(active)
+        const wasTransparent = channel.material.transparent
         Object.assign(channel.material, channel.baseline)
         if (mode === 'internal') {
           // Opaque targets bypass occluder depth; ghost groups never write depth.
@@ -230,7 +244,9 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
           channel.material.depthWrite = false
           channel.material.depthTest = !target
         }
-        channel.material.needsUpdate = true
+        if (assetId !== "alpine-a526-formulatech-evaluation" || wasTransparent !== channel.material.transparent) channel.material.needsUpdate = true
+        channel.tintStart = channel.tint.value
+        channel.tintTarget = assetId === "alpine-a526-formulatech-evaluation" && target ? (mode === "internal" ? .7 : .22) : 0
         channel.start = channel.uniform.value
         channel.target = !active || channel.components.includes(active) ? 1 : isolationBrightness
       }
@@ -240,6 +256,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       elapsed = Math.min(elapsed + delta, isolationDuration)
       const progress = elapsed / isolationDuration, eased = progress * progress * (3 - 2 * progress)
       for (const channel of channels) {
+        channel.tint.value = progress === 1 ? channel.tintTarget : channel.tintStart + (channel.tintTarget - channel.tintStart) * eased
         channel.uniform.value = progress === 1 ? channel.target : channel.start + (channel.target - channel.start) * eased
       }
       return elapsed < isolationDuration
@@ -254,7 +271,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
         materials: channels.map(channel => ({
           component: channel.components[0] ?? null, components: [...channel.components],
           opacity: channel.material.opacity, transparent: channel.material.transparent, depthWrite: channel.material.depthWrite, depthTest: channel.material.depthTest,
-          gain: channel.uniform.value, uuid: channel.material.uuid,
+          gain: channel.uniform.value, focusTint: channel.tint.value, uuid: channel.material.uuid,
         })),
         geometries: ownedGeometries.length, disposed,
       }
@@ -265,6 +282,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
       active = undefined
       for (const channel of channels) {
         channel.uniform.value = 1
+        channel.tint.value = 0
         channel.material.dispose()
       }
       for (const original of originals) {

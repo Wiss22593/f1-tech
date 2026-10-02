@@ -1409,7 +1409,11 @@
         "GEO_WHEEL_FIXED_LF_375",
         "GEO_WHEEL_FIXED_RF_393",
         "GEO_WHEEL_STATIC_LF_378",
-        "GEO_WHEEL_STATIC_RF_396"
+        "GEO_WHEEL_STATIC_RF_396",
+        "TIRE_LF_SUB0_380",
+        "TIRE_LF_SUB1_379",
+        "TIRE_RF_SUB0_398",
+        "TIRE_RF_SUB1_397"
       ],
       "rearWheels": [
         "GEO_WHEEL_BLUR_A_LR_386",
@@ -1419,7 +1423,11 @@
         "GEO_WHEEL_FIXED_LR_385",
         "GEO_WHEEL_FIXED_RR_403",
         "GEO_WHEEL_STATIC_LR_388",
-        "GEO_WHEEL_STATIC_RR_406"
+        "GEO_WHEEL_STATIC_RR_406",
+        "TIRE_LR_SUB0_390",
+        "TIRE_LR_SUB1_389",
+        "TIRE_RR_SUB0_408",
+        "TIRE_RR_SUB1_407"
       ],
       "cooling": [
         "GEO_CB2_RADIATORS_492"
@@ -1470,7 +1478,9 @@
       "sidepods": "unknown/manual-review",
       "engineCover": "unknown/manual-review",
       "diffuser": "unknown/manual-review",
-      "steeringWheel": "unknown/manual-review: AL-labelled variants collapsed to micrometre size"
+      "steeringWheel": "unknown/manual-review: AL-labelled variants collapsed to micrometre size",
+      "airbox": "unsupported: no independently identified airbox; engineCover must not substitute for FIA Airbox",
+      "onboardCamera": "unsupported: no confidently identified independent onboard camera"
     },
     "objectFingerprints": {
       "GEO_CB1_FW_ENDPLATE_L_459": {
@@ -1828,6 +1838,38 @@
       "GEO_CB1_HUB_RR_409": {
         "positionHash": "75202068",
         "indexHash": "ccb3b9c0"
+      },
+      "TIRE_LF_SUB0_380": {
+        "positionHash": "b1413558",
+        "indexHash": "52704a75"
+      },
+      "TIRE_LF_SUB1_379": {
+        "positionHash": "97365025",
+        "indexHash": "0ca2f5b2"
+      },
+      "TIRE_RF_SUB0_398": {
+        "positionHash": "8724923d",
+        "indexHash": "ac2d702e"
+      },
+      "TIRE_RF_SUB1_397": {
+        "positionHash": "a03545ab",
+        "indexHash": "138a5aaa"
+      },
+      "TIRE_LR_SUB0_390": {
+        "positionHash": "b4d677a1",
+        "indexHash": "59084566"
+      },
+      "TIRE_LR_SUB1_389": {
+        "positionHash": "a1639157",
+        "indexHash": "f061338a"
+      },
+      "TIRE_RR_SUB0_408": {
+        "positionHash": "8ff456e2",
+        "indexHash": "59084566"
+      },
+      "TIRE_RR_SUB1_407": {
+        "positionHash": "a2bcb08c",
+        "indexHash": "f061338a"
       }
     }
   }
