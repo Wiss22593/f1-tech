@@ -14,3 +14,27 @@ export function selectPublishedGarageGrandPrix(events, publishedIds, season, req
   if (publishedIds.has(requestedId) && available.some(event => event.id === requestedId)) return requestedId
   return selectLatestPublishedGrandPrixId(available, publishedIds)
 }
+
+/** UI-only grouping: exact effective strings, never across component families. */
+export function prepareFamilyDetails(updates, getContent) {
+  const rows = updates.map((update, index) => ({ update, index, content: getContent(update) }))
+    .sort((a, b) => (a.update.fiaRecord?.sourceRowNumber ?? Infinity) - (b.update.fiaRecord?.sourceRowNumber ?? Infinity) || a.index - b.index)
+    .map((row, index) => ({ ...row, number: index + 1, specific: { ...row.content } }))
+  const shared = []
+  for (const field of ['primaryReason', 'geometricDifference', 'description']) {
+    const groups = new Map()
+    for (const row of rows) {
+      const value = row.content[field]
+      if (!value) continue
+      const key = JSON.stringify([row.update.componentId, value])
+      if (!groups.has(key)) groups.set(key, [])
+      groups.get(key).push(row)
+    }
+    for (const matches of groups.values()) {
+      if (matches.length < 2 || matches[0].update.componentId == null) continue
+      shared.push({ field, value: matches[0].content[field], numbers: matches.map(row => row.number) })
+      for (const row of matches) row.specific[field] = null
+    }
+  }
+  return { rows, shared }
+}

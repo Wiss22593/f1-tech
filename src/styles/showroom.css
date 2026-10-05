@@ -154,3 +154,9 @@
 .showroom-driver-number { color: #fff; font-variant-numeric: tabular-nums; }
 @media (min-width: 901px) { .showroom__canvas { inset: 0; } .showroom__canvas::before { height: 180px; opacity: .5; } }
 @media (max-width: 600px) { .support-link { padding: 7px; font-size: .56rem; gap: 4px; } .dashboard-header__tools { gap: 5px; } .dashboard-header--garage { padding-inline: 10px; gap: 6px; } .dashboard-header--garage .wordmark { font-size: 1rem; } .showroom__model span { padding: 6px 8px; font-size: .67rem; } }
+
+/* Family submission hierarchy; preserve the existing panel surface and scrolling. */
+.showroom-inline-detail .showroom-submission h3 { margin: 3px 0 8px; color: #f4f7fb; font-size: .82rem; font-weight: 800; line-height: 1.35; }
+.showroom-submission__ordinal { display: block; margin-top: 4px; color: #a3adb9; font: 500 .55rem 'DM Mono', monospace; letter-spacing: .04em; }
+.showroom-inline-detail .showroom-submission--shared { margin-top: 10px; padding-top: 10px; }
+.showroom-submission--shared p { margin: 6px 0; }

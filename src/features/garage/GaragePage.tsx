@@ -5,7 +5,7 @@ import { garageComponentGroups, garageGrandPrix, garageHotspots, garageTeams, ge
 import { garageCategory, garageComponent, garageGrandPrixName, garageText, garageUpdateCount, uiText, type Locale } from '../../i18n'
 import { loadPublishedGrandPrix, toCarComponent, publishedUpdateCounts } from '../../services/fia/published-dataset'
 import { defaultSeason, seasonEvents, supportedSeasons } from '../../domain/calendar.mjs'
-import { hasPublishedUpdates, selectPublishedGarageGrandPrix, showComponentSubtitle } from './presentation.mjs'
+import { hasPublishedUpdates, prepareFamilyDetails, selectPublishedGarageGrandPrix, showComponentSubtitle } from './presentation.mjs'
 
 import { getDriverAsset, isDriverAvailable, showroomLabels, showroomTeams, orderedDrivers } from './showroom'
 
@@ -124,16 +124,27 @@ export function GaragePage({ locale }: { locale: Locale }) {
     return <em className={count === 0 ? 'showroom-team-count showroom-team-count--empty' : 'showroom-team-count'}>{count > 0 ? <><strong>{count}</strong>{' '}<span>{label.slice(String(count).length + 1)}</span></> : <span>{label}</span>}</em>
   }
   function renderUpdateDetails(componentUpdates: GarageUpdate[], title: string) {
-    return componentUpdates.length === 0 ? <p>{copy.noUpdate}</p> : componentUpdates.map((update) => {
-      const content = getGarageUpdateContent(update, locale)
-      return <article className="showroom-submission" key={update.id}>
-        {showComponentSubtitle(title, content.presentedComponent) && <h3>{content.presentedComponent}</h3>}
-        {content.primaryReason && <p className="showroom-submission__reason">{content.primaryReason}</p>}
-        {content.geometricDifference && <p className="showroom-submission__geometry">{content.geometricDifference}</p>}
-        {content.description && <p className="showroom-submission__description">{content.description}</p>}
-      </article>
-    })
+    if (componentUpdates.length === 0) return <p>{copy.noUpdate}</p>
+    const { rows, shared } = prepareFamilyDetails(componentUpdates, update => getGarageUpdateContent(update, locale))
+    const updateLabel = { es: 'Actualización', en: 'Update', it: 'Aggiornamento', pt: 'Atualização', fr: 'Mise à jour', de: 'Aktualisierung' }[locale]
+    const fieldClass = { primaryReason: 'reason', geometricDifference: 'geometry', description: 'description' }
+    return <>
+      {rows.map(({ update, number, content, specific }) => <article className="showroom-submission" key={update.id}>
+        {rows.length > 1 && <span className="showroom-submission__ordinal">{updateLabel} {number}</span>}
+        {(rows.length > 1 || showComponentSubtitle(title, content.presentedComponent)) && <h3>{content.presentedComponent ?? title}</h3>}
+        {specific.primaryReason && <p className="showroom-submission__reason">{specific.primaryReason}</p>}
+        {specific.geometricDifference && <p className="showroom-submission__geometry">{specific.geometricDifference}</p>}
+        {specific.description && <p className="showroom-submission__description">{specific.description}</p>}
+      </article>)}
+      {shared.length > 0 && <div className="showroom-submission showroom-submission--shared">
+        {shared.map(({ field, value, numbers }, index) => <div key={index}>
+          {numbers.length < rows.length && <span className="showroom-submission__ordinal">{updateLabel} {numbers.join(', ')}</span>}
+          <p className={`showroom-submission__${fieldClass[field]}`}>{value}</p>
+        </div>)}
+      </div>}
+    </>
   }
+
   function renderMobileUpdateDetails(componentUpdates: GarageUpdate[]) {
     return componentUpdates.map((update) => {
       const content = getGarageUpdateContent(update, locale)
