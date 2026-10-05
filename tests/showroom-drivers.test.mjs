@@ -35,3 +35,24 @@ test('adding a configured second skin activates it and changes only the path, re
   assert.deepEqual(future.getDriverAsset(base, second), { ...base, path: second.modelPath })
   assert.equal(base.path, teamModelManifest.alpine.path)
 })
+
+
+test('2026 driver numbers are roster data and existing variant assignments stay intact', () => {
+  const expected = { antonelli: 12, russell: 63, leclerc: 16, hamilton: 44, norris: 1, piastri: 81, verstappen: 3, hadjar: 6, lindblad: 41, lawson: 30, colapinto: 43, gasly: 10, bearman: 87, ocon: 31, bortoleto: 5, hulkenberg: 27, albon: 23, sainz: 55, alonso: 14, stroll: 18, perez: 11, bottas: 77 }
+  const drivers = Object.values(config.showroomTeams).flatMap(team => team.drivers)
+  assert.deepEqual(Object.fromEntries(drivers.map(driver => [driver.id, driver.number])), expected)
+  for (const team of Object.values(config.showroomTeams)) {
+    assert.deepEqual(config.orderedDrivers(team).map(driver => driver.id), team.drivers.map(driver => driver.id))
+  }
+})
+
+test('an available reserve variant requires verified yellow airbox metadata', () => {
+  const driver = config.showroomTeams.alpine.drivers[0]
+  const reserve = { ...driver, role: 'reserve' }
+  assert.equal(config.isDriverAvailable(reserve), false)
+  assert.equal(config.isDriverAvailable({ ...reserve, airboxColor: 'black' }), false)
+  assert.equal(config.isDriverAvailable({ ...reserve, airboxColor: 'yellow' }), true)
+  assert.equal(config.isDriverAvailable({ ...reserve, airboxColor: 'yellow', modelPath: '/models/not-loaded.glb' }), false)
+  assert.equal(driver.role, null)
+  assert.equal(config.isDriverAvailable(driver), true)
+})
