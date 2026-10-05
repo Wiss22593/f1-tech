@@ -1,12 +1,14 @@
 import { isFormulaAlphaAsset, alpineInspectionViews, resolveAlpineFocus } from './alpine-focus.mjs'
-import { configureAuthoredLiveryLoader } from './authored-livery.mjs'
+import { acquireCar } from './car-loader.mjs'
+import { createUniversalOverlay, loadUniversalMapsManifest, resolveUniversalMap, universalMapsPath, type UniversalMapsManifest } from './universal-maps.mjs'
+import type { GLTF } from 'three/addons/loaders/GLTFLoader.js'
 import { resolveInspectionComponent } from './component-mapping.mjs'
 import { createComponentIsolation, type ComponentIsolation } from './component-isolation.mjs'
 import { Billboard, Environment, Html, Lightformer, Line, OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
-import { ACESFilmicToneMapping, Color, Vector3, type WebGLProgramParametersWithUniforms } from 'three'
+import { ACESFilmicToneMapping, Color, Group, Vector3, type WebGLProgramParametersWithUniforms } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { CameraPresetId, CarComponentId, F1TechCarAsset, F1TechHotspot } from './assets'
 import { garageText, type Locale } from '../i18n'
@@ -64,8 +66,7 @@ function CameraPreset({ position, fov }: { position: [number, number, number]; f
   return null
 }
 
-function OriginalModel({ asset, theme, selectedComponent, onReady }: { onReady: (value: { assetId: string; components: CarComponentId[] }) => void; asset: F1TechCarAsset; theme: ViewerTheme; selectedComponent?: CarComponentId }) {
-  const { scene } = useGLTF(asset.path, true, true, configureAuthoredLiveryLoader)
+function OriginalModel({ scene, asset, theme, selectedComponent, onReady }: { scene: GLTF['scene']; onReady: (value: { assetId: string; components: CarComponentId[] }) => void; asset: F1TechCarAsset; theme: ViewerTheme; selectedComponent?: CarComponentId }) {
   const model = useMemo(() => scene.clone(true), [scene])
   const isolation = useRef<ComponentIsolation | null>(null)
   useFrame((_, delta) => { isolation.current?.step(delta) })
@@ -118,7 +119,35 @@ diffuseColor.rgb = mix(diffuseColor.rgb, f1TechAccent, f1TechAccentMask);`)
       console.debug('[Component Focus V3]', { asset: asset.id, component: selectedComponent, targets: isolation.current?.resolveTargets(selectedComponent) ?? [] })
     }
   }, [asset.id, model, selectedComponent, theme])
-  return <primitive object={model} scale={asset.scale} rotation={asset.rotation} dispose={null} />
+  return <primitive object={model} dispose={null} />
+}
+
+function ActiveCar(props: Omit<Parameters<typeof OriginalModel>[0], 'scene'> & { loading: string }) {
+  const [result, setResult] = useState<GLTF>()
+  const [error, setError] = useState<Error>()
+  useEffect(() => {
+    let active = true
+    const lease = acquireCar(props.asset.path)
+    void lease.ready.then(value => { if (active) setResult(value) }, reason => { if (active) setError(reason instanceof Error ? reason : new Error(String(reason))) })
+    return () => { active = false; lease.release() }
+  }, [props.asset.path])
+  if (error) throw error
+  return result ? <OriginalModel {...props} scene={result.scene} /> : <Html center><span className="viewer-fallback">{props.loading}</span></Html>
+}
+
+function UniversalOverlay({ manifest, selectedMap, color, enabled }: { manifest: UniversalMapsManifest; selectedMap: string | null; color: string; enabled: boolean }) {
+  const { scene } = useGLTF(universalMapsPath)
+  const controller = useRef<ReturnType<typeof createUniversalOverlay> | null>(null)
+  const model = useMemo(() => new Group(), [])
+  useLayoutEffect(() => {
+    const overlay = createUniversalOverlay(scene, '#ffffff', manifest)
+    controller.current = overlay
+    model.add(overlay.model)
+    Object.defineProperty(model, 'universalMapDiagnostics', { configurable: true, value: () => overlay.snapshot() })
+    return () => { model.remove(overlay.model); overlay.dispose(); controller.current = null; Reflect.deleteProperty(model, 'universalMapDiagnostics') }
+  }, [scene, model, manifest])
+  useLayoutEffect(() => { controller.current?.setColor(color); controller.current?.select(enabled ? selectedMap : null) }, [color, enabled, selectedMap, scene, model, manifest])
+  return <primitive object={model} dispose={null} />
 }
 
 function CameraFocus({ hotspot, controlsRef, requestId, defaultPosition, positionScale = 1 }: { hotspot?: F1TechHotspot; controlsRef: React.RefObject<OrbitControlsImpl | null>; requestId?: number; defaultPosition: [number, number, number]; positionScale?: number }) {
@@ -170,8 +199,18 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const [availability, setAvailability] = useState<{ assetId: string; components: CarComponentId[] }>({ assetId: '', components: [] })
   useEffect(() => { setFocusedHotspot(undefined) }, [asset.id, locale, cameraPreset, focusRequestId])
+  useLayoutEffect(() => { setAvailability({ assetId: '', components: [] }) }, [asset.path])
   const isFormulaAlpha = isFormulaAlphaAsset(asset.id)
-  const requestedComponent = isFormulaAlpha
+  const [mapsManifest, setMapsManifest] = useState<UniversalMapsManifest>()
+  const [mapsError, setMapsError] = useState(false)
+  useEffect(() => {
+    if (!isFormulaAlpha) return
+    let active = true
+    void loadUniversalMapsManifest().then(value => { if (active) { setMapsManifest(value); setMapsError(false) } }, error => { if (active) { setMapsError(true); console.error('[F1 Tech universal maps manifest]', error) } })
+    return () => { active = false }
+  }, [isFormulaAlpha])
+  const selectedMap = isFormulaAlpha ? resolveUniversalMap(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, mapsManifest) : null
+  const requestedComponent = /^bodywork$/i.test(selectedComponentName?.trim() ?? '') ? undefined : isFormulaAlpha
     ? resolveAlpineFocus(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, availability.assetId === asset.id ? availability.components : [])
     : resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
   const inspectionComponent = availability.assetId === asset.id && requestedComponent && availability.components.includes(requestedComponent) ? requestedComponent : undefined
@@ -195,5 +234,5 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
     return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
   }, [sourceHotspot, inspectionComponent, isFormulaAlpha, hotspots])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40} /><ViewerErrorBoundary key={asset.id} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><OriginalModel key={asset.id} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={isFormulaAlpha ? inspectionComponent : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionComponent ? 32 : 40} /><group scale={asset.scale} rotation={asset.rotation}><ViewerErrorBoundary key={asset.path} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><ActiveCar key={asset.path} loading={copy.modelLoading} onReady={setAvailability} asset={asset} theme={theme} selectedComponent={isFormulaAlpha ? (selectedMap ? undefined : inspectionComponent) : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary>{mapsError && <Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}{isFormulaAlpha && mapsManifest && <ViewerErrorBoundary assetId="universal-maps" path={universalMapsPath} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={null}><UniversalOverlay manifest={mapsManifest} selectedMap={selectedMap} color={theme.highlight} enabled={availability.assetId === asset.id} /></Suspense></ViewerErrorBoundary>}</group><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

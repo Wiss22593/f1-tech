@@ -71,9 +71,9 @@ test('team round trips restore the same model independently of GP, locale and co
   const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
   assert.match(garage, /getCarAssetForTeam\(team\.id\)/)
   const viewer = await readFile(new URL('../src/three/ModelViewer.tsx', import.meta.url), 'utf8')
-  assert.match(viewer, /useGLTF\(asset\.path,/)
-  assert.match(viewer, /<OriginalModel key=\{asset\.id\}/)
-  assert.match(viewer, /<ViewerErrorBoundary key=\{asset\.id\}/)
+  assert.match(viewer, /acquireCar\(props\.asset\.path\)/)
+  assert.match(viewer, /<ActiveCar key=\{asset\.path\}/)
+  assert.match(viewer, /<ViewerErrorBoundary key=\{asset\.path\}/)
   assert.match(viewer, /scene\.clone\(true\)/)
 })
 test('all selected paths exist as valid GLB containers with canonical custom filenames', async () => {
