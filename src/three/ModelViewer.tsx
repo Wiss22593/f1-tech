@@ -12,7 +12,7 @@ import type { CameraPresetId, CarComponentId, F1TechCarAsset, F1TechHotspot } fr
 import { garageText, type Locale } from '../i18n'
 
 type ViewerTheme = { primary: string; secondary: string; bodyBase: string; bodySecondary: string; accent: string; highlight: string; carbon: string; metallic: string; glass: string; wheel: string; brake: string; neutral: string; surface: string; materialMetalness: number; materialRoughness: number; materialEmissiveIntensity: number }
-type ViewerProps = { asset: F1TechCarAsset; locale: Locale; cameraPreset: CameraPresetId; theme: ViewerTheme; hotspots: F1TechHotspot[]; activeComponents: readonly CarComponentId[]; selectedComponent?: CarComponentId; selectedComponentName?: string | null; selectedHotspot?: F1TechHotspot; focusRequestId?: number; showCallouts?: boolean; onSelectComponent: (componentId: CarComponentId) => void }
+type ViewerProps = { asset: F1TechCarAsset; locale: Locale; cameraPreset: CameraPresetId; theme: ViewerTheme; hotspots: F1TechHotspot[]; activeComponents: readonly CarComponentId[]; selectedComponent?: CarComponentId; selectedComponentName?: string | null; selectedHotspot?: F1TechHotspot; focusRequestId?: number; showCallouts?: boolean; presentationScale?: number; onSelectComponent: (componentId: CarComponentId) => void }
 const mobileCameraScale = 1.5
 
 function useMobileViewer() {
@@ -157,15 +157,15 @@ function TechnicalCallouts({ hotspots, activeComponents, onFocus }: Pick<ViewerP
   })}</>
 }
 
-export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedComponent, selectedComponentName, selectedHotspot, focusRequestId, showCallouts = true, onSelectComponent }: ViewerProps) {
+export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, activeComponents, selectedComponent, selectedComponentName, selectedHotspot, focusRequestId, showCallouts = true, presentationScale = 1, onSelectComponent }: ViewerProps) {
   const mobile = useMobileViewer()
   const cameraPosition = useMemo<[number, number, number]>(() => {
     const original = asset.cameraPresets[cameraPreset]
-    const factor = asset.liveryMode === 'authored' && cameraPreset === 'default' ? 1.27 : 1
+    const factor = asset.liveryMode === 'authored' && cameraPreset === 'default' ? 1.27 * (!mobile && !selectedComponent ? presentationScale : 1) : 1
     const position: [number, number, number] = [original[0] * factor, .55 + (original[1] - .55) * factor, original[2] * factor]
     if (!mobile) return position
     return [position[0] * mobileCameraScale, .55 + (position[1] - .55) * mobileCameraScale, position[2] * mobileCameraScale]
-  }, [asset, cameraPreset, mobile])
+  }, [asset, cameraPreset, mobile, selectedComponent, presentationScale])
   const controlsRef = useRef<OrbitControlsImpl>(null); const [focusedHotspot, setFocusedHotspot] = useState<F1TechHotspot>()
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const [availability, setAvailability] = useState<{ assetId: string; components: CarComponentId[] }>({ assetId: '', components: [] })

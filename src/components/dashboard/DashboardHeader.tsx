@@ -15,7 +15,7 @@ export function DashboardHeader({ activeSection, locale, onLocaleChange, onNavig
         {navigationItems(locale).map((item) => <button className={activeSection === item.id ? 'main-nav__link main-nav__link--active' : 'main-nav__link'} key={item.id} onClick={() => onNavigate(item.id)}>{item.label}</button>)}
       </nav>
       <div className="dashboard-header__tools">
-        <span className="live-label"><i /> {t(locale).common.demoMode}</span>
+
         <label className="locale-picker"><span className="sr-only">{t(locale).common.language}</span>
           <select value={locale} onChange={(event) => onLocaleChange(event.target.value as Locale)}>
             {(Object.keys(localeNames) as Locale[]).map((code) => <option key={code} value={code}>{localeNames[code]}</option>)}

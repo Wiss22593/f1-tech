@@ -95,3 +95,47 @@
 }
 .showroom__canvas { z-index: 0; }
 @media (min-width: 601px) { .showroom__heading { width: calc(100% - 380px); } }
+
+/* Keep the complete desktop showroom in the viewport; only pieces scroll. */
+@media (min-width: 901px) {
+  .dashboard:has(.showroom) { height: 100dvh; display: flex; flex-direction: column; }
+  .dashboard:has(.showroom) .dashboard-header { flex: 0 0 68px; }
+  .showroom { flex: 1; min-height: 0; }
+  .showroom__stage { height: 100%; min-height: 0; }
+  .dashboard:has(.showroom) .dashboard-footer { flex: 0 0 auto; padding: 7px 4vw; font-size: .5rem; line-height: 1.4; letter-spacing: .02em; }
+  .dashboard:has(.showroom) .dashboard-footer br { display: none; }
+  .dashboard:has(.showroom) .legal-disclaimer { color: #929ba7; }
+  .showroom__heading { top: 20px; left: 4vw; width: auto; max-width: calc(100% - 350px); }
+  .showroom__heading h1 { font-size: clamp(2.7rem, 4.3vw, 4.6rem); }
+  .showroom__eyebrow { margin-bottom: 8px; }
+  .showroom__model { margin: 8px 0 12px; }
+  .showroom__context { top: 20px; left: 4vw; right: auto; width: 310px; transform: translateX(320px); }
+  .showroom__context > span { text-align: left; }
+  .showroom__context select { min-width: 0; }
+  .showroom-panel { top: 20px; bottom: 90px; width: 270px; }
+  .showroom-panel__top { flex-shrink: 0; }
+  .showroom-pieces { flex: 1; min-height: 0; max-height: none; overscroll-behavior: contain; }
+  .showroom__canvas { top: 150px; right: calc(3vw + 280px); bottom: 110px; left: 0; }
+  .showroom__views { bottom: 91px; }
+  .showroom__hint { bottom: 75px; }
+  .showroom-teambar--desktop { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); overflow: visible; bottom: 10px; }
+  .showroom-teambar--desktop .showroom-team { min-width: 0; padding: 7px 5px; }
+  .showroom-teambar--desktop .showroom-team-name { white-space: normal; }
+}
+@media (min-width: 901px) and (max-width: 1150px) {
+  .showroom__context { transform: none; top: 170px; }
+  .showroom__canvas { top: 235px; }
+  .showroom-teambar--desktop .showroom-team-count span { display: none; }
+}
+@media (min-width: 1151px) and (max-height: 760px) {
+  .showroom__heading h1 { font-size: 2.8rem; }
+  .showroom__canvas { top: 130px; bottom: 100px; }
+  .showroom__heading .showroom__driver-name { display: none; }
+}
+@media (min-width: 1151px) {
+  .showroom__heading { max-width: 300px; }
+}
+@media (min-width: 901px) and (max-width: 1150px) {
+  .showroom__context { top: 195px; }
+  .showroom__canvas { top: 260px; }
+}
