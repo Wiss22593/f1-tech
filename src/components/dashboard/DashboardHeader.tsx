@@ -14,7 +14,7 @@ export function DashboardHeader({ activeSection, locale, onLocaleChange, onNavig
       <nav id="main-navigation" className="main-nav" aria-label={t(locale).common.primaryNavigation}>
         {navigationItems(locale).map((item) => <button className={activeSection === item.id ? 'main-nav__link main-nav__link--active' : 'main-nav__link'} key={item.id} onClick={() => onNavigate(item.id)}>{item.label}</button>)}
       </nav>
-      <div className="dashboard-header__tools">
+      <div className="dashboard-header__tools"><a className="support-link" href="https://cafecito.app/formulatech" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☕</span><span>Apoyar Formula Tech</span></a>
 
         <label className="locale-picker"><span className="sr-only">{t(locale).common.language}</span>
           <select value={locale} onChange={(event) => onLocaleChange(event.target.value as Locale)}>

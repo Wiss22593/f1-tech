@@ -139,3 +139,18 @@
   .showroom__context { top: 195px; }
   .showroom__canvas { top: 260px; }
 }
+
+/* Continuous showroom stage and readable glass overlays. */
+.support-link { display: inline-flex; align-items: center; gap: 7px; color: #dce1e9; text-decoration: none; font: 600 .7rem 'Manrope', sans-serif; padding: 8px 10px; border: 1px solid #ffffff20; border-radius: 8px; background: #ffffff05; }
+.support-link:hover { border-color: #ef343b88; background: #ef343b12; }
+.support-link:focus-visible { outline: 2px solid #ef343b; outline-offset: 3px; }
+.dashboard-header__tools { gap: 12px; }
+.showroom__model span { padding: 7px 11px; border: 1px solid #ef343b66; border-radius: 7px; background: #ef343b1a; color: #ffb6ba; font-size: .76rem; font-weight: 800; letter-spacing: .01em; white-space: nowrap; }
+.showroom-panel, .showroom__views, .showroom-teambar--desktop, .showroom-team-mobile, .showroom-gp-select { background: #0e1219a6; backdrop-filter: blur(12px); }
+.showroom-teambar--desktop .showroom-team { display: grid; grid-template-columns: 4px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 9px; padding: 7px 8px; }
+.showroom-teambar--desktop .showroom-team > i { position: static; display: block; grid-column: 1; grid-row: 1 / 3; width: 3px; height: 28px; align-self: center; margin: 0; }
+.showroom-teambar--desktop .showroom-team > .showroom-team-name { grid-column: 2; grid-row: 1; }
+.showroom-teambar--desktop .showroom-team-count { grid-column: 2; grid-row: 2; }
+.showroom-driver-number { color: #fff; font-variant-numeric: tabular-nums; }
+@media (min-width: 901px) { .showroom__canvas { inset: 0; } .showroom__canvas::before { height: 180px; opacity: .5; } }
+@media (max-width: 600px) { .support-link { padding: 7px; font-size: .56rem; gap: 4px; } .dashboard-header__tools { gap: 5px; } .dashboard-header--garage { padding-inline: 10px; gap: 6px; } .dashboard-header--garage .wordmark { font-size: 1rem; } .showroom__model span { padding: 6px 8px; font-size: .67rem; } }
