@@ -8,6 +8,7 @@ import './styles/teams.css'
 import './styles/garage.css'
 import './styles/updates.css'
 import './styles/product.css'
+import './styles/showroom.css'
 
 async function start() {
   if (import.meta.env.DEV) {

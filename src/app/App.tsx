@@ -26,6 +26,6 @@ export default function App() {
     <RouteErrorBoundary locale={locale}><Suspense fallback={<section className="placeholder-page"><p>{runtimeText(locale, 'loading')}</p></section>}>
       {section === 'preview' ? <TechnicalPreview locale={locale} /> : section === 'teams' ? <TeamsPage locale={locale} /> : section === 'updates' ? <UpdatesPage locale={locale} /> : section === 'garage' ? <GaragePage locale={locale} /> : <CircuitsPage locale={locale} />}
     </Suspense></RouteErrorBoundary>
-    <footer className="dashboard-footer">F1 TECH © {new Date().getFullYear()} <span>·</span> {t(locale).common.demo}<br /><span className="legal-disclaimer">{t(locale).common.legal}</span></footer>
+    <footer className="dashboard-footer">Formula Tech © {new Date().getFullYear()} <span>·</span> {t(locale).common.demo}<br /><span className="legal-disclaimer">{t(locale).common.legal}</span></footer>
   </main>
 }

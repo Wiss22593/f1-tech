@@ -9,5 +9,5 @@ const navigationLabels = {
   de: { home: 'START', teams: 'TEAMS', updates: 'UPDATES', circuits: 'STRECKEN' },
 } as const
 export const navigationItems = (locale: keyof typeof navigationLabels): { id: AppSection; label: string }[] => [
-  { id: 'garage', label: navigationLabels[locale].home }, { id: 'preview', label: 'TECHNICAL PREVIEW' }, { id: 'teams', label: navigationLabels[locale].teams }, { id: 'updates', label: navigationLabels[locale].updates }, { id: 'circuits', label: navigationLabels[locale].circuits },
+  { id: 'garage', label: navigationLabels[locale].home },
 ]
