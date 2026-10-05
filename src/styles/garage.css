@@ -177,7 +177,7 @@
   box-shadow: inset 0 1px 0 rgba(255,255,255,.03); text-align: left;
   transition: background .16s ease, border-color .16s ease;
 }
-.showroom-teambar--desktop .showroom-team > i { position: absolute; top: 12px; bottom: 12px; left: 4px; width: 2px; height: auto; border-radius: 1px; background: var(--item-primary); opacity: .75; box-shadow: none; }
+.showroom-teambar--desktop .showroom-team > i { position: absolute; top: 12px; bottom: 12px; left: 4px; width: 2px; height: auto; border-radius: 1px; background: var(--item-primary); opacity: 1; box-shadow: none; }
 .showroom-teambar--desktop .showroom-team > .showroom-team-name { grid-column: 1; overflow: visible; color: #d3d9e2; font: 800 clamp(.6rem, .76vw, .75rem) 'Manrope', sans-serif; line-height: 1.15; letter-spacing: -.02em; text-overflow: clip; }
 .showroom-teambar--desktop .showroom-team:hover { border-color: rgba(220,230,245,.28); background: rgba(255,255,255,.075); }
 .showroom-teambar--desktop .showroom-team--selected { border-color: color-mix(in srgb, var(--item-primary) 55%, #9fa9b8); background: linear-gradient(145deg, color-mix(in srgb, var(--item-primary) 17%, #1a202a), #141921); box-shadow: inset 0 2px 0 var(--item-primary); }
@@ -201,7 +201,7 @@
 @media (max-width: 600px) {
   .showroom-team-mobile { gap: 3px; min-height: 122px; padding: 4px; background: #090c12; }
   .showroom-team-mobile .showroom-team-mobile__item { align-content: center; gap: 3px; min-height: 56px; padding: 5px 2px; border: 1px solid rgba(220,230,245,.12); border-radius: 3px; color: #d0d8e3; background: linear-gradient(145deg, #181e28, #0d1119); transition: background .16s ease, border-color .16s ease; }
-  .showroom-team-mobile__item > i { top: 6px; bottom: 6px; left: 1px; opacity: .75; box-shadow: none; }
+  .showroom-team-mobile__item > i { top: 6px; bottom: 6px; left: 1px; opacity: 1; box-shadow: none; }
   .showroom-team-mobile__item > .showroom-team-name { font: 800 .67rem 'Manrope', sans-serif; letter-spacing: .025em; }
   .showroom-team-mobile__item .showroom-team-count { display: grid; justify-items: center; gap: 2px; margin: 0; font-style: normal; }
   .showroom-team-mobile__item .showroom-team-count strong { color: #f6f8fc; font: 800 1.1rem 'Manrope', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.04em; line-height: 1; }

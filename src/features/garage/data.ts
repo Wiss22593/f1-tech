@@ -1,3 +1,4 @@
+import { teamAccents } from './team-accents'
 import type { PublishedUpdate } from '../../services/fia/published-dataset'
 import { localizeFiaUpdate } from '../../services/fia/localization.mjs'
 import { teams } from '../teams/data'
@@ -41,7 +42,7 @@ export const teamThemes: Record<string, TeamTheme> = {
   'aston-martin': theme('#034c36', '#102b25', '#75d2a0', '#d0f1df', '#718b82', '#0b261c', .62, .3),
   cadillac: theme('#14171b', '#e5e8e9', '#aeb9c3', '#ffffff', '#8f979f', '#24282d', .68, .27),
 }
-export const garageTeams = teams.map((team) => ({ ...team, theme: teamThemes[team.id] }))
+export const garageTeams = teams.map((team) => ({ ...team, teamAccentColor: teamAccents[team.id].color, theme: teamThemes[team.id] }))
 
 const fiaSource: UpdateSource = { type: 'FIA', label: 'FIA Car Presentation Submission', document: '2026 Italian Grand Prix - Car Presentation Submissions', date: '2026-09-04' }
 const monza = 'italian-grand-prix-2026'
