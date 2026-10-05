@@ -127,19 +127,30 @@ export function GaragePage({ locale }: { locale: Locale }) {
     if (componentUpdates.length === 0) return <p>{copy.noUpdate}</p>
     const { rows, shared } = prepareFamilyDetails(componentUpdates, update => getGarageUpdateContent(update, locale))
     const updateLabel = { es: 'Actualización', en: 'Update', it: 'Aggiornamento', pt: 'Atualização', fr: 'Mise à jour', de: 'Aktualisierung' }[locale]
+    const fieldLabels = {
+      es: ['Razón primaria', 'Diferencia geométrica', 'Descripción breve'],
+      en: ['Primary reason', 'Geometric difference', 'Brief description'],
+      it: ['Motivo principale', 'Differenza geometrica', 'Breve descrizione'],
+      pt: ['Razão principal', 'Diferença geométrica', 'Descrição breve'],
+      fr: ['Raison principale', 'Différence géométrique', 'Brève description'],
+      de: ['Hauptgrund', 'Geometrischer Unterschied', 'Kurzbeschreibung'],
+    }[locale]
+    const renderField = (field: 'primaryReason' | 'geometricDifference' | 'description', value: string) => <div className="showroom-submission__field">
+      <span className="showroom-submission__label">{fieldLabels[['primaryReason', 'geometricDifference', 'description'].indexOf(field)]}</span>
+      <p className={`showroom-submission__${fieldClass[field]}`}>{value}</p>
+    </div>
     const fieldClass = { primaryReason: 'reason', geometricDifference: 'geometry', description: 'description' }
     return <>
       {rows.map(({ update, number, content, specific }) => <article className="showroom-submission" key={update.id}>
-        {rows.length > 1 && <span className="showroom-submission__ordinal">{updateLabel} {number}</span>}
-        {(rows.length > 1 || showComponentSubtitle(title, content.presentedComponent)) && <h3>{content.presentedComponent ?? title}</h3>}
-        {specific.primaryReason && <p className="showroom-submission__reason">{specific.primaryReason}</p>}
-        {specific.geometricDifference && <p className="showroom-submission__geometry">{specific.geometricDifference}</p>}
-        {specific.description && <p className="showroom-submission__description">{specific.description}</p>}
+        {(rows.length > 1 || showComponentSubtitle(title, content.presentedComponent)) && <h3 className="showroom-submission__heading">{rows.length > 1 && <span className="showroom-submission__number">{number}</span>}<span>{content.presentedComponent ?? title}</span></h3>}
+        {specific.primaryReason && renderField('primaryReason', specific.primaryReason)}
+        {specific.geometricDifference && renderField('geometricDifference', specific.geometricDifference)}
+        {specific.description && renderField('description', specific.description)}
       </article>)}
       {shared.length > 0 && <div className="showroom-submission showroom-submission--shared">
         {shared.map(({ field, value, numbers }, index) => <div key={index}>
           {numbers.length < rows.length && <span className="showroom-submission__ordinal">{updateLabel} {numbers.join(', ')}</span>}
-          <p className={`showroom-submission__${fieldClass[field]}`}>{value}</p>
+          {renderField(field, value)}
         </div>)}
       </div>}
     </>

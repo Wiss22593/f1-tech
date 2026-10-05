@@ -155,8 +155,15 @@
 @media (min-width: 901px) { .showroom__canvas { inset: 0; } .showroom__canvas::before { height: 180px; opacity: .5; } }
 @media (max-width: 600px) { .support-link { padding: 7px; font-size: .56rem; gap: 4px; } .dashboard-header__tools { gap: 5px; } .dashboard-header--garage { padding-inline: 10px; gap: 6px; } .dashboard-header--garage .wordmark { font-size: 1rem; } .showroom__model span { padding: 6px 8px; font-size: .67rem; } }
 
-/* Family submission hierarchy; preserve the existing panel surface and scrolling. */
-.showroom-inline-detail .showroom-submission h3 { margin: 3px 0 8px; color: #f4f7fb; font-size: .82rem; font-weight: 800; line-height: 1.35; }
-.showroom-submission__ordinal { display: block; margin-top: 4px; color: #a3adb9; font: 500 .55rem 'DM Mono', monospace; letter-spacing: .04em; }
-.showroom-inline-detail .showroom-submission--shared { margin-top: 10px; padding-top: 10px; }
-.showroom-submission--shared p { margin: 6px 0; }
+/* Component detail hierarchy; scoped to the existing inspector. */
+.showroom-inline-detail .showroom-submission h3 { margin: 3px 0 7px; padding: 0; color: #f4f7fb; font: 800 .72rem/1.35 'Manrope', sans-serif; letter-spacing: 0; text-transform: none; }
+.showroom-inline-detail .showroom-submission__heading { display: flex; align-items: baseline; gap: .5rem; }
+.showroom-inline-detail .showroom-submission__number { flex: 0 0 auto; color: #b9c4d2; font-size: inherit; font-weight: 500; font-variant-numeric: tabular-nums; }
+.showroom-inline-detail .showroom-submission__field { margin-top: 12px; }
+.showroom-inline-detail .showroom-submission__label { display: block; margin-bottom: 4px; color: #aeb9c8; font: 600 .6rem/1.35 'Manrope', sans-serif; letter-spacing: .025em; }
+.showroom-inline-detail .showroom-submission__field p { margin: 0; font-family: 'Manrope', sans-serif; text-transform: none; letter-spacing: 0; }
+.showroom-inline-detail .showroom-submission__reason { color: #b9dcff; font-size: .73rem; font-weight: 700; line-height: 1.45; }
+.showroom-inline-detail .showroom-submission__geometry { color: #edf1f6; font-size: .74rem; font-weight: 600; line-height: 1.5; }
+.showroom-inline-detail .showroom-submission__description { color: #c7d0dc; font-size: .72rem; font-weight: 400; line-height: 1.7; }
+.showroom-inline-detail .showroom-submission--shared { margin-top: 10px; padding-top: 0; }
+.showroom-inline-detail .showroom-submission__ordinal { display: block; margin-top: 8px; color: #aeb9c8; font: 500 .6rem/1.35 'Manrope', sans-serif; }
