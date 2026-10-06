@@ -36,6 +36,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const [cameraPreset, setCameraPreset] = useState<CameraPresetId>('default')
   const [selectedComponent, setSelectedComponent] = useState<CarComponentId>()
   const [selectedUpdateId, setSelectedUpdateId] = useState<string>()
+  const [focusFromUpdate, setFocusFromUpdate] = useState(false)
   const [focusRequestId, setFocusRequestId] = useState(0)
   const [publishedUpdates, setPublishedUpdates] = useState<GarageUpdate[]>([])
   const [resolvedGrandPrix, setResolvedGrandPrix] = useState(garageGrandPrix)
@@ -103,12 +104,14 @@ export function GaragePage({ locale }: { locale: Locale }) {
   useEffect(() => { setSelectedComponent(undefined); setSelectedUpdateId(undefined); setFocusRequestId(value => value + 1) }, [locale])
   function resetView() { setSelectedComponent(undefined); setSelectedUpdateId(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1); setMobileUpdatesExpanded(false) }
   function selectPiece(componentId: CarComponentId) {
+    setFocusFromUpdate(false)
     const selecting = selectedComponent !== componentId
     setSelectedComponent(selecting ? componentId : undefined)
     setSelectedUpdateId(selecting ? updates.find((update) => update.componentId === componentId)?.id : undefined)
     setCameraPreset('default'); setFocusRequestId((value) => value + 1)
   }
   function selectUpdate(update: GarageUpdate) {
+    setFocusFromUpdate(true)
     const selecting = selectedUpdateId !== update.id
     setSelectedUpdateId(selecting ? update.id : undefined)
     if (!update.componentId) { setSelectedComponent(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1); return }
@@ -124,7 +127,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     return <em className={count === 0 ? 'showroom-team-count showroom-team-count--empty' : 'showroom-team-count'}>{count > 0 ? <><strong>{count}</strong>{' '}<span>{label.slice(String(count).length + 1)}</span></> : <span>{label}</span>}</em>
   }
   function renderUpdateDetails(componentUpdates: GarageUpdate[], title: string) {
-    if (componentUpdates.length === 0) return <p>{copy.noUpdate}</p>
+    if (componentUpdates.length === 0) return null
     const { rows, shared } = prepareFamilyDetails(componentUpdates, update => getGarageUpdateContent(update, locale))
     const updateLabel = { es: 'Actualización', en: 'Update', it: 'Aggiornamento', pt: 'Atualização', fr: 'Mise à jour', de: 'Aktualisierung' }[locale]
     const fieldLabels = {
@@ -169,12 +172,13 @@ export function GaragePage({ locale }: { locale: Locale }) {
   }
   function renderComponent(hotspot: F1TechHotspot) {
     const componentUpdates = updates.filter((update) => update.componentId === hotspot.componentId)
-    const expanded = componentUpdates.some((update) => update.id === selectedUpdateId)
+    const selected = selectedComponent === hotspot.componentId
+    const expanded = selected && componentUpdates.length > 0
     return <div className={`showroom-component${expanded ? ' showroom-component--expanded' : ''}`} key={hotspot.id} ref={(node) => { itemRefs.current[hotspot.componentId] = node }}>
-      <button type="button" className={`showroom-piece${expanded ? ' showroom-piece--selected' : ''}${componentUpdates.length ? ' showroom-piece--active' : ''}`} onClick={() => selectPiece(hotspot.componentId)} aria-expanded={expanded}>
-        <i /><span>{garageComponent(locale, hotspot.id, hotspot.label)}</span>{componentUpdates.length > 0 && <em>● {copy.updated}</em>}<b aria-hidden="true">{expanded ? '−' : '+'}</b>
+      <button type="button" className={`showroom-piece${selected ? ' showroom-piece--selected' : ''}${componentUpdates.length ? ' showroom-piece--active' : ''}`} onClick={() => selectPiece(hotspot.componentId)} aria-pressed={selected} aria-expanded={componentUpdates.length ? expanded : undefined}>
+        <i /><span>{garageComponent(locale, hotspot.id, hotspot.label)}</span>{componentUpdates.length > 0 && <em>● {copy.updated}</em>}{componentUpdates.length > 0 && <b aria-hidden="true">{expanded ? '−' : '+'}</b>}
       </button>
-      {expanded && <div className="showroom-inline-detail" aria-live="polite">{renderUpdateDetails(componentUpdates, garageComponent(locale, hotspot.id, hotspot.label))}</div>}
+      {expanded && componentUpdates.length > 0 && <div className="showroom-inline-detail" aria-live="polite">{renderUpdateDetails(componentUpdates, garageComponent(locale, hotspot.id, hotspot.label))}</div>}
     </div>
   }
   function renderTextOnlyUpdate(update: GarageUpdate) {
@@ -192,7 +196,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     <section className="showroom__stage">
       <div className="showroom__heading"><p className="showroom__eyebrow">Formula Tech <span> / {season}</span></p><h1 id="showroom-title">{team.name}</h1><p className="showroom__model">{showroomTeam.carName}<span>{garageUpdateCount(locale, updateCounts[team.id] ?? 0)}</span></p><div className="showroom-drivers" role="group" aria-label={driverCopy.driver}>{orderedDrivers(showroomTeam).map(item => <button type="button" key={item.id} disabled={!isDriverAvailable(item)} aria-pressed={driver.id === item.id} title={item.name} onClick={() => setDriversByTeam(current => ({ ...current, [team.id]: item.id }))}><span>{item.number !== null && <><b className="showroom-driver-number">{item.number}</b>{' '}</>}{item.shortName}</span>{!isDriverAvailable(item) && <small>{driverCopy.soon}</small>}</button>)}</div><p className="showroom__driver-name">{driver.name}</p></div>
       <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><div className="showroom__selectors"><label className="sr-only" htmlFor="season-selector">{copy.season}</label><span className="showroom-gp-select showroom-season-select"><select id="season-selector" value={season} onChange={(event) => changeSeason(Number(event.target.value))}>{seasons.map(year => <option key={year} value={year}>{year}</option>)}</select></span><span className="showroom-gp-select"><select id="grand-prix-selector" value={grandPrixId} disabled={!publishedResolved} onChange={(event) => changeGrandPrix(event.target.value)}>{!grandPrixId && <option value="" disabled>{copy.noPublished}</option>}{selectableGrandPrix.map((item) => <option key={item.id} value={item.id} disabled={!publishedGrandPrixIds.has(item.id)}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span></div><strong>{team.name.toUpperCase()}</strong><span>{grandPrixId ? grandPrix.circuit : null}</span></div>
-      <div className="showroom__canvas"><ModelViewer asset={carAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedUpdate && !selectedUpdate.componentId ? undefined : selectedComponent} selectedComponentName={selectedUpdate?.fiaRecord?.componentName ?? selectedUpdate?.presentedComponent} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} presentationScale={1.12} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
+      <div className="showroom__canvas"><ModelViewer asset={carAsset} locale={locale} cameraPreset={cameraPreset} theme={team.theme} hotspots={garageHotspots} activeComponents={[...updatedComponents]} selectedComponent={selectedUpdate && !selectedUpdate.componentId ? undefined : selectedComponent} selectedComponentName={focusFromUpdate ? selectedUpdate?.fiaRecord?.componentName ?? selectedUpdate?.presentedComponent : undefined} selectedHotspot={selectedHotspot} focusRequestId={focusRequestId} showCallouts={false} presentationScale={1.12} onSelectComponent={selectPiece} /><button type="button" className="showroom-mobile-reset" onClick={resetView}>{copy.reset}</button></div>
       <div className="showroom-mobile-toolbar">
         <div className={`showroom-mobile-updates${mobileUpdatesExpanded ? ' showroom-mobile-updates--expanded' : ''}`} aria-label={uiText(locale, 'updatesTitle')}>
           <h2>{uiText(locale, 'updatesTitle')}</h2>

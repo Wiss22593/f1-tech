@@ -207,7 +207,7 @@ test('Garage opens text-only updates without assigning a fake camera component',
   const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
   assert.match(garage, /setSelectedUpdateId\(selecting \? update\.id : undefined\)/)
   assert.match(garage, /if \(!update\.componentId\) \{ setSelectedComponent\(undefined\)/)
-  assert.match(garage, /selectedComponentName=\{selectedUpdate\?\.fiaRecord\?\.componentName/)
+  assert.match(garage, /selectedComponentName=\{focusFromUpdate \? selectedUpdate\?\.fiaRecord\?\.componentName/)
   assert.match(garage, /nonVisualizableUpdates\.map\(renderTextOnlyUpdate\)/)
   assert.match(garage, /findPublishedGrandPrix\(\)/)
 })

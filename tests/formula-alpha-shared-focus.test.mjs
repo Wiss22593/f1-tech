@@ -24,12 +24,16 @@ test('all eleven actual GLBs share geometry, validated targets, cameras and reve
   const disposals=new Map([...owned].map(m=>[m,0]));for(const m of owned)m.addEventListener('dispose',()=>disposals.set(m,disposals.get(m)+1))
   const ids=c.snapshot().materials.map(m=>m.uuid)
   for(const component of c.highlightable) {
-   const view=alpineInspectionViews[component];assert.ok(view)
+   const view=alpineInspectionViews[component]
+   if(component==='cooling'){assert.equal(view,undefined);assert.equal(resolveAlpineFocus(component,undefined,c.highlightable),component);c.select(component);c.step(1);assert.equal(c.snapshot().active,'cooling');continue}
+   assert.ok(view)
    assert.equal(resolveAlpineFocus(component,undefined,c.highlightable),component)
    const camera=new PerspectiveCamera(40,1.44,.1,100);camera.position.set(...view.position);camera.lookAt(new Vector3(...view.target));camera.updateMatrixWorld()
    const frustum=new Frustum().setFromProjectionMatrix(new Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse)),box=new Box3()
    for(const target of c.resolveTargets(component))box.union(new Box3().setFromObject(scene.getObjectByName(target.meshName)))
    box.min.multiplyScalar(1.1);box.max.multiplyScalar(1.1)
+   // Cockpit interior meshes extend into the nose; frame the inhabited opening.
+   if(component==='chassis'){box.max.z=Math.min(box.max.z,1);box.min.y=Math.max(box.min.y,.3)}
    for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])assert.ok(frustum.containsPoint(new Vector3(x,y,z)),asset.path+' '+component)
    c.select(component);c.step(1)
   }

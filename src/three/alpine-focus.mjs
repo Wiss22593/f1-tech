@@ -44,45 +44,9 @@ export const alpineInspectionViews = {
     ],
     "duration": 780
   },
-  "rearSuspension": {
-    "position": [
-      -1.5,
-      4.8,
-      -4.2
-    ],
-    "target": [
-      0,
-      0.48,
-      -1.75
-    ],
-    "duration": 800
-  },
-  "cooling": {
-    "position": [
-      3.4,
-      1.7,
-      0.6
-    ],
-    "target": [
-      0,
-      0.225,
-      -0.58
-    ],
-    "duration": 780
-  },
-  "chassis": {
-    "position": [
-      2.4,
-      3,
-      3
-    ],
-    "target": [
-      0,
-      0.55,
-      0.65
-    ],
-    "duration": 720
-  },
+  "rearSuspension": { position: [2.07, 3.11, -.98], target: [.02, .6, -1.62], duration: 800 },
+  "airbox": { position: [1.23, 1.52, 1.9], target: [.28, .95, -.25], duration: 760 },
+  "chassis": { position: [1.25, 2.35, 1.5], target: [0, .7, .4], duration: 720 },
   "halo": {
     "position": [
       -2.5,
@@ -175,8 +139,8 @@ export const alpineInspectionViews = {
     "duration": 800
   }
 }
-/** One gate for camera and materials; FIA text remains independent. */
+/** Validated isolation remains available for Cooling without a dedicated camera. */
 export function resolveAlpineFocus(componentId, sourceName, available) {
  const component = resolveInspectionComponent(componentId, sourceName)
- return component && available.includes(component) && alpineInspectionViews[component] ? component : undefined
+ return component && available.includes(component) && (component === 'cooling' || alpineInspectionViews[component]) ? component : undefined
 }

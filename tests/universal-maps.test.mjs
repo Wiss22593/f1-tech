@@ -1,4 +1,5 @@
 import test from 'node:test'
+import { alpineInspectionViews } from '../src/three/alpine-focus.mjs'
 import assert from 'node:assert/strict'
 import { Matrix4, PerspectiveCamera, Frustum, Vector3 } from 'three'
 import { readFileSync } from 'node:fs'
@@ -12,16 +13,21 @@ const resolveUniversalMap = (id, name) => resolveWithManifest(id, name, manifest
 test('manifest aliases resolve precisely; ambiguous and previously solved parts stay outside overlay', () => {
   for (const [name,map] of Object.entries(manifest.fia_aliases)) assert.equal(resolveUniversalMap(undefined,name),map,name)
   for (const name of ['Floor Leading Edge Devices','Floor Edge Wing','Floor Board']) assert.equal(resolveUniversalMap(undefined,name),'MAP_FLOOR')
-  for (const name of ['Bodywork','Front Wing','Rear Wing','Halo','Front Suspension','Cooling','Airbox']) assert.equal(resolveUniversalMap('engineCover',name),null,name)
+  for (const name of ['Bodywork','Front Wing','Rear Wing','Halo','Front Suspension','Cooling']) assert.equal(resolveUniversalMap('engineCover',name),null,name)
   assert.equal(resolveUniversalMap('floor'),'MAP_FLOOR')
+  assert.equal(resolveUniversalMap('engineCover', 'Airbox'), 'MAP_AIRBOX')
+  assert.equal(resolveUniversalMap('airbox'), 'MAP_AIRBOX')
+  assert.equal(resolveUniversalMap('diffuser', 'Diffuser'), 'MAP_DIFFUSER')
+  assert.equal(resolveUniversalMap('engineCover', 'Engine Cover'), 'MAP_ENGINE_COVER')
   assert.equal(resolveUniversalMap(undefined),null)
 })
 
 
-test('ten actual masks use the old focus gain, original PBR surfaces and reversible materials on all eleven cars', async () => {
+test('eleven actual masks use the old focus gain, original PBR surfaces and reversible materials on all eleven cars', async () => {
  const {scene:maps}=await loadAuditScene('public/models/F1tech_maps.glb')
  const mapOriginals=[]; maps.traverse(mesh=>{if(mesh.isMesh)mapOriginals.push([mesh,mesh.material,mesh.geometry,mesh.visible])})
- assert.equal(manifest.map_faces_total,160136)
+ assert.equal(manifest.map_count,11)
+ assert.equal(manifest.map_faces_total,168273)
  for(const asset of Object.values(teamModelManifest)) {
   const {scene}=await loadAuditScene('public'+asset.path), originals=[]
   scene.traverse(mesh=>{if(mesh.isMesh) originals.push([mesh,mesh.material,mesh.geometry])})
@@ -29,14 +35,15 @@ test('ten actual masks use the old focus gain, original PBR surfaces and reversi
   assert.deepEqual(c.snapshot().failures,[],asset.path)
   const materials=[];scene.traverse(mesh=>{if(mesh.isMesh)for(const m of Array.isArray(mesh.material)?mesh.material:[mesh.material])materials.push(m)})
   const ids=c.snapshot().materials.map(m=>m.uuid)
-  for(const name of ['frontWing',...Object.keys(manifest.maps),'rearWing']) {
+  for(const name of ['frontWing','frontSuspension','rearSuspension','chassis',...Object.keys(manifest.maps),'rearWing']) {
    c.select(name);c.step(.14)
    assert.ok(c.snapshot().materials.some(m=>m.gain>isolationBrightness&&m.gain<1))
    c.step(1);const snapshot=c.snapshot()
    assert.equal(snapshot.active,name);assert.equal(snapshot.mode,'external')
    assert.ok(snapshot.materials.some(m=>m.components.includes(name)&&m.gain===1))
    assert.ok(snapshot.materials.some(m=>!m.components.includes(name)&&m.gain===isolationBrightness))
-   assert.ok(snapshot.materials.every(m=>m.focusTint===0&&m.haloContrast===0))
+   if (name.startsWith('MAP_') || name === 'rearSuspension' || name === 'chassis') assert.ok(snapshot.materials.filter(m=>m.components.includes(name)).every(m=>m.haloContrast===.12), name + ' complete neutral contrast')
+   assert.ok(snapshot.materials.every(m=>m.focusTint===0 && (m.haloContrast===0 || (m.components.includes(name) && m.haloContrast===.12))))
    assert.deepEqual(snapshot.materials.map(m=>m.uuid),ids)
    assert.ok(materials.every(m=>m.isMeshStandardMaterial||m.isMeshPhysicalMaterial))
    if(name.startsWith('MAP_')) {
@@ -46,11 +53,12 @@ test('ten actual masks use the old focus gain, original PBR surfaces and reversi
    if(name.startsWith('MAP_')) for(const aspect of [1.44,.65]) {
     const matrix=new Matrix4().makeScale(1.1,1.1,1.1),box=c.universalBounds.get(name).clone().applyMatrix4(matrix)
     const view=universalInspectionView(name,c.universalBounds.get(name),matrix,aspect)
-    assert.deepEqual(view.target,box.getCenter(new Vector3()).toArray())
-    const camera=new PerspectiveCamera(40,aspect,.1,100);camera.position.set(...view.position);camera.lookAt(new Vector3(...view.target));camera.updateMatrixWorld()
+    if(name==='MAP_AIRBOX') assert.deepEqual(view,alpineInspectionViews.airbox)
+    else assert.deepEqual(view.target,box.getCenter(new Vector3()).toArray())
+    const camera=new PerspectiveCamera(40,aspect,.1,100);camera.position.set(...view.position);if(name==='MAP_AIRBOX'&&aspect<1)camera.position.sub(new Vector3(...view.target)).multiplyScalar(1.5).add(new Vector3(...view.target));camera.lookAt(new Vector3(...view.target));camera.updateMatrixWorld()
     const frustum=new Frustum().setFromProjectionMatrix(new Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse))
     for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])assert.ok(frustum.containsPoint(new Vector3(x,y,z)),asset.path+' '+name+' '+aspect)
-    assert.ok(camera.position.distanceTo(new Vector3(...view.target))>=3-1e-8)
+    assert.ok(camera.position.distanceTo(new Vector3(...view.target))>=(name==='MAP_AIRBOX'?2:3)-1e-8)
    }
    c.select();c.step(1)
    assert.equal(c.snapshot().mode,'normal');assert.ok(c.snapshot().materials.every(m=>m.gain===1&&m.focusTint===0))

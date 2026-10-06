@@ -7,21 +7,25 @@ import { alpineAssetId, alpineInspectionViews, resolveAlpineFocus } from '../src
 import { resolveInspectionComponent } from '../src/three/component-mapping.mjs'
 
 const file='public/models/alpine-a526-colapinto.glb'
-test('Alpine: every eligible component has a standalone camera that encloses its real targets', async () => {
+test('Alpine: dedicated cameras enclose their targets and Cooling keeps isolation without a camera', async () => {
  const {scene}=await loadAuditScene(file), c=createComponentIsolation(scene,alpineAssetId)
  for(const component of c.highlightable) {
   assert.equal(resolveAlpineFocus(component,undefined,c.highlightable),component)
-  const view=alpineInspectionViews[component]; assert.ok(view,component)
+  const view=alpineInspectionViews[component]
+  if(component==='cooling'){assert.equal(view,undefined);c.select(component);c.step(1);assert.equal(c.snapshot().active,'cooling');assert.ok(c.snapshot().materials.some(m=>m.components.includes('cooling')&&m.gain===1));assert.ok(c.snapshot().materials.some(m=>!m.components.includes('cooling')&&m.gain===.28));continue}
+  assert.ok(view,component)
   const camera=new PerspectiveCamera(40,1440/1000,.1,100)
   camera.position.set(...view.position);camera.lookAt(new Vector3(...view.target));camera.updateMatrixWorld()
   const frustum=new Frustum().setFromProjectionMatrix(new Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse))
   const box=new Box3()
   for(const target of c.resolveTargets(component)) box.union(new Box3().setFromObject(scene.getObjectByName(target.meshName)))
   box.min.multiplyScalar(1.1);box.max.multiplyScalar(1.1)
+   // Cockpit interior meshes extend into the nose; frame the inhabited opening.
+   if(component==='chassis'){box.max.z=Math.min(box.max.z,1);box.min.y=Math.max(box.min.y,.3)}
   for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z]) assert.ok(frustum.containsPoint(new Vector3(x,y,z)),component+' target outside camera')
  }
  const rear=alpineInspectionViews.rearSuspension
- assert.ok(rear.position[2]<rear.target[2] && rear.position[1]>rear.target[1]+2)
+ assert.ok(rear.position[0]>rear.target[0] && rear.position[1]>rear.target[1])
  c.dispose()
 })
 test('Alpine: unsupported FIA names never borrow a mapped camera or darken the car', async () => {

@@ -8,3 +8,5 @@ export function loadUniversalMapsManifest(): Promise<UniversalMapsManifest>
 export function resolveUniversalMap(componentId: CarComponentId | undefined, sourceName: string | null | undefined, manifest?: UniversalMapsManifest): string | null
 export function universalSurfaceMasks(model: Object3D, scene: Object3D, manifest: UniversalMapsManifest): { masks: Map<Object3D, Map<number, Set<string>>>; bounds: Map<string, Box3>; valid: Set<string>; missing: string[] }
 export function universalInspectionView(name: string, bounds: Box3, matrix: Matrix4, aspect?: number): F1TechInspectionView
+
+export const universalCameraPresets: Record<string, { direction: [number, number, number]; padding: number; duration: number }>

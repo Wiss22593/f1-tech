@@ -7,10 +7,16 @@ import {
 
 export const isolationBrightness = 0.28
 export const isolationDuration = 0.28
+export const isolationContrast = 0.12
+// Reuse Halo's neutral display lift for the complete active masks, including
+// dark pixels in livery atlases. Source PBR parameters/textures remain untouched.
+const needsNeutralContrast = component => component === 'halo' || component.startsWith('MAP_')
+  || component === 'rearSuspension' || component === 'chassis'
 
 /** Final display-color gain preserves textures, PBR parameters, livery and shadows. */
-function isolationChannel(material, components, alpineHalo = false) {
+function isolationChannel(material, components, contrastComponents = []) {
   const uniform = { value: 1 }, haloContrast = { value: 0 }
+  const alpineHalo = contrastComponents.length > 0
   const beforeCompile = material.onBeforeCompile
   const cacheKey = material.customProgramCacheKey()
   material.onBeforeCompile = function (shader, renderer) {
@@ -22,7 +28,7 @@ function isolationChannel(material, components, alpineHalo = false) {
       .replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.rgb *= f1TechIsolationGain;' + (alpineHalo ? '\ngl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(1.0), f1TechHaloContrast);' : ''))
   }
   material.customProgramCacheKey = () => `${cacheKey}|f1-tech-component-isolation-v3${alpineHalo ? "-halo-contrast" : ""}`
-  return { material, components, uniform, haloContrast, contrastStart: 0, contrastTarget: 0, start: 1, target: 1, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
+  return { material, components, contrastComponents, uniform, haloContrast, contrastStart: 0, contrastTarget: 0, start: 1, target: 1, baseline: { opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite, depthTest: material.depthTest } }
 }
 
 function cloneOriginalMaterial(material) {
@@ -206,7 +212,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     const key = [...components].sort().join('|')
     if (!buckets.has(key)) {
       const material = cloneMaterial(source)
-      channels.push(isolationChannel(material, components, components.includes('halo')))
+      channels.push(isolationChannel(material, components, components.filter(component => needsNeutralContrast(component))))
       buckets.set(key, material)
     }
     return buckets.get(key)
@@ -279,10 +285,10 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
           channel.material.depthTest = !target
         }
         if (mapping?.geometryProfile !== 'formula-alpha-2026' || wasTransparent !== channel.material.transparent) channel.material.needsUpdate = true
-        // Only Formula Alpha Halo needs a neutral contrast lift: its black coating stays
-        // black under a multiplicative gain. Other focus categories keep authored color.
+        // A multiplicative gain cannot reveal nearly black authored surfaces. Reuse
+        // the existing Halo contrast channel only for eligible active surfaces.
         channel.contrastStart = channel.haloContrast.value
-        channel.contrastTarget = mapping?.geometryProfile === 'formula-alpha-2026' && active === 'halo' && target ? .12 : 0
+        channel.contrastTarget = mapping?.geometryProfile === 'formula-alpha-2026' && target && channel.contrastComponents.includes(active) ? isolationContrast : 0
         channel.start = channel.uniform.value
         channel.target = !active || channel.components.includes(active) ? 1 : isolationBrightness
       }
@@ -305,7 +311,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
         targets: Object.fromEntries(highlightable.map(component => [component, targetList(component)])),
         failures: [...failures], cache: { ...cache },
         materials: channels.map(channel => ({
-          component: channel.components[0] ?? null, components: [...channel.components],
+          materialName: channel.material.name, component: channel.components[0] ?? null, components: [...channel.components],
           opacity: channel.material.opacity, transparent: channel.material.transparent, depthWrite: channel.material.depthWrite, depthTest: channel.material.depthTest,
           gain: channel.uniform.value, focusTint: 0, haloContrast: channel.haloContrast.value, uuid: channel.material.uuid,
         })),

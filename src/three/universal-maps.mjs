@@ -15,11 +15,11 @@ export function loadUniversalMapsManifest() {
 }
 const aliasCache = new WeakMap()
 function manifestAliases(manifest) {
-  if (!aliasCache.has(manifest)) aliasCache.set(manifest, new Map(Object.entries(manifest.fia_aliases ?? legacyAliases).map(([name, map]) => [canonical(name), map])))
+  if (!aliasCache.has(manifest)) aliasCache.set(manifest, new Map(Object.entries({ ...legacyAliases, ...manifest.fia_aliases }).map(([name, map]) => [canonical(name), map])))
   return aliasCache.get(manifest)
 }
 const canonical = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]/g, '')
-const componentMaps = { nose: 'MAP_NOSE', floor: 'MAP_FLOOR', diffuser: 'MAP_DIFFUSER', sidepods: 'MAP_SIDEPODS', engineCover: 'MAP_ENGINE_COVER', mirrors: 'MAP_MIRRORS' }
+const componentMaps = { nose: 'MAP_NOSE', floor: 'MAP_FLOOR', diffuser: 'MAP_DIFFUSER', sidepods: 'MAP_SIDEPODS', engineCover: 'MAP_ENGINE_COVER', airbox: 'MAP_AIRBOX', mirrors: 'MAP_MIRRORS' }
 /** A supplied FIA name is authoritative: ambiguous Bodywork cannot fall back to chassis. */
 export function resolveUniversalMap(componentId, sourceName, manifest) {
   if (!manifest) return null
@@ -27,12 +27,13 @@ export function resolveUniversalMap(componentId, sourceName, manifest) {
   if (sourceName) {
     const name = canonical(sourceName)
     const exact = aliases.get(name)
-    if (exact) return exact
+    if (exact) return manifest.maps[exact] ? exact : null
     const compound = String(sourceName).split('/').map(part => aliases.get(canonical(part)))
     if (compound.length > 1 && compound.every(map => map && map === compound[0])) return compound[0]
     return name.startsWith('floor') ? 'MAP_FLOOR' : null
   }
-  return componentMaps[componentId] ?? null
+  const map = componentMaps[componentId]
+  return map && manifest.maps[map] ? map : null
 }
 
 
@@ -40,7 +41,7 @@ export function resolveUniversalMap(componentId, sourceName, manifest) {
 export function normalizeUniversalManifest(manifest) {
   if (manifest.format !== 'F1TECH_UNIVERSAL_MAPS' || !manifest.maps) throw new Error('Invalid universal maps manifest')
   const names = manifest.maps_exported ?? Object.keys(manifest.maps)
-  return { ...manifest, maps: Object.fromEntries(names.map(name => [name, { mesh_name: name + '_MESH', ...manifest.maps[name] }])), fia_aliases: manifest.fia_aliases ?? legacyAliases }
+  return { ...manifest, maps: Object.fromEntries(names.map(name => [name, { mesh_name: name + '_MESH', ...manifest.maps[name] }])), fia_aliases: { ...legacyAliases, ...manifest.fia_aliases } }
 }
 
 const vertexKey = v => [v.x, v.y, v.z].map(n => Math.round(n * 1e4)).join(',')
@@ -90,9 +91,33 @@ export function universalSurfaceMasks(model, scene, manifest) {
   return { masks, bounds, valid, missing: [...expected.keys()].filter(name => !valid.has(name)) }
 }
 
+// Model convention: +X is the left side and -Z the rear. Only these views
+// override the existing automatic directions; all masks keep their original surfaces.
+export const universalCameraPresets = {
+  MAP_ENGINE_COVER: { direction: [1, .035, .06], padding: 1.12, duration: 780 },
+  MAP_SIDEPODS: { direction: [1, .015, .06], padding: 1.12, duration: 760 },
+}
+function closeInspectionView(preset, box, target, aspect) {
+  const direction = new Vector3(...preset.direction).normalize()
+  const right = new Vector3(0, 1, 0).cross(direction).normalize()
+  const up = direction.clone().cross(right)
+  const tanV = Math.tan(Math.PI / 9), tanH = tanV * aspect
+  let distance = 3
+  // Fit the full mask in the actual 40-degree perspective instead of using its
+  // bounding sphere, which opens lateral views unnecessarily.
+  for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+    const corner = new Vector3(x, y, z).sub(target)
+    distance = Math.max(distance, corner.dot(direction) + preset.padding * Math.max(Math.abs(corner.dot(right)) / tanH, Math.abs(corner.dot(up)) / tanV))
+  }
+  return { target: target.toArray(), position: target.clone().addScaledVector(direction, distance).toArray(), duration: preset.duration }
+}
+
 /** Bounds fit enters the same CameraFocus tween; old directions/durations and orbit limits are retained. */
 export function universalInspectionView(name, bounds, matrix, aspect = 1.44) {
+  // Manual Airbox framing follows the supplied front three-quarter reference.
+  if (name === 'MAP_AIRBOX') return alpineInspectionViews.airbox
   const box = bounds.clone().applyMatrix4(matrix), target = box.getCenter(new Vector3())
+  if (universalCameraPresets[name]) return closeInspectionView(universalCameraPresets[name], box, target, aspect)
   const family = name === 'MAP_NOSE' ? 'frontWing' : name === 'MAP_MIRRORS' ? 'mirrors' : ['MAP_DIFFUSER', 'MAP_BEAM_WING', 'MAP_EXHAUST', 'MAP_RIS', 'MAP_TAIL'].includes(name) ? 'rearWing' : 'chassis'
   const preset = alpineInspectionViews[family]
   const underside = name === 'MAP_FLOOR' || name === 'MAP_DIFFUSER'

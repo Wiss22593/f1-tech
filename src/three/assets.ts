@@ -1,6 +1,6 @@
 import { bgrtModel, resolveTeamModel, teamModelManifest } from './model-manifest.mjs'
 
-export type CarComponentId = 'car' | 'chassis' | 'nose' | 'frontWing' | 'frontSuspension' | 'frontBrake' | 'floor' | 'sidepods' | 'cooling' | 'engineCover' | 'rearSuspension' | 'rearBrake' | 'rearWing' | 'diffuser' | 'wheels' | 'steeringWheel' | 'halo' | 'mirrors' | 'frontCorner' | 'rearCorner' | 'frontWheels' | 'rearWheels' | 'onboardCamera'
+export type CarComponentId = 'car' | 'chassis' | 'nose' | 'frontWing' | 'frontSuspension' | 'frontBrake' | 'floor' | 'sidepods' | 'cooling' | 'engineCover' | 'airbox' | 'rearSuspension' | 'rearBrake' | 'rearWing' | 'diffuser' | 'wheels' | 'steeringWheel' | 'halo' | 'mirrors' | 'frontCorner' | 'rearCorner' | 'frontWheels' | 'rearWheels' | 'onboardCamera'
 export type CameraPresetId = 'default' | 'front' | 'rear' | 'side' | 'top'
 
 export interface F1TechInspectionView { position: [number, number, number]; target: [number, number, number]; duration?: number }

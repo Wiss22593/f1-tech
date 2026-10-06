@@ -159,7 +159,8 @@ function CameraFocus({ hotspot, controlsRef, requestId, defaultPosition, positio
     const destination = hotspot ? new Vector3(...hotspot.inspectionView.position) : new Vector3(...defaultPosition)
     if (hotspot && positionScale !== 1) destination.sub(target).multiplyScalar(positionScale).add(target)
     const startedAt = performance.now(); const duration = hotspot?.inspectionView.duration ?? 620
-    controls.maxPolarAngle = hotspot && ['floor', 'diffuser', 'MAP_FLOOR', 'MAP_DIFFUSER'].includes(hotspot.id) ? Math.PI - .08 : Math.PI / 2.08
+    controls.maxPolarAngle = hotspot && ['floor', 'diffuser', 'MAP_FLOOR', 'MAP_DIFFUSER', 'rearSuspension', 'MAP_ENGINE_COVER', 'MAP_SIDEPODS'].includes(hotspot.id) ? Math.PI - .08 : Math.PI / 2.08
+    controls.minDistance = hotspot?.id === 'MAP_AIRBOX' ? 2 : hotspot?.id === 'chassis' ? 2.2 : 3
     let frame = 0; controls.enabled = false
     const animate = (now: number) => {
       const progress = Math.min((now - startedAt) / duration, 1); const eased = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2
