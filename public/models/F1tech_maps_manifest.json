@@ -1,198 +1,10 @@
 {
   "format": "F1TECH_UNIVERSAL_MAPS",
-  "version": 1,
-  "created": "2026-10-05T15:25:52",
-  "source_blend": "D:\\Users\\mb937\\Documents\\BLENDER 3D F1\\Formula Alpha F1 2026 livery alpine colapinto.blend",
-  "collection": "F1TECH_MAPS",
-  "maps": {
-    "MAP_NOSE": {
-      "label": "Nose / Nariz",
-      "mesh_name": "MAP_NOSE_MESH",
-      "faces": 5460,
-      "sources": [
-        {
-          "object": "GEO_MAIN_BODY_1_362",
-          "faces": 5460
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_frontwing_nose_shared_selection.json"
-    },
-    "MAP_FLOOR": {
-      "label": "Floor / Piso",
-      "mesh_name": "MAP_FLOOR_MESH",
-      "faces": 70278,
-      "sources": [
-        {
-          "object": "GEO_GEN_2_354",
-          "faces": 354
-        },
-        {
-          "object": "GEO_CB1_1_344",
-          "faces": 30134
-        },
-        {
-          "object": "GEO_CB1_3_346",
-          "faces": 39790
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_floor_selection.json"
-    },
-    "MAP_DIFFUSER": {
-      "label": "Diffuser / Difusor",
-      "mesh_name": "MAP_DIFFUSER_MESH",
-      "faces": 11756,
-      "sources": [
-        {
-          "object": "GEO_CB1_1_344",
-          "faces": 11756
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_diffusor_selection.json"
-    },
-    "MAP_SIDEPODS": {
-      "label": "Sidepods / Pontones",
-      "mesh_name": "MAP_SIDEPODS_MESH",
-      "faces": 11819,
-      "sources": [
-        {
-          "object": "GEO_MAIN_BODY_2_364",
-          "faces": 11819
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_pontones_selection.json"
-    },
-    "MAP_ENGINE_COVER": {
-      "label": "Engine Cover / Coke / Airbox",
-      "mesh_name": "MAP_ENGINE_COVER_MESH",
-      "faces": 21053,
-      "sources": [
-        {
-          "object": "GEO_MAIN_BODY_2_364",
-          "faces": 21053
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_cubierta_airbox_selection.json"
-    },
-    "MAP_BEAM_WING": {
-      "label": "Beam Wing",
-      "mesh_name": "MAP_BEAM_WING_MESH",
-      "faces": 5072,
-      "sources": [
-        {
-          "object": "GEO_CB1_RW_SKINNED_495",
-          "faces": 5072
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_beam_wing_selection.json"
-    },
-    "MAP_MIRRORS": {
-      "label": "Mirrors / Espejos",
-      "mesh_name": "MAP_MIRRORS_MESH",
-      "faces": 15057,
-      "sources": [
-        {
-          "object": "GEO_MAIN_BODY_3_366",
-          "faces": 15057
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_mirrors_selection.json"
-    },
-    "MAP_RIS": {
-      "label": "Rear Impact Structure",
-      "mesh_name": "MAP_RIS_MESH",
-      "faces": 8489,
-      "sources": [
-        {
-          "object": "GEO_CB2_4_349",
-          "faces": 1992
-        },
-        {
-          "object": "GEO_CB1_1_344",
-          "faces": 3695
-        },
-        {
-          "object": "GEO_EXT_4_351",
-          "faces": 2802
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_ris_selection.json"
-    },
-    "MAP_TAIL": {
-      "label": "Tail / RV Tail",
-      "mesh_name": "MAP_TAIL_MESH",
-      "faces": 3296,
-      "sources": [
-        {
-          "object": "GEO_CB2_4_349",
-          "faces": 3296
-        }
-      ],
-      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_tail_selection.json"
-    },
-    "MAP_EXHAUST": {
-      "label": "Exhaust / Tailpipe",
-      "mesh_name": "MAP_EXHAUST_MESH",
-      "faces": 2400,
-      "sources": [
-        {
-          "object": "GEO_EXT_EXHAUST_421",
-          "faces": 2400
-        }
-      ],
-      "source_json": null
-    }
-  },
-  "fia_aliases": {
-    "Nose": "MAP_NOSE",
-    "Front Bodywork": "MAP_NOSE",
-    "Floor": "MAP_FLOOR",
-    "Floor Board": "MAP_FLOOR",
-    "Floor Body": "MAP_FLOOR",
-    "Floor Edge": "MAP_FLOOR",
-    "Floor Corner": "MAP_FLOOR",
-    "Floor Fences": "MAP_FLOOR",
-    "Floor Furniture": "MAP_FLOOR",
-    "Floor Leading Edge": "MAP_FLOOR",
-    "Diffuser": "MAP_DIFFUSER",
-    "Sidepod": "MAP_SIDEPODS",
-    "Sidepods": "MAP_SIDEPODS",
-    "Engine Cover": "MAP_ENGINE_COVER",
-    "Coke": "MAP_ENGINE_COVER",
-    "Roll Hoop": "MAP_ENGINE_COVER",
-    "Rear Bodywork": "MAP_ENGINE_COVER",
-    "Beam Wing": "MAP_BEAM_WING",
-    "Exhaust": "MAP_EXHAUST",
-    "Tailpipe": "MAP_EXHAUST",
-    "Exhaust Tailpipe": "MAP_EXHAUST",
-    "Mirror": "MAP_MIRRORS",
-    "Mirrors": "MAP_MIRRORS",
-    "Mirror Stay": "MAP_MIRRORS",
-    "Rear Impact Structure": "MAP_RIS",
-    "RIS": "MAP_RIS",
-    "Tail": "MAP_TAIL",
-    "RV Tail": "MAP_TAIL"
-  },
-  "notes": {
-    "front_wing": "Front Wing ya está resuelto actualmente en la web y no fue regenerado por este script.",
-    "nose": "El archivo frontwing_nose_shared_selection.json fue comprobado visualmente y corresponde a la Nariz."
-  },
+  "version": 2,
   "universal": true,
-  "compatible_teams": [
-    "McLaren",
-    "Mercedes",
-    "Red Bull",
-    "Ferrari",
-    "Williams",
-    "Racing Bulls",
-    "Aston Martin",
-    "Haas",
-    "Audi",
-    "Alpine",
-    "Cadillac"
-  ],
-  "overlay_glb": "Formula Alpha F1 2026 livery alpine colapinto_f1tech_maps.glb",
   "map_count": 10,
-  "map_faces_total": 159290,
+  "map_faces_total": 160136,
+  "overlay_glb": "Formula Alpha F1 2026 livery alpine colapinto_f1tech_maps.glb",
   "maps_exported": [
     "MAP_NOSE",
     "MAP_FLOOR",
@@ -205,5 +17,13 @@
     "MAP_RIS",
     "MAP_TAIL"
   ],
-  "architecture": "One universal F1TECH_MAPS overlay is loaded over whichever 2026 team car is active."
+  "maps": {
+    "MAP_ENGINE_COVER": {
+      "faces": 21899,
+      "label": "Engine Cover / Coke / Airbox",
+      "extra_geometry": [
+        "GEO_MAIN_VENTS_1A_411"
+      ]
+    }
+  }
 }
