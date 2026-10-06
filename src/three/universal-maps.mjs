@@ -1,4 +1,6 @@
-import { DoubleSide, MeshBasicMaterial } from 'three'
+import { Box3, Vector3 } from 'three'
+import legacyAliases from './universal-map-aliases.json' with { type: 'json' }
+import { alpineInspectionViews } from './alpine-focus.mjs'
 
 export const universalMapsPath = '/models/F1tech_maps.glb'
 export const universalMapsManifestPath = '/models/F1tech_maps_manifest.json'
@@ -8,13 +10,12 @@ export function loadUniversalMapsManifest() {
     if (!response.ok) throw new Error('Universal maps manifest: ' + response.status)
     return response.json()
   }).then(manifest => {
-    if (manifest.format !== 'F1TECH_UNIVERSAL_MAPS' || !manifest.maps || !manifest.fia_aliases) throw new Error('Invalid universal maps manifest')
-    return manifest
+    return normalizeUniversalManifest(manifest)
   }).catch(error => { manifestRequest = null; throw error })
 }
 const aliasCache = new WeakMap()
 function manifestAliases(manifest) {
-  if (!aliasCache.has(manifest)) aliasCache.set(manifest, new Map(Object.entries(manifest.fia_aliases).map(([name, map]) => [canonical(name), map])))
+  if (!aliasCache.has(manifest)) aliasCache.set(manifest, new Map(Object.entries(manifest.fia_aliases ?? legacyAliases).map(([name, map]) => [canonical(name), map])))
   return aliasCache.get(manifest)
 }
 const canonical = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]/g, '')
@@ -34,36 +35,70 @@ export function resolveUniversalMap(componentId, sourceName, manifest) {
   return componentMaps[componentId] ?? null
 }
 
-/** Share geometry, keep visibility/materials private, never alter the loader's scene. */
-export function createUniversalOverlay(scene, color, manifest) {
-  const model = scene.clone(true), targets = new Map()
-  const material = new MeshBasicMaterial({ color, transparent: true, opacity: .64, side: DoubleSide, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1, toneMapped: false })
-  model.traverse(node => {
-    if (!node.isMesh) return
-    node.visible = false
-    node.material = material
-    node.castShadow = false
-    node.receiveShadow = false
-    node.renderOrder = 2
-    node.raycast = () => {}
-  })
+
+/** Reexports may contain only changed metadata; names and aliases retain their original contract. */
+export function normalizeUniversalManifest(manifest) {
+  if (manifest.format !== 'F1TECH_UNIVERSAL_MAPS' || !manifest.maps) throw new Error('Invalid universal maps manifest')
+  const names = manifest.maps_exported ?? Object.keys(manifest.maps)
+  return { ...manifest, maps: Object.fromEntries(names.map(name => [name, { mesh_name: name + '_MESH', ...manifest.maps[name] }])), fia_aliases: manifest.fia_aliases ?? legacyAliases }
+}
+
+const vertexKey = v => [v.x, v.y, v.z].map(n => Math.round(n * 1e4)).join(',')
+const triangleKey = vertices => vertices.sort().join('|')
+/** Maps are selection masks only. Render original car surfaces, retaining every team's PBR materials. */
+export function universalSurfaceMasks(model, scene, manifest) {
+  manifest = normalizeUniversalManifest(manifest)
+  model.updateMatrixWorld(true); scene.updateMatrixWorld(true)
+  const lookup = new Map(), bounds = new Map(), expected = new Map()
+  const v = new Vector3()
+  // Coordinates relative to each scene root, independent of the viewer's shared transform.
+  const keys = (mesh, root) => {
+    const matrix = root.matrixWorld.clone().invert().multiply(mesh.matrixWorld)
+    return Array.from({ length: mesh.geometry.attributes.position.count }, (_, i) => vertexKey(v.fromBufferAttribute(mesh.geometry.attributes.position, i).applyMatrix4(matrix)))
+  }
   for (const [name, metadata] of Object.entries(manifest.maps)) {
-    const root = model.getObjectByName(name) ?? model.getObjectByName(metadata.mesh_name)
-    const meshes = []
-    root?.traverse(node => { if (node.isMesh) meshes.push(node) })
-    if (!meshes.length) { material.dispose(); throw new Error(`Universal mapping missing: ${name}`) }
-    targets.set(name, meshes)
+    const root = scene.getObjectByName(name) ?? scene.getObjectByName(metadata.mesh_name)
+    if (!root) throw new Error('Universal mapping missing: ' + name)
+    const box = new Box3(), signatures = new Set()
+    root.traverse(mesh => {
+      if (!mesh.isMesh) return
+      const vertices = keys(mesh, scene), index = mesh.geometry.index
+      const matrix = scene.matrixWorld.clone().invert().multiply(mesh.matrixWorld)
+      for (let i = 0, count = index?.count ?? vertices.length; i < count; i += 3) {
+        const indices = [0, 1, 2].map(offset => index ? index.getX(i + offset) : i + offset)
+        const key = triangleKey(indices.map(j => vertices[j]))
+        signatures.add(key)
+        if (!lookup.has(key)) lookup.set(key, new Set())
+        lookup.get(key).add(name)
+        for (const j of indices) box.expandByPoint(v.fromBufferAttribute(mesh.geometry.attributes.position, j).applyMatrix4(matrix))
+      }
+    })
+    expected.set(name, signatures); bounds.set(name, box)
   }
-  let active = null
-  return {
-    model,
-    select(name) {
-      active = targets.has(name) ? name : null
-      model.traverse(node => { if (node.isMesh) node.visible = false })
-      for (const mesh of targets.get(active) ?? []) mesh.visible = true
-    },
-    setColor(value) { material.color.set(value) },
-    snapshot() { return { active, visible: [...targets].filter(([, meshes]) => meshes.some(mesh => mesh.visible)).map(([name]) => name) } },
-    dispose() { this.select(null); material.dispose() },
-  }
+  const masks = new Map(), matched = new Map([...expected.keys()].map(name => [name, new Set()]))
+  model.traverse(mesh => {
+    if (!mesh.isMesh) return
+    const vertices = keys(mesh, model), index = mesh.geometry.index, labels = new Map()
+    for (let i = 0, count = index?.count ?? vertices.length; i < count; i += 3) {
+      const key = triangleKey([0, 1, 2].map(offset => vertices[index ? index.getX(i + offset) : i + offset]))
+      const names = lookup.get(key)
+      if (names) { labels.set(i / 3, names); for (const name of names) matched.get(name).add(key) }
+    }
+    if (labels.size) masks.set(mesh, labels)
+  })
+  const valid = new Set([...expected].filter(([name, signatures]) => signatures.size && matched.get(name).size === signatures.size).map(([name]) => name))
+  return { masks, bounds, valid, missing: [...expected.keys()].filter(name => !valid.has(name)) }
+}
+
+/** Bounds fit enters the same CameraFocus tween; old directions/durations and orbit limits are retained. */
+export function universalInspectionView(name, bounds, matrix, aspect = 1.44) {
+  const box = bounds.clone().applyMatrix4(matrix), target = box.getCenter(new Vector3())
+  const family = name === 'MAP_NOSE' ? 'frontWing' : name === 'MAP_MIRRORS' ? 'mirrors' : ['MAP_DIFFUSER', 'MAP_BEAM_WING', 'MAP_EXHAUST', 'MAP_RIS', 'MAP_TAIL'].includes(name) ? 'rearWing' : 'chassis'
+  const preset = alpineInspectionViews[family]
+  const underside = name === 'MAP_FLOOR' || name === 'MAP_DIFFUSER'
+  const direction = underside ? new Vector3(3.9, -4.02, name === 'MAP_DIFFUSER' ? -4.5 : 4.5).normalize() : new Vector3(...preset.position).sub(new Vector3(...preset.target)).normalize()
+  const radius = box.getSize(new Vector3()).length() / 2
+  const halfFov = Math.min(Math.PI / 9, Math.atan(Math.tan(Math.PI / 9) * aspect))
+  const distance = Math.max(3, radius / Math.sin(halfFov) * 1.08)
+  return { target: target.toArray(), position: target.clone().addScaledVector(direction, Math.min(15, distance)).toArray(), duration: name === 'MAP_FLOOR' ? 940 : preset.duration }
 }

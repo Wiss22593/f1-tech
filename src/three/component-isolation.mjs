@@ -1,3 +1,4 @@
+import { universalSurfaceMasks } from './universal-maps.mjs'
 import { BufferAttribute } from 'three'
 import {
   componentMeshMappings, cachedGeometryParts, geometryArrayHash,
@@ -32,7 +33,7 @@ function cloneOriginalMaterial(material) {
 }
 
 /** Prepare on load/theme change only. All selectors identify complete original surfaces. */
-export function createComponentIsolation(model, assetId, cloneMaterial = cloneOriginalMaterial, mapping = componentMeshMappings[assetId]) {
+export function createComponentIsolation(model, assetId, cloneMaterial = cloneOriginalMaterial, mapping = componentMeshMappings[assetId], universal) {
   const meshes = []
   model.traverse(node => { if (node.isMesh) meshes.push(node) })
   const entries = new Map(), targets = new Map(), invalid = new Set()
@@ -157,6 +158,38 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     }
   }
 
+
+  const surfaces = universal ? universalSurfaceMasks(model, universal.scene, universal.manifest) : null
+  for (const name of surfaces?.missing ?? []) fail(name, 'universal surface does not match active car')
+  for (const [mesh, mask] of surfaces?.masks ?? []) {
+    const entry = entries.get(mesh), index = mesh.geometry.index?.array ?? Uint32Array.from({ length: mesh.geometry.attributes.position.count }, (_, i) => i)
+    const ordinals = new Map()
+    for (let i = 0; i < index.length; i += 3) ordinals.set([index[i], index[i + 1], index[i + 2]].join(','), i / 3)
+    const sourceParts = entry?.parts ?? (mesh.geometry.groups.length ? mesh.geometry.groups.map(group => ({ firstTriangle: group.start / 3, indices: Array.from(index.slice(group.start, group.start + group.count)), materialIndex: group.materialIndex })) : [{ firstTriangle: 0, indices: Array.from(index), materialIndex: 0 }])
+    const parts = [], labels = new Map(), counts = new Map()
+    // Split existing audited partitions by mask membership, preserving old labels and source material groups.
+    for (const part of sourceParts) {
+      const buckets = new Map()
+      for (let i = 0; i < part.indices.length; i += 3) {
+        const triangle = [part.indices[i], part.indices[i + 1], part.indices[i + 2]]
+        // Audited partitions retain their original triangle indices but may be noncontiguous.
+        const names = mask.get(ordinals.get(triangle.join(','))) ?? new Set()
+        const key = [...names].filter(name => surfaces.valid.has(name)).sort().join('|')
+        if (!buckets.has(key)) buckets.set(key, { indices: [], names: key ? key.split('|') : [] })
+        buckets.get(key).indices.push(...triangle)
+      }
+      for (const bucket of buckets.values()) {
+        const firstTriangle = parts.length
+        const components = new Set(entry?.labels.get(part.firstTriangle) ?? objectLabels.get(mesh) ?? [])
+        for (const name of bucket.names) { components.add(name); counts.set(name, (counts.get(name) ?? 0) + bucket.indices.length / 3) }
+        parts.push({ firstTriangle, indices: bucket.indices, materialIndex: part.materialIndex ?? 0 })
+        labels.set(firstTriangle, components)
+      }
+    }
+    entries.set(mesh, { parts, labels })
+    for (const [name, triangles] of counts) add(name, { type: 'mesh', node: mesh.name, meshName: mesh.name, meshUuid: mesh.uuid, triangles })
+  }
+
   const highlightable = [...targets.keys()].filter(component => !invalid.has(component) && targets.get(component).length > 0)
   const filter = labels => [...(labels ?? [])].filter(component => highlightable.includes(component))
   const channels = [], originals = [], ownedGeometries = []
@@ -227,6 +260,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
   }
   return {
     highlightable,
+    universalBounds: surfaces?.bounds ?? new Map(),
     select(component) {
       if (disposed) return
       const canonical = normalizeComponentId(component) ?? component
