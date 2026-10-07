@@ -16,8 +16,8 @@ export const showroomTeams: Record<string, ShowroomTeam> = {
     { id: 'hamilton', name: 'Lewis Hamilton', shortName: 'Hamilton', role: null, number: 44, modelPath: '/models/ferrari-sf26-hamilton.glb' },
   ] },
   'mclaren': { carName: 'MCL40', drivers: [
-    { id: 'norris', name: 'Lando Norris', shortName: 'Norris', role: null, number: 1, modelPath: teamModelManifest['mclaren'].path },
     { id: 'piastri', name: 'Oscar Piastri', shortName: 'Piastri', role: null, number: 81, modelPath: '/models/mclaren-mcl40-piastri.glb' },
+    { id: 'norris', name: 'Lando Norris', shortName: 'Norris', role: null, number: 1, modelPath: teamModelManifest['mclaren'].path },
   ] },
   'red-bull-racing': { carName: 'RB22', drivers: [
     { id: 'verstappen', name: 'Max Verstappen', shortName: 'Verstappen', role: null, number: 3, modelPath: teamModelManifest['red-bull-racing'].path },

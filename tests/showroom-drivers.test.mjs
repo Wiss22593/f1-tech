@@ -71,7 +71,7 @@ test('driver URL selection validates team membership and uses the requested lead
 })
 
 test('requested lead drivers appear first and are the team defaults without changing GLB associations', () => {
-  const expected = { mercedes: ['russell', 'antonelli'], 'racing-bulls': ['lawson', 'lindblad'], alpine: ['gasly', 'colapinto'], haas: ['ocon', 'bearman'], audi: ['hulkenberg', 'bortoleto'], 'aston-martin': ['stroll', 'alonso'] }
+  const expected = { mclaren: ['piastri', 'norris'], mercedes: ['russell', 'antonelli'], 'racing-bulls': ['lawson', 'lindblad'], alpine: ['gasly', 'colapinto'], haas: ['ocon', 'bearman'], audi: ['hulkenberg', 'bortoleto'], 'aston-martin': ['stroll', 'alonso'] }
   for (const [teamId, ids] of Object.entries(expected)) {
     assert.deepEqual(config.orderedDrivers(config.showroomTeams[teamId]).map(driver => driver.id), ids)
     assert.equal(config.getShowroomDriver(teamId).id, ids[0])
