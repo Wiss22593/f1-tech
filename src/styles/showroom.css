@@ -167,3 +167,52 @@
 .showroom-inline-detail .showroom-submission__description { color: #c7d0dc; font-size: .72rem; font-weight: 400; line-height: 1.7; }
 .showroom-inline-detail .showroom-submission--shared { margin-top: 10px; padding-top: 0; }
 .showroom-inline-detail .showroom-submission__ordinal { display: block; margin-top: 8px; color: #aeb9c8; font: 500 .6rem/1.35 'Manrope', sans-serif; }
+/* Mobile showroom: viewport-sized stage, independent of driver/model selection. */
+.showroom-components-toggle { display: none; }
+@media (max-width: 600px) {
+  html:has(.showroom), body:has(.showroom), #root:has(.showroom) { height: 100%; overflow: hidden; }
+  .dashboard:has(.showroom) { height: 100vh; height: 100svh; height: 100dvh; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .dashboard:has(.showroom) .dashboard-header--garage { flex: 0 0 auto; min-height: 52px; padding: max(7px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 7px max(10px, env(safe-area-inset-left)); }
+  .dashboard:has(.showroom) .dashboard-footer { display: none; }
+  .showroom { flex: 1; min-height: 0; padding: 0; }
+  .showroom__stage { height: 100%; min-height: 0; display: block; --bottom-safe: max(8px, env(safe-area-inset-bottom)); }
+  .showroom__heading { display: contents; }
+  .showroom__eyebrow, .showroom__driver-name { display: none; }
+  .showroom__heading h1 { position: absolute; z-index: 2; top: 14px; left: max(12px, env(safe-area-inset-left)); width: 44%; font-size: clamp(1.35rem, 5.7vw, 1.65rem); line-height: 1.1; }
+  .showroom__model { position: absolute; z-index: 2; top: 73px; left: max(12px, env(safe-area-inset-left)); margin: 0; gap: 9px; font-size: .7rem; }
+  .showroom__model span { padding: 5px 7px; font-size: .6rem; }
+  .showroom__context { position: absolute; z-index: 3; top: 10px; right: max(12px, env(safe-area-inset-right)); left: auto; width: 51%; min-width: 0; margin: 0; }
+  .showroom__selectors { width: 100%; grid-template-columns: minmax(0, 1fr); gap: 4px; justify-items: end; }
+  .showroom-season-select { width: 66px; }
+  .showroom__selectors .showroom-gp-select select { width: 100%; min-width: 0; min-height: 30px; padding: 6px 23px 6px 7px; font-size: .55rem; letter-spacing: 0; text-overflow: ellipsis; }
+  .showroom__context > span { display: none !important; }
+  .showroom__canvas { position: absolute; top: 105px; right: 0; bottom: calc(170px + var(--bottom-safe)); left: 0; width: auto; height: auto; min-height: 0; }
+  .showroom__canvas::before { height: 35px; }
+  .showroom__canvas::after { height: 9%; pointer-events: none; }
+  .showroom__views { position: absolute; z-index: 3; top: auto; right: 12px; bottom: calc(115px + var(--bottom-safe)); left: 12px; display: flex; flex-wrap: nowrap; justify-content: center; gap: 2px; margin: 0; padding: 4px; max-width: none; overflow-x: auto; }
+  .showroom-view { flex: 1 0 auto; min-height: 34px; padding: 5px; font-size: clamp(.42rem, 1.6vw, .5rem); letter-spacing: 0; }
+  .showroom-drivers { position: absolute; z-index: 3; bottom: calc(69px + var(--bottom-safe)); right: 12px; left: 12px; justify-content: center; flex-wrap: nowrap; gap: 8px; }
+  .showroom-drivers button { min-width: 0; min-height: 38px; padding: 7px 12px; font-size: .7rem; }
+  .showroom-team-mobile { position: absolute; right: max(8px, env(safe-area-inset-right)); bottom: var(--bottom-safe); left: max(8px, env(safe-area-inset-left)); display: flex; align-items: stretch; min-height: 58px; height: 58px; margin: 0; padding: 4px; gap: 4px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; touch-action: pan-x; scrollbar-width: none; }
+  .showroom-team-mobile::-webkit-scrollbar { display: none; }
+  .showroom-team-mobile .showroom-team-mobile__item { flex: 0 0 64px; min-height: 48px; padding: 5px; }
+  .showroom-team-mobile .showroom-team-count--empty { min-height: 0; }
+  .showroom-mobile-toolbar { position: absolute; top: 109px; left: 12px; right: 100px; max-height: 40px; margin: 0; overflow: hidden; }
+  .showroom-mobile-updates { display: block; }
+  .showroom-mobile-updates h2, .showroom-mobile-updates__empty, .showroom-mobile-updates__more { display: none; }
+  .showroom-mobile-updates__list { display: flex; max-height: 40px; overflow-x: auto; overflow-y: hidden; }
+  .showroom-mobile-chip { flex: 0 0 auto; width: auto; max-width: 180px; min-height: 34px; font-size: .52rem; }
+  .showroom-components-toggle { position: absolute; z-index: 6; top: 109px; right: 12px; display: block; min-height: 36px; border: 1px solid #ffffff24; border-radius: 6px; padding: 6px 8px; color: #edf0f4; background: #0e1219d9; font: 600 .58rem 'Manrope', sans-serif; }
+  .showroom-panel { display: none; position: absolute; z-index: 5; top: 150px; right: 12px; bottom: calc(170px + var(--bottom-safe)); left: 12px; width: auto; max-height: none; min-height: 0; margin: 0; background: #0e1219f5; }
+  .showroom-panel--mobile-open { display: flex; }
+  .showroom-panel__top { flex-shrink: 0; padding: 10px 12px; }
+  .showroom-pieces { flex: 1; min-height: 0; max-height: none; overflow-y: auto; overscroll-behavior: contain; }
+  .showroom-mobile-detail { position: absolute; z-index: 7; top: 150px; right: 12px; left: 12px; max-height: min(220px, 35%); margin: 0; display: flex; flex-direction: column; }
+  .showroom-mobile-detail__body { min-height: 0; max-height: none; overflow-y: auto; }
+}
+@media (max-width: 600px) {
+  /* Cap portrait framing so tall phones retain room around the whole car. */
+  .showroom__canvas { max-height: 130vw; margin-block: auto; }
+  /* The inspector already contains the selected update's complete details. */
+  .showroom__stage:has(.showroom-panel--mobile-open) .showroom-mobile-detail { display: none; }
+}

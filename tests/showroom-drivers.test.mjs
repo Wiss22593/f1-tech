@@ -14,23 +14,27 @@ async function loadConfig(paths) {
   return import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`)
 }
 const config = await loadConfig(files.map(file => `/models/${file}`))
-test('showroom has two drivers per team, matching every available primary GLB; absent skins cannot load', () => {
+test('all 22 drivers resolve to existing GLBs and retain each team geometry identity', () => {
   assert.deepEqual(Object.keys(config.showroomTeams).sort(), Object.keys(teamModelManifest).sort())
   for (const [id, team] of Object.entries(config.showroomTeams)) {
     const base = { id: teamModelManifest[id].assetId, path: teamModelManifest[id].path }
     assert.equal(team.drivers.length, 2)
     assert.equal(team.drivers[0].modelPath, base.path)
     assert.equal(config.isDriverAvailable(team.drivers[0]), true)
-    assert.equal(config.isDriverAvailable(team.drivers[1]), false)
+    assert.equal(config.isDriverAvailable(team.drivers[1]), true)
     assert.equal(config.getDriverAsset(base, team.drivers[0]), base)
-    assert.equal(config.getDriverAsset(base, team.drivers[1]), base)
+    assert.deepEqual(config.getDriverAsset(base, team.drivers[1]), { ...base, path: team.drivers[1].modelPath })
+    for (const driver of team.drivers) assert.ok(files.includes(driver.modelPath.split('/').at(-1)), driver.modelPath)
     assert.match(team.drivers[1].modelPath, /^\/models\/[a-z0-9-]+\.glb$/)
   }
 })
-test('adding a configured second skin activates it and changes only the path, retaining geometry and cameras', async () => {
+test('missing skins fail closed; available variants change only the path, retaining geometry and cameras', async () => {
   const second = config.showroomTeams.alpine.drivers[1]
   const future = await loadConfig(files.map(file => `/models/${file}`).concat(second.modelPath))
   const base = { id: teamModelManifest.alpine.assetId, path: teamModelManifest.alpine.path, cameraPresets: { default: [4.8, 2.75, 5.6] }, nodes: {}, liveryMode: 'authored' }
+  const missing = await loadConfig(files.map(file => `/models/${file}`).filter(path => path !== second.modelPath))
+  assert.equal(missing.isDriverAvailable(second), false)
+  assert.equal(missing.getDriverAsset(base, second), base)
   assert.equal(future.isDriverAvailable(second), true)
   assert.deepEqual(future.getDriverAsset(base, second), { ...base, path: second.modelPath })
   assert.equal(base.path, teamModelManifest.alpine.path)
@@ -55,4 +59,14 @@ test('an available reserve variant requires verified yellow airbox metadata', ()
   assert.equal(config.isDriverAvailable({ ...reserve, airboxColor: 'yellow', modelPath: '/models/not-loaded.glb' }), false)
   assert.equal(driver.role, null)
   assert.equal(config.isDriverAvailable(driver), true)
+})
+
+test('driver URL selection validates team membership and preserves original defaults', () => {
+  assert.equal(Object.values(config.showroomTeams).flatMap(team => team.drivers).length, 22)
+  for (const [teamId, team] of Object.entries(config.showroomTeams)) {
+    assert.equal(config.getShowroomDriver(teamId).id, team.drivers[0].id)
+    assert.equal(config.getShowroomDriver(teamId, 'invalid').id, team.drivers[0].id)
+    for (const driver of team.drivers) assert.equal(config.getShowroomDriver(teamId, driver.id), driver)
+  }
+  assert.equal(config.getShowroomDriver('alpine', 'hamilton').id, 'colapinto')
 })

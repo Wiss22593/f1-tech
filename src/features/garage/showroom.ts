@@ -4,7 +4,8 @@ import { teamModelManifest } from '../../three/model-manifest.mjs'
 export interface ShowroomDriver { id: string; name: string; shortName: string; role: 'primary' | 'reserve' | null; number: number | null; airboxColor?: 'black' | 'yellow' | null; modelPath: F1TechCarAsset['path'] }
 export interface ShowroomTeam { carName: string; drivers: ShowroomDriver[] }
 // Racing numbers: user-provided 2026 roster. Preserve existing driver/variant order.
-// Adding the named GLB to public/models activates its chip at the next Vite start/build.
+// Central team/driver -> GLB catalog; original drivers retain the manifest defaults.
+// File discovery checks availability without importing or preloading model bytes.
 export const showroomTeams: Record<string, ShowroomTeam> = {
   'mercedes': { carName: 'W17', drivers: [
     { id: 'antonelli', name: 'Kimi Antonelli', shortName: 'Antonelli', role: null, number: 12, modelPath: teamModelManifest['mercedes'].path },
@@ -57,6 +58,10 @@ const availableModels = new Set(Object.keys(import.meta.glob('/public/models/*.g
 // Set airboxColor only after checking the authored variant. Reserve variants must
 // have a verified yellow airbox; missing metadata leaves them unavailable.
 export const isDriverAvailable = (driver: ShowroomDriver) => availableModels.has(driver.modelPath) && (driver.role !== 'reserve' || driver.airboxColor === 'yellow')
+export function getShowroomDriver(teamId: string, driverId?: string | null): ShowroomDriver {
+  const team = showroomTeams[teamId]
+  return team.drivers.find(driver => driver.id === driverId && isDriverAvailable(driver)) ?? team.drivers[0]
+}
 export function getDriverAsset(base: F1TechCarAsset, driver: ShowroomDriver): F1TechCarAsset {
   // Keep the audited geometry ID: focus, mappings and camera contracts use it.
   return isDriverAvailable(driver) && driver.modelPath !== base.path ? { ...base, path: driver.modelPath } : base

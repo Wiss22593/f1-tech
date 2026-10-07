@@ -199,7 +199,7 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   const controlsRef = useRef<OrbitControlsImpl>(null); const [focusedHotspot, setFocusedHotspot] = useState<F1TechHotspot>()
   function focusHotspot(hotspot: F1TechHotspot) { onSelectComponent(hotspot.componentId); setFocusedHotspot(hotspot) }
   const [availability, setAvailability] = useState<FocusAvailability>({ assetId: '', components: [] })
-  useEffect(() => { setFocusedHotspot(undefined) }, [asset.id, locale, cameraPreset, focusRequestId])
+  useEffect(() => { setFocusedHotspot(undefined) }, [asset.id, asset.path, locale, cameraPreset, focusRequestId])
   useLayoutEffect(() => { setAvailability({ assetId: '', components: [] }) }, [asset.path])
   const isFormulaAlpha = isFormulaAlphaAsset(asset.id)
   const [mapsManifest, setMapsManifest] = useState<UniversalMapsManifest>()
