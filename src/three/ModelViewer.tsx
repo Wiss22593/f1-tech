@@ -191,7 +191,7 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   const mobile = useMobileViewer()
   const cameraPosition = useMemo<[number, number, number]>(() => {
     const original = asset.cameraPresets[cameraPreset]
-    const factor = asset.liveryMode === 'authored' && cameraPreset === 'default' ? 1.27 * (!mobile && !selectedComponent ? presentationScale : 1) : 1
+    const factor = asset.liveryMode === 'authored' && cameraPreset === 'default' ? 1.27 * (!mobile && (!selectedComponent || selectedComponent === 'cooling') ? presentationScale : 1) : 1
     const position: [number, number, number] = [original[0] * factor, .55 + (original[1] - .55) * factor, original[2] * factor]
     if (!mobile) return position
     return [position[0] * mobileCameraScale, .55 + (position[1] - .55) * mobileCameraScale, position[2] * mobileCameraScale]
@@ -210,8 +210,10 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
     void loadUniversalMapsManifest().then(value => { if (active) { setMapsManifest(value); setMapsError(false) } }, error => { if (active) { setMapsError(true); console.error('[F1 Tech universal maps manifest]', error) } })
     return () => { active = false }
   }, [isFormulaAlpha])
-  const selectedMap = isFormulaAlpha ? resolveUniversalMap(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, mapsManifest) : null
-  const requestedComponent = /^bodywork$/i.test(selectedComponentName?.trim() ?? '') ? undefined : isFormulaAlpha
+  // Cooling is a UI selection only: keep the full car and the general camera.
+  const generalView = selectedComponent === 'cooling'
+  const selectedMap = !generalView && isFormulaAlpha ? resolveUniversalMap(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, mapsManifest) : null
+  const requestedComponent = generalView || /^bodywork$/i.test(selectedComponentName?.trim() ?? '') ? undefined : isFormulaAlpha
     ? resolveAlpineFocus(selectedComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined), selectedComponentName, availability.assetId === asset.id ? availability.components.filter((component): component is CarComponentId => !component.startsWith('MAP_')) : [])
     : resolveInspectionComponent(selectedComponent, selectedComponentName) ?? undefined
   const inspectionComponent = availability.assetId === asset.id && requestedComponent && availability.components.includes(requestedComponent) ? requestedComponent : undefined
@@ -219,7 +221,8 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
   const sourceHotspot = (cornerComponent ? hotspots.find(hotspot => hotspot.componentId === cornerComponent) : undefined) ?? selectedHotspot ?? focusedHotspot
   // Frame the audited arms from above the tyres and keep the entire underside in view.
   const inspectionHotspot = useMemo(() => {
-    if (selectedMap && availability.assetId === asset.id && availability.views?.[selectedMap]) {
+    if (generalView) return undefined
+    if (selectedMap && availability.assetId === asset.id && availability.components.some(component => component === selectedMap) && availability.views?.[selectedMap]) {
       const view = availability.views[selectedMap]
       return { id: selectedMap, componentId: selectedComponent ?? 'car', label: '', position: view.target, calloutOffset: [0, 0, 0] as [number, number, number], description: '', inspectionView: view }
     }
@@ -237,7 +240,7 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
     }
     const view = views[sourceHotspot.componentId]
     return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
-  }, [sourceHotspot, inspectionComponent, isFormulaAlpha, hotspots, selectedMap, availability, asset.id, selectedComponent])
+  }, [sourceHotspot, inspectionComponent, isFormulaAlpha, hotspots, selectedMap, availability, asset.id, selectedComponent, generalView])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40} /><group scale={asset.scale} rotation={asset.rotation}><ViewerErrorBoundary key={asset.path} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><ActiveCar key={asset.path} loading={copy.modelLoading} onReady={setAvailability} asset={asset} theme={theme} manifest={isFormulaAlpha ? mapsManifest : undefined} selectedComponent={isFormulaAlpha ? (selectedMap ?? inspectionComponent) : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary>{mapsError && <Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}</group><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40} /><group scale={asset.scale} rotation={asset.rotation}><ViewerErrorBoundary key={asset.path} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><ActiveCar key={asset.path} loading={copy.modelLoading} onReady={setAvailability} asset={asset} theme={theme} manifest={isFormulaAlpha ? mapsManifest : undefined} selectedComponent={generalView ? undefined : isFormulaAlpha ? (selectedMap && availability.assetId === asset.id && availability.components.some(component => component === selectedMap) ? selectedMap : inspectionComponent) : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary>{mapsError && <Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}</group><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

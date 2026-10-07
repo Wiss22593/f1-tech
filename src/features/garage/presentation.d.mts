@@ -7,3 +7,5 @@ export function prepareFamilyDetails<T extends { componentId: string | null; fia
   rows: { update: T; number: number; content: FamilyContent; specific: FamilyContent }[]
   shared: { field: 'primaryReason' | 'geometricDifference' | 'description'; value: string; numbers: number[] }[]
 }
+
+export function shortGrandPrixLabel(name: string): string

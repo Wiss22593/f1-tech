@@ -38,3 +38,8 @@ export function prepareFamilyDetails(updates, getContent) {
   }
   return { rows, shared }
 }
+
+/** Short closed mobile label only; options and source records retain their full names. */
+export function shortGrandPrixLabel(name) {
+  return name.replace(/\s+\d{4}\s*$/, '').replace(/^(?:GRAN PREMIO (?:DE|DI)|GRANDE PR[ÉE]MIO D[EO]|GRAND PRIX D[EUI]|GROSSER PREIS VON)\s+/i, '').replace(/\s+GRAND PRIX$/i, '').trim()
+}

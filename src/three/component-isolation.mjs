@@ -196,7 +196,7 @@ export function createComponentIsolation(model, assetId, cloneMaterial = cloneOr
     for (const [name, triangles] of counts) add(name, { type: 'mesh', node: mesh.name, meshName: mesh.name, meshUuid: mesh.uuid, triangles })
   }
 
-  const highlightable = [...targets.keys()].filter(component => !invalid.has(component) && targets.get(component).length > 0)
+  const highlightable = [...targets.keys()].filter(component => !invalid.has(component) && targets.get(component).some(target => target.triangles > 0))
   const filter = labels => [...(labels ?? [])].filter(component => highlightable.includes(component))
   const channels = [], originals = [], ownedGeometries = []
   // Share private Formula Alpha clones only by source identity AND semantic membership.

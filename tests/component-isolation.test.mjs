@@ -145,3 +145,21 @@ test('changed topology or unsupported material groups disable incomplete composi
     controller.dispose()
   }
 })
+
+
+test('empty geometry targets restore the complete car after a previous isolation', () => {
+  const scene = new Scene();
+  const fullGeometry = new BufferGeometry();
+  fullGeometry.setAttribute('position', new BufferAttribute(new Float32Array([0,0,0,1,0,0,0,1,0]), 3));
+  const full = new Mesh(fullGeometry, new MeshStandardMaterial()); full.name = 'Full'; scene.add(full);
+  const empty = new Mesh(new BufferGeometry(), new MeshStandardMaterial()); empty.name = 'Empty'; scene.add(empty);
+  const controller = createComponentIsolation(scene, 'test-empty', undefined, { objects: { frontWing: ['Full'], cooling: ['Empty'] } });
+  controller.select('frontWing'); controller.step(1);
+  assert.equal(controller.snapshot().active, 'frontWing');
+  controller.select('cooling'); controller.step(1);
+  assert.equal(controller.snapshot().mode, 'normal');
+  assert.equal(controller.snapshot().targetCount, 0);
+  assert.ok(controller.snapshot().materials.every(material => material.gain === 1 && material.opacity === 1));
+  assert.ok(full.visible);
+  controller.dispose();
+});

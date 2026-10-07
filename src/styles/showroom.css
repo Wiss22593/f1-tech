@@ -234,3 +234,29 @@
   /* The inspector already contains the selected update's complete details. */
   .showroom__stage:has(.showroom-panel--mobile-open) .showroom-mobile-detail { display: none; }
 }
+.showroom-mobile-header { display: contents; }
+.showroom-gp-short { display: none; }
+@media (max-width: 600px) {
+  .showroom-mobile-header { position: static; margin: 6px 8px 0; height: 34px; display: flex; align-items: center; gap: 2px; }
+  .showroom-mobile-header .showroom__heading, .showroom-mobile-header .showroom__context { display: contents; }
+  .showroom-mobile-header h1 { position: static; width: auto; min-width: 0; flex: 1 1 auto; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .85rem; line-height: 1.2; letter-spacing: -.04em; }
+  .showroom-mobile-header .showroom__model { position: static; flex: 0 0 auto; gap: 3px; margin: 0; font-size: .62rem; letter-spacing: 0; white-space: nowrap; }
+  .showroom-mobile-header .showroom__model span { padding: 4px 2px; font-size: .55rem; letter-spacing: -.02em; text-transform: lowercase; }
+  .showroom-mobile-header .showroom__selectors { display: flex; flex: 0 0 auto; min-width: 0; width: auto; gap: 3px; }
+  .showroom-mobile-header .showroom-season-select { flex: 0 0 44px; width: 44px; }
+  .showroom-mobile-header .showroom-race-select { flex: 0 0 auto; min-width: 54px; width: max-content; max-width: calc(22ch + 20px); font: 600 .58rem 'Manrope', sans-serif; }
+  .showroom-mobile-header .showroom-gp-select select { height: 32px; min-height: 32px; padding: 4px 15px 4px 4px; font-size: .56rem; }
+  .showroom-mobile-header .showroom-gp-select::after { right: 6px; width: 4px; height: 4px; }
+  .showroom-gp-short { display: block; position: static; height: 32px; padding: 0 15px 0 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; align-content: center; color: #f4f7fb; font: 600 .58rem 'Manrope', sans-serif; text-transform: capitalize; pointer-events: none; }
+  .showroom-race-select select { position: absolute; inset: 0; width: 100%; color: transparent; }
+  .showroom-race-select select option { color: #111; }
+  .showroom-mobile-toolbar { pointer-events: auto; z-index: 6; top: 46px; left: 8px; right: 8px; display: flex; align-items: center; gap: 5px; height: 38px; max-height: 38px; padding: 2px 4px; border: 1px solid #ffffff24; border-radius: 6px; background: #0e1219d9; }
+  .showroom-mobile-toolbar .showroom-components-toggle { position: static; flex: 0 0 auto; min-height: 32px; padding: 5px; border: 0; border-radius: 0; border-right: 1px solid #ffffff24; background: transparent; }
+  .showroom-mobile-toolbar .showroom-mobile-updates__list { flex: 1; min-width: 0; width: auto; gap: 3px; scrollbar-width: none; }
+  .showroom-mobile-toolbar .showroom-mobile-chip { min-height: 30px; padding: 5px 7px; border: 0; border-radius: 4px; box-shadow: none; background: transparent; backdrop-filter: none; font-size: .6rem; }
+  .showroom-mobile-toolbar .showroom-mobile-chip--selected { background: color-mix(in srgb, var(--team-primary) 20%, transparent); }
+  .showroom__canvas { top: 44px; }
+  .showroom-panel, .showroom-mobile-detail { top: 88px; }
+  .showroom__stage:has(.showroom-panel--mobile-open) .showroom__canvas,
+  .showroom__stage:has(.showroom-mobile-detail) .showroom__canvas { top: calc(96px + min(210px, 28%)); }
+}
