@@ -19,17 +19,16 @@ test('all 22 drivers resolve to existing GLBs and retain each team geometry iden
   for (const [id, team] of Object.entries(config.showroomTeams)) {
     const base = { id: teamModelManifest[id].assetId, path: teamModelManifest[id].path }
     assert.equal(team.drivers.length, 2)
-    assert.equal(team.drivers[0].modelPath, base.path)
-    assert.equal(config.isDriverAvailable(team.drivers[0]), true)
-    assert.equal(config.isDriverAvailable(team.drivers[1]), true)
-    assert.equal(config.getDriverAsset(base, team.drivers[0]), base)
-    assert.deepEqual(config.getDriverAsset(base, team.drivers[1]), { ...base, path: team.drivers[1].modelPath })
+    for (const driver of team.drivers) {
+      assert.equal(config.isDriverAvailable(driver), true)
+      assert.deepEqual(config.getDriverAsset(base, driver), { ...base, path: driver.modelPath })
+    }
     for (const driver of team.drivers) assert.ok(files.includes(driver.modelPath.split('/').at(-1)), driver.modelPath)
     assert.match(team.drivers[1].modelPath, /^\/models\/[a-z0-9-]+\.glb$/)
   }
 })
 test('missing skins fail closed; available variants change only the path, retaining geometry and cameras', async () => {
-  const second = config.showroomTeams.alpine.drivers[1]
+  const second = config.showroomTeams.alpine.drivers.find(driver => driver.id === 'gasly')
   const future = await loadConfig(files.map(file => `/models/${file}`).concat(second.modelPath))
   const base = { id: teamModelManifest.alpine.assetId, path: teamModelManifest.alpine.path, cameraPresets: { default: [4.8, 2.75, 5.6] }, nodes: {}, liveryMode: 'authored' }
   const missing = await loadConfig(files.map(file => `/models/${file}`).filter(path => path !== second.modelPath))
@@ -61,12 +60,21 @@ test('an available reserve variant requires verified yellow airbox metadata', ()
   assert.equal(config.isDriverAvailable(driver), true)
 })
 
-test('driver URL selection validates team membership and preserves original defaults', () => {
+test('driver URL selection validates team membership and uses the requested lead driver defaults', () => {
   assert.equal(Object.values(config.showroomTeams).flatMap(team => team.drivers).length, 22)
   for (const [teamId, team] of Object.entries(config.showroomTeams)) {
     assert.equal(config.getShowroomDriver(teamId).id, team.drivers[0].id)
     assert.equal(config.getShowroomDriver(teamId, 'invalid').id, team.drivers[0].id)
     for (const driver of team.drivers) assert.equal(config.getShowroomDriver(teamId, driver.id), driver)
   }
-  assert.equal(config.getShowroomDriver('alpine', 'hamilton').id, 'colapinto')
+  assert.equal(config.getShowroomDriver('alpine', 'hamilton').id, 'gasly')
+})
+
+test('requested lead drivers appear first and are the team defaults without changing GLB associations', () => {
+  const expected = { mercedes: ['russell', 'antonelli'], 'racing-bulls': ['lawson', 'lindblad'], alpine: ['gasly', 'colapinto'], haas: ['ocon', 'bearman'], audi: ['hulkenberg', 'bortoleto'], 'aston-martin': ['stroll', 'alonso'] }
+  for (const [teamId, ids] of Object.entries(expected)) {
+    assert.deepEqual(config.orderedDrivers(config.showroomTeams[teamId]).map(driver => driver.id), ids)
+    assert.equal(config.getShowroomDriver(teamId).id, ids[0])
+    assert.equal(config.showroomTeams[teamId].drivers[1].modelPath, teamModelManifest[teamId].path)
+  }
 })

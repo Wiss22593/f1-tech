@@ -3,13 +3,13 @@ import { teamModelManifest } from '../../three/model-manifest.mjs'
 
 export interface ShowroomDriver { id: string; name: string; shortName: string; role: 'primary' | 'reserve' | null; number: number | null; airboxColor?: 'black' | 'yellow' | null; modelPath: F1TechCarAsset['path'] }
 export interface ShowroomTeam { carName: string; drivers: ShowroomDriver[] }
-// Racing numbers: user-provided 2026 roster. Preserve existing driver/variant order.
+// Racing numbers: user-provided 2026 roster. Presentation order follows the requested lead driver; model assignments stay intact.
 // Central team/driver -> GLB catalog; original drivers retain the manifest defaults.
 // File discovery checks availability without importing or preloading model bytes.
 export const showroomTeams: Record<string, ShowroomTeam> = {
   'mercedes': { carName: 'W17', drivers: [
-    { id: 'antonelli', name: 'Kimi Antonelli', shortName: 'Antonelli', role: null, number: 12, modelPath: teamModelManifest['mercedes'].path },
     { id: 'russell', name: 'George Russell', shortName: 'Russell', role: null, number: 63, modelPath: '/models/mercedes-w17-russell.glb' },
+    { id: 'antonelli', name: 'Kimi Antonelli', shortName: 'Antonelli', role: null, number: 12, modelPath: teamModelManifest['mercedes'].path },
   ] },
   'ferrari': { carName: 'SF26', drivers: [
     { id: 'leclerc', name: 'Charles Leclerc', shortName: 'Leclerc', role: null, number: 16, modelPath: teamModelManifest['ferrari'].path },
@@ -24,28 +24,28 @@ export const showroomTeams: Record<string, ShowroomTeam> = {
     { id: 'hadjar', name: 'Isack Hadjar', shortName: 'Hadjar', role: null, number: 6, modelPath: '/models/red-bull-rb22-hadjar.glb' },
   ] },
   'racing-bulls': { carName: 'VCARB03', drivers: [
-    { id: 'lindblad', name: 'Arvid Lindblad', shortName: 'Lindblad', role: null, number: 41, modelPath: teamModelManifest['racing-bulls'].path },
     { id: 'lawson', name: 'Liam Lawson', shortName: 'Lawson', role: null, number: 30, modelPath: '/models/racing-bulls-vcarb03-lawson.glb' },
+    { id: 'lindblad', name: 'Arvid Lindblad', shortName: 'Lindblad', role: null, number: 41, modelPath: teamModelManifest['racing-bulls'].path },
   ] },
   'alpine': { carName: 'A526', drivers: [
-    { id: 'colapinto', name: 'Franco Colapinto', shortName: 'Colapinto', role: null, number: 43, modelPath: teamModelManifest['alpine'].path },
     { id: 'gasly', name: 'Pierre Gasly', shortName: 'Gasly', role: null, number: 10, modelPath: '/models/alpine-a526-gasly.glb' },
+    { id: 'colapinto', name: 'Franco Colapinto', shortName: 'Colapinto', role: null, number: 43, modelPath: teamModelManifest['alpine'].path },
   ] },
   'haas': { carName: 'VF26', drivers: [
-    { id: 'bearman', name: 'Oliver Bearman', shortName: 'Bearman', role: null, number: 87, modelPath: teamModelManifest['haas'].path },
     { id: 'ocon', name: 'Esteban Ocon', shortName: 'Ocon', role: null, number: 31, modelPath: '/models/haas-vf26-ocon.glb' },
+    { id: 'bearman', name: 'Oliver Bearman', shortName: 'Bearman', role: null, number: 87, modelPath: teamModelManifest['haas'].path },
   ] },
   'audi': { carName: 'R26', drivers: [
-    { id: 'bortoleto', name: 'Gabriel Bortoleto', shortName: 'Bortoleto', role: null, number: 5, modelPath: teamModelManifest['audi'].path },
     { id: 'hulkenberg', name: 'Nico Hülkenberg', shortName: 'Hülkenberg', role: null, number: 27, modelPath: '/models/audi-r26-hulkenberg.glb' },
+    { id: 'bortoleto', name: 'Gabriel Bortoleto', shortName: 'Bortoleto', role: null, number: 5, modelPath: teamModelManifest['audi'].path },
   ] },
   'williams': { carName: 'FW48', drivers: [
     { id: 'albon', name: 'Alexander Albon', shortName: 'Albon', role: null, number: 23, modelPath: teamModelManifest['williams'].path },
     { id: 'sainz', name: 'Carlos Sainz', shortName: 'Sainz', role: null, number: 55, modelPath: '/models/williams-fw48-sainz.glb' },
   ] },
   'aston-martin': { carName: 'AMR26', drivers: [
-    { id: 'alonso', name: 'Fernando Alonso', shortName: 'Alonso', role: null, number: 14, modelPath: teamModelManifest['aston-martin'].path },
     { id: 'stroll', name: 'Lance Stroll', shortName: 'Stroll', role: null, number: 18, modelPath: '/models/aston-martin-amr26-stroll.glb' },
+    { id: 'alonso', name: 'Fernando Alonso', shortName: 'Alonso', role: null, number: 14, modelPath: teamModelManifest['aston-martin'].path },
   ] },
   'cadillac': { carName: 'MAC26', drivers: [
     { id: 'perez', name: 'Sergio Pérez', shortName: 'Pérez', role: null, number: 11, modelPath: teamModelManifest['cadillac'].path },

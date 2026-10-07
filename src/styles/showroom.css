@@ -178,15 +178,15 @@
   .showroom__stage { height: 100%; min-height: 0; display: block; --bottom-safe: max(8px, env(safe-area-inset-bottom)); }
   .showroom__heading { display: contents; }
   .showroom__eyebrow, .showroom__driver-name { display: none; }
-  .showroom__heading h1 { position: absolute; z-index: 2; top: 14px; left: max(12px, env(safe-area-inset-left)); width: 44%; font-size: clamp(1.35rem, 5.7vw, 1.65rem); line-height: 1.1; }
-  .showroom__model { position: absolute; z-index: 2; top: 73px; left: max(12px, env(safe-area-inset-left)); margin: 0; gap: 9px; font-size: .7rem; }
+  .showroom__heading h1 { position: absolute; z-index: 2; top: 10px; left: max(12px, env(safe-area-inset-left)); width: 44%; font-size: clamp(1.35rem, 5.7vw, 1.65rem); line-height: 1.1; }
+  .showroom__model { position: absolute; z-index: 2; top: 54px; left: max(12px, env(safe-area-inset-left)); margin: 0; gap: 9px; font-size: .7rem; }
   .showroom__model span { padding: 5px 7px; font-size: .6rem; }
   .showroom__context { position: absolute; z-index: 3; top: 10px; right: max(12px, env(safe-area-inset-right)); left: auto; width: 51%; min-width: 0; margin: 0; }
   .showroom__selectors { width: 100%; grid-template-columns: minmax(0, 1fr); gap: 4px; justify-items: end; }
   .showroom-season-select { width: 66px; }
   .showroom__selectors .showroom-gp-select select { width: 100%; min-width: 0; min-height: 30px; padding: 6px 23px 6px 7px; font-size: .55rem; letter-spacing: 0; text-overflow: ellipsis; }
   .showroom__context > span { display: none !important; }
-  .showroom__canvas { position: absolute; top: 105px; right: 0; bottom: calc(170px + var(--bottom-safe)); left: 0; width: auto; height: auto; min-height: 0; }
+  .showroom__canvas { position: absolute; top: 78px; right: 0; bottom: 0; left: 0; width: auto; height: auto; min-height: 0; }
   .showroom__canvas::before { height: 35px; }
   .showroom__canvas::after { height: 9%; pointer-events: none; }
   .showroom__views { position: absolute; z-index: 3; top: auto; right: 12px; bottom: calc(115px + var(--bottom-safe)); left: 12px; display: flex; flex-wrap: nowrap; justify-content: center; gap: 2px; margin: 0; padding: 4px; max-width: none; overflow-x: auto; }
@@ -197,22 +197,40 @@
   .showroom-team-mobile::-webkit-scrollbar { display: none; }
   .showroom-team-mobile .showroom-team-mobile__item { flex: 0 0 64px; min-height: 48px; padding: 5px; }
   .showroom-team-mobile .showroom-team-count--empty { min-height: 0; }
-  .showroom-mobile-toolbar { position: absolute; top: 109px; left: 12px; right: 100px; max-height: 40px; margin: 0; overflow: hidden; }
+  .showroom-mobile-toolbar { position: absolute; top: 84px; left: 12px; right: 100px; max-height: 40px; margin: 0; overflow: hidden; }
   .showroom-mobile-updates { display: block; }
   .showroom-mobile-updates h2, .showroom-mobile-updates__empty, .showroom-mobile-updates__more { display: none; }
   .showroom-mobile-updates__list { display: flex; max-height: 40px; overflow-x: auto; overflow-y: hidden; }
   .showroom-mobile-chip { flex: 0 0 auto; width: auto; max-width: 180px; min-height: 34px; font-size: .52rem; }
-  .showroom-components-toggle { position: absolute; z-index: 6; top: 109px; right: 12px; display: block; min-height: 36px; border: 1px solid #ffffff24; border-radius: 6px; padding: 6px 8px; color: #edf0f4; background: #0e1219d9; font: 600 .58rem 'Manrope', sans-serif; }
-  .showroom-panel { display: none; position: absolute; z-index: 5; top: 150px; right: 12px; bottom: calc(170px + var(--bottom-safe)); left: 12px; width: auto; max-height: none; min-height: 0; margin: 0; background: #0e1219f5; }
+  .showroom-components-toggle { position: absolute; z-index: 6; top: 84px; right: 12px; display: block; min-height: 36px; border: 1px solid #ffffff24; border-radius: 6px; padding: 6px 8px; color: #edf0f4; background: #0e1219d9; font: 600 .58rem 'Manrope', sans-serif; }
+  .showroom-panel { display: none; position: absolute; z-index: 5; top: 126px; right: 12px; bottom: auto; left: 12px; width: auto; height: min(210px, 28%); max-height: min(210px, 28%); min-height: 0; margin: 0; background: #0e1219c9; }
   .showroom-panel--mobile-open { display: flex; }
   .showroom-panel__top { flex-shrink: 0; padding: 10px 12px; }
   .showroom-pieces { flex: 1; min-height: 0; max-height: none; overflow-y: auto; overscroll-behavior: contain; }
-  .showroom-mobile-detail { position: absolute; z-index: 7; top: 150px; right: 12px; left: 12px; max-height: min(220px, 35%); margin: 0; display: flex; flex-direction: column; }
+  .showroom-mobile-detail { position: absolute; z-index: 7; top: 126px; right: 12px; left: 12px; max-height: min(210px, 28%); margin: 0; display: flex; flex-direction: column; }
   .showroom-mobile-detail__body { min-height: 0; max-height: none; overflow-y: auto; }
 }
 @media (max-width: 600px) {
-  /* Cap portrait framing so tall phones retain room around the whole car. */
-  .showroom__canvas { max-height: 130vw; margin-block: auto; }
+  /* The canvas extends behind the bottom glass controls; views reserve no space. */
+  .showroom__views { display: none; }
+  .showroom__canvas { max-height: none; margin: 0; }
+  .showroom-drivers button { background: #101318a6; backdrop-filter: blur(12px); }
+  .showroom-drivers button[aria-pressed='true'] { background: color-mix(in srgb, var(--team-primary) 12%, #101318a6); }
+  .showroom-team-mobile { background: #0e12198c; }
+  .showroom-team-mobile .showroom-team-mobile__item { border: 1px solid color-mix(in srgb, var(--item-primary) 65%, transparent); background: #10131880; box-shadow: none; }
+  .showroom-team-mobile .showroom-team-mobile__item--active { border-color: var(--item-primary); background: color-mix(in srgb, var(--item-primary) 18%, #101318a6); }
+  .showroom-team-mobile__item > i { display: none; }
+  /* Resize only the viewport below the compact sheet, preserving focus cameras. */
+  .showroom__stage:has(.showroom-panel--mobile-open) .showroom__canvas,
+  .showroom__stage:has(.showroom-mobile-detail) .showroom__canvas { top: calc(134px + min(210px, 28%)); }
+  .showroom-panel__top { padding: 7px 10px; }
+  .showroom-pieces { padding: 3px 7px 8px; }
+  .showroom-piece-group h3 { padding-block: 6px 3px; }
+  .showroom-inline-detail { padding: 6px 8px; }
+  .showroom-inline-detail .showroom-submission__field { margin-top: 8px; }
+  .showroom-mobile-detail > header { flex-shrink: 0; padding: 6px 10px; }
+  .showroom-mobile-detail__body { overscroll-behavior: contain; }
+
   /* The inspector already contains the selected update's complete details. */
   .showroom__stage:has(.showroom-panel--mobile-open) .showroom-mobile-detail { display: none; }
 }
