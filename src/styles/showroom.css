@@ -234,14 +234,15 @@
   /* The inspector already contains the selected update's complete details. */
   .showroom__stage:has(.showroom-panel--mobile-open) .showroom-mobile-detail { display: none; }
 }
-.showroom-mobile-header { display: contents; }
+.showroom-mobile-header, .showroom__identity { display: contents; }
 .showroom-gp-short { display: none; }
 @media (max-width: 600px) {
   .showroom-mobile-header { position: static; margin: 6px 8px 0; height: 34px; display: flex; align-items: center; gap: 2px; }
   .showroom-mobile-header .showroom__heading, .showroom-mobile-header .showroom__context { display: contents; }
-  .showroom-mobile-header h1 { position: static; width: auto; min-width: 0; flex: 1 1 auto; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .85rem; line-height: 1.2; letter-spacing: -.04em; }
-  .showroom-mobile-header .showroom__model { position: static; flex: 0 0 auto; gap: 3px; margin: 0; font-size: .62rem; letter-spacing: 0; white-space: nowrap; }
-  .showroom-mobile-header .showroom__model span { padding: 4px 2px; font-size: .55rem; letter-spacing: -.02em; text-transform: lowercase; }
+  .showroom-mobile-header .showroom__identity { display: inline-flex; flex: 1 1 auto; min-width: 0; align-items: center; gap: 4px; white-space: nowrap; }
+  .showroom-mobile-header h1 { position: static; width: auto; min-width: 0; flex: 0 1 auto; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .9rem; line-height: 1.2; letter-spacing: -.04em; }
+  .showroom-mobile-header .showroom__model { position: static; flex: 0 0 auto; gap: 3px; margin: 0; font-size: .7rem; font-weight: 700; letter-spacing: 0; white-space: nowrap; }
+  .showroom-mobile-header .showroom__model span { padding: 5px 2.5px; font-size: .575rem; letter-spacing: -.02em; text-transform: lowercase; }
   .showroom-mobile-header .showroom__selectors { display: flex; flex: 0 0 auto; min-width: 0; width: auto; gap: 3px; }
   .showroom-mobile-header .showroom-season-select { flex: 0 0 44px; width: 44px; }
   .showroom-mobile-header .showroom-race-select { flex: 0 0 auto; min-width: 54px; width: max-content; max-width: calc(22ch + 20px); font: 600 .58rem 'Manrope', sans-serif; }
@@ -259,4 +260,22 @@
   .showroom-panel, .showroom-mobile-detail { top: 88px; }
   .showroom__stage:has(.showroom-panel--mobile-open) .showroom__canvas,
   .showroom__stage:has(.showroom-mobile-detail) .showroom__canvas { top: calc(96px + min(210px, 28%)); }
+}
+
+.showroom-mobile-count { display: none; }
+@media (max-width: 600px) {
+  .showroom-mobile-header .showroom__identity { flex: 0 1 auto; }
+  .showroom-mobile-header .showroom__model span { display: none; }
+  .showroom-mobile-count { display: flex; flex: 1 0 auto; justify-content: center; align-items: center; margin-inline: 4px; padding: 5px 3px; color: #ffb6ba; font-size: .575rem; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; text-transform: uppercase; }
+  .showroom-team-mobile .showroom-team-mobile__item { background: #080a0e; border: 1px solid var(--item-primary); box-shadow: 0 0 0 1px #ffffff16; }
+  .showroom-team-mobile .showroom-team-mobile__item--active { background: #080a0e; border-width: 2px; box-shadow: 0 0 0 1px #ffffff45; }
+  .showroom-mobile-toolbar .showroom-mobile-updates__list { overscroll-behavior-x: contain; touch-action: pan-x; }
+}
+
+@media (max-width: 600px) {
+  .showroom-mobile-count { margin-inline: 2px; padding-inline: 0; }
+  .showroom-mobile-header .showroom-season-select { flex-basis: 38px; width: 38px; }
+  .showroom-mobile-header .showroom-gp-select select { padding-inline: 3px 10px; }
+  .showroom-mobile-header .showroom-gp-select::after { right: 3px; }
+  .showroom-mobile-header .showroom-gp-short { padding-inline: 3px 10px; }
 }

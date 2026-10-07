@@ -9,3 +9,5 @@ export function prepareFamilyDetails<T extends { componentId: string | null; fia
 }
 
 export function shortGrandPrixLabel(name: string): string
+
+export function quickUpdateFamilies<T extends { id: string; componentId: string | null; presentedComponent?: string | null; fiaRecord?: { componentName?: string | null } }>(updates: T[]): T[]

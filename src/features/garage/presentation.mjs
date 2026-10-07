@@ -43,3 +43,16 @@ export function prepareFamilyDetails(updates, getContent) {
 export function shortGrandPrixLabel(name) {
   return name.replace(/\s+\d{4}\s*$/, '').replace(/^(?:GRAN PREMIO (?:DE|DI)|GRANDE PR[ÉE]MIO D[EO]|GRAND PRIX D[EUI]|GROSSER PREIS VON)\s+/i, '').replace(/\s+GRAND PRIX$/i, '').trim()
 }
+
+/** All published families, including submissions without a 3D target.
+ * Reuse component IDs and existing FIA names; normalize only case/whitespace.
+ */
+export function quickUpdateFamilies(updates) {
+  const seen = new Set()
+  return updates.filter(update => {
+    const key = update.componentId ? 'component:' + update.componentId : 'text:' + normalizeHeading(update.fiaRecord?.componentName ?? update.presentedComponent ?? update.id)
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
