@@ -6,7 +6,7 @@ type TeamCardProps = { team: Team; index: number; onSelect: (team: Team) => void
 export function TeamCard({ team, index, onSelect, locale }: TeamCardProps) {
   const updateCount = team.publishedUpdates ?? team.demoUpdates
   const isPublished = team.publishedUpdates !== undefined
-  return <button className="team-profile-card card" onClick={() => onSelect(team)}>
+  return <button className="team-profile-card card" data-team={team.id} onClick={() => onSelect(team)}>
     <span className="team-profile-card__number">{String(index + 1).padStart(2, '0')}</span>
     <span className="team-profile-card__season">{uiText(locale, 'season')} {team.season}</span>
     <h2>{team.name}</h2><p className="team-profile-card__car">{team.carName ?? uiText(locale, 'carPending')}</p>
