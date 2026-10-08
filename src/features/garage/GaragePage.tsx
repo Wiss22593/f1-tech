@@ -7,12 +7,13 @@ import { loadPublishedGrandPrix, toCarComponent, publishedUpdateCounts } from '.
 import { defaultSeason, seasonEvents, supportedSeasons } from '../../domain/calendar.mjs'
 import { hasPublishedUpdates, quickUpdateFamilies, prepareFamilyDetails, selectPublishedGarageGrandPrix, showComponentSubtitle, shortGrandPrixLabel } from './presentation.mjs'
 
+import { revealUpdateDetail } from './detail-navigation.mjs'
+
 import { getDriverAsset, getShowroomDriver, isDriverAvailable, showroomLabels, showroomTeams, orderedDrivers } from './showroom'
 
 const cameraPresets: CameraPresetId[] = ['default', 'front', 'rear', 'side', 'top']
 const teamAbbreviations: Record<string, string> = { mercedes: 'MER', ferrari: 'FER', mclaren: 'MCL', 'red-bull-racing': 'RBR', 'racing-bulls': 'RB', 'aston-martin': 'AST', alpine: 'ALP', haas: 'HAA', audi: 'AUD', williams: 'WIL', cadillac: 'CAD' }
 const defaultGrandPrix = garageGrandPrix[0]
-const withoutOrdinalPrefix = (text: string) => text.replace(/^\s*\d+[.)-]?\s+/, '')
 
 async function findPublishedGrandPrix() {
   const published = new Set<string>()
@@ -42,7 +43,8 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const [resolvedGrandPrix, setResolvedGrandPrix] = useState(garageGrandPrix)
   const [publishedGrandPrixIds, setPublishedGrandPrixIds] = useState<ReadonlySet<string>>(() => new Set())
   const [mobileComponentsOpen, setMobileComponentsOpen] = useState(false)
-  const itemRefs = useRef<Partial<Record<CarComponentId, HTMLDivElement | null>>>({})
+  const piecesRef = useRef<HTMLDivElement>(null)
+  const [detailRequest, setDetailRequest] = useState(0)
   const grandPrix = resolvedGrandPrix.find((item) => item.id === grandPrixId) ?? defaultGrandPrix
   const selectableGrandPrix = seasonEvents(resolvedGrandPrix, season)
   const seasons = supportedSeasons(garageGrandPrix)
@@ -59,7 +61,6 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const nonVisualizableUpdates = updates.filter((update) => !update.componentId)
   const selectedHotspot = garageHotspots.find((hotspot) => hotspot.componentId === selectedComponent)
   const selectedUpdate = updates.find((update) => update.id === selectedUpdateId)
-  const selectedMobileContent = selectedUpdate ? getGarageUpdateContent(selectedUpdate, locale) : null
 
   useEffect(() => {
     let active = true
@@ -83,9 +84,12 @@ export function GaragePage({ locale }: { locale: Locale }) {
     window.history.replaceState({}, '', `${window.location.pathname}?${query.toString()}`)
   }, [grandPrixId, teamId, driver.id, publishedResolved])
   useEffect(() => {
-    if (window.matchMedia('(max-width: 600px)').matches) return
-    if (selectedComponent) itemRefs.current[selectedComponent]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [selectedComponent])
+    if (!detailRequest || !selectedUpdateId) return
+    const frame = requestAnimationFrame(() => {
+      revealUpdateDetail(piecesRef.current, selectedUpdateId, window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [detailRequest, selectedUpdateId])
   useEffect(() => {
     let active = true
     setPublishedUpdates([])
@@ -99,19 +103,32 @@ export function GaragePage({ locale }: { locale: Locale }) {
     })
     return () => { active = false }
   }, [grandPrixId, season, publishedResolved, publishedGrandPrixIds])
-  useEffect(() => { setSelectedComponent(undefined); setSelectedUpdateId(undefined); setFocusRequestId(value => value + 1) }, [locale])
-  function resetView() { setFocusFromUpdate(false); setSelectedComponent(undefined); setSelectedUpdateId(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1) }
+  useEffect(() => { setMobileComponentsOpen(false); setSelectedComponent(undefined); setSelectedUpdateId(undefined); setFocusRequestId(value => value + 1) }, [locale])
+  function resetView() { setMobileComponentsOpen(false); setFocusFromUpdate(false); setSelectedComponent(undefined); setSelectedUpdateId(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1) }
   function selectPiece(componentId: CarComponentId) {
+    const update = updates.find((update) => update.componentId === componentId)
+    if (update && selectedComponent === componentId && !mobileComponentsOpen && window.matchMedia('(max-width: 600px)').matches) {
+      setMobileComponentsOpen(true); setSelectedUpdateId(selectedUpdate?.componentId === componentId ? selectedUpdate.id : update.id); setDetailRequest(value => value + 1)
+      return
+    }
     setFocusFromUpdate(false)
     const selecting = selectedComponent !== componentId
     setSelectedComponent(selecting ? componentId : undefined)
-    setSelectedUpdateId(selecting ? updates.find((update) => update.componentId === componentId)?.id : undefined)
+    setSelectedUpdateId(selecting ? update?.id : undefined)
+    if (selecting && update) { setMobileComponentsOpen(true); setDetailRequest(value => value + 1) }
+    else if (!selecting) setMobileComponentsOpen(false)
     setCameraPreset('default'); setFocusRequestId((value) => value + 1)
   }
   function selectUpdate(update: GarageUpdate) {
+    if (selectedUpdateId === update.id && !mobileComponentsOpen && window.matchMedia('(max-width: 600px)').matches) {
+      setMobileComponentsOpen(true); setDetailRequest(value => value + 1)
+      return
+    }
     setFocusFromUpdate(true)
     const selecting = selectedUpdateId !== update.id
     setSelectedUpdateId(selecting ? update.id : undefined)
+    setMobileComponentsOpen(selecting)
+    if (selecting) setDetailRequest(value => value + 1)
     if (!update.componentId) { setSelectedComponent(undefined); setCameraPreset('default'); setFocusRequestId((value) => value + 1); return }
     setSelectedComponent(selecting ? update.componentId : undefined)
     setCameraPreset('default'); setFocusRequestId((value) => value + 1)
@@ -138,6 +155,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
   function renderUpdateDetails(componentUpdates: GarageUpdate[], title: string) {
     if (componentUpdates.length === 0) return null
     const { rows, shared } = prepareFamilyDetails(componentUpdates, update => getGarageUpdateContent(update, locale))
+    const focusedRow = rows.find(row => row.update.id === selectedUpdateId)
     const updateLabel = { es: 'Actualización', en: 'Update', it: 'Aggiornamento', pt: 'Atualização', fr: 'Mise à jour', de: 'Aktualisierung' }[locale]
     const fieldLabels = {
       es: ['Razón primaria', 'Diferencia geométrica', 'Descripción breve'],
@@ -153,13 +171,20 @@ export function GaragePage({ locale }: { locale: Locale }) {
     </div>
     const fieldClass = { primaryReason: 'reason', geometricDifference: 'geometry', description: 'description' }
     return <>
-      {rows.map(({ update, number, content, specific }) => <article className="showroom-submission" key={update.id}>
+      {rows.length > 1 && <nav className="showroom-family-navigation" aria-label={title}>{rows.map(({ update, number, content }) => <button type="button" key={update.id} aria-pressed={selectedUpdateId === update.id} onClick={() => { setSelectedUpdateId(update.id); setDetailRequest(value => value + 1) }}>{number}. {content.presentedComponent ?? title}</button>)}</nav>}
+      {focusedRow && rows.length > 1 && <article className="showroom-submission showroom-submission--focused" data-update-id={focusedRow.update.id} tabIndex={-1}>
+        <h3>{focusedRow.number}. {focusedRow.content.presentedComponent ?? title}</h3>
+        {focusedRow.content.primaryReason && renderField('primaryReason', focusedRow.content.primaryReason)}
+        {focusedRow.content.geometricDifference && renderField('geometricDifference', focusedRow.content.geometricDifference)}
+        {focusedRow.content.description && renderField('description', focusedRow.content.description)}
+      </article>}
+      {(!focusedRow || rows.length === 1) && rows.map(({ update, number, content, specific }) => <article className="showroom-submission" key={update.id} data-update-id={rows.length === 1 ? update.id : undefined} tabIndex={-1}>
         {(rows.length > 1 || showComponentSubtitle(title, content.presentedComponent)) && <h3 className="showroom-submission__heading">{rows.length > 1 && <span className="showroom-submission__number">{number}</span>}<span>{content.presentedComponent ?? title}</span></h3>}
         {specific.primaryReason && renderField('primaryReason', specific.primaryReason)}
         {specific.geometricDifference && renderField('geometricDifference', specific.geometricDifference)}
         {specific.description && renderField('description', specific.description)}
       </article>)}
-      {shared.length > 0 && <div className="showroom-submission showroom-submission--shared">
+      {!focusedRow && shared.length > 0 && <div className="showroom-submission showroom-submission--shared">
         {shared.map(({ field, value, numbers }, index) => <div key={index}>
           {numbers.length < rows.length && <span className="showroom-submission__ordinal">{updateLabel} {numbers.join(', ')}</span>}
           {renderField(field, value)}
@@ -168,22 +193,11 @@ export function GaragePage({ locale }: { locale: Locale }) {
     </>
   }
 
-  function renderMobileUpdateDetails(componentUpdates: GarageUpdate[]) {
-    return componentUpdates.map((update) => {
-      const content = getGarageUpdateContent(update, locale)
-      const description = content.description ?? content.geometricDifference
-      return description && <article className="showroom-submission" key={update.id}>
-        {locale === 'es' && content.primaryReason && <p className="showroom-submission__reason">{content.primaryReason}</p>}
-        {locale === 'es' && content.geometricDifference && <p className="showroom-submission__geometry">{content.geometricDifference}</p>}
-        <p className="showroom-submission__description">{withoutOrdinalPrefix(description)}</p>
-      </article>
-    })
-  }
   function renderComponent(hotspot: F1TechHotspot) {
     const componentUpdates = updates.filter((update) => update.componentId === hotspot.componentId)
     const selected = selectedComponent === hotspot.componentId
     const expanded = selected && componentUpdates.length > 0
-    return <div className={`showroom-component${expanded ? ' showroom-component--expanded' : ''}`} key={hotspot.id} ref={(node) => { itemRefs.current[hotspot.componentId] = node }}>
+    return <div className={`showroom-component${expanded ? ' showroom-component--expanded' : ''}`} key={hotspot.id}>
       <button type="button" className={`showroom-piece${selected ? ' showroom-piece--selected' : ''}${componentUpdates.length ? ' showroom-piece--active' : ''}`} onClick={() => selectPiece(hotspot.componentId)} aria-pressed={selected} aria-expanded={componentUpdates.length ? expanded : undefined}>
         <i /><span>{garageComponent(locale, hotspot.id, hotspot.label)}</span>{componentUpdates.length > 0 && <em><i aria-hidden="true" /> {copy.updated}</em>}{componentUpdates.length > 0 && <b aria-hidden="true">{expanded ? '−' : '+'}</b>}
       </button>
@@ -203,7 +217,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
 
   return <section className="showroom" data-team={team.id} style={{ '--team-primary': team.theme.primary, '--team-accent': team.theme.accent, '--team-surface': team.theme.surface } as React.CSSProperties} aria-labelledby="showroom-title">
     <section className="showroom__stage">
-      <div className="showroom-mobile-header"><div className="showroom__heading"><p className="showroom__eyebrow">Formula Tech <span> / {season}</span></p><div className="showroom__identity"><h1 id="showroom-title">{team.name}</h1><p className="showroom__model">{showroomTeam.carName}<span className="showroom-update-badge">{renderHeaderCount(updateCounts[team.id] ?? 0)}</span></p></div><span className="showroom-mobile-count showroom-update-badge">{renderHeaderCount(updateCounts[team.id] ?? 0)}</span><div className="showroom-drivers" role="group" aria-label={driverCopy.driver}>{orderedDrivers(showroomTeam).map(item => <button type="button" key={item.id} disabled={!isDriverAvailable(item)} aria-pressed={driver.id === item.id} title={item.name} onClick={() => changeDriver(item.id)}><span>{item.number !== null && <><b className="showroom-driver-number">{item.number}</b>{' '}</>}{item.shortName}</span>{!isDriverAvailable(item) && <small>{driverCopy.soon}</small>}</button>)}</div><p className="showroom__driver-name">{driver.name}</p></div>
+      <div className="showroom-mobile-header"><div className="showroom__heading"><p className="showroom__eyebrow">Formula Tech <span> / {season}</span></p><div className="showroom__identity"><h1 id="showroom-title">{team.name}</h1><p className="showroom__model">{showroomTeam.carName}</p></div><div className="showroom-count-slot"><span className="showroom-mobile-count showroom-update-badge">{renderHeaderCount(updateCounts[team.id] ?? 0)}</span></div><div className="showroom-drivers" role="group" aria-label={driverCopy.driver}>{orderedDrivers(showroomTeam).map(item => <button type="button" key={item.id} disabled={!isDriverAvailable(item)} aria-pressed={driver.id === item.id} title={item.name} onClick={() => changeDriver(item.id)}><span>{item.number !== null && <><b className="showroom-driver-number">{item.number}</b>{' '}</>}{item.shortName}</span>{!isDriverAvailable(item) && <small>{driverCopy.soon}</small>}</button>)}</div><p className="showroom__driver-name">{driver.name}</p></div>
       <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><div className="showroom__selectors"><label className="sr-only" htmlFor="season-selector">{copy.season}</label><span className="showroom-gp-select showroom-season-select"><select id="season-selector" value={season} onChange={(event) => changeSeason(Number(event.target.value))}>{seasons.map(year => <option key={year} value={year}>{year}</option>)}</select></span><span className="showroom-gp-select showroom-race-select"><span className="showroom-gp-short" aria-hidden="true">{grandPrixId ? shortGrandPrixLabel(garageGrandPrixName(locale, grandPrix.id, grandPrix.name)).toLocaleLowerCase(locale) : copy.noPublished}</span><select id="grand-prix-selector" value={grandPrixId} disabled={!publishedResolved} onChange={(event) => changeGrandPrix(event.target.value)}>{!grandPrixId && <option value="" disabled>{copy.noPublished}</option>}{selectableGrandPrix.map((item) => <option key={item.id} value={item.id} disabled={!publishedGrandPrixIds.has(item.id)}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span></div><strong>{team.name.toUpperCase()}</strong><span>{grandPrixId ? grandPrix.circuit : null}</span></div>
       </div>
 
@@ -213,17 +227,12 @@ export function GaragePage({ locale }: { locale: Locale }) {
         <div className="showroom-mobile-updates__list">{quickFamilies.map(update => {
           const hotspot = garageHotspots.find(item => item.componentId === update.componentId)
           const selected = hotspot ? selectedComponent === hotspot.componentId : selectedUpdateId === update.id
-          return <button type="button" className={selected ? 'showroom-mobile-chip showroom-mobile-chip--selected' : 'showroom-mobile-chip'} key={update.componentId ?? update.id} onClick={() => { if (hotspot) selectPiece(hotspot.componentId); else selectUpdate(update); setMobileComponentsOpen(true) }} aria-pressed={selected}><i />{hotspot ? garageComponent(locale, hotspot.id, hotspot.label) : getGarageUpdateContent(update, locale).presentedComponent ?? update.presentedComponent}</button>
+          return <button type="button" className={selected ? 'showroom-mobile-chip showroom-mobile-chip--selected' : 'showroom-mobile-chip'} key={update.componentId ?? update.id} onClick={() => { if (hotspot) selectPiece(hotspot.componentId); else selectUpdate(update) }} aria-pressed={selected}><i />{hotspot ? garageComponent(locale, hotspot.id, hotspot.label) : getGarageUpdateContent(update, locale).presentedComponent ?? update.presentedComponent}</button>
         })}</div>
       </div>
-      {mobileComponentsOpen && selectedUpdate && <section className="showroom-mobile-detail" aria-live="polite">
-        <header><h2>{withoutOrdinalPrefix(selectedMobileContent?.presentedComponent ?? selectedUpdate.presentedComponent ?? '')}</h2><button type="button" onClick={() => selectUpdate(selectedUpdate)} aria-label={copy.closeDetail}>×</button></header>
-        <div className="showroom-mobile-detail__body">{renderMobileUpdateDetails([selectedUpdate])}</div>
-      </section>}
-
       <aside id="showroom-components" className={`showroom-panel${mobileComponentsOpen ? ' showroom-panel--mobile-open' : ''}`} aria-label={copy.components}>
-        <div className="showroom-panel__top"><p className="section-kicker">{copy.components}</p><span>{garageUpdateCount(locale, updateCounts[team.id] ?? 0)}</span></div>
-        <div className="showroom-pieces">
+        <div className="showroom-panel__top"><p className="section-kicker">{copy.components}</p><span>{garageUpdateCount(locale, updateCounts[team.id] ?? 0)}</span><button type="button" className="showroom-detail-close" aria-label={copy.closeDetail} onClick={resetView}>×</button></div>
+        <div className="showroom-pieces" ref={piecesRef}>
           {(updatedHotspots.length > 0 || nonVisualizableUpdates.length > 0) && <section className="showroom-piece-group showroom-piece-group--updates"><h3>{copy.updated}</h3>{updatedHotspots.map(renderComponent)}{nonVisualizableUpdates.map(renderTextOnlyUpdate)}</section>}
           {garageComponentGroups.map((group) => { const remaining = group.componentIds.map((id) => garageHotspots.find((hotspot) => hotspot.id === id)).filter((item): item is F1TechHotspot => item !== undefined).filter((item) => !updatedComponents.has(item.componentId)); return remaining.length > 0 && <section className="showroom-piece-group" key={group.id}><h3>{garageCategory(locale, group.id)}</h3>{remaining.map(renderComponent)}</section> })}
         </div>

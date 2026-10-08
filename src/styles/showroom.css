@@ -367,3 +367,47 @@
   .updates-page h1 { font-size: clamp(2.7rem, 12vw, 3.5rem); overflow-wrap: anywhere; }
   .updates-controls label, .updates-controls select { min-width: 0; max-width: 100%; }
 }
+
+/* UX corrections: flexible count slot and local update inspector. */
+.showroom-count-slot { display: none; }
+.showroom-inline-detail .showroom-submission__label { color: #8ddcff; }
+.showroom-submission:focus { outline: none; }
+.showroom-detail-close { margin-left: auto; flex: 0 0 auto; min-width: 32px; min-height: 32px; border: 1px solid #ffffff35; border-radius: 6px; color: #edf2fa; background: #10151d; cursor: pointer; }
+.showroom[data-team='red-bull-racing'] .showroom-piece--active,
+.showroom[data-team='red-bull-racing'] .showroom-mobile-chip { background: #193c68; border: 1px solid #507fba; color: #eef5ff; }
+.showroom[data-team='red-bull-racing'] .showroom-piece--selected,
+.showroom[data-team='red-bull-racing'] .showroom-mobile-chip--selected { background: #28558a; border-color: #82b4ed; }
+@media (hover: hover) {
+  .showroom[data-team='red-bull-racing'] .showroom-piece--active:hover,
+  .showroom[data-team='red-bull-racing'] .showroom-mobile-chip:hover { background: #244d7c; }
+}
+@media (max-width: 600px) {
+  .showroom-mobile-header .showroom__identity { flex: 0 1 auto; max-width: 37%; }
+  .showroom-count-slot { display: flex; flex: 1 0 auto; min-width: 0; justify-content: center; }
+  .showroom-mobile-count.showroom-update-badge { padding: 7px 4px; font-size: .58rem; }
+  .showroom-mobile-header .showroom-race-select { max-width: 60px; }
+  .showroom-mobile-header .showroom__selectors { gap: 3px; }
+  .showroom-mobile-header { gap: 3px; }
+  .showroom-detail-close { min-width: 38px; min-height: 38px; }
+}
+
+.showroom-family-navigation { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.showroom-family-navigation button { min-height: 36px; padding: 6px 8px; color: #dce5f0; border: 1px solid #ffffff35; border-radius: 6px; background: #10151d; text-align: left; font: 600 .65rem 'Manrope', sans-serif; cursor: pointer; }
+.showroom-family-navigation button[aria-pressed='true'] { border-color: #8ddcff; background: #193247; }
+@media (min-width: 601px) {
+  .showroom-mobile-header { position: absolute; z-index: 2; top: 20px; left: 4vw; right: calc(3vw + 286px); display: flex; align-items: flex-start; gap: 12px; }
+  .showroom-mobile-header .showroom__heading { display: contents; }
+  .showroom-mobile-header .showroom__identity { display: block; flex: 0 1 300px; min-width: 0; }
+  .showroom-mobile-header h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .showroom-mobile-header .showroom__eyebrow { position: absolute; top: 0; left: 0; transform: translateY(-100%); margin: 0; }
+  .showroom-mobile-header .showroom-drivers { position: absolute; top: 110px; left: 0; }
+  .showroom-mobile-header .showroom__driver-name { position: absolute; top: 148px; left: 0; }
+  .showroom-mobile-header .showroom__context { position: static; transform: none; flex: 0 0 210px; width: 210px; margin: 0; }
+  .showroom-count-slot { display: flex; flex: 1 0 auto; justify-content: center; padding-top: 4px; }
+  .showroom-mobile-count.showroom-update-badge { display: flex; margin: 0; font-size: .65rem; }
+}
+@media (min-width: 601px) and (max-width: 1150px) {
+  .showroom-mobile-header { right: 24px; left: 24px; }
+  .showroom-mobile-header .showroom__identity { flex-basis: 230px; }
+  .showroom-mobile-header h1 { font-size: 2.5rem; }
+}
