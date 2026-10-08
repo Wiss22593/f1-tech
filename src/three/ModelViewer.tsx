@@ -37,13 +37,21 @@ class ViewerErrorBoundary extends Component<{ children: ReactNode; fallback: Rea
   render() { return this.state.failed ? this.props.fallback : this.props.children }
 }
 
+function ModelLoading({ label }: { label: string }) {
+  return <Html center><span className="viewer-loading" role="status" aria-label={label}><span className="viewer-loading__ring" aria-hidden="true" /></span></Html>
+}
+
 function ShowroomLighting({ authored }: { authored: boolean }) {
   return authored ? <>
+    {/* Low, neutral fills reveal carbon edges without raising exposure or changing GLB materials. */}
+    <directionalLight position={[-4, -2, 3]} intensity={.8} color="#e4ecf5" />
+    <directionalLight position={[1, .2, -5]} intensity={.85} color="#edf2f8" />
     <hemisphereLight args={['#E2E2E2', '#BABABA', 2.4]} />
     <directionalLight castShadow position={[5.95, 5.14, 1.48]} intensity={3.2} color="#ffffff" shadow-mapSize={[2048, 2048]} shadow-radius={4} shadow-bias={-.0001} shadow-normalBias={.02} shadow-camera-left={-5} shadow-camera-right={5} shadow-camera-top={5} shadow-camera-bottom={-5} shadow-camera-near={.1} shadow-camera-far={20} />
     <Environment background={false} environmentIntensity={.5} resolution={256}><Lightformer form="rect" intensity={2} color="#ffffff" position={[0, 6, 2]} rotation={[-Math.PI / 2, 0, 0]} scale={[9, 4, 1]} />
     <Lightformer form="rect" intensity={1} color="#E2E2E2" position={[-5, 2, 0]} rotation={[0, Math.PI / 2, 0]} scale={[6, 3, 1]} />
     <Lightformer form="rect" intensity={1} color="#E2E2E2" position={[5, 3, -2]} rotation={[0, -Math.PI / 2, 0]} scale={[6, 3, 1]} />
+    <Lightformer form="rect" intensity={1} color="#e4ecf5" position={[0, -3, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[10, 7, 1]} />
     </Environment>
   </> : <>
     <ambientLight intensity={.2} />
@@ -141,7 +149,7 @@ function ActiveCar(props: Omit<Parameters<typeof OriginalModel>[0], 'scene'> & {
     return () => { active = false; lease.release() }
   }, [props.asset.path])
   if (error) throw error
-  return result ? (props.manifest ? <MappedModel {...props} scene={result.scene} manifest={props.manifest} /> : <OriginalModel {...props} scene={result.scene} />) : <Html center><span className="viewer-fallback">{props.loading}</span></Html>
+  return result ? (props.manifest ? <MappedModel {...props} scene={result.scene} manifest={props.manifest} /> : <OriginalModel {...props} scene={result.scene} />) : <ModelLoading label={props.loading} />
 }
 
 function MappedModel(props: Parameters<typeof OriginalModel>[0] & { manifest: UniversalMapsManifest }) {
@@ -242,5 +250,5 @@ export function ModelViewer({ asset, locale, cameraPreset, theme, hotspots, acti
     return view ? { ...sourceHotspot, inspectionView: view } : sourceHotspot
   }, [sourceHotspot, inspectionComponent, isFormulaAlpha, hotspots, selectedMap, availability, asset.id, selectedComponent, generalView])
   const copy = garageText(locale)
-  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40} /><group scale={asset.scale} rotation={asset.rotation}><ViewerErrorBoundary key={asset.path} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}><Suspense fallback={<Html center><span className="viewer-fallback">{copy.modelLoading}</span></Html>}><ActiveCar key={asset.path} loading={copy.modelLoading} onReady={setAvailability} asset={asset} theme={theme} manifest={isFormulaAlpha ? mapsManifest : undefined} selectedComponent={generalView ? undefined : isFormulaAlpha ? (selectedMap && availability.assetId === asset.id && availability.components.some(component => component === selectedMap) ? selectedMap : inspectionComponent) : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary>{mapsError && <Html center><span className="viewer-fallback">{copy.modelError}</span></Html>}</group><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
+  return <Canvas shadows gl={{ toneMapping: ACESFilmicToneMapping, toneMappingExposure: asset.liveryMode === 'authored' ? .8315 : .96 }} camera={{ position: cameraPosition, fov: asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40 }} dpr={[1, 1.5]}><color attach="background" args={['#07080b']} /><ShowroomLighting authored={asset.liveryMode === 'authored'} /><CameraPreset position={cameraPosition} fov={asset.liveryMode === 'authored' && !inspectionHotspot ? 32 : 40} /><group scale={asset.scale} rotation={asset.rotation}><ViewerErrorBoundary key={asset.path} assetId={asset.id} path={asset.path} fallback={<Html center><span className="viewer-fallback" role="alert">{copy.modelError}</span></Html>}><Suspense fallback={<ModelLoading label={copy.modelLoading} />}><ActiveCar key={asset.path} loading={copy.modelLoading} onReady={setAvailability} asset={asset} theme={theme} manifest={isFormulaAlpha ? mapsManifest : undefined} selectedComponent={generalView ? undefined : isFormulaAlpha ? (selectedMap && availability.assetId === asset.id && availability.components.some(component => component === selectedMap) ? selectedMap : inspectionComponent) : inspectionComponent ?? (!selectedComponentName && showCallouts ? focusedHotspot?.componentId : undefined)} /></Suspense></ViewerErrorBoundary>{mapsError && <Html center><span className="viewer-fallback" role="alert">{copy.modelError}</span></Html>}</group><mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -.3, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#121419" roughness={.82} metalness={.1} /></mesh>{showCallouts && <TechnicalCallouts hotspots={hotspots} activeComponents={activeComponents} onFocus={focusHotspot} />}<CameraFocus hotspot={inspectionHotspot} controlsRef={controlsRef} requestId={focusRequestId} defaultPosition={cameraPosition} positionScale={mobile ? mobileCameraScale : 1} /><OrbitControls ref={controlsRef} enablePan={false} enableDamping dampingFactor={.08} rotateSpeed={.45} minDistance={3} maxDistance={15} minPolarAngle={.08} maxPolarAngle={Math.PI / 2.08} target={[0, .55, 0]} /></Canvas>
 }

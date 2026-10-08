@@ -411,3 +411,12 @@
   .showroom-mobile-header .showroom__identity { flex-basis: 230px; }
   .showroom-mobile-header h1 { font-size: 2.5rem; }
 }
+
+/* display:contents removes the context layer; the selectors own their stacking layer. */
+@media (max-width: 600px) {
+  .showroom-mobile-header .showroom__selectors { position: relative; z-index: 5; }
+}
+.viewer-loading { display: grid; place-items: center; width: 48px; height: 48px; pointer-events: none; }
+.viewer-loading__ring { display: block; width: 30px; height: 30px; border: 2px solid #c7d9ec26; border-top-color: #e6f4ff; border-right-color: #8ddbdc; border-radius: 50%; animation: viewer-loading-turn .9s linear infinite; }
+@keyframes viewer-loading-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .viewer-loading__ring { animation: none; border-right-color: #c7d9ec80; } }
