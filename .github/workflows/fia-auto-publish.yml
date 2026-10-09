@@ -95,8 +95,15 @@ jobs:
           AUTO_PUBLISH_EXPECTED_EVENT_ID: ${{ steps.window.outputs.event_id }}
         run: node ingestion/fia/auto-publish.mjs validate
 
-      - name: Commit the single validated event dataset
+      - name: Recheck remote publication immediately before commit
         if: steps.guard.outputs.has_changes == 'true'
+        id: remote
+        env:
+          DATASET_PATH: ${{ steps.window.outputs.dataset_path }}
+        run: node ingestion/fia/precommit.mjs
+
+      - name: Commit the single validated event dataset
+        if: steps.remote.outputs.commit == 'true'
         env:
           DATASET_PATH: ${{ steps.window.outputs.dataset_path }}
           COMMIT_MESSAGE: ${{ steps.guard.outputs.commit_message }}
@@ -113,7 +120,7 @@ jobs:
           git commit -m "$COMMIT_MESSAGE"
 
       - name: Push validated data to main
-        if: steps.guard.outputs.has_changes == 'true'
+        if: steps.remote.outputs.commit == 'true'
         id: push
         shell: bash
         run: |
