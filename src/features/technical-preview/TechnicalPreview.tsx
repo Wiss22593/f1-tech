@@ -34,7 +34,7 @@ export function TechnicalPreview({ locale }: { locale: Locale }) {
       {updates.length === 0 && <p className="demo-notice">{copy.demo}</p>}
       <TeamBattle teams={teamUpdates} locale={locale} />
       <DevelopmentRanking teams={teamUpdates} locale={locale} />
-      <section className="dashboard-section"><SectionHeading title={uiText(locale, 'previewUpdates')} eyebrow={uiText(locale, 'latestUpdates')} /><div className="updates-grid">{updates.map((update) => <UpdateCard key={update.id} update={previewUpdate(update, locale)} locale={locale} />)}</div></section>
+      <section className="dashboard-section"><SectionHeading title={uiText(locale, 'previewUpdates')} eyebrow={uiText(locale, 'latestUpdates')} /><div className="updates-grid">{updates.map((update) => <UpdateCard key={update.id} update={previewUpdate(update, locale)} locale={locale} fiaRecord={update} />)}</div></section>
       <section className="dashboard-section"><SectionHeading title="F1 TECH Score" eyebrow={uiText(locale, 'comparative')} /><div className="score-grid">{demoScores.map((score) => <ScoreCard key={score.label} {...score} locale={locale} />)}</div></section>
       <InsightPanels locale={locale} />
       <PredictionPanel locale={locale} />

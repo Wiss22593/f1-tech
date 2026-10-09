@@ -10,7 +10,8 @@ const datasets = await Promise.all(files.map(async file => JSON.parse(await read
 const catalogue = JSON.parse(await readFile(new URL('../src/data/fia-localization/es.json', import.meta.url), 'utf8'))
 // New GP datasets remain publishable: reviewed baseline coverage is checked here,
 // while unseen sentences use the explicitly tested pending presentation.
-const records = datasets.flatMap(dataset => dataset.updates).filter(record => Object.hasOwn(catalogue, record.id))
+const allRecords = datasets.flatMap(dataset => dataset.updates)
+const records = allRecords.filter(record => Object.hasOwn(catalogue, record.id))
 const az = records.filter(record => record.grandPrixId === 'azerbaijan-2026')
 const madrid = records.filter(record => record.grandPrixId === 'madrid-grand-prix-2026')
 const fields = ['componentName', 'primaryReason', 'geometricDifference', 'briefDescription']
@@ -156,4 +157,14 @@ test('all fifteen published datasets remain byte-identical after newline normali
     const text = (await readFile(new URL(file, directory), 'utf8')).replace(/\r\n/g, '\n')
     assert.equal(createHash('sha256').update(text).digest('hex'), expected, file)
   }
+})
+
+// Auto-publish adds new GPs; baseline coverage must not reject a new validated dataset.
+test('new published GP records have complete Spanish with explicit translation provenance', () => {
+ for(const row of allRecords.filter(record => !Object.hasOwn(catalogue,record.id))) {
+  const es=localizeFiaUpdate(row,'es')
+  assert.equal(es.complete,true,row.id)
+  assert.ok(['automatic','reviewed'].includes(es.translationStatus),row.id)
+  if(es.translationStatus==='automatic')assert.equal(row.translations.es.reviewStatus,'unreviewed')
+ }
 })

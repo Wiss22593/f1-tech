@@ -1,4 +1,4 @@
-import { normalizeComponent, normalizeTeam } from './normalizer.mjs'
+import { normalizeComponent, normalizeTeam, normalizeTeamHeading } from './normalizer.mjs'
 const isOfficialFiaUrl = (value) => {
   try { const url = new URL(value); return url.protocol === 'https:' && (url.hostname === 'fia.com' || url.hostname.endsWith('.fia.com')) } catch { return false }
 }
@@ -14,6 +14,14 @@ export function validateUpdate(record, grandPrixIds, season = 2026) {
   if (!record?.sourceText?.trim()) errors.push('missing sourceText')
   if (!record?.briefDescription?.trim()) errors.push('missing briefDescription')
   if (record?.contentHash !== undefined && !/^[a-f0-9]{64}$/i.test(record.contentHash)) errors.push('invalid contentHash')
+  if(record?.parserVersion === 'fia-table-v4') {
+    if(!record.primaryReason?.trim())errors.push('missing primaryReason')
+    if(!record.geometricDifference?.trim())errors.push('missing geometricDifference')
+    if(!Number.isInteger(record.sourcePage)||record.sourcePage<1)errors.push('missing sourcePage')
+    if(!Number.isInteger(record.sourceHeadingPage)||record.sourceHeadingPage<1)errors.push('missing sourceHeadingPage')
+    if(normalizeTeamHeading(record.sourceTeamHeading??'')!==record.teamId)errors.push('sourceTeamHeading mismatch')
+    if(record.sourceHeadingPage!==record.sourcePage && (record.sourceReview?.method!=='visual_section_review'||record.sourceReview?.documentHash!==record.contentHash))errors.push('unreviewed cross-page team attribution')
+  }
   return { valid: errors.length === 0, errors }
 }
 

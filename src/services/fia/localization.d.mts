@@ -8,6 +8,8 @@ export type FiaPresentation = {
   briefDescription: string | null
   componentLabel: string
   summary: string
+  translationStatus?: 'automatic' | 'reviewed' | 'pending'
+  translationNotice?: string
   complete: boolean
   missingFields: Array<'componentName' | 'primaryReason' | 'geometricDifference' | 'briefDescription'>
 }

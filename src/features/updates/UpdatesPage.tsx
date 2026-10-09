@@ -1,3 +1,4 @@
+import { FiaTranslationNote } from '../../components/fia/FiaTranslationNote'
 import { localizeFiaUpdate } from '../../services/fia/localization.mjs'
 import { useEffect, useMemo, useState } from 'react'
 import { demoGrandPrix, type UpdateStatus } from './data'
@@ -8,7 +9,7 @@ import { grandsPrix2026 } from '../../data/grands-prix/2026'
 import { AdSlot } from '../../components/ads/AdSlot'
 
 type FilterValue<T extends string> = T | 'Todos'
-type PublicUpdateView = { id: string; grandPrixId: string; team: string; state: UpdateStatus; area: string; component: string; componentKey: string; objective: string; magnitude: string; source: string }
+type PublicUpdateView = { id: string; grandPrixId: string; team: string; state: UpdateStatus; area: string; component: string; componentKey: string; objective: string; magnitude: string; source: string; fiaRecord: PublishedUpdate }
 
 function statusClass(status: UpdateStatus) {
   return status.toLowerCase().replace('_', '-')
@@ -27,7 +28,7 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
   useEffect(() => { void loadPublishedSeason().then((result) => { setPublishedUpdates(result.updates); setDataState(result.stale ? (navigator.onLine ? 'stale' : 'offline') : result.errors.length ? 'error' : 'fresh') }) }, [])
   const records: PublicUpdateView[] = publishedUpdates.map((update) => {
     const content = localizeFiaUpdate(update, locale)
-    return ({ id: update.id, grandPrixId: update.grandPrixId, team: teams.find((item) => item.id === update.teamId)?.name ?? update.teamId, state: update.technicalState, area: update.area ?? '—', component: content.componentLabel, componentKey: update.componentName ?? update.componentId ?? '—', objective: content.summary, magnitude: update.magnitude ?? '—', source: 'FIA' })
+    return ({ id: update.id, grandPrixId: update.grandPrixId, team: teams.find((item) => item.id === update.teamId)?.name ?? update.teamId, state: update.technicalState, area: update.area ?? '—', component: content.componentLabel, componentKey: update.componentName ?? update.componentId ?? '—', objective: content.summary, magnitude: update.magnitude ?? '—', source: 'FIA', fiaRecord: update })
   })
   const teamNames = [...new Set(records.map((update) => update.team))]
   const grandPrixIds = [...new Set(records.map((update) => update.grandPrixId))]
@@ -67,7 +68,7 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
     <div className="updates-page__grid">
       {visibleUpdates.map((update) => <article className="technical-update-card card" key={update.id}>
         <header><span>{update.team} · {update.area}</span><b className={`status status--${statusClass(update.state)}`}>{technicalText(locale, update.state)}</b></header>
-        <h2>{update.component}</h2><p>{update.objective}</p>
+        <h2>{update.component}</h2><FiaTranslationNote record={update.fiaRecord} locale={locale} /><p>{update.objective}</p>
         <dl><div><dt>{uiText(locale, 'magnitude')}</dt><dd>{update.magnitude}</dd></div><div><dt>F1 TECH SCORE</dt><dd>—</dd></div><div><dt>{uiText(locale, 'circuitFit')}</dt><dd>—</dd></div></dl>
         <footer><span>{uiText(locale, 'source')} · {update.source}</span></footer>
       </article>)}

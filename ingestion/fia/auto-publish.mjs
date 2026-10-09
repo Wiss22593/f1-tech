@@ -73,7 +73,7 @@ async function writeGithubOutputs(values) {
 async function reportWindow() {
   const at = process.env.AUTO_PUBLISH_AT ? new Date(process.env.AUTO_PUBLISH_AT) : new Date()
   const season = defaultSeason(eventRegistry, at)
-  const result = await resolveOfficialCalendar(eventRegistry, { season, at })
+  const result = await resolveOfficialCalendar(eventRegistry, { season, at, trigger: process.env.GITHUB_EVENT_NAME })
   const event = result.event
   const datasetPath = event ? `public/data/grands-prix/${season}/${event.id}.json` : null
   await mkdir('ingestion/output/calendar', { recursive: true })

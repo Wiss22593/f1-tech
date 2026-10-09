@@ -135,16 +135,12 @@ test('validator rejects a missing or non-HTTPS FIA source URL', () => {
   assert.equal(validateUpdate({ ...valid, sourceUrl: 'http://example.test/document.pdf' }, ['italian-grand-prix-2026']).valid, false)
 })
 
-test('parser fixture preserves source text and leaves unsupported editorial fields null', async () => {
+test('flattened text without a page heading and cell geometry is review-only', async () => {
   const text = await readFile(new URL('./fixtures/fia-presentation.txt', import.meta.url), 'utf8')
   const parsed = parsePresentationText(text, { documentId: 'doc-10', season: 2026, grandPrixId: 'italian-grand-prix-2026', sourceDocument: 'Car Presentation Submissions', sourceUrl: valid.sourceUrl, contentHash: 'a'.repeat(64) })
-  assert.equal(parsed.rejected.length, 0)
-  assert.equal(parsed.records.length, 1)
-  assert.equal(parsed.records[0].teamId, 'mercedes')
-  assert.equal(parsed.records[0].componentId, 'rear-wing')
-  assert.equal(parsed.records[0].magnitude, null)
-  assert.equal(parsed.records[0].area, null)
-  assert.match(parsed.records[0].sourceText, /Revised winglet geometry/)
+  assert.equal(parsed.records.length, 0)
+  assert.ok(parsed.rejected.length > 0)
+  assert.ok(parsed.rejected.every(row=>row.reason==='unstructured_pdf_text_requires_layout'))
 })
 
 test('layout parser preserves the four FIA columns, multiline cells and repeated components', async () => {
@@ -442,14 +438,15 @@ test('real runner treats no document as success and preserves an existing datase
 })
 
 
-test('painted table borders preserve merged cells and consecutive headerless continuation pages', async () => {
+test('painted borders preserve merged cells while headerless continuations require review', async () => {
   const extraction = JSON.parse(await readFile(new URL('./fixtures/fia-merged-continuation-layout.json', import.meta.url), 'utf8'))
   const parsed = parsePresentationText(extraction, { documentId: 'merged', grandPrixId: 'azerbaijan-2026', season: 2026 })
-  assert.equal(parsed.records.length, 25)
-  assert.equal(parsed.rejected.length, 0)
+  assert.equal(parsed.records.length, 17)
+  assert.equal(parsed.rejected.length, 8)
+  assert.ok(parsed.rejected.every(row=>row.reason==='unmapped_team' && !row.sourceTeamHeading))
   const audi = parsed.records.filter(({ teamId }) => teamId === 'audi')
-  assert.equal(audi.length, 14)
-  for (const group of [[0,1,2], [4,5,6], [7,8], [9,10], [11,12,13]]) {
+  assert.equal(audi.length, 7)
+  for (const group of [[0,1,2], [4,5,6]]) {
     for (const i of group) {
       assert.equal(audi[i].primaryReason, audi[group[0]].primaryReason)
       assert.equal(audi[i].geometricDifference, audi[group[0]].geometricDifference)
@@ -457,9 +454,6 @@ test('painted table borders preserve merged cells and consecutive headerless con
     }
   }
   assert.match(audi[0].briefDescription, /the new package\.$/)
-  assert.equal(parsed.records.filter(({ teamId }) => teamId === 'mclaren').at(-1).componentName, 'Rear Wing')
-  const racingBulls = parsed.records.filter(({ teamId }) => teamId === 'racing-bulls')
-  assert.equal(racingBulls[1].briefDescription, racingBulls[2].briefDescription)
 })
 
 test('extractor keeps painted table borders in text coordinates and excludes clipping/backgrounds', async () => {

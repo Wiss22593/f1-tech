@@ -1,3 +1,4 @@
+import { FiaTranslationNote } from '../../components/fia/FiaTranslationNote'
 import { useEffect, useRef, useState } from 'react'
 import { getCarAssetForTeam, type CameraPresetId, type CarComponentId, type F1TechHotspot } from '../../three/assets'
 import { ModelViewer } from '../../three/ModelViewer'
@@ -119,6 +120,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
     return componentUpdates.length === 0 ? <p>{copy.noUpdate}</p> : componentUpdates.map((update) => {
       const content = getGarageUpdateContent(update, locale)
       return <article className="showroom-submission" key={update.id}>
+        {update.fiaRecord && <FiaTranslationNote record={update.fiaRecord} locale={locale} />}
         {showComponentSubtitle(title, content.presentedComponent) && <h3>{content.presentedComponent}</h3>}
         {content.primaryReason && <p className="showroom-submission__reason">{content.primaryReason}</p>}
         {content.geometricDifference && <p className="showroom-submission__geometry">{content.geometricDifference}</p>}
@@ -131,6 +133,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
       const content = getGarageUpdateContent(update, locale)
       const description = content.description ?? content.geometricDifference
       return description && <article className="showroom-submission" key={update.id}>
+        {update.fiaRecord && <FiaTranslationNote record={update.fiaRecord} locale={locale} />}
         {locale === 'es' && content.primaryReason && <p className="showroom-submission__reason">{content.primaryReason}</p>}
         {locale === 'es' && content.geometricDifference && <p className="showroom-submission__geometry">{content.geometricDifference}</p>}
         <p className="showroom-submission__description">{withoutOrdinalPrefix(description)}</p>

@@ -86,13 +86,13 @@ test('inside FP1 window discovers documents; absence is success and publishes no
 test('preflight requests pipeline only for a new official presentation; changed bytes are detected',async()=>{
   const current=JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/azerbaijan-2026.json',import.meta.url))),az={...eventRegistry.find(e=>e.id==='azerbaijan-2026'),fp1:event.fp1,endDate:event.endDate}
   const options={resolution:{event:az},at:new Date(event.fp1.utc),preflight:true,findIndex:async()=>az.indexUrl,findDocuments:async()=>[{sourceUrl:current.sourceDocument.sourceUrl}],readDataset:async()=>current}
-  assert.equal((await runScheduled({...options,download:async()=>({contentHash:current.sourceDocument.documentHash})})).status,'UNCHANGED')
+  assert.equal((await runScheduled({...options,download:async()=>({contentHash:current.sourceDocument.documentHash})})).status,'NEEDS_PIPELINE') // Legacy v3 data must be revalidated by v4.
   assert.equal((await runScheduled({...options,download:async()=>({contentHash:'f'.repeat(64)})})).needsPipeline,true)
   assert.equal((await runScheduled({...options,readDataset:async()=>null})).status,'NEEDS_PIPELINE')
 })
 test('an unavailable event index falls back to the exact official season event scope',async()=>{
   const season=await readFile(new URL('./fixtures/fia-season-multi-event.html',import.meta.url),'utf8');let requests=0
-  const result=await fetchFiaDocumentIndex({indexUrl:base.indexUrl,grandPrixId:base.id,season:2026,eventName:base.eventName,fetchFn:async()=>{if(!requests++)throw new Error('timeout');return new Response(season)}});assert.deepEqual(result,[]);assert.equal(requests,2)
+  const result=await fetchFiaDocumentIndex({indexUrl:base.indexUrl,grandPrixId:base.id,season:2026,eventName:base.eventName,fetchFn:async()=>{if(!requests++)throw new Error('timeout');return new Response(season)}});assert.deepEqual(result,[]);assert.equal(requests,3)
 })
 const seasons=[{id:'old26',season:2026,startDate:'2026-03-06',endDate:'2026-03-08'},{id:'az26',season:2026,startDate:'2026-09-24',endDate:'2026-09-26'},{id:'future26',season:2026,startDate:'2026-10-02',endDate:'2026-10-04'},{id:'first27',season:2027,startDate:'2027-03-05',endDate:'2027-03-07'}]
 test('season default chooses the supported current year, otherwise latest supported',()=>{

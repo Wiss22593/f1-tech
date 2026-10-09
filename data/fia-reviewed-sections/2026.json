@@ -1,0 +1,352 @@
+[
+  {
+    "kind": "continuation",
+    "grandPrixId": "australia-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_australian_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "9e9ccc09667faa4f612a32edab64e41b1d7ff914778e5681d96cd4ff81dbb5dd",
+    "sourcePage": 17,
+    "sourceHeadingPage": 16,
+    "sourceTeamHeading": "HAAS",
+    "teamId": "haas",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 5,
+        "fieldsHash": "da7c11869a4d9d15f1be137a53f49398e0959715a7812bf7ec4ede801117a3ba"
+      },
+      {
+        "sourceRowNumber": 6,
+        "fieldsHash": "eb591bdb97845001329769d1d06817d854af3336a2d67223bbd66d08ed4cab3e"
+      },
+      {
+        "sourceRowNumber": 7,
+        "fieldsHash": "d6b71a303c18cc58b09310b26bada87ea7df3e82210ccc7ec655000a77f02685"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "austria-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_austrian_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "7863deb797bed267fdd978e66170d86f755cf576cffce202739fadf712de0a6c",
+    "sourcePage": 7,
+    "sourceHeadingPage": 6,
+    "sourceTeamHeading": "Oracle Red Bull Racing.",
+    "teamId": "red-bull-racing",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 6,
+        "fieldsHash": "b0772ecb49813225aeec3e0042fdb63d6b8001e5a4c0ff6655e7628d37166914"
+      },
+      {
+        "sourceRowNumber": 7,
+        "fieldsHash": "d507edbbfd0b4c32af68018a07fa20402dced740a67ab3cd4c033bbbeb91f9af"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "austria-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_austrian_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "7863deb797bed267fdd978e66170d86f755cf576cffce202739fadf712de0a6c",
+    "sourcePage": 22,
+    "sourceHeadingPage": 21,
+    "sourceTeamHeading": "Cadillac",
+    "teamId": "cadillac",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 7,
+        "fieldsHash": "d658878fc2ed060d56c51af646ca43a203dde10d59eed8a14270a9cb5950ce5e"
+      },
+      {
+        "sourceRowNumber": 8,
+        "fieldsHash": "88ee67046ba63d461e0cfa216051bb90bc56c9f38da8009361e73bf1352fe899"
+      },
+      {
+        "sourceRowNumber": 9,
+        "fieldsHash": "a447d3b0ee63c25c116aba3726cdeb17d09beca25b1e6484d46914083550a355"
+      },
+      {
+        "sourceRowNumber": 10,
+        "fieldsHash": "d8f2944fe349d59f3b2fef8c6cf5ac55169a3504e085789fb551ae9ec2010494"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "azerbaijan-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
+    "sourcePage": 3,
+    "sourceHeadingPage": 2,
+    "sourceTeamHeading": "McLaren Mastercard F1 Team",
+    "teamId": "mclaren",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 8,
+        "fieldsHash": "906a022f0848bb61ebeb0fe7e80577d944401b2520a7411e3ba4a492a5cab4fe"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "azerbaijan-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
+    "sourcePage": 16,
+    "sourceHeadingPage": 15,
+    "sourceTeamHeading": "Audi Revolut F1 Team",
+    "teamId": "audi",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 8,
+        "fieldsHash": "0ab0ef8e80a932716531f12a242ce20440684766eea190265132f32a399d4da0"
+      },
+      {
+        "sourceRowNumber": 9,
+        "fieldsHash": "e1c401676c87a59c4cf9d7432b7c179e5526bb85c6c65bd37325469d151fe025"
+      },
+      {
+        "sourceRowNumber": 10,
+        "fieldsHash": "d4f3df58bf2bb8a8b50a9b4f9894d1c418d684be13652c5f4e45d223825f41ec"
+      },
+      {
+        "sourceRowNumber": 11,
+        "fieldsHash": "78724536f5259cec4094625e6d159c3ede661ef59c93474abd8e72929a388839"
+      },
+      {
+        "sourceRowNumber": 12,
+        "fieldsHash": "a266b872408e9f0ab7c7aee675cb06c620d3eec2a39f1289eef3b02a0fa94644"
+      },
+      {
+        "sourceRowNumber": 13,
+        "fieldsHash": "2926eccace51acce99c0589458ce9bb479caee3358f6e7c1c83a959eeac3d04e"
+      },
+      {
+        "sourceRowNumber": 14,
+        "fieldsHash": "c1e84c66e0213c5d31c56dd839278c8a221946b59cb4eadfa1c5fba8c7cf4578"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "dutch-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "9c24cee9ec4775e7dd507654b13692500ef9e41e8b1625982a5ab8e2a92100a4",
+    "sourcePage": 17,
+    "sourceHeadingPage": 16,
+    "sourceTeamHeading": "BWT Alpine F1 Team",
+    "teamId": "alpine",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 7,
+        "fieldsHash": "b8cab3b81f7aadd19e331c02e1404125ad3ed3a038227f9821c213e25f312f6d"
+      },
+      {
+        "sourceRowNumber": 8,
+        "fieldsHash": "28ebc496e216ac9970b07347121a8f2c6f0e64a3137aa9c9b7df92b7358687b6"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "hungarian-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "59d9c9d893c2f83c50e65abe2be06cfaad56552c5cdecbbca7e0f3b7e4196ace",
+    "sourcePage": 15,
+    "sourceHeadingPage": 14,
+    "sourceTeamHeading": "Aston Martin Aramco F1 Team",
+    "teamId": "aston-martin",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 9,
+        "fieldsHash": "b786e8c063ad2ae0bf74983a885102e7bf7172390ef5044cc2220a1d01be4274"
+      },
+      {
+        "sourceRowNumber": 10,
+        "fieldsHash": "adff549b3a15a8b9c60ceef9c70d3482adcc8ffb7347def42daeb9055615ad9e"
+      },
+      {
+        "sourceRowNumber": 11,
+        "fieldsHash": "898a5bd1d99cd4d6c3b4c0249efb4f81eade898973400a21596364916c731f5b"
+      },
+      {
+        "sourceRowNumber": 12,
+        "fieldsHash": "8908563993df8e88463da2644dc6662b66d1d2258c108a83c5c32e2009d5a0e6"
+      },
+      {
+        "sourceRowNumber": 13,
+        "fieldsHash": "b22aeb9812cfbe7fe7384e3d5ebf70bf4ca91198707749fb6672cca0b709eac6"
+      },
+      {
+        "sourceRowNumber": 14,
+        "fieldsHash": "50695a9a3fbe24e5d41ae680ca2740a72518eba53434c81c81ffcf6e28ebc7de"
+      },
+      {
+        "sourceRowNumber": 15,
+        "fieldsHash": "a4eceebbdfeb8a8902893091b2bba2741bfb334666285c3ba1bbc71e27358729"
+      },
+      {
+        "sourceRowNumber": 16,
+        "fieldsHash": "bee45d6b0e329512cdc24260099f3219a1b1beb22255f5efe77a3ff427cf2195"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "miami-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "3ba75eb51c6ce045b3e5c11279e359e1ddaa0f825a251886d9c6f7a7b307de5e",
+    "sourcePage": 7,
+    "sourceHeadingPage": 6,
+    "sourceTeamHeading": "Oracle Red Bull Racing.",
+    "teamId": "red-bull-racing",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 7,
+        "fieldsHash": "3804594247cf16c3ea56b026f20fbcca39613c0f58a7aa40961377fb0545ef0c"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "miami-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "3ba75eb51c6ce045b3e5c11279e359e1ddaa0f825a251886d9c6f7a7b307de5e",
+    "sourcePage": 10,
+    "sourceHeadingPage": 9,
+    "sourceTeamHeading": "Scuderia Ferrari HP",
+    "teamId": "ferrari",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 8,
+        "fieldsHash": "e03b492577ae0c253d6a4f2e22701a171a132d68b992cf4714a381769e66919b"
+      },
+      {
+        "sourceRowNumber": 9,
+        "fieldsHash": "4bf769e7431f936569ece6a9b8d60485666f4832af5d53e269fc8c2e363454c0"
+      },
+      {
+        "sourceRowNumber": 10,
+        "fieldsHash": "2bc5ccc74f8849e57bda82f72e8e7611b05ea7a76ca9f760603df8b12ad3052a"
+      },
+      {
+        "sourceRowNumber": 11,
+        "fieldsHash": "a25f9286d0fa11be49f57617d2538c0150f943c7f184dd539b608a1d005d6673"
+      }
+    ]
+  },
+  {
+    "kind": "continuation",
+    "grandPrixId": "miami-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "3ba75eb51c6ce045b3e5c11279e359e1ddaa0f825a251886d9c6f7a7b307de5e",
+    "sourcePage": 24,
+    "sourceHeadingPage": 23,
+    "sourceTeamHeading": "Cadillac",
+    "teamId": "cadillac",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review",
+    "rows": [
+      {
+        "sourceRowNumber": 8,
+        "fieldsHash": "5fcd05618893941c7a94e8e3974ece001380a0fc1955e26accd2f45afd0e553c"
+      },
+      {
+        "sourceRowNumber": 9,
+        "fieldsHash": "6f1369a2c27c4013b2d0f9b0ca2f0d744ce8122931a6d004f11ae2c3b74c67cf"
+      }
+    ]
+  },
+  {
+    "kind": "cell_continuation",
+    "grandPrixId": "australia-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_australian_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "9e9ccc09667faa4f612a32edab64e41b1d7ff914778e5681d96cd4ff81dbb5dd",
+    "sourcePage": 17,
+    "sourceHeadingPage": 16,
+    "sourceTeamHeading": "HAAS",
+    "teamId": "haas",
+    "targetRowNumber": 4,
+    "targetFieldsHash": "6e7a591c591be342c109eee5b8cc97062ccdca61700af57690c228b82cd69f16",
+    "field": "briefDescription",
+    "text": "sealing vortex system. This configuration enhances shear-layer stability, preserves underfloor mass-flow continuity, and reduces the susceptibility of the diffuser to wake-related load drop-off.",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review"
+  },
+  {
+    "kind": "cell_continuation",
+    "grandPrixId": "miami-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "3ba75eb51c6ce045b3e5c11279e359e1ddaa0f825a251886d9c6f7a7b307de5e",
+    "sourcePage": 7,
+    "sourceHeadingPage": 6,
+    "sourceTeamHeading": "Oracle Red Bull Racing.",
+    "teamId": "red-bull-racing",
+    "targetRowNumber": 6,
+    "targetFieldsHash": "105cd800696ea3463835055969e5e7a303cdc1379f8c8a8c04ed52dc23e55dc2",
+    "field": "briefDescription",
+    "text": "further optimisation of both brake cooling and local flow for more load.",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_section_review"
+  },
+  {
+    "kind": "image_table_inventory",
+    "grandPrixId": "australia-2026",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_australian_grand_prix_-_car_presentation_submissions.pdf",
+    "documentHash": "9e9ccc09667faa4f612a32edab64e41b1d7ff914778e5681d96cd4ff81dbb5dd",
+    "sourcePage": 10,
+    "sourceHeadingPage": 10,
+    "sourceTeamHeading": "*ATLASSIAN WILLIAMS F1*",
+    "teamId": "williams",
+    "reviewedAt": "2026-10-02",
+    "reviewMethod": "visual_row_inventory",
+    "rows": [
+      {
+        "sourceRowNumber": 1,
+        "componentName": "Coke/Engine Cover",
+        "primaryReason": "Circuit specific - Cooling Range",
+        "geometricDifference": "Compared to the launch car, a new engine cover exit is available which reduces the exit area at the rear of the car.",
+        "briefDescription": "The smaller engine cover exit panels optimise the air mass flow through the cooling system, which keep the PU, Gbox and hydraulic fluids in the correct temperature window to suit the conditions and nature of the Melbourne circuit."
+      },
+      {
+        "sourceRowNumber": 2,
+        "componentName": "Front Wing Endplate",
+        "primaryReason": "Performance - Flow Conditioning",
+        "geometricDifference": "A new FWEP Dive Plane geometry has been designed which has an alternative profile to the launch configuration.",
+        "briefDescription": "This detailed geometric change works with the overall profiles of the launch front wing elements to generate flow structures that help deliver efficient load from the rest of the car."
+      },
+      {
+        "sourceRowNumber": 3,
+        "componentName": "Floor",
+        "primaryReason": "Performance - Local Load",
+        "geometricDifference": "Compared to the launch car, a new floor update is available which features a new floor winglet/cutout ahead of the rear tyres.",
+        "briefDescription": "These detailed geometric updates offer both direct load from the local region as well as generating flow structures that help deliver efficient load from the rear of the floor."
+      },
+      {
+        "sourceRowNumber": 4,
+        "componentName": "Rear Wing",
+        "primaryReason": "Performance - Flow Conditioning",
+        "geometricDifference": "New winglets and RW pillar extensions have been designed as optional parts to be fitted to the Launch spec RW assy.",
+        "briefDescription": "These revised RW Pillar profiles work to improve the aerodynamic performance of the upper RW elements under Corner Mode operation."
+      }
+    ]
+  }
+]

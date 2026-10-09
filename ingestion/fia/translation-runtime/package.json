@@ -1,0 +1,6 @@
+{
+  "name": "f1-tech-fia-translation",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@huggingface/transformers": "3.8.1" }
+}

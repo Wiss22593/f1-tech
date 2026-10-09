@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "season": 2026,
+  "sourceUrl": "https://www.fia.com/events/fia-formula-one-world-championship/season-2026/2026-fia-formula-one-world-championship",
+  "retrievedAt": "2026-10-09T12:00:32.690Z",
+  "expiresAt": "2026-12-07T00:00:00Z",
+  "sha256": "8c129f95c4d385bf2dc58c5ad6f32d8c2c51f59a0740e307b3c7de15f9e0ba9e",
+  "role": "FIA identity cross-check; live Formula 1 calendar and FP1 mandatory",
+  "events": [
+    {
+      "eventName": "Australian Grand Prix",
+      "circuit": "ALBERT PARK",
+      "endDate": "2026-03-08",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Chinese Grand Prix",
+      "circuit": "SHANGHAI INTERNATIONAL",
+      "endDate": "2026-03-15",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Japanese Grand Prix",
+      "circuit": "SUZUKA",
+      "endDate": "2026-03-29",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Saudi Arabian Grand Prix",
+      "circuit": "JEDDAH CORNICHE CIRCUIT",
+      "endDate": "2026-04-19",
+      "status": "cancelled"
+    },
+    {
+      "eventName": "Miami Grand Prix",
+      "circuit": "MIAMI",
+      "endDate": "2026-05-03",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Canadian Grand Prix",
+      "circuit": "MONTREAL GILLES VILLENEUVE",
+      "endDate": "2026-05-24",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Monaco Grand Prix",
+      "circuit": "MONACO",
+      "endDate": "2026-06-07",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Barcelona-Catalunya Grand Prix",
+      "circuit": "CATALUNYA",
+      "endDate": "2026-06-14",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Austrian Grand Prix",
+      "circuit": "RED BULL RING - SPIELBERG",
+      "endDate": "2026-06-28",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "British Grand Prix",
+      "circuit": "SILVERSTONE GRAND PRIX",
+      "endDate": "2026-07-05",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Belgian Grand Prix",
+      "circuit": "SPA-FRANCORCHAMPS",
+      "endDate": "2026-07-19",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Hungarian Grand Prix",
+      "circuit": "HUNGARORING",
+      "endDate": "2026-07-26",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Dutch Grand Prix",
+      "circuit": "ZANDVOORT",
+      "endDate": "2026-08-23",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Italian Grand Prix",
+      "circuit": "MONZA",
+      "endDate": "2026-09-06",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Spanish Grand Prix",
+      "circuit": "MADRID IFEMA",
+      "endDate": "2026-09-13",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Azerbaijan Grand Prix",
+      "circuit": "BAKU",
+      "endDate": "2026-09-26",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Bahrain Grand Prix",
+      "circuit": "SEPANG",
+      "endDate": "2026-10-04",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Singapore Grand Prix",
+      "circuit": "SINGAPORE - MARINA BAY",
+      "endDate": "2026-10-11",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "United States Grand Prix",
+      "circuit": "CIRCUIT OF THE AMERICAS",
+      "endDate": "2026-10-25",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Mexico City Grand Prix",
+      "circuit": "Autodromo Hermanos Rodriguez",
+      "endDate": "2026-11-01",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "São Paulo Grand Prix",
+      "circuit": "INTERLAGOS",
+      "endDate": "2026-11-08",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Las Vegas Grand Prix",
+      "circuit": "LAS VEGAS GRAND PRIX",
+      "endDate": "2026-11-21",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Qatar Grand Prix",
+      "circuit": "QATAR - LUSAIL",
+      "endDate": "2026-11-29",
+      "status": "scheduled"
+    },
+    {
+      "eventName": "Abu Dhabi Grand Prix",
+      "circuit": "ABU DHABI - YAS MARINA",
+      "endDate": "2026-12-06",
+      "status": "scheduled"
+    }
+  ]
+}
