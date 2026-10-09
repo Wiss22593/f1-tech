@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { officialRequest } from './request.mjs'
 import { matchesEventName } from './event-matching.mjs'
 import identities from '../../data/grands-prix/f1-identities.json' with { type: 'json' }
-import { calendarState, localSessionToUtc, watchDecision } from '../../src/domain/calendar.mjs'
+import { calendarState, localSessionToUtc, watchDecision, ingestionGraceDays } from '../../src/domain/calendar.mjs'
 const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
 const plain = value => value.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/&(?:nbsp|ndash);/g, ' ').replace(/\s+/g, ' ').trim()
 const nameKey = value => plain(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '')
@@ -99,7 +99,10 @@ export async function resolveOfficialCalendar(registry, { season, at = new Date(
     }
   }
   if (diagnostics.some(d => d.status === 'MANUAL_REVIEW')) return { status: 'MANUAL_REVIEW', relevant: false, event: null, diagnostics, sources: [fiaUrl, f1Url] }
-  const clock = calendarState(events, at), candidate = clock.current ?? clock.next
+  const clock = calendarState(events, at)
+  // Only the latest finished event may catch up; never scan historical races.
+  const recent = clock.lastFinished && at.getTime() <= Date.parse(clock.lastFinished.endDate + 'T23:59:59Z') + ingestionGraceDays * 86400000 ? clock.lastFinished : null
+  const candidate = clock.current ?? recent ?? clock.next
   if (!candidate) return { status: 'NO_UPCOMING_EVENT', relevant: false, event: null, diagnostics, sources: [fiaUrl, f1Url] }
   const race = parseF1Race(await officialHtml(candidate.sourceUrl, fetchFn))
   if (!matchesEventName(candidate, race.meetingName) || Number(race.season) !== season) return { status: 'MANUAL_REVIEW', relevant: false, event: null, diagnostics: [...diagnostics, { reason: 'RACE_IDENTITY_MISMATCH' }], sources: [fiaUrl, f1Url] }
@@ -114,8 +117,6 @@ export async function resolveOfficialCalendar(registry, { season, at = new Date(
   if (!event.country || !event.circuit || event.fp1.local.slice(0,10) < event.startDate || event.fp1.local.slice(0,10) > event.endDate) throw new Error('Incomplete or inconsistent official venue/session')
   if (candidate.country !== event.country || candidate.circuit !== event.circuit) diagnostics.push({ status: 'OFFICIAL_VENUE_CHANGE', id: event.id, before: { country: candidate.country, circuit: candidate.circuit }, after: { country: event.country, circuit: event.circuit } })
   const decision = watchDecision(event, at)
-  // An explicit dispatch checks now within the verified catch-up window.
-  if (trigger === 'workflow_dispatch' && decision.phase === 'CATCH_UP') decision.relevant = true
   return { trigger, status: decision.relevant ? 'RELEVANT_EVENT' : decision.phase, ...decision, event, diagnostics, sources: [fiaUrl, f1Url, candidate.sourceUrl], resolvedAt: at.toISOString() }
 }
 

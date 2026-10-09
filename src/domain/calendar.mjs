@@ -33,20 +33,21 @@ export function zonedLocalToUtc(local, timeZone) {
   }
   throw new Error('Unresolvable IANA local timestamp')
 }
+export const ingestionLeadDays = 3
+export const ingestionGraceDays = 2
 export function watchWindow(event) {
   const fp1 = Date.parse(event.fp1?.utc)
   if (!Number.isFinite(fp1)) throw new Error('No verified FP1 timestamp')
   const catchUpEnd = Date.parse(zonedLocalToUtc(`${event.endDate}T23:59:59`, event.fp1.timeZone))
-  return { start: new Date(fp1 - 8 * 3600000).toISOString(), end: new Date(fp1 + 4 * 3600000).toISOString(), catchUpEnd: new Date(catchUpEnd).toISOString() }
+  return { start: new Date(fp1 - ingestionLeadDays * 86400000).toISOString(), end: new Date(fp1 + 4 * 3600000).toISOString(), catchUpEnd: new Date(catchUpEnd + ingestionGraceDays * 86400000).toISOString() }
 }
 export function watchDecision(event, at = new Date()) {
   const window = watchWindow(event), now = at.getTime(), start = Date.parse(window.start), end = Date.parse(window.end), catchUp = Date.parse(window.catchUpEnd)
   const intensive = now >= start && now <= end
-  // Generic workflow starts at :17/:47. Catch up every two hours at :17 UTC.
-  const catchUpDue = now > end && now <= catchUp && at.getUTCHours() % 2 === 0 && at.getUTCMinutes() < 30
+  // Every actual invocation is eligible; cron delays never suppress ingestion.
+  const catchUpDue = now > end && now <= catchUp
   const nextTick = Math.floor(now / 1800000) * 1800000 + 17 * 60000
   let nextCheck = nextTick <= now ? nextTick + 1800000 : nextTick
   if (now < start) { nextCheck = Math.floor(start / 1800000) * 1800000 + 17 * 60000; if (nextCheck < start) nextCheck += 1800000 }
-  else if (now >= end) { while (nextCheck <= catchUp && (new Date(nextCheck).getUTCHours() % 2 !== 0 || new Date(nextCheck).getUTCMinutes() !== 17)) nextCheck += 1800000 }
   return { ...window, relevant: intensive || catchUpDue, phase: intensive ? 'FP1_WINDOW' : now > end && now <= catchUp ? 'CATCH_UP' : 'OUTSIDE_FP1_WINDOW', nextCheckUtc: nextCheck <= catchUp ? new Date(nextCheck).toISOString() : null }
 }

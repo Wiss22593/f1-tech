@@ -41,6 +41,7 @@ let publishedPath = null
 let alreadyPublished = false
 const targetPath = resolve(args['publish-output'] ?? `public/data/grands-prix/${season}/${args['grand-prix']}.json`)
 if (args.publish === 'true') {
+  if (publication.manualReview.length) throw new Error('PUBLICATION_BLOCKED_INCOMPLETE: some official records still require review; no dataset written')
   try { const current = JSON.parse(await readFile(targetPath, 'utf8')); alreadyPublished = isPublishedDatasetCurrent(current, publication.dataset, download.contentHash, parserVersion) } catch { /* first publication */ }
   if (publication.dataset) publishedPath = alreadyPublished ? targetPath : await writePublishedDatasetAtomically(targetPath, publication.dataset)
 }

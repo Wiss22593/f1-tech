@@ -29,17 +29,17 @@ test('normal Friday, Thursday and Sprint weekends resolve the explicit first pra
     const result = await resolver(race,{dates:`${startDate} - 04 Oct`}); assert.equal(result.event.fp1.local,local)
   }
 })
-test('FP1 window has exact -8h/+4h boundaries and includes nighttime UTC/Argentina', () => {
-  assert.deepEqual(watchWindow(event), {start:'2026-10-01T20:30:00.000Z',end:'2026-10-02T08:30:00.000Z',catchUpEnd:'2026-10-04T15:59:59.000Z'})
+test('FP1 window has three-day lead and two-day grace and includes nighttime UTC/Argentina', () => {
+  assert.deepEqual(watchWindow(event), {start:'2026-09-29T04:30:00.000Z',end:'2026-10-02T08:30:00.000Z',catchUpEnd:'2026-10-06T15:59:59.000Z'})
   for(const at of ['2026-10-01T20:30:00Z','2026-10-02T04:47:00Z','2026-10-02T08:30:00Z'])assert.equal(watchDecision(event,new Date(at)).relevant,true)
-  assert.equal(watchDecision(event,new Date('2026-10-01T20:29:59Z')).relevant,false)
-  assert.equal(watchDecision(event,new Date('2026-09-30T12:00:00Z')).nextCheckUtc,'2026-10-01T20:47:00.000Z')
+  assert.equal(watchDecision(event,new Date('2026-09-29T04:29:59Z')).relevant,false)
+  assert.equal(watchDecision(event,new Date('2026-09-30T12:00:00Z')).nextCheckUtc,'2026-09-30T12:17:00.000Z')
 })
-test('catch-up polls every two hours and stops at the final local day', () => {
+test('catch-up polls every invocation regardless of odd hour or delayed minute', () => {
   assert.equal(watchDecision(event,new Date('2026-10-02T10:17:00Z')).relevant,true)
-  assert.equal(watchDecision(event,new Date('2026-10-02T10:47:00Z')).relevant,false)
-  assert.equal(watchDecision(event,new Date('2026-10-02T11:17:00Z')).relevant,false)
-  assert.equal(watchDecision(event,new Date('2026-10-04T16:17:00Z')).relevant,false)
+  assert.equal(watchDecision(event,new Date('2026-10-02T10:47:00Z')).relevant,true)
+  assert.equal(watchDecision(event,new Date('2026-10-02T11:17:00Z')).relevant,true)
+  assert.equal(watchDecision(event,new Date('2026-10-06T16:17:00Z')).relevant,false)
 })
 test('timezone offsets are checked against IANA rules and catch-up handles DST', () => {
   assert.throws(()=>localSessionToUtc('2026-10-02T12:30:00','+03:00','Asia/Kuala_Lumpur'),/IANA/)
@@ -48,11 +48,11 @@ test('timezone offsets are checked against IANA rules and catch-up handles DST',
 test('official date and venue moves preserve identity and use the new schedule', async () => {
   const race=structuredClone(fixture.race); race.meetingStartDate='2026-10-09T00:00:00.000Z';race.meetingEndDate='2026-10-11T23:59:59.999Z';race.meetingSessions[0].startTime='2026-10-09T13:00:00';race.circuitOfficialName='Changed Official Venue';
   const result=await resolver(race,{dates:'09 - 11 Oct',circuit:'Changed Official Venue'});
-  assert.equal(result.event.id,base.id);assert.equal(result.event.startDate,'2026-10-09');assert.equal(result.event.circuit,'Changed Official Venue');assert.equal(result.event.fp1.utc,'2026-10-09T05:00:00.000Z');assert.equal(result.start,'2026-10-08T21:00:00.000Z')
+  assert.equal(result.event.id,base.id);assert.equal(result.event.startDate,'2026-10-09');assert.equal(result.event.circuit,'Changed Official Venue');assert.equal(result.event.fp1.utc,'2026-10-09T05:00:00.000Z');assert.equal(result.start,'2026-10-06T05:00:00.000Z')
 })
 test('official FP1 time changes alter the watch window automatically', async () => {
   const race=structuredClone(fixture.race);race.meetingSessions[0].startTime='2026-10-02T14:00:00';
-  const result=await resolver(race);assert.equal(result.event.fp1.utc,'2026-10-02T06:00:00.000Z');assert.equal(result.start,'2026-10-01T22:00:00.000Z')
+  const result=await resolver(race);assert.equal(result.event.fp1.utc,'2026-10-02T06:00:00.000Z');assert.equal(result.start,'2026-09-29T06:00:00.000Z')
 })
 test('cancelled event is never next; unmapped new event goes to manual review without IDs',async()=>{
   assert.equal((await resolver(fixture.race,{cancelled:true})).status,'NO_UPCOMING_EVENT')
@@ -77,13 +77,13 @@ test('reconciliation maps the exact FIA identity even when its venue changes',()
   const result=reconcileCalendar([base], [{eventName:base.eventName,circuit:'NEW VENUE',status:'scheduled'}],parseF1Calendar(f1Html(),2026));assert.equal(result.events[0].id,base.id);assert.equal(result.events[0].fiaCircuit,'NEW VENUE')
 })
 test('outside FP1 window succeeds without touching FIA documents or pipeline',async()=>{
-  const result=await runScheduled({resolution:{event},at:new Date('2026-09-30T00:00:00Z'),publish:true,findIndex:()=>{throw new Error('must not fetch')}});assert.equal(result.status,'SKIP_OUTSIDE_WINDOW')
+  const result=await runScheduled({resolution:{event},at:new Date('2026-09-28T00:00:00Z'),publish:true,findIndex:()=>{throw new Error('must not fetch')}});assert.equal(result.status,'SKIP_OUTSIDE_WINDOW')
 })
 test('inside FP1 window discovers documents; absence is success and publishes nothing',async()=>{
   let discoveries=0;const result=await runScheduled({resolution:{event},at:new Date(event.fp1.utc),publish:true,findIndex:async()=>event.indexUrl,findDocuments:async()=>{discoveries++;return[]},pipeline:()=>{throw new Error('must not publish')}})
-  assert.equal(discoveries,1);assert.equal(result.status,'NO_DOCUMENT_FOUND');assert.equal(result.needsPipeline,false)
+  assert.equal(discoveries,1);assert.equal(result.status,'PENDING_DOCUMENT');assert.equal(result.needsPipeline,false)
 })
-test('preflight requests pipeline only for a new official presentation; changed bytes are detected',async()=>{
+test('preflight does not treat a different verified event date as already published',async()=>{
   const current=JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/azerbaijan-2026.json',import.meta.url))),az={...eventRegistry.find(e=>e.id==='azerbaijan-2026'),fp1:event.fp1,endDate:event.endDate}
   const options={resolution:{event:az},at:new Date(event.fp1.utc),preflight:true,findIndex:async()=>az.indexUrl,findDocuments:async()=>[{sourceUrl:current.sourceDocument.sourceUrl}],readDataset:async()=>current}
   assert.equal((await runScheduled({...options,download:async()=>({contentHash:current.sourceDocument.documentHash})})).status,'NEEDS_PIPELINE') // Legacy v3 data must be revalidated by v4.

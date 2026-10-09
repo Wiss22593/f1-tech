@@ -82,15 +82,15 @@ test('generic season route rejects the same named GP from another year',async()=
  assert.deepEqual(result,[])
 })
 
-test('explicit workflow dispatch checks immediately during verified catch-up only',async()=>{
+test('schedule and dispatch both check every invocation during verified catch-up',async()=>{
  const at=new Date('2026-10-02T10:47:00Z')
  const scheduled=await resolveBlocked({at})
  const dispatched=await resolveBlocked({at,trigger:'workflow_dispatch'})
- assert.equal(scheduled.phase,'CATCH_UP');assert.equal(scheduled.relevant,false)
+ assert.equal(scheduled.phase,'CATCH_UP');assert.equal(scheduled.relevant,true)
  assert.equal(dispatched.relevant,true);assert.equal(dispatched.trigger,'workflow_dispatch')
  const event=dispatched.event
  const options={resolution:dispatched,at,publish:true,findIndex:async()=>base.indexUrl,findDocuments:async()=>[{sourceUrl:'https://www.fia.com/doc.pdf'}],readDataset:async()=>null,pipeline:async()=>({status:'PROCESSED'})}
  assert.equal((await runScheduled(options)).status,'PROCESSED')
- assert.equal((await runScheduled({...options,resolution:scheduled})).status,'SKIP_OUTSIDE_WINDOW')
- assert.equal((await runScheduled({...options,at:new Date('2026-10-05T10:47:00Z')})).status,'SKIP_OUTSIDE_WINDOW')
+ assert.equal((await runScheduled({...options,resolution:scheduled})).status,'PROCESSED')
+ assert.equal((await runScheduled({...options,at:new Date('2026-10-07T10:47:00Z')})).status,'SKIP_OUTSIDE_WINDOW')
 })

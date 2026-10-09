@@ -30,15 +30,15 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Resolve the current official calendar and FP1 watch window
+      - name: Resolve verified event and ingestion eligibility
         id: window
         run: node --use-system-ca ingestion/fia/auto-publish.mjs window
 
-      - name: Exit successfully outside an ingestion window
+      - name: Report no eligible verified event
         if: steps.window.outputs.relevant != 'true'
-        run: echo "No verified FP1 watch window is active. Nothing to publish."
+        run: echo "No verified event is eligible. Publication has not been attempted."
 
-      - name: Discover presentation document and check whether its bytes changed
+      - name: Skip verified publication or discover pending official document
         id: discovery
         if: steps.window.outputs.relevant == 'true'
         run: node --use-system-ca ingestion/fia/scheduled.mjs --resolution=ingestion/output/calendar/watch-event.json --preflight=true
