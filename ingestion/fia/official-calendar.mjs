@@ -69,8 +69,14 @@ export function reconcileCalendar(registry, fiaEvents, f1Events) {
   return { events, diagnostics }
 }
 async function officialHtml(url, fetchFn) {
-  const response = await officialRequest(url, { headers: { 'user-agent': 'FormulaTech-official-calendar/1.0', accept: 'text/html' } }, { fetchFn })
-  if (!response.ok) throw new Error(`Official calendar request ${response.status}: ${url}`)
+  let response
+  try { response = await officialRequest(url, { headers: { 'user-agent': 'FormulaTech-official-calendar/1.0', accept: 'text/html' } }, { fetchFn }) }
+  catch (cause) {
+    cause.category = 'network'
+    cause.code = 'CALENDAR_NETWORK_ERROR'
+    throw cause
+  }
+  if (!response.ok) { const error = new Error('CALENDAR_HTTP_' + response.status); error.name = 'CalendarHttpError'; error.code = 'CALENDAR_HTTP_' + response.status; error.category = 'calendar-http'; error.status = response.status; throw error }
   const final = new URL(response.url || url)
   if (final.protocol !== 'https:' || !['www.fia.com', 'fia.com', 'www.formula1.com'].includes(final.hostname)) throw new Error('Non-official calendar redirect')
   return response.text()
