@@ -1,0 +1,427 @@
+{
+  "version": 1,
+  "base": {
+    "path": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+    "sha256": "01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f",
+    "bytes": 57167852,
+    "textureRemap": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      null,
+      null,
+      null,
+      null,
+      6,
+      7,
+      8,
+      9
+    ],
+    "atlasMaterialIndices": [
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "teams": {
+    "mercedes": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "ferrari": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "mclaren": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "red-bull-racing": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "racing-bulls": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "alpine": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "uvPatch": {
+        "path": "/models-optimized/uv1-a5c62a3d53222ce2309bbc0b67f7c0ef9262f7999a9ab30a8b2cdeed0a73f74a.bin",
+        "meshIndex": 236,
+        "primitiveIndex": 0,
+        "attribute": "uv1",
+        "count": 18252,
+        "componentType": 5126,
+        "sha256": "a5c62a3d53222ce2309bbc0b67f7c0ef9262f7999a9ab30a8b2cdeed0a73f74a",
+        "bytes": 146016
+      }
+    },
+    "haas": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "audi": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "williams": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "aston-martin": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    },
+    "cadillac": {
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb"
+    }
+  },
+  "drivers": {
+    "/models/mercedes-w17-russell.glb": {
+      "teamId": "mercedes",
+      "driverId": "russell",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-8b9b0688d989a28d7e94b6460878ac4fcf0d87e56baaac163d32ed4c43ed91ea.gltf",
+      "skinBytes": 3668,
+      "skinSha256": "8b9b0688d989a28d7e94b6460878ac4fcf0d87e56baaac163d32ed4c43ed91ea",
+      "atlasPath": "/models-optimized/atlas-04f6b74f48ff4252620330924e022a06e3d182897247b39c281a747d1215fd1a.png",
+      "atlasBytes": 18708759,
+      "atlasSha256": "04f6b74f48ff4252620330924e022a06e3d182897247b39c281a747d1215fd1a",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 75876412,
+      "originalSha256": "0a5679dd011ceab32d4e4ed9e17a85ef4d54620677ae35ed1088fb7ddab1ee00"
+    },
+    "/models/mercedes-w17-antonelli.glb": {
+      "teamId": "mercedes",
+      "driverId": "antonelli",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-8d5d7afce8da6c6b4ad70f8f7e8d821e15b164085197c2137424ac4fc075bf56.gltf",
+      "skinBytes": 3668,
+      "skinSha256": "8d5d7afce8da6c6b4ad70f8f7e8d821e15b164085197c2137424ac4fc075bf56",
+      "atlasPath": "/models-optimized/atlas-e1cded6ff1c9ff56c0c6abd193ab6ac363dcc6d249de942cb409f6b21ec1fd77.png",
+      "atlasBytes": 18630884,
+      "atlasSha256": "e1cded6ff1c9ff56c0c6abd193ab6ac363dcc6d249de942cb409f6b21ec1fd77",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 75798536,
+      "originalSha256": "d0fb8e0db56d66de5b401699973652c20243ae279887fae007c4325267fcf2e9"
+    },
+    "/models/ferrari-sf26-leclerc.glb": {
+      "teamId": "ferrari",
+      "driverId": "leclerc",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-18285e329f3d0168ad867a858d3a13d65ff45d9efe1c40fc53c9dd02b52c585d.gltf",
+      "skinBytes": 3665,
+      "skinSha256": "18285e329f3d0168ad867a858d3a13d65ff45d9efe1c40fc53c9dd02b52c585d",
+      "atlasPath": "/models-optimized/atlas-34199b4e9e85f2a7f8f33b2e18919e32fcb94f8c4c806d9a329d0c0f212bcf01.png",
+      "atlasBytes": 21170771,
+      "atlasSha256": "34199b4e9e85f2a7f8f33b2e18919e32fcb94f8c4c806d9a329d0c0f212bcf01",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 78338420,
+      "originalSha256": "4f48d7a4b42dd3b5d51b2c23d68d6692e80da9108a37a7ec7c2858e1d1290d3e"
+    },
+    "/models/ferrari-sf26-hamilton.glb": {
+      "teamId": "ferrari",
+      "driverId": "hamilton",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-782704c7198ddad4c31b1c51b6c2f93c195a6f19a1bd03e9c2eab80cf9cedfe2.gltf",
+      "skinBytes": 3665,
+      "skinSha256": "782704c7198ddad4c31b1c51b6c2f93c195a6f19a1bd03e9c2eab80cf9cedfe2",
+      "atlasPath": "/models-optimized/atlas-ba08af5fbed5b7d764bedeaec5da3b307104eafc62906e487e84879865e2c12c.png",
+      "atlasBytes": 21106373,
+      "atlasSha256": "ba08af5fbed5b7d764bedeaec5da3b307104eafc62906e487e84879865e2c12c",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 78274024,
+      "originalSha256": "e89866d154562b7fd6dca052fdb0d702a07c3c6311d0dad4b54b28b77966322b"
+    },
+    "/models/mclaren-mcl40-piastri.glb": {
+      "teamId": "mclaren",
+      "driverId": "piastri",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-368cbb3d256b807cfbde6c35583ba589714dff03df905b4bcab54395dbf31508.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "368cbb3d256b807cfbde6c35583ba589714dff03df905b4bcab54395dbf31508",
+      "atlasPath": "/models-optimized/atlas-b18d17abcd930115faed4c98d9769a25e64ad406da33bd38d2c1a0727bf734d8.png",
+      "atlasBytes": 20772510,
+      "atlasSha256": "b18d17abcd930115faed4c98d9769a25e64ad406da33bd38d2c1a0727bf734d8",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 77940160,
+      "originalSha256": "446da545468c720e94779e24605a8f10b873a6e2e029532a40b763f44996c249"
+    },
+    "/models/mclaren-mcl40-norris.glb": {
+      "teamId": "mclaren",
+      "driverId": "norris",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-104094ff4f4a07f02694b5ed34844a28da13c8e8852684def1367c0c3c67f621.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "104094ff4f4a07f02694b5ed34844a28da13c8e8852684def1367c0c3c67f621",
+      "atlasPath": "/models-optimized/atlas-20b3758561b4b8c4f7a8c9a657f427378cc992ed77e198acc69805da3c255eb5.png",
+      "atlasBytes": 20720138,
+      "atlasSha256": "20b3758561b4b8c4f7a8c9a657f427378cc992ed77e198acc69805da3c255eb5",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 77887788,
+      "originalSha256": "c20d1fe32af872b3716fdabe0c6bbeac56851e36b1765e6dc25c1b7047512efb"
+    },
+    "/models/red-bull-rb22-verstappen.glb": {
+      "teamId": "red-bull-racing",
+      "driverId": "verstappen",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-ae9e7a236de2c4e6632fb83aa7ba75d8b0bf54bac7cd49734610a67985b30893.gltf",
+      "skinBytes": 3669,
+      "skinSha256": "ae9e7a236de2c4e6632fb83aa7ba75d8b0bf54bac7cd49734610a67985b30893",
+      "atlasPath": "/models-optimized/atlas-b6c9d09454a2d927896ee6b6b8fec1e1ddfef47a9bb5a082e123675f49591bb4.png",
+      "atlasBytes": 20978044,
+      "atlasSha256": "b6c9d09454a2d927896ee6b6b8fec1e1ddfef47a9bb5a082e123675f49591bb4",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 78145696,
+      "originalSha256": "5949b46af47edb28a73b632575fec38b4464de189ba6ebfb0fcf30987924cb6c"
+    },
+    "/models/red-bull-rb22-hadjar.glb": {
+      "teamId": "red-bull-racing",
+      "driverId": "hadjar",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-53f0448bcef13def6dc42129c081d5408543817ad0b9413a94e96776f50fd790.gltf",
+      "skinBytes": 3669,
+      "skinSha256": "53f0448bcef13def6dc42129c081d5408543817ad0b9413a94e96776f50fd790",
+      "atlasPath": "/models-optimized/atlas-c7df1c0f780edf319b297c6f2d17a610dc2e5bb285fe5bff4a36aebe4490dc74.png",
+      "atlasBytes": 20830454,
+      "atlasSha256": "c7df1c0f780edf319b297c6f2d17a610dc2e5bb285fe5bff4a36aebe4490dc74",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 77998108,
+      "originalSha256": "0570acd5c536aaf5162854bf43f154036cede64e7cd0b68b99c549cf85aa1135"
+    },
+    "/models/racing-bulls-vcarb03-lawson.glb": {
+      "teamId": "racing-bulls",
+      "driverId": "lawson",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-1e80a7ba1f0d2f8b5fbf30022378bb91aacdff88bbf77bf7dc6b0c9a95aef327.gltf",
+      "skinBytes": 3671,
+      "skinSha256": "1e80a7ba1f0d2f8b5fbf30022378bb91aacdff88bbf77bf7dc6b0c9a95aef327",
+      "atlasPath": "/models-optimized/atlas-c035ed5b60e0cbb16edb9a88ff4f34624fefb80243fd8dad28a79d9668ee4187.png",
+      "atlasBytes": 23930221,
+      "atlasSha256": "c035ed5b60e0cbb16edb9a88ff4f34624fefb80243fd8dad28a79d9668ee4187",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 81097880,
+      "originalSha256": "c2df423d1e50dfa97e83512fb5265c3f3f44de8038f01a11bcf2e39a2d6b0c3b"
+    },
+    "/models/racing-bulls-vcarb03-lindblad.glb": {
+      "teamId": "racing-bulls",
+      "driverId": "lindblad",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-ba3dd3af8bc6eef61ffa5b4d800f84b4ce7215f0844d07ec967b9dd79c87576f.gltf",
+      "skinBytes": 3671,
+      "skinSha256": "ba3dd3af8bc6eef61ffa5b4d800f84b4ce7215f0844d07ec967b9dd79c87576f",
+      "atlasPath": "/models-optimized/atlas-895bc77c3f0998df3bda006ee3f1e54e02594326cecddddb46966bd4be4931ef.png",
+      "atlasBytes": 23832221,
+      "atlasSha256": "895bc77c3f0998df3bda006ee3f1e54e02594326cecddddb46966bd4be4931ef",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 80999880,
+      "originalSha256": "3f6f7d1c9850f6d5bc53551ce3a1b77434cc7a9f75e28508ae6a457312087510"
+    },
+    "/models/alpine-a526-gasly.glb": {
+      "teamId": "alpine",
+      "driverId": "gasly",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "uvPatch": {
+        "path": "/models-optimized/uv1-a5c62a3d53222ce2309bbc0b67f7c0ef9262f7999a9ab30a8b2cdeed0a73f74a.bin",
+        "meshIndex": 236,
+        "primitiveIndex": 0,
+        "attribute": "uv1",
+        "count": 18252,
+        "componentType": 5126,
+        "sha256": "a5c62a3d53222ce2309bbc0b67f7c0ef9262f7999a9ab30a8b2cdeed0a73f74a",
+        "bytes": 146016
+      },
+      "skinPath": "/models-optimized/skin-538fd73a9f2bd0c63e1bb8a22a178fff1431ae727da5cad3d00e36aeaf8f2ed5.gltf",
+      "skinBytes": 3657,
+      "skinSha256": "538fd73a9f2bd0c63e1bb8a22a178fff1431ae727da5cad3d00e36aeaf8f2ed5",
+      "atlasPath": "/models-optimized/atlas-c317e59c088c4f7147beb5385ce55ebfcb912b5aa592aed769c49d3831964bf8.png",
+      "atlasBytes": 14669050,
+      "atlasSha256": "c317e59c088c4f7147beb5385ce55ebfcb912b5aa592aed769c49d3831964bf8",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 71836692,
+      "originalSha256": "6911a44fbf5ea2ed26dca1944a742f203901a304d6a1efd0b8aad205d3088d41"
+    },
+    "/models/alpine-a526-colapinto.glb": {
+      "teamId": "alpine",
+      "driverId": "colapinto",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "uvPatch": {
+        "path": "/models-optimized/uv1-a5c62a3d53222ce2309bbc0b67f7c0ef9262f7999a9ab30a8b2cdeed0a73f74a.bin",
+        "meshIndex": 236,
+        "primitiveIndex": 0,
+        "attribute": "uv1",
+        "count": 18252,
+        "componentType": 5126,
+        "sha256": "a5c62a3d53222ce2309bbc0b67f7c0ef9262f7999a9ab30a8b2cdeed0a73f74a",
+        "bytes": 146016
+      },
+      "skinPath": "/models-optimized/skin-4c20f96632b445eed144b0177c181154383dd8239060bea224b06c0b71ed43e3.gltf",
+      "skinBytes": 3657,
+      "skinSha256": "4c20f96632b445eed144b0177c181154383dd8239060bea224b06c0b71ed43e3",
+      "atlasPath": "/models-optimized/atlas-3304d6e60a3d8ce5815b94f79c6370894fb5dc67679aaea8255339c69727b22f.png",
+      "atlasBytes": 14731832,
+      "atlasSha256": "3304d6e60a3d8ce5815b94f79c6370894fb5dc67679aaea8255339c69727b22f",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 71899472,
+      "originalSha256": "d0a8ed306ed95c028011a615bd7ab3ecbbff8f9ba0543963784da2d196744747"
+    },
+    "/models/haas-vf26-ocon.glb": {
+      "teamId": "haas",
+      "driverId": "ocon",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-e3fd9be522ccd73a86ef1ecd8fdccda831d84ffcb22fb7f219b1ec9ce8718a55.gltf",
+      "skinBytes": 3662,
+      "skinSha256": "e3fd9be522ccd73a86ef1ecd8fdccda831d84ffcb22fb7f219b1ec9ce8718a55",
+      "atlasPath": "/models-optimized/atlas-902fbfd5f562641497a3ca3e388a9ff5a84c96b6d1174aa54c43b47ae5cfa511.png",
+      "atlasBytes": 20400673,
+      "atlasSha256": "902fbfd5f562641497a3ca3e388a9ff5a84c96b6d1174aa54c43b47ae5cfa511",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 77568324,
+      "originalSha256": "eadd30af4193035dbe6d5aa4ed7d05108dc696b152ba9c7f6a1f5e415f3467d3"
+    },
+    "/models/haas-vf26-bearman.glb": {
+      "teamId": "haas",
+      "driverId": "bearman",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-5af0fed2bdb2d2dc949fa0f40442dc1dccd633d599ea060578d73b065700b008.gltf",
+      "skinBytes": 3662,
+      "skinSha256": "5af0fed2bdb2d2dc949fa0f40442dc1dccd633d599ea060578d73b065700b008",
+      "atlasPath": "/models-optimized/atlas-e115752c1809eaf954e7e8ad104a894b3de909dc1e1baf60bc23f015b55158d0.png",
+      "atlasBytes": 20338387,
+      "atlasSha256": "e115752c1809eaf954e7e8ad104a894b3de909dc1e1baf60bc23f015b55158d0",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 77506036,
+      "originalSha256": "5906922a9742262e6cf72387f1a4cc31aab26114b36502182605479a8ec10938"
+    },
+    "/models/audi-r26-hulkenberg.glb": {
+      "teamId": "audi",
+      "driverId": "hulkenberg",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-e412a2c3c23ba0ac99201c3d05f1663b6783cc692afa711da296e209c3999bd4.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "e412a2c3c23ba0ac99201c3d05f1663b6783cc692afa711da296e209c3999bd4",
+      "atlasPath": "/models-optimized/atlas-119f75307bcd0fcafdd61f420a4ccf5e2a1158d55333ffe6851b02f94da23af8.png",
+      "atlasBytes": 17865236,
+      "atlasSha256": "119f75307bcd0fcafdd61f420a4ccf5e2a1158d55333ffe6851b02f94da23af8",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 75032884,
+      "originalSha256": "4a348f2f9dabcb72e2691b8b411941dfa9700686994d13a319081421e3898c20"
+    },
+    "/models/audi-r26-bortoleto.glb": {
+      "teamId": "audi",
+      "driverId": "bortoleto",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-116d175ed78fd4f7dbf153fd3830f9114cba83d0d393fd7d02cccbc0f3722ae1.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "116d175ed78fd4f7dbf153fd3830f9114cba83d0d393fd7d02cccbc0f3722ae1",
+      "atlasPath": "/models-optimized/atlas-8e5da7043eb519868007e43fbf0d154af38a2ee6b7635a419bdcb764cd476c80.png",
+      "atlasBytes": 21816135,
+      "atlasSha256": "8e5da7043eb519868007e43fbf0d154af38a2ee6b7635a419bdcb764cd476c80",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 78983784,
+      "originalSha256": "44ca2a7cad109036c5866ea6c6748c62d4307a5ee64117cec50eb4efb4c81e16"
+    },
+    "/models/williams-fw48-albon.glb": {
+      "teamId": "williams",
+      "driverId": "albon",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-9eb2bda2113261e95bccaa7e7bbe5d19108a82b28841f4b8234052b1abfb547d.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "9eb2bda2113261e95bccaa7e7bbe5d19108a82b28841f4b8234052b1abfb547d",
+      "atlasPath": "/models-optimized/atlas-cd0d0700bf6cc0999c2ecc1574c249fcab2482aa418a468b3898c2faa4a69031.png",
+      "atlasBytes": 22082265,
+      "atlasSha256": "cd0d0700bf6cc0999c2ecc1574c249fcab2482aa418a468b3898c2faa4a69031",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 79249916,
+      "originalSha256": "aecbc14cb6d3d64d7d7744bdbc2e03e61ba6937162a7acdd95bcac2f954c60af"
+    },
+    "/models/williams-fw48-sainz.glb": {
+      "teamId": "williams",
+      "driverId": "sainz",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-275edc5934a159cd670974519002ba53cc578ad71f7a0975d813596e8a20296e.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "275edc5934a159cd670974519002ba53cc578ad71f7a0975d813596e8a20296e",
+      "atlasPath": "/models-optimized/atlas-6befc1990a036985a1438a81c1e22a448ea0749340d2bbed1fe18191272b2b19.png",
+      "atlasBytes": 22020013,
+      "atlasSha256": "6befc1990a036985a1438a81c1e22a448ea0749340d2bbed1fe18191272b2b19",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 79187664,
+      "originalSha256": "b80760843405c8c65f77c65de2bf0f9dc51cebaafd032fa2c23a4c6883bb6c48"
+    },
+    "/models/aston-martin-amr26-stroll.glb": {
+      "teamId": "aston-martin",
+      "driverId": "stroll",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-e56d85080ba448a60099bf187c8537f19b49257c1f5694edd405554ddab8aa71.gltf",
+      "skinBytes": 3669,
+      "skinSha256": "e56d85080ba448a60099bf187c8537f19b49257c1f5694edd405554ddab8aa71",
+      "atlasPath": "/models-optimized/atlas-d782582fe5f7e88e48b659e683baafb5a67eea3a67b24529e10c4b34b26b87a7.png",
+      "atlasBytes": 13856241,
+      "atlasSha256": "d782582fe5f7e88e48b659e683baafb5a67eea3a67b24529e10c4b34b26b87a7",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 71023896,
+      "originalSha256": "a3a467ed4bb4ddd1d6a2e73b4b1d159f03d09bd767a0d92acc332e09e3470207"
+    },
+    "/models/aston-martin-amr26-alonso.glb": {
+      "teamId": "aston-martin",
+      "driverId": "alonso",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-64a8469d7d79dd36958d912cd3b981254db5be0f31be33745ce43555c20ab615.gltf",
+      "skinBytes": 3669,
+      "skinSha256": "64a8469d7d79dd36958d912cd3b981254db5be0f31be33745ce43555c20ab615",
+      "atlasPath": "/models-optimized/atlas-0f9c31a59fb52a435a3838509fa1b662570e795ff5f82b85277840f73ce43646.png",
+      "atlasBytes": 13904372,
+      "atlasSha256": "0f9c31a59fb52a435a3838509fa1b662570e795ff5f82b85277840f73ce43646",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 71072024,
+      "originalSha256": "cff0e1e27b4ffba06110a34c96ed2dfdd0ed139f59ae134b4305d646c3eb8205"
+    },
+    "/models/cadillac-mac26-perez.glb": {
+      "teamId": "cadillac",
+      "driverId": "perez",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-983489287cbf649114ecae300eb56e3199bb9e3d2a6aa26a3c3635ada1f3a30a.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "983489287cbf649114ecae300eb56e3199bb9e3d2a6aa26a3c3635ada1f3a30a",
+      "atlasPath": "/models-optimized/atlas-d200b156962591ba1516fe301ae656148b9aa1b222adad06549bf89ae50c87d6.png",
+      "atlasBytes": 13316410,
+      "atlasSha256": "d200b156962591ba1516fe301ae656148b9aa1b222adad06549bf89ae50c87d6",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 70484060,
+      "originalSha256": "e85fe94cd5f948cf27607142746be62ffc27fd713d2bded55f4df9f9a8a0c959"
+    },
+    "/models/cadillac-mac26-bottas.glb": {
+      "teamId": "cadillac",
+      "driverId": "bottas",
+      "basePath": "/models-optimized/base-01e8daf5c7c0d4e57eb3636b860d9a4d9a9a46fc71aaa39d711f9463ae766d6f.glb",
+      "skinPath": "/models-optimized/skin-c1408f9c96bb2ef195042ab18af2002daca154badbca8f03b32528af54b00576.gltf",
+      "skinBytes": 3664,
+      "skinSha256": "c1408f9c96bb2ef195042ab18af2002daca154badbca8f03b32528af54b00576",
+      "atlasPath": "/models-optimized/atlas-79d8ff40be29eff1cfef208ac274b15308b680b4ee5ac8debcc8c6cab00c6c71.png",
+      "atlasBytes": 13373274,
+      "atlasSha256": "79d8ff40be29eff1cfef208ac274b15308b680b4ee5ac8debcc8c6cab00c6c71",
+      "atlasWidth": 9216,
+      "atlasHeight": 3072,
+      "originalBytes": 70540924,
+      "originalSha256": "a58c43a18123dbddcce44f87f0cfdbceceb4d337e13907d297a6d4b85436a6c8"
+    }
+  }
+}

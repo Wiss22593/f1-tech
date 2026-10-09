@@ -420,3 +420,29 @@
 .viewer-loading__ring { display: block; width: 30px; height: 30px; border: 2px solid #c7d9ec26; border-top-color: #e6f4ff; border-right-color: #8ddbdc; border-radius: 50%; animation: viewer-loading-turn .9s linear infinite; }
 @keyframes viewer-loading-turn { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .viewer-loading__ring { animation: none; border-right-color: #c7d9ec80; } }
+@media (max-width: 600px) {
+  /* Intrinsic text width includes border, padding and an independent arrow gutter. */
+  .showroom-mobile-header .showroom-race-select { width: max-content; min-width: max-content; max-width: none; flex: 0 0 auto; }
+  .showroom-mobile-header .showroom-gp-short { padding-inline: 5px 18px; white-space: nowrap; text-overflow: clip; }
+  .showroom-mobile-header .showroom-race-select::after { right: 6px; }
+  .showroom-count-slot { flex: 1 0 auto; }
+  /* The identity stays together; measured pressure enables the second selector row. */
+  .showroom-mobile-header .showroom__selectors { flex: 0 0 auto; }
+  .showroom-mobile-header .showroom__model { min-width: 0; flex-shrink: 0; }
+}
+
+@media (max-width: 600px) {
+  .showroom-mobile-header[data-wrap='true'] { height: 82px; flex-wrap: wrap; align-content: space-between; }
+  .showroom-mobile-header[data-wrap='true'] .showroom__identity { max-width: none; flex: 0 1 auto; }
+  .showroom-mobile-header[data-wrap='true'] .showroom__model { flex-shrink: 0; }
+  .showroom-mobile-header[data-wrap='true'] .showroom__selectors { flex-basis: 100%; justify-content: flex-end; }
+  .showroom__stage:has(.showroom-mobile-header[data-wrap='true']) .showroom-mobile-toolbar { top: 94px; }
+  .showroom__stage:has(.showroom-mobile-header[data-wrap='true']) :is(.showroom-panel, .showroom-mobile-detail) { top: 142px; }
+  .showroom__stage:has(.showroom-mobile-header[data-wrap='true']) .showroom__canvas { top: 142px; }
+  .showroom__stage:has(.showroom-mobile-header[data-wrap='true']):is(:has(.showroom-panel--mobile-open), :has(.showroom-mobile-detail)) .showroom__canvas { top: calc(150px + min(210px, 28%)); }
+}
+
+@media (min-width: 601px) {
+  .showroom-mobile-header .showroom__context { flex: 0 0 auto; width: max-content; min-width: 210px; }
+  .showroom-mobile-header .showroom-race-select { flex: 0 0 auto; width: max-content; min-width: max-content; }
+}

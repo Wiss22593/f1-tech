@@ -357,7 +357,7 @@ test('six-locale catalog covers Garage labels and factual offline state', async 
   for (const locale of ['es', 'en', 'it', 'pt', 'fr', 'de']) {
     assert.match(catalogue, new RegExp(`\\b${locale}: \\{ name:`))
   }
-  for (const page of ['technical-preview/TechnicalPreview.tsx', 'updates/UpdatesPage.tsx', 'teams/TeamsPage.tsx']) {
+  for (const page of ['technical-preview/TechnicalPreview.tsx', 'insights/useSeasonRecords.ts']) {
     const source = await readFile(new URL(`../src/features/${page}`, import.meta.url), 'utf8')
     assert.match(source, /navigator\.onLine \? 'stale' : 'offline'/)
   }
@@ -467,3 +467,4 @@ test('extractor keeps painted table borders in text coordinates and excludes cli
   assert.deepEqual(lines.horizontal, [{ x1:10, x2:110, y:20.25 }])
   assert.deepEqual(lines.vertical, [{ x:3.25, y1:4, y2:44 }])
 })
+

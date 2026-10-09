@@ -1,0 +1,1 @@
+export function canRenderAd(config: { enabled: boolean; provider: string | null; publisherId: string | null; siteApproved: boolean; rightsReviewed: boolean; privacyReady: boolean; consentReady: boolean; placements: string[]; slots: Record<string, string | null> }, placementId: string, consentGranted: boolean, scriptReady: boolean, width: number): boolean

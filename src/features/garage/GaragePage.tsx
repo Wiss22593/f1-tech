@@ -26,6 +26,7 @@ async function findPublishedGrandPrix() {
 }
 
 export function GaragePage({ locale }: { locale: Locale }) {
+  const mobileHeaderRef = useRef<HTMLDivElement>(null)
   const copy = garageText(locale)
   const [initialQuery] = useState(() => new URLSearchParams(window.location.search))
   const [season, setSeason] = useState(() => garageGrandPrix.find(event => event.id === initialQuery.get('gp'))?.season ?? defaultSeason(garageGrandPrix)!)
@@ -34,6 +35,54 @@ export function GaragePage({ locale }: { locale: Locale }) {
   const [grandPrixId, setGrandPrixId] = useState('')
   const [teamId, setTeamId] = useState(() => garageTeams.some((item) => item.id === initialQuery.get('team')) ? initialQuery.get('team')! : garageTeams[0].id)
   const [driversByTeam, setDriversByTeam] = useState<Record<string, string>>(() => ({ [teamId]: getShowroomDriver(teamId, initialQuery.get('driver')).id }))
+  useEffect(() => {
+    const header = mobileHeaderRef.current
+    if (!header) return
+    const identity = header.querySelector<HTMLElement>('.showroom__identity')!
+    const model = header.querySelector<HTMLElement>('.showroom__model')!
+    const title = header.querySelector<HTMLElement>('h1')!
+    const badge = header.querySelector<HTMLElement>('.showroom-mobile-count')!
+    const selectors = header.querySelector<HTMLElement>('.showroom__selectors')!
+    const race = header.querySelector<HTMLElement>('.showroom-race-select')!
+    const seasonControl = header.querySelector<HTMLElement>('.showroom-season-select')!
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')!
+    const textWidth = (element: HTMLElement) => {
+      const style = getComputedStyle(element)
+      context.font = style.font
+      return context.measureText(element.textContent ?? '').width
+        + Math.max(0, (element.textContent?.length ?? 0) - 1) * (parseFloat(style.letterSpacing) || 0)
+    }
+    const layout = () => {
+      badge.style.removeProperty('transform')
+      if (!window.matchMedia('(max-width: 600px)').matches) {
+        delete header.dataset.wrap
+        return
+      }
+      const h = header.getBoundingClientRect()
+      const badgeWidth = badge.getBoundingClientRect().width
+      const selectorsWidth = seasonControl.getBoundingClientRect().width + race.getBoundingClientRect().width + 3
+      const modelWidth = textWidth(model)
+      const identityWidth = textWidth(title) + modelWidth + 4
+      const wrap = h.width - badgeWidth - selectorsWidth - 6 < Math.min(identityWidth, modelWidth + 32)
+      header.dataset.wrap = String(wrap)
+      if (wrap) return
+      // Preserve the approved center using its original 44 + 3 + 60 px selector footprint.
+      const baselineIdentityWidth = Math.min(identityWidth, h.width * .37)
+      const preferredCenter = (h.left + baselineIdentityWidth + h.right - 107) / 2
+      const b = badge.getBoundingClientRect()
+      const left = identity.getBoundingClientRect().right + 3 + b.width / 2
+      const right = selectors.getBoundingClientRect().left - 3 - b.width / 2
+      const center = Math.max(left, Math.min(preferredCenter, right))
+      badge.style.transform = 'translateX(' + (center - (b.left + b.width / 2)) + 'px)'
+    }
+    const observer = new ResizeObserver(layout)
+    ;[header, identity, badge, selectors, race].forEach(element => observer.observe(element))
+    void document.fonts.ready.then(layout)
+    layout()
+    return () => observer.disconnect()
+  }, [locale, teamId, grandPrixId])
+
   const [cameraPreset, setCameraPreset] = useState<CameraPresetId>('default')
   const [selectedComponent, setSelectedComponent] = useState<CarComponentId>()
   const [selectedUpdateId, setSelectedUpdateId] = useState<string>()
@@ -217,7 +266,7 @@ export function GaragePage({ locale }: { locale: Locale }) {
 
   return <section className="showroom" data-team={team.id} style={{ '--team-primary': team.theme.primary, '--team-accent': team.theme.accent, '--team-surface': team.theme.surface } as React.CSSProperties} aria-labelledby="showroom-title">
     <section className="showroom__stage">
-      <div className="showroom-mobile-header"><div className="showroom__heading"><p className="showroom__eyebrow">Formula Tech <span> / {season}</span></p><div className="showroom__identity"><h1 id="showroom-title">{team.name}</h1><p className="showroom__model">{showroomTeam.carName}</p></div><div className="showroom-count-slot"><span className="showroom-mobile-count showroom-update-badge">{renderHeaderCount(updateCounts[team.id] ?? 0)}</span></div><div className="showroom-drivers" role="group" aria-label={driverCopy.driver}>{orderedDrivers(showroomTeam).map(item => <button type="button" key={item.id} disabled={!isDriverAvailable(item)} aria-pressed={driver.id === item.id} title={item.name} onClick={() => changeDriver(item.id)}><span>{item.number !== null && <><b className="showroom-driver-number">{item.number}</b>{' '}</>}{item.shortName}</span>{!isDriverAvailable(item) && <small>{driverCopy.soon}</small>}</button>)}</div><p className="showroom__driver-name">{driver.name}</p></div>
+      <div className="showroom-mobile-header" ref={mobileHeaderRef}><div className="showroom__heading"><p className="showroom__eyebrow">Formula Tech <span> / {season}</span></p><div className="showroom__identity"><h1 id="showroom-title">{team.name}</h1><p className="showroom__model">{showroomTeam.carName}</p></div><div className="showroom-count-slot"><span className="showroom-mobile-count showroom-update-badge">{renderHeaderCount(updateCounts[team.id] ?? 0)}</span></div><div className="showroom-drivers" role="group" aria-label={driverCopy.driver}>{orderedDrivers(showroomTeam).map(item => <button type="button" key={item.id} disabled={!isDriverAvailable(item)} aria-pressed={driver.id === item.id} title={item.name} onClick={() => changeDriver(item.id)}><span>{item.number !== null && <><b className="showroom-driver-number">{item.number}</b>{' '}</>}{item.shortName}</span>{!isDriverAvailable(item) && <small>{driverCopy.soon}</small>}</button>)}</div><p className="showroom__driver-name">{driver.name}</p></div>
       <div className="showroom__context"><label className="sr-only" htmlFor="grand-prix-selector">{copy.grandPrix}</label><div className="showroom__selectors"><label className="sr-only" htmlFor="season-selector">{copy.season}</label><span className="showroom-gp-select showroom-season-select"><select id="season-selector" value={season} onChange={(event) => changeSeason(Number(event.target.value))}>{seasons.map(year => <option key={year} value={year}>{year}</option>)}</select></span><span className="showroom-gp-select showroom-race-select"><span className="showroom-gp-short" aria-hidden="true">{grandPrixId ? shortGrandPrixLabel(garageGrandPrixName(locale, grandPrix.id, grandPrix.name)).toLocaleLowerCase(locale) : copy.noPublished}</span><select id="grand-prix-selector" value={grandPrixId} disabled={!publishedResolved} onChange={(event) => changeGrandPrix(event.target.value)}>{!grandPrixId && <option value="" disabled>{copy.noPublished}</option>}{selectableGrandPrix.map((item) => <option key={item.id} value={item.id} disabled={!publishedGrandPrixIds.has(item.id)}>{garageGrandPrixName(locale, item.id, item.name)}</option>)}</select></span></div><strong>{team.name.toUpperCase()}</strong><span>{grandPrixId ? grandPrix.circuit : null}</span></div>
       </div>
 

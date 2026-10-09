@@ -10,6 +10,6 @@ export function CircuitsPage({ locale }: { locale: Locale }) {
     <p className="demo-notice"><b>{copy.common.demo}</b>{uiText(locale, 'circuitsNotice')}</p>
     <section className="circuit-profile card"><div className="circuit-profile__heading"><p className="section-kicker">{uiText(locale, 'referenceProfile')}</p><h2>{demoLabels.name}</h2><span>{demoLabels.country} · {demoCircuit.confidence}</span></div><div className="circuit-demand-grid">{(Object.entries(demoCircuit.demands) as [keyof typeof demoCircuit.demands, number][]).map(([key, value]) => <article key={key}><div><span>{labels[key]}</span><b>{value}<em>/10</em></b></div><i><i style={{ width: `${value * 10}%` }} /></i></article>)}</div></section>
     <section className="circuit-method card"><p className="section-kicker">{uiText(locale, 'method')}</p><h2>{uiText(locale, 'methodTitle')}</h2><div><article><span>01</span><p>{uiText(locale, 'method1')}</p></article><article><span>02</span><p>{uiText(locale, 'method2')}</p></article><article><span>03</span><p>{uiText(locale, 'method3')}</p></article></div><b>{uiText(locale, 'traceable')}</b></section>
-    <AdSlot placementId="circuits-bottom" />
+    <AdSlot locale={locale} placementId="circuits-bottom" />
   </section>
 }

@@ -1,0 +1,32 @@
+import type { Locale } from '../../i18n'
+const words = {
+subtitle: ['Cambios declarados, componentes y evolución documental de cada escudería.','Declared changes, components and documentary evolution by team.','Modifiche dichiarate, componenti ed evoluzione documentale per squadra.','Mudanças declaradas, componentes e evolução documental por equipe.','Changements déclarés, composants et évolution documentaire par équipe.','Gemeldete Änderungen, Komponenten und dokumentarische Entwicklung je Team.'],
+drivers: ['Pilotos','Drivers','Piloti','Pilotos','Pilotes','Fahrer'],
+analysis: ['Atlas técnico','Technical atlas','Atlante tecnico','Atlas técnico','Atlas technique','Technischer Atlas'],
+records: ['Registros FIA','FIA records','Registrazioni FIA','Registros FIA','Entrées FIA','FIA-Einträge'],
+families: ['Familias de componentes','Component families','Famiglie di componenti','Famílias de componentes','Familles de composants','Komponentenfamilien'],
+events: ['GP con registros','GP with records','GP con registrazioni','GP com registros','GP avec entrées','GP mit Einträgen'],
+documents: ['Documentos fuente','Source documents','Documenti fonte','Documentos fonte','Documents sources','Quelldokumente'],
+reason: ['Razón primaria','Primary reason','Motivo principale','Razão principal','Raison principale','Hauptgrund'],
+types: ['Tipo declarado','Declared type','Tipo dichiarato','Tipo declarado','Type déclaré','Gemeldeter Typ'],
+unspecified: ['No especificado','Unspecified','Non specificato','Não especificado','Non précisé','Nicht angegeben'],
+ranking: ['Actividad por escudería','Activity by team','Attività per squadra','Atividade por equipe','Activité par équipe','Aktivität pro Team'],
+components: ['Componentes intervenidos','Updated components','Componenti aggiornati','Componentes atualizados','Composants modifiés','Aktualisierte Komponenten'],
+distribution: ['Composición de las razones','Reason distribution','Distribuzione dei motivi','Distribuição das razões','Répartition des raisons','Verteilung der Gründe'],
+timeline: ['Historial por GP y escudería','History by GP and team','Cronologia per GP e squadra','Histórico por GP e equipe','Historique par GP et équipe','Verlauf nach GP und Team'],
+cumulative: ['Registros acumulados','Cumulative records','Registrazioni cumulative','Registros acumulados','Entrées cumulées','Kumulierte Einträge'],
+methodology: ['Una entrada publicada = un registro. Las familias agrupan por componentId sin dividir subcomponentes. Los tipos se extraen del prefijo de la razón FIA, no de una taxonomía independiente. Los documentos describen cambios declarados, no ganancias de rendimiento ni puntos deportivos. Un GP sin registros no prueba ausencia de cambios.','One published entry = one record. Families use componentId without splitting subcomponents. Types are the prefix of the FIA reason, not an independent taxonomy. Documents describe declared changes, not performance gains or sporting points. Missing records do not prove an absence of changes.','Una voce pubblicata = un dato. Famiglie per componentId. Tipi dal prefisso del motivo FIA. Nessuna prestazione o punto dedotto; dati assenti non significano assenza di modifiche.','Uma entrada publicada = um registro. Famílias por componentId. Tipos pelo prefixo da razão FIA. Não inferimos ganhos ou pontos; dados ausentes não provam ausência de mudanças.','Une entrée publiée = un enregistrement. Familles par componentId. Types issus du préfixe de la raison FIA. Aucun gain ou point déduit; absence de données ne signifie pas absence de modifications.','Ein veröffentlichter Eintrag = ein Datensatz. Familien nach componentId. Typen aus dem Präfix des FIA-Grundes. Keine abgeleiteten Gewinne oder Punkte; fehlende Daten belegen keine fehlenden Änderungen.'],
+empty: ['Sin registros publicados para esta selección.','No published records for this selection.','Nessun dato pubblicato per questa selezione.','Sem registros publicados para esta seleção.','Aucune entrée publiée pour cette sélection.','Keine veröffentlichten Einträge für diese Auswahl.'],
+geometry: ['Diferencia geométrica','Geometric difference','Differenza geometrica','Diferença geométrica','Différence géométrique','Geometrischer Unterschied'],
+description: ['Descripción FIA','FIA description','Descrizione FIA','Descrição FIA','Description FIA','FIA-Beschreibung'],
+source: ['Abrir documento FIA','Open FIA document','Apri documento FIA','Abrir documento FIA','Ouvrir le document FIA','FIA-Dokument öffnen'],
+garage: ['Explorar en Garage','Explore in Garage','Esplora nel Garage','Explorar no Garage','Explorer dans le Garage','Im Garage erkunden'],
+roster: ['Catálogo compartido con Garage · sin puntuaciones deportivas inferidas','Shared Garage roster · no inferred sporting scores','Catalogo Garage condiviso · nessun punteggio dedotto','Catálogo compartilhado com Garage · sem pontuações inferidas','Catalogue Garage partagé · aucun score déduit','Gemeinsamer Garage-Katalog · keine abgeleiteten Sportwertungen'],
+sketch: ['Concepto gráfico original · no representa geometría real','Original graphic concept · not actual geometry','Concetto originale · non geometria reale','Conceito original · não é geometria real','Concept original · pas une géométrie réelle','Originales Konzept · keine reale Geometrie'],
+history: ['Ver historial técnico','View technical history','Vedi cronologia tecnica','Ver histórico técnico','Voir historique technique','Technischen Verlauf ansehen'],
+loading: ['Cargando documentos publicados…','Loading published documents…','Caricamento documenti…','Carregando documentos…','Chargement des documents…','Dokumente werden geladen…'],
+partial: ['Carga incompleta o datos retenidos. Conteos solo de registros disponibles.','Incomplete load or retained data. Counts reflect available records only.','Caricamento incompleto o dati conservati.','Carga incompleta ou dados retidos.','Chargement incomplet ou données conservées.','Unvollständiges Laden oder gespeicherte Daten.'],
+more: ['Mostrar más registros','Show more records','Mostra più registrazioni','Mostrar mais registros','Afficher plus d’entrées','Mehr Einträge anzeigen'],
+} as const
+export const insightText = (locale: Locale, key: keyof typeof words) => words[key][['es','en','it','pt','fr','de'].indexOf(locale)]
+

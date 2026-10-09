@@ -10,6 +10,7 @@ import './styles/updates.css'
 import './styles/product.css'
 import './styles/showroom.css'
 import './styles/visual-system.css'
+import './styles/ads-preparation.css'
 
 async function start() {
   if (import.meta.env.DEV) {
@@ -27,3 +28,4 @@ void start()
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => { void navigator.serviceWorker.register('/sw.js') })
 }
+import './styles/engineering.css'

@@ -1,5 +1,9 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { configureAuthoredLiveryLoader } from './authored-livery.mjs'
+import { createOptimizedCarLoader } from './optimized-car-loader.mjs'
+import { shouldUseOptimizedModels } from './model-delivery-config.mjs'
+import optimizedManifest from './optimized-model-manifest.json' with { type: 'json' }
+
 const loader = new GLTFLoader()
 configureAuthoredLiveryLoader(loader)
 const entries = new Map()
@@ -17,13 +21,17 @@ export function disposeCarScene(scene) {
   for (const material of materials) material.dispose()
   for (const texture of textures) texture.dispose()
 }
-/** Only referenced cars remain cached. Late results from abandoned loads are disposed too. */
-export function acquireCar(path, load = value => loader.loadAsync(value)) {
+/** Original GLBs remain the fallback and the explicit comparison mode. */
+export function acquireOriginalCar(path, load = value => loader.loadAsync(value)) {
   let entry = entries.get(path)
   if (!entry) {
     entry = { refs: 0, timer: null, result: null, settled: false }
     entries.set(path, entry)
-    entry.ready = Promise.resolve().then(() => load(path)).then(result => { entry.result = result; entry.settled = true; schedule(); return result }, error => { entry.settled = true; schedule(); throw error })
+    entry.ready = Promise.resolve().then(() => load(path)).then(result => { entry.result = result; entry.settled = true; schedule(); return result }, error => {
+      entry.settled = true
+      if (entries.get(path) === entry) entries.delete(path)
+      schedule(); throw error
+    })
   }
   function schedule() {
     if (entry.refs || !entry.settled || entry.timer) return
@@ -40,3 +48,10 @@ export function acquireCar(path, load = value => loader.loadAsync(value)) {
   let released = false
   return { ready: entry.ready, release() { if (released) return; released = true; entry.refs--; schedule() } }
 }
+const optimizedCars = createOptimizedCarLoader({ manifest: optimizedManifest, acquireOriginal: acquireOriginalCar })
+/** Custom loading functions deliberately retain the original test/integration contract. */
+export function acquireCar(path, load) {
+  if (load || !shouldUseOptimizedModels()) return acquireOriginalCar(path, load)
+  return optimizedCars.acquire(path)
+}
+export function getOptimizedCarDiagnostics() { return optimizedCars.diagnostics() }

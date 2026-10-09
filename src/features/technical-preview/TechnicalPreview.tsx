@@ -38,7 +38,7 @@ export function TechnicalPreview({ locale }: { locale: Locale }) {
       <section className="dashboard-section"><SectionHeading title="F1 TECH Score" eyebrow={uiText(locale, 'comparative')} /><div className="score-grid">{demoScores.map((score) => <ScoreCard key={score.label} {...score} locale={locale} />)}</div></section>
       <InsightPanels locale={locale} />
       <PredictionPanel locale={locale} />
-      <AdSlot placementId="technical-preview-inline" />
+      <AdSlot locale={locale} placementId="technical-preview-inline" />
       <ThreePreview locale={locale} />
     </div>
   </>

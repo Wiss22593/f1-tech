@@ -1,4 +1,4 @@
-export type AppSection = 'preview' | 'teams' | 'updates' | 'garage' | 'circuits'
+export type AppSection = 'preview' | 'teams' | 'updates' | 'garage' | 'circuits' | 'about' | 'privacy' | 'contact' | 'drivers'
 
 const navigationLabels = {
   es: { home: 'INICIO', teams: 'EQUIPOS', updates: 'ACTUALIZACIONES', circuits: 'CIRCUITOS' },
@@ -11,3 +11,4 @@ const navigationLabels = {
 export const navigationItems = (locale: keyof typeof navigationLabels): { id: AppSection; label: string }[] => [
   { id: 'garage', label: navigationLabels[locale].home },
 ]
+
