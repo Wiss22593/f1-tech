@@ -1,3 +1,5 @@
+import { addAutomaticSpanish } from './translate-es.mjs'
+import { createPublicationPlan } from './publication.mjs'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { downloadDocument } from './downloader.mjs'
@@ -26,8 +28,9 @@ if (!extraction.text) throw new Error(`unsupported_pdf: ${extraction.extractionW
 const enrichedDocument = { ...document, contentHash: download.contentHash, path: download.path }
 const grandPrix = { id: args['grand-prix'], season, name: args['grand-prix-name'] ?? args['event-name'], country: args.country ?? null, circuit: args.circuit ?? null, startDate: args['start-date'] ?? null, endDate: args['end-date'] ?? null, status: 'scheduled' }
 const reconstruction=reconstructPresentation(extraction,enrichedDocument,grandPrix,season)
-const {parsed,validated,rejected}=reconstruction
-const publication=reconstruction
+const {parsed,rejected}=reconstruction
+const validated=await addAutomaticSpanish(reconstruction.validated)
+const publication=createPublicationPlan({document:enrichedDocument,records:validated,rejected,grandPrix,season,parserVersion})
 const review = { generatedAt: new Date().toISOString(), publicationGate: args.publish === 'true' ? 'safe_publish_requested' : 'draft_only', document: enrichedDocument, extraction: { pageCount: extraction.pageCount, metadata: extraction.metadata, extractionWarnings: extraction.extractionWarnings, textLength: extraction.text.length }, records: validated, rejected, pageAudit: parsed.pageAudit, discarded: parsed.discarded, appliedReviews: parsed.appliedReviews }
 await mkdir(outputDirectory, { recursive: true })
 const outputPath = resolve(outputDirectory, `${args['grand-prix']}-${document.documentId ?? 'document'}-review.json`)
@@ -42,4 +45,4 @@ if (args.publish === 'true') {
   if (publication.dataset) publishedPath = alreadyPublished ? targetPath : await writePublishedDatasetAtomically(targetPath, publication.dataset)
 }
 const status = publication.dataset ? (alreadyPublished ? 'UNCHANGED' : args.publish === 'true' ? 'PROCESSED' : 'VALIDATED') : 'MANUAL_REVIEW_ONLY'
-console.log(JSON.stringify({ status, document: document.title, sourceUrl: document.sourceUrl, contentHash: download.contentHash, pages: extraction.pageCount, recordsFound: parsed.records.length, validated: validated.length, publishable: publication.dataset?.updates.length ?? 0, published: args.publish === 'true' && !alreadyPublished ? publication.dataset?.updates.length ?? 0 : 0, alreadyPublished, manualReview: publication.manualReview.length, warnings: extraction.extractionWarnings, outputPath, validatedPath, manualReviewPath, publishedPath }, null, 2))
+console.log(JSON.stringify({ status, document: document.title, sourceUrl: document.sourceUrl, contentHash: download.contentHash, pages: extraction.pageCount, recordsFound: parsed.records.length, validated: validated.length, publishable: publication.dataset?.updates.length ?? 0, published: args.publish === 'true' && !alreadyPublished ? publication.dataset?.updates.length ?? 0 : 0, alreadyPublished, manualReview: publication.manualReview.length, automaticSpanish: validated.filter(r=>r.translations?.es?.method==='automatic').length, warnings: extraction.extractionWarnings, outputPath, validatedPath, manualReviewPath, publishedPath }, null, 2))

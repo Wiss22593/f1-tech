@@ -92,7 +92,7 @@ test('preflight requests pipeline only for a new official presentation; changed 
 })
 test('an unavailable event index falls back to the exact official season event scope',async()=>{
   const season=await readFile(new URL('./fixtures/fia-season-multi-event.html',import.meta.url),'utf8');let requests=0
-  const result=await fetchFiaDocumentIndex({indexUrl:base.indexUrl,grandPrixId:base.id,season:2026,eventName:base.eventName,fetchFn:async()=>{if(!requests++)throw new Error('timeout');return new Response(season)}});assert.deepEqual(result,[]);assert.equal(requests,2)
+  const result=await fetchFiaDocumentIndex({indexUrl:base.indexUrl,grandPrixId:base.id,season:2026,eventName:base.eventName,fetchFn:async()=>{if(!requests++)throw new Error('timeout');return new Response(season)}});assert.deepEqual(result,[]);assert.equal(requests,3)
 })
 const seasons=[{id:'old26',season:2026,startDate:'2026-03-06',endDate:'2026-03-08'},{id:'az26',season:2026,startDate:'2026-09-24',endDate:'2026-09-26'},{id:'future26',season:2026,startDate:'2026-10-02',endDate:'2026-10-04'},{id:'first27',season:2027,startDate:'2027-03-05',endDate:'2027-03-07'}]
 test('season default chooses the supported current year, otherwise latest supported',()=>{

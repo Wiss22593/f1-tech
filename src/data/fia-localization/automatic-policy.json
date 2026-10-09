@@ -1,0 +1,11 @@
+{
+  "version": "fia-es-auto-v1",
+  "engine": "transformers.js",
+  "engineVersion": "3.8.1",
+  "model": "Xenova/opus-mt-en-es",
+  "revision": "4b002a4c7edd54a7ced58877258b87f7efd3f892",
+  "dtype": "q8",
+  "glossaryVersion": "fia-aero-es-v2",
+  "sourceLanguage": "en",
+  "targetLanguage": "es"
+}

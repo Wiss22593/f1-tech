@@ -8,7 +8,7 @@ export interface PublishedUpdate {
   componentName?: string | null; primaryReason?: string | null; geometricDifference?: string | null; briefDescription?: string | null
   category: string | null; source: 'FIA'; sourceUrl: string; sourceDocument: string; sourceText: string; sourceLanguage: string
   sourcePage?: number; sourceTeamHeading?: string; sourceHeadingPage?: number; sourceRowNumber?: number
-  translations: Record<string, string | { sourceKey: string; componentName: string | null; primaryReason: string | null; geometricDifference: string | null; briefDescription: string | null }>; description: string | null; area: string | null; objective: string | null; magnitude: string | null
+  translations: Record<string, string | { method?: 'automatic' | 'reviewed'; reviewStatus?: 'unreviewed' | 'reviewed'; policyVersion?: string; provider?: Record<string, string>; fieldMethods?: Record<string, string>; sourceKey: string; componentName: string | null; primaryReason: string | null; geometricDifference: string | null; briefDescription: string | null }>; description: string | null; area: string | null; objective: string | null; magnitude: string | null
   technicalState: 'ANNOUNCED' | 'SUBMITTED' | 'TESTED' | 'RUNNING' | 'RACE_SPEC'; validationState: 'published'; publishedAt: string
 }
 export interface PublishedGrandPrixDataset { schemaVersion: string; grandPrix: { id: string; name: string; circuit: string | null; startDate?: string | null; endDate?: string | null }; season: number; teams: string[]; updates: PublishedUpdate[]; publishedAt: string }

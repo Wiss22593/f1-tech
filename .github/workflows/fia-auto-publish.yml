@@ -47,10 +47,24 @@ jobs:
         if: steps.discovery.outputs.needs_pipeline == 'true'
         run: npm ci
 
+      - name: Restore pinned translation model cache
+        if: steps.discovery.outputs.needs_pipeline == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ingestion/output/translation-models
+          key: fia-es-model-${{ runner.os }}-${{ hashFiles('src/data/fia-localization/automatic-policy.json') }}
+
+      - name: Install pinned translation runtime
+        if: steps.discovery.outputs.needs_pipeline == 'true'
+        env:
+          ONNXRUNTIME_NODE_INSTALL_CUDA: skip
+        run: npm ci --prefix ingestion/fia/translation-runtime
+
       - name: Validate ingestion modules
         if: steps.discovery.outputs.needs_pipeline == 'true'
         run: |
           node --check ingestion/fia/auto-publish.mjs
+          node --check ingestion/fia/request.mjs
           node --check ingestion/fia/official-calendar.mjs
           node --check ingestion/fia/scheduled.mjs
           node --check ingestion/fia/finder.mjs
@@ -60,6 +74,9 @@ jobs:
           node --check ingestion/fia/normalizer.mjs
           node --check ingestion/fia/validator.mjs
           node --check ingestion/fia/publication.mjs
+          node --check ingestion/fia/translate-es.mjs
+          node --check ingestion/fia/translation-runtime/engine.mjs
+          node --check src/services/fia/translation-policy.mjs
           node --check ingestion/fia/run.mjs
           node --check ingestion/fia/backfill.mjs
 
@@ -116,3 +133,15 @@ jobs:
             ${{ steps.window.outputs.dataset_path }}
             ingestion/output/reports/
           if-no-files-found: error
+
+      - name: Preserve ingestion diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fia-ingestion-diagnostics-${{ github.run_id }}
+          path: |
+            ingestion/output/calendar/
+            ingestion/output/reports/
+            ingestion/output/manual-review/
+            ingestion/output/draft/
+          if-no-files-found: ignore

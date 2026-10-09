@@ -1,3 +1,4 @@
+import { automaticTranslationErrors } from './translation-policy.mjs'
 import catalogue from '../../data/fia-localization/es.json' with { type: 'json' }
 import terms from '../../data/fia-localization/terms-es.json' with { type: 'json' }
 
@@ -43,7 +44,9 @@ export function localizeFiaUpdate(record, locale) {
   }
 
   const embedded=record.translations?.es
-  const reviewed = embedded?.sourceKey === fiaLocalizationSourceKey(record) ? {sourceKey:embedded.sourceKey,es:Object.fromEntries(fields.map(f=>[f,embedded[f]]))} : catalogue[record.id]
+  const automatic=Boolean(embedded && (embedded.method==='automatic' || embedded.provider || embedded.policyVersion))
+  const automaticErrors=automatic?automaticTranslationErrors(record,fiaLocalizationSourceKey(record)):[]
+  const reviewed = embedded?.sourceKey === fiaLocalizationSourceKey(record) && !automaticErrors.length ? {sourceKey:embedded.sourceKey,es:Object.fromEntries(fields.map(f=>[f,embedded[f]]))} : catalogue[record.id]
   const missingFields = []
   const localized = reviewed?.sourceKey === fiaLocalizationSourceKey(record) ? { ...reviewed.es } : Object.fromEntries(fields.map(field => {
     const source = field === 'componentName' ? original[field] ?? record.componentId : original[field]
@@ -52,6 +55,7 @@ export function localizeFiaUpdate(record, locale) {
     if (!translation) missingFields.push(field)
     return [field, translation ?? pending]
   }))
+  if(automaticErrors.length)for(const field of fields){if(original[field]){localized[field]=pending;if(!missingFields.includes(field))missingFields.push(field)}}
   for (const field of fields) {
     if (original[field] && (!localized[field] || localized[field] === pending)) {
       if (!missingFields.includes(field)) missingFields.push(field)
@@ -60,6 +64,8 @@ export function localizeFiaUpdate(record, locale) {
   }
   return {
     ...localized,
+    translationStatus: missingFields.length ? 'pending' : automatic ? 'automatic' : 'reviewed',
+    ...(automatic && !automaticErrors.length ? {translationStatus:'automatic',translationNotice:'Traducción automática al español · Sin revisión humana. Original FIA en inglés disponible.'} : {}),
     componentLabel: localized.componentName ?? '—',
     summary: fields.map(field => localized[field]).filter(Boolean).join(' | '),
     complete: missingFields.length === 0,

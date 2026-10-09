@@ -1,0 +1,25 @@
+{
+  "version": "fia-aero-es-v2",
+  "terms": {
+    "chordwise and spanwise loading": "carga en las direcciones de la cuerda y de la envergadura",
+    "front tyre wake control": "control de la estela del neumático delantero",
+    "front wing assembly": "conjunto del alerón delantero",
+    "front wing endplate": "placa lateral del alerón delantero",
+    "front brake duct": "conducto de freno delantero",
+    "front wing": "alerón delantero",
+    "rear wing": "alerón trasero",
+    "end plate": "placa lateral",
+    "endplate": "placa lateral",
+    "footplate": "placa inferior",
+    "diveplane": "deflector",
+    "camber": "curvatura",
+    "chordwise": "en la dirección de la cuerda",
+    "spanwise": "en la dirección de la envergadura",
+    "chord": "cuerda",
+    "wingspan": "envergadura",
+    "wake": "estela",
+    "duct": "conducto",
+    "flap": "flap",
+    "wing": "alerón"
+  }
+}

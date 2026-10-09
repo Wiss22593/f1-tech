@@ -1,3 +1,4 @@
+import { FiaTranslationNote } from '../../components/fia/FiaTranslationNote'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { getCarAssetForTeam, type CameraPresetId, type CarComponentId, type F1TechHotspot } from '../../three/assets'
 import { ModelViewer } from '../../three/ModelViewer'
@@ -223,12 +224,14 @@ export function GaragePage({ locale }: { locale: Locale }) {
       {rows.length > 1 && <nav className="showroom-family-navigation" aria-label={title}>{rows.map(({ update, number, content }) => <button type="button" key={update.id} aria-pressed={selectedUpdateId === update.id} onClick={() => { setSelectedUpdateId(update.id); setDetailRequest(value => value + 1) }}>{number}. {content.presentedComponent ?? title}</button>)}</nav>}
       {focusedRow && rows.length > 1 && <article className="showroom-submission showroom-submission--focused" data-update-id={focusedRow.update.id} tabIndex={-1}>
         <h3>{focusedRow.number}. {focusedRow.content.presentedComponent ?? title}</h3>
+        {focusedRow.update.fiaRecord && <FiaTranslationNote record={focusedRow.update.fiaRecord} locale={locale} />}
         {focusedRow.content.primaryReason && renderField('primaryReason', focusedRow.content.primaryReason)}
         {focusedRow.content.geometricDifference && renderField('geometricDifference', focusedRow.content.geometricDifference)}
         {focusedRow.content.description && renderField('description', focusedRow.content.description)}
       </article>}
       {(!focusedRow || rows.length === 1) && rows.map(({ update, number, content, specific }) => <article className="showroom-submission" key={update.id} data-update-id={rows.length === 1 ? update.id : undefined} tabIndex={-1}>
         {(rows.length > 1 || showComponentSubtitle(title, content.presentedComponent)) && <h3 className="showroom-submission__heading">{rows.length > 1 && <span className="showroom-submission__number">{number}</span>}<span>{content.presentedComponent ?? title}</span></h3>}
+        {update.fiaRecord && <FiaTranslationNote record={update.fiaRecord} locale={locale} />}
         {specific.primaryReason && renderField('primaryReason', specific.primaryReason)}
         {specific.geometricDifference && renderField('geometricDifference', specific.geometricDifference)}
         {specific.description && renderField('description', specific.description)}

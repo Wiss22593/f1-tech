@@ -1,3 +1,4 @@
+import { automaticTranslationErrors } from '../../src/services/fia/translation-policy.mjs'
 import { localizeFiaUpdate, fiaLocalizationSourceKey } from '../../src/services/fia/localization.mjs'
 import { mkdir, rename, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
@@ -15,7 +16,8 @@ export function publicationDecision(record, { grandPrixIds, season }) {
   if (!officialFiaSource(record?.sourceUrl)) errors.push('non_official_fia_source')
   if (record?.parserConfidence !== 'deterministic_table') errors.push('insufficient_parser_confidence')
   if (record?.validationState !== 'validated') errors.push('record_not_validated')
-  if(record?.parserVersion==='fia-table-v4'&&!localizeFiaUpdate(record,'es').complete)errors.push('missing reviewed Spanish translation')
+  if(record?.parserVersion==='fia-table-v4'&&!localizeFiaUpdate(record,'es').complete)errors.push('missing complete Spanish translation')
+  if(record.translations?.es?.method==='automatic'||record.translations?.es?.provider||record.translations?.es?.policyVersion)errors.push(...automaticTranslationErrors(record,fiaLocalizationSourceKey(record)))
   return { publishable: errors.length === 0, errors }
 }
 
@@ -28,7 +30,7 @@ export function createPublicationPlan({ document, records, rejected = [], grandP
     if (decision.errors.length) manualReview.push({ ...record, reason: decision.errors, suggestedComponentIds: [] })
     else {
       const es=record.parserVersion==='fia-table-v4'?localizeFiaUpdate(record,'es'):null
-      const translations=es?{...record.translations,es:{sourceKey:fiaLocalizationSourceKey(record),...Object.fromEntries(['componentName','primaryReason','geometricDifference','briefDescription'].map(f=>[f,es[f]]))}}:record.translations
+      const translations=es?{...record.translations,es:{...(record.translations?.es??{}),sourceKey:fiaLocalizationSourceKey(record),...Object.fromEntries(['componentName','primaryReason','geometricDifference','briefDescription'].map(f=>[f,es[f]]))}}:record.translations
       published.push({...record,translations,validationState:'published',publishedAt:new Date().toISOString()})
     }
   }
