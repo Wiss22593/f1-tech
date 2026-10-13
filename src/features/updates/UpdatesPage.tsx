@@ -74,6 +74,6 @@ export function UpdatesPage({ locale }: { locale: Locale }) {
       </article>)}
     </div>
     {visibleUpdates.length === 0 && <div className="updates-page__empty card">{uiText(locale, 'noRecords')}</div>}
-    <AdSlot placementId="updates-bottom" />
+    <AdSlot locale={locale} placementId="updates-bottom" />
   </section>
 }
