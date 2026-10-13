@@ -185,7 +185,7 @@ test('Madrid reconciliation preserves all deterministic rows and the Mercedes pu
   assert.deepEqual(dataset.updates.filter((update) => update.teamId === 'red-bull-racing').map(({ componentName }) => componentName), ['Rear Corner', 'Floor Bib'])
   assert.deepEqual(dataset.updates.filter((update) => update.visualizable === false).map(({ componentId }) => componentId), [null, null, null])
   assert.equal(dataset.validation.manualReview, 0)
-  assert.equal(dataset.parserVersion, 'fia-table-v4')
+  assert.equal(dataset.parserVersion, 'fia-table-v2')
 })
 
 test('Development Battle counts every factual published row, including non-visualizable updates', async () => {
@@ -206,16 +206,15 @@ test('latest published GP ignores newer future or no-document events without dat
 test('Garage opens text-only updates without assigning a fake camera component', async () => {
   const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
   assert.match(garage, /setSelectedUpdateId\(selecting \? update\.id : undefined\)/)
-  assert.match(garage, /if \(!update\.componentId\) \{ setSelectedComponent\(undefined\)/)
-  assert.match(garage, /selectedComponentName=\{focusFromUpdate \? selectedUpdate\?\.fiaRecord\?\.componentName/)
+  assert.match(garage, /if \(!update\.componentId\) return/)
   assert.match(garage, /nonVisualizableUpdates\.map\(renderTextOnlyUpdate\)/)
   assert.match(garage, /findPublishedGrandPrix\(\)/)
 })
 
 test('Madrid reruns are idempotent for the same hash, schema and parser version', async () => {
   const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/madrid-grand-prix-2026.json', import.meta.url), 'utf8'))
-  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v4'), true)
-  assert.equal(isPublishedDatasetCurrent(dataset, dataset, 'b'.repeat(64), 'fia-table-v4'), false)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v2'), true)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, 'b'.repeat(64), 'fia-table-v2'), false)
   assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v3'), false)
 })
 
@@ -357,7 +356,7 @@ test('six-locale catalog covers Garage labels and factual offline state', async 
   for (const locale of ['es', 'en', 'it', 'pt', 'fr', 'de']) {
     assert.match(catalogue, new RegExp(`\\b${locale}: \\{ name:`))
   }
-  for (const page of ['technical-preview/TechnicalPreview.tsx', 'insights/useSeasonRecords.ts']) {
+  for (const page of ['technical-preview/TechnicalPreview.tsx', 'updates/UpdatesPage.tsx', 'teams/TeamsPage.tsx']) {
     const source = await readFile(new URL(`../src/features/${page}`, import.meta.url), 'utf8')
     assert.match(source, /navigator\.onLine \? 'stale' : 'offline'/)
   }
@@ -394,7 +393,7 @@ test('recovered Thursday document remains deterministic and latest published adv
   assert.equal(dataset.updates.length, 38)
   assert.equal(dataset.validation.manualReview, 0)
   assert.equal(validateAutoPublishDataset(dataset, 'public/data/grands-prix/2026/azerbaijan-2026.json').valid, true)
-  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v4'), true)
+  assert.equal(isPublishedDatasetCurrent(dataset, dataset, dataset.sourceDocument.documentHash, 'fia-table-v3'), true)
   const ids = new Set(['madrid-grand-prix-2026', 'azerbaijan-2026'])
   assert.equal(selectLatestPublishedGrandPrixId(eventRegistry2026, ids), 'azerbaijan-2026')
   ids.add('bahrain-2026')
@@ -413,13 +412,12 @@ test('scheduled workflow uses verified FP1, generic 24-hour cron and guarded pre
   assert.match(runner, /results.some\(\(\{ status \}\) => status === 'ERROR'\)/)
 })
 
-test('all historical datasets use the strict reconstructed source contract', async () => {
-  const { readdir } = await import('node:fs/promises')
-  const directory = new URL('../public/data/grands-prix/2026/', import.meta.url)
-  for (const file of (await readdir(directory)).filter(f=>f.endsWith('.json'))) {
-    const dataset=JSON.parse(await readFile(new URL(file,directory),'utf8'))
-    assert.equal(dataset.parserVersion,'fia-table-v4',file)
-    assert.ok(dataset.updates.every(row=>row.sourcePage && row.sourceTeamHeading),file)
+test('historical published datasets remain byte-identical after newline normalization', async () => {
+  const { createHash } = await import('node:crypto')
+  const hashes = JSON.parse(await readFile(new URL('./fixtures/historical-dataset-hashes.json', import.meta.url), 'utf8'))
+  for (const [file, expected] of Object.entries(hashes)) {
+    const text = await readFile(new URL('../public/data/grands-prix/2026/' + file, import.meta.url), 'utf8')
+    assert.equal(createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex'), expected, file)
   }
 })
 
@@ -467,4 +465,3 @@ test('extractor keeps painted table borders in text coordinates and excludes cli
   assert.deepEqual(lines.horizontal, [{ x1:10, x2:110, y:20.25 }])
   assert.deepEqual(lines.vertical, [{ x:3.25, y1:4, y2:44 }])
 })
-

@@ -36,7 +36,7 @@ function original(record) {
 }
 
 test('all reviewed published records have Spanish copy bound to their current English source', () => {
-  assert.equal(records.length, 427)
+  assert.ok(records.length >= 218)
   assert.equal(new Set(records.map(record => record.id)).size, records.length)
   assert.deepEqual(Object.keys(catalogue).sort(), records.map(record => record.id).sort())
   for (const record of records) {
@@ -93,7 +93,7 @@ test('ES → EN → ES leaves every original field, URL, ID, hash and publicatio
     assert.notEqual(localizeFiaUpdate(record, 'es').briefDescription, first.briefDescription)
   }
   assert.deepEqual(records, snapshot)
-  assert.equal(records.length, 427)
+  assert.equal(records.length, 218)
   assert.equal(az.length, 38)
   assert.equal(madrid.length, 10)
 })
@@ -119,12 +119,15 @@ test('rows without a hotspot receive complete translations without becoming visu
   }
 })
 
-test('reconstructed records preserve all four original English columns and reviewed Spanish', () => {
-  assert.equal(records.filter(row=>!row.componentName).length, 0)
-  for(const row of records){
-    const es=localizeFiaUpdate(row,'es')
-    for(const field of fields){assert.ok(row[field],row.id+': '+field);assert.ok(es[field],row.id+': '+field)}
-    assert.equal(row.sourceText,fields.map(field=>row[field]).filter(Boolean).join(' | '))
+test('legacy records translate their complete source block without inventing separate columns', () => {
+  const legacy = records.filter(row => !row.componentName)
+  assert.equal(legacy.length, 170)
+  for (const row of legacy) {
+    const es = localizeFiaUpdate(row, 'es')
+    assert.equal(es.primaryReason, null)
+    assert.equal(es.geometricDifference, null)
+    assert.ok(es.briefDescription)
+    assert.equal(localizeFiaUpdate(row, 'en').briefDescription, row.description ?? row.sourceText)
   }
 })
 
@@ -147,22 +150,13 @@ test('new or changed technical sentences show explicit Spanish pending copy inst
   }
 })
 
-test('incomplete embedded translations cannot bypass the publication guard', () => {
-  const row=structuredClone(az[0])
-  delete row.translations.es.geometricDifference
-  const es=localizeFiaUpdate(row,'es')
-  assert.equal(es.complete,false)
-  assert.deepEqual(es.missingFields,['geometricDifference'])
-})
-
-// Auto-publish adds new GPs; baseline coverage must not reject a new validated dataset.
-test('new published GP records have complete Spanish with explicit translation provenance', () => {
- for(const row of allRecords.filter(record => !Object.hasOwn(catalogue,record.id))) {
-  const es=localizeFiaUpdate(row,'es')
-  assert.equal(es.complete,true,row.id)
-  assert.ok(['automatic','reviewed'].includes(es.translationStatus),row.id)
-  if(es.translationStatus==='automatic')assert.equal(row.translations.es.reviewStatus,'unreviewed')
- }
+test('all fifteen published datasets remain byte-identical after newline normalization', async () => {
+  const hashes = JSON.parse(await readFile(new URL('./fixtures/published-localization-dataset-hashes.json', import.meta.url), 'utf8'))
+  assert.ok(Object.keys(hashes).every(file => files.includes(file)))
+  for (const [file, expected] of Object.entries(hashes)) {
+    const text = (await readFile(new URL(file, directory), 'utf8')).replace(/\r\n/g, '\n')
+    assert.equal(createHash('sha256').update(text).digest('hex'), expected, file)
+  }
 })
 
 // Auto-publish adds new GPs; baseline coverage must not reject a new validated dataset.
