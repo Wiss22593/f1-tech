@@ -1,0 +1,33 @@
+{
+  "format": "F1TECH_UNIVERSAL_MAPS",
+  "version": 3,
+  "universal": true,
+  "map_count": 11,
+  "map_faces_total": 168273,
+  "overlay_glb": "Formula Alpha F1 2026 livery alpine colapinto_f1tech_maps.glb",
+  "maps_exported": [
+    "MAP_NOSE",
+    "MAP_FLOOR",
+    "MAP_DIFFUSER",
+    "MAP_SIDEPODS",
+    "MAP_ENGINE_COVER",
+    "MAP_AIRBOX",
+    "MAP_BEAM_WING",
+    "MAP_EXHAUST",
+    "MAP_MIRRORS",
+    "MAP_RIS",
+    "MAP_TAIL"
+  ],
+  "maps": {
+    "MAP_AIRBOX": {
+      "label": "Airbox / Caja de aire",
+      "mesh_name": "MAP_AIRBOX_MESH",
+      "faces": 8137,
+      "source_json": "Formula Alpha F1 2026 livery alpine colapinto_airbox_selection.json"
+    }
+  },
+  "fia_aliases": {
+    "Airbox": "MAP_AIRBOX",
+    "Air Box": "MAP_AIRBOX"
+  }
+}

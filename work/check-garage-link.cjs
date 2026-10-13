@@ -1,0 +1,4 @@
+const {chromium}=require('C:/Users/mb937/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{const b=await chromium.launch({headless:true,channel:'msedge'});const p=await b.newPage();p.on('response',async r=>{if(r.status()>=400)console.log('HTTP',r.status(),r.url(),(await r.text()).slice(0,400))});p.on('console',m=>{if(m.type()==='error')console.log('CONSOLE',m.text())});p.on('pageerror',e=>console.log('PAGEERROR',e.message));await p.goto('http://127.0.0.1:5186/inicio?team=alpine&driver=colapinto');await p.waitForTimeout(7000);console.log(JSON.stringify({url:p.url(),text:(await p.locator('body').innerText()).slice(0,3500),drivers:await p.locator('[class*=driver]').evaluateAll(es=>es.map(e=>({cls:e.className,text:e.textContent})).slice(0,10))}));await b.close()})().catch(e=>{console.error(e);process.exit(1)})
+
+

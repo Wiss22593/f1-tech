@@ -10,12 +10,36 @@
         "indices": 403410,
         "positionHash": "f90eed08",
         "indexHash": "c9e92a47",
-        "weldPrecision": 10000,
+        "partition": "indexed",
         "components": {
           "floor": [
             {
               "firstTriangle": 2,
-              "triangles": 27628
+              "triangles": 6726
+            },
+            {
+              "firstTriangle": 3,
+              "triangles": 4952
+            },
+            {
+              "firstTriangle": 26760,
+              "triangles": 598
+            },
+            {
+              "firstTriangle": 26894,
+              "triangles": 1592
+            },
+            {
+              "firstTriangle": 27132,
+              "triangles": 3532
+            },
+            {
+              "firstTriangle": 30348,
+              "triangles": 6696
+            },
+            {
+              "firstTriangle": 40920,
+              "triangles": 3532
             }
           ],
           "frontWing": [
@@ -39,15 +63,511 @@
             },
             {
               "firstTriangle": 58238,
-              "triangles": 2688
+              "triangles": 1344
+            },
+            {
+              "firstTriangle": 58270,
+              "triangles": 1344
             },
             {
               "firstTriangle": 60926,
-              "triangles": 1664
+              "triangles": 840
+            },
+            {
+              "firstTriangle": 60942,
+              "triangles": 824
             },
             {
               "firstTriangle": 62590,
-              "triangles": 1664
+              "triangles": 840
+            },
+            {
+              "firstTriangle": 62606,
+              "triangles": 824
+            }
+          ],
+          "frontSuspension": [
+            {
+              "firstTriangle": 74522,
+              "triangles": 800
+            },
+            {
+              "firstTriangle": 74542,
+              "triangles": 864
+            },
+            {
+              "firstTriangle": 76186,
+              "triangles": 856
+            },
+            {
+              "firstTriangle": 76206,
+              "triangles": 1000
+            },
+            {
+              "firstTriangle": 78042,
+              "triangles": 800
+            },
+            {
+              "firstTriangle": 78062,
+              "triangles": 864
+            },
+            {
+              "firstTriangle": 79706,
+              "triangles": 856
+            },
+            {
+              "firstTriangle": 79726,
+              "triangles": 1000
+            },
+            {
+              "firstTriangle": 81562,
+              "triangles": 136
+            },
+            {
+              "firstTriangle": 81626,
+              "triangles": 120
+            },
+            {
+              "firstTriangle": 81818,
+              "triangles": 136
+            },
+            {
+              "firstTriangle": 81882,
+              "triangles": 120
+            },
+            {
+              "firstTriangle": 133426,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133474,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133522,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133570,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133618,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133666,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133714,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133762,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133810,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 133874,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 133938,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 133986,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134034,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134082,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134130,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134178,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134226,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134274,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 134322,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 134386,
+              "triangles": 64
+            }
+          ],
+          "rearSuspension": [
+            {
+              "firstTriangle": 108154,
+              "triangles": 34
+            },
+            {
+              "firstTriangle": 108170,
+              "triangles": 30
+            },
+            {
+              "firstTriangle": 108218,
+              "triangles": 448
+            },
+            {
+              "firstTriangle": 108238,
+              "triangles": 544
+            },
+            {
+              "firstTriangle": 109210,
+              "triangles": 736
+            },
+            {
+              "firstTriangle": 109230,
+              "triangles": 928
+            },
+            {
+              "firstTriangle": 110874,
+              "triangles": 144
+            },
+            {
+              "firstTriangle": 110942,
+              "triangles": 112
+            },
+            {
+              "firstTriangle": 122058,
+              "triangles": 34
+            },
+            {
+              "firstTriangle": 122074,
+              "triangles": 30
+            },
+            {
+              "firstTriangle": 122122,
+              "triangles": 448
+            },
+            {
+              "firstTriangle": 122142,
+              "triangles": 544
+            },
+            {
+              "firstTriangle": 123114,
+              "triangles": 736
+            },
+            {
+              "firstTriangle": 123134,
+              "triangles": 928
+            },
+            {
+              "firstTriangle": 124778,
+              "triangles": 144
+            },
+            {
+              "firstTriangle": 124846,
+              "triangles": 112
+            }
+          ],
+          "frontBrake": [
+            {
+              "firstTriangle": 68314,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 68698,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 71386,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 71402,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 71418,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 71802,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 74490,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 74506,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 82074,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 82076,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 82078,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 82080,
+              "triangles": 6
+            },
+            {
+              "firstTriangle": 82082,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 82084,
+              "triangles": 2
+            },
+            {
+              "firstTriangle": 82090,
+              "triangles": 2
+            },
+            {
+              "firstTriangle": 82094,
+              "triangles": 2
+            },
+            {
+              "firstTriangle": 82102,
+              "triangles": 1232
+            },
+            {
+              "firstTriangle": 82614,
+              "triangles": 944
+            },
+            {
+              "firstTriangle": 84278,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 84280,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 84282,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 84284,
+              "triangles": 6
+            },
+            {
+              "firstTriangle": 84286,
+              "triangles": 4
+            },
+            {
+              "firstTriangle": 84288,
+              "triangles": 2
+            },
+            {
+              "firstTriangle": 84294,
+              "triangles": 2
+            },
+            {
+              "firstTriangle": 84298,
+              "triangles": 2
+            },
+            {
+              "firstTriangle": 84306,
+              "triangles": 1232
+            },
+            {
+              "firstTriangle": 84818,
+              "triangles": 944
+            },
+            {
+              "firstTriangle": 86482,
+              "triangles": 1952
+            },
+            {
+              "firstTriangle": 86738,
+              "triangles": 1952
+            },
+            {
+              "firstTriangle": 90386,
+              "triangles": 1952
+            },
+            {
+              "firstTriangle": 90642,
+              "triangles": 1952
+            }
+          ],
+          "rearBrake": [
+            {
+              "firstTriangle": 97226,
+              "triangles": 288
+            },
+            {
+              "firstTriangle": 97250,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 98400,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 99146,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 99178,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 100682,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 100714,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 102218,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 102250,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 103754,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 103786,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 105290,
+              "triangles": 2864
+            },
+            {
+              "firstTriangle": 111130,
+              "triangles": 288
+            },
+            {
+              "firstTriangle": 111154,
+              "triangles": 1536
+            },
+            {
+              "firstTriangle": 112304,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 113050,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 113082,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 114586,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 114618,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 116122,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 116154,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 117658,
+              "triangles": 512
+            },
+            {
+              "firstTriangle": 117690,
+              "triangles": 1024
+            },
+            {
+              "firstTriangle": 119194,
+              "triangles": 2864
+            }
+          ],
+          "onboardCamera": [
+            {
+              "firstTriangle": 4944,
+              "triangles": 624
+            },
+            {
+              "firstTriangle": 4976,
+              "triangles": 2912
+            },
+            {
+              "firstTriangle": 5144,
+              "triangles": 1040
+            },
+            {
+              "firstTriangle": 5584,
+              "triangles": 5408
+            },
+            {
+              "firstTriangle": 5616,
+              "triangles": 1888
+            },
+            {
+              "firstTriangle": 7648,
+              "triangles": 1120
+            },
+            {
+              "firstTriangle": 8224,
+              "triangles": 1120
+            },
+            {
+              "firstTriangle": 10928,
+              "triangles": 1888
+            },
+            {
+              "firstTriangle": 12906,
+              "triangles": 1344
+            },
+            {
+              "firstTriangle": 13480,
+              "triangles": 3136
+            },
+            {
+              "firstTriangle": 15604,
+              "triangles": 736
+            },
+            {
+              "firstTriangle": 16452,
+              "triangles": 592
+            }
+          ],
+          "diffuser": [
+            {
+              "firstTriangle": 3,
+              "triangles": 4952
+            },
+            {
+              "firstTriangle": 30348,
+              "triangles": 6696
             }
           ]
         }
@@ -59,68 +579,368 @@
         "indices": 359946,
         "positionHash": "2fd058d8",
         "indexHash": "182a28c0",
-        "weldPrecision": 1000000,
+        "partition": "indexed",
         "components": {
           "frontWing": [
             {
               "firstTriangle": 13662,
-              "triangles": 616
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 13664,
+              "triangles": 264
+            },
+            {
+              "firstTriangle": 13680,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 13694,
+              "triangles": 48
             },
             {
               "firstTriangle": 13758,
-              "triangles": 704
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 13760,
+              "triangles": 288
+            },
+            {
+              "firstTriangle": 13776,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 13790,
+              "triangles": 96
             },
             {
               "firstTriangle": 13886,
-              "triangles": 704
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 13888,
+              "triangles": 288
+            },
+            {
+              "firstTriangle": 13904,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 13918,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 14766,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14768,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14782,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14798,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14830,
+              "triangles": 24
+            },
+            {
+              "firstTriangle": 14838,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14854,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14870,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 14878,
+              "triangles": 8
+            },
+            {
+              "firstTriangle": 14886,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14888,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14902,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 14918,
+              "triangles": 32
             },
             {
               "firstTriangle": 15686,
-              "triangles": 616
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 15688,
+              "triangles": 264
+            },
+            {
+              "firstTriangle": 15704,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 15718,
+              "triangles": 48
             },
             {
               "firstTriangle": 15782,
-              "triangles": 704
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 15784,
+              "triangles": 288
+            },
+            {
+              "firstTriangle": 15800,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 15814,
+              "triangles": 96
             },
             {
               "firstTriangle": 15910,
-              "triangles": 704
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 15912,
+              "triangles": 288
+            },
+            {
+              "firstTriangle": 15928,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 15942,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 16790,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16792,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16806,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16822,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16854,
+              "triangles": 24
+            },
+            {
+              "firstTriangle": 16862,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16878,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16894,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 16902,
+              "triangles": 8
+            },
+            {
+              "firstTriangle": 16910,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16912,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16926,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 16942,
+              "triangles": 32
             },
             {
               "firstTriangle": 17856,
-              "triangles": 384
+              "triangles": 160
+            },
+            {
+              "firstTriangle": 17920,
+              "triangles": 160
+            },
+            {
+              "firstTriangle": 17994,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 18026,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 18176,
+              "triangles": 16
             },
             {
               "firstTriangle": 18240,
-              "triangles": 384
+              "triangles": 160
+            },
+            {
+              "firstTriangle": 18304,
+              "triangles": 160
+            },
+            {
+              "firstTriangle": 18378,
+              "triangles": 32
+            },
+            {
+              "firstTriangle": 18410,
+              "triangles": 16
+            },
+            {
+              "firstTriangle": 18560,
+              "triangles": 16
             },
             {
               "firstTriangle": 90690,
-              "triangles": 2048
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 91202,
+              "triangles": 960
+            },
+            {
+              "firstTriangle": 91734,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 92226,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 92354,
+              "triangles": 64
             },
             {
               "firstTriangle": 92738,
-              "triangles": 2048
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 93250,
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 93782,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 93910,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 94274,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 94402,
+              "triangles": 64
             },
             {
               "firstTriangle": 94786,
-              "triangles": 2048
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 95298,
+              "triangles": 896
+            },
+            {
+              "firstTriangle": 95830,
+              "triangles": 128
+            },
+            {
+              "firstTriangle": 95958,
+              "triangles": 64
+            },
+            {
+              "firstTriangle": 96450,
+              "triangles": 64
             },
             {
               "firstTriangle": 96834,
-              "triangles": 2784
+              "triangles": 2040
+            },
+            {
+              "firstTriangle": 96930,
+              "triangles": 744
             },
             {
               "firstTriangle": 99618,
-              "triangles": 2784
+              "triangles": 1972
+            },
+            {
+              "firstTriangle": 99714,
+              "triangles": 556
+            },
+            {
+              "firstTriangle": 102146,
+              "triangles": 68
+            },
+            {
+              "firstTriangle": 102150,
+              "triangles": 188
             },
             {
               "firstTriangle": 102402,
-              "triangles": 2800
+              "triangles": 1300
+            },
+            {
+              "firstTriangle": 102626,
+              "triangles": 1300
+            },
+            {
+              "firstTriangle": 102850,
+              "triangles": 100
+            },
+            {
+              "firstTriangle": 102854,
+              "triangles": 100
             },
             {
               "firstTriangle": 105202,
-              "triangles": 2800
+              "triangles": 1300
+            },
+            {
+              "firstTriangle": 105426,
+              "triangles": 1300
+            },
+            {
+              "firstTriangle": 105650,
+              "triangles": 100
+            },
+            {
+              "firstTriangle": 105654,
+              "triangles": 100
             }
           ],
           "rearWing": [
@@ -134,23 +954,341 @@
             },
             {
               "firstTriangle": 5014,
-              "triangles": 1152
+              "triangles": 480
             },
             {
               "firstTriangle": 5206,
-              "triangles": 224
+              "triangles": 104
             },
             {
               "firstTriangle": 5270,
-              "triangles": 1536
+              "triangles": 672
+            },
+            {
+              "firstTriangle": 5654,
+              "triangles": 480
+            },
+            {
+              "firstTriangle": 5846,
+              "triangles": 104
+            },
+            {
+              "firstTriangle": 5910,
+              "triangles": 672
+            },
+            {
+              "firstTriangle": 6304,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 6336,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 6720,
+              "triangles": 8
+            },
+            {
+              "firstTriangle": 6752,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 6934,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 7126,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 7318,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 7510,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 7702,
+              "triangles": 48
+            },
+            {
+              "firstTriangle": 7894,
+              "triangles": 8
             },
             {
               "firstTriangle": 17710,
-              "triangles": 66
+              "triangles": 12
+            },
+            {
+              "firstTriangle": 17712,
+              "triangles": 18
+            },
+            {
+              "firstTriangle": 17714,
+              "triangles": 12
+            },
+            {
+              "firstTriangle": 17724,
+              "triangles": 12
+            },
+            {
+              "firstTriangle": 17732,
+              "triangles": 12
             },
             {
               "firstTriangle": 17776,
-              "triangles": 80
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17778,
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17780,
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17782,
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17784,
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17786,
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17788,
+              "triangles": 10
+            },
+            {
+              "firstTriangle": 17790,
+              "triangles": 10
+            }
+          ],
+          "nose": [
+            {
+              "firstTriangle": 18624,
+              "triangles": 500
+            },
+            {
+              "firstTriangle": 18626,
+              "triangles": 1004
+            },
+            {
+              "firstTriangle": 52827,
+              "triangles": 180
+            },
+            {
+              "firstTriangle": 52837,
+              "triangles": 300
+            },
+            {
+              "firstTriangle": 52923,
+              "triangles": 180
+            },
+            {
+              "firstTriangle": 53567,
+              "triangles": 288
+            }
+          ],
+          "halo": [
+            {
+              "firstTriangle": 19960,
+              "triangles": 5376
+            }
+          ],
+          "sidepods": [
+            {
+              "firstTriangle": 18656,
+              "triangles": 5596
+            },
+            {
+              "firstTriangle": 54239,
+              "triangles": 5596
+            },
+            {
+              "firstTriangle": 19232,
+              "triangles": 4804
+            },
+            {
+              "firstTriangle": 54815,
+              "triangles": 4804
+            },
+            {
+              "firstTriangle": 21840,
+              "triangles": 414
+            },
+            {
+              "firstTriangle": 57439,
+              "triangles": 414
+            },
+            {
+              "firstTriangle": 34469,
+              "triangles": 334
+            },
+            {
+              "firstTriangle": 70079,
+              "triangles": 334
+            }
+          ],
+          "engineCover": [
+            {
+              "firstTriangle": 26119,
+              "triangles": 6324
+            },
+            {
+              "firstTriangle": 61677,
+              "triangles": 6324
+            },
+            {
+              "firstTriangle": 31397,
+              "triangles": 294
+            },
+            {
+              "firstTriangle": 66955,
+              "triangles": 294
+            },
+            {
+              "firstTriangle": 31613,
+              "triangles": 108
+            },
+            {
+              "firstTriangle": 67139,
+              "triangles": 108
+            },
+            {
+              "firstTriangle": 34621,
+              "triangles": 442
+            },
+            {
+              "firstTriangle": 70231,
+              "triangles": 438
+            }
+          ],
+          "mirrors": [
+            {
+              "firstTriangle": 108002,
+              "triangles": 374
+            },
+            {
+              "firstTriangle": 108018,
+              "triangles": 186
+            },
+            {
+              "firstTriangle": 108034,
+              "triangles": 390
+            },
+            {
+              "firstTriangle": 108058,
+              "triangles": 30
+            },
+            {
+              "firstTriangle": 108066,
+              "triangles": 508
+            },
+            {
+              "firstTriangle": 108098,
+              "triangles": 1444
+            },
+            {
+              "firstTriangle": 108258,
+              "triangles": 164
+            },
+            {
+              "firstTriangle": 108970,
+              "triangles": 1376
+            },
+            {
+              "firstTriangle": 109178,
+              "triangles": 316
+            },
+            {
+              "firstTriangle": 111518,
+              "triangles": 952
+            },
+            {
+              "firstTriangle": 113530,
+              "triangles": 374
+            },
+            {
+              "firstTriangle": 113546,
+              "triangles": 182
+            },
+            {
+              "firstTriangle": 113562,
+              "triangles": 390
+            },
+            {
+              "firstTriangle": 113586,
+              "triangles": 30
+            },
+            {
+              "firstTriangle": 113594,
+              "triangles": 508
+            },
+            {
+              "firstTriangle": 113626,
+              "triangles": 1444
+            },
+            {
+              "firstTriangle": 113786,
+              "triangles": 164
+            },
+            {
+              "firstTriangle": 114498,
+              "triangles": 1376
+            },
+            {
+              "firstTriangle": 114706,
+              "triangles": 316
+            },
+            {
+              "firstTriangle": 117046,
+              "triangles": 952
+            },
+            {
+              "firstTriangle": 119058,
+              "triangles": 82
+            },
+            {
+              "firstTriangle": 119068,
+              "triangles": 42
+            },
+            {
+              "firstTriangle": 119082,
+              "triangles": 82
+            },
+            {
+              "firstTriangle": 119092,
+              "triangles": 46
+            },
+            {
+              "firstTriangle": 119098,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 119118,
+              "triangles": 96
+            },
+            {
+              "firstTriangle": 119144,
+              "triangles": 8
+            },
+            {
+              "firstTriangle": 119148,
+              "triangles": 8
+            },
+            {
+              "firstTriangle": 119252,
+              "triangles": 8
+            },
+            {
+              "firstTriangle": 119254,
+              "triangles": 8
             }
           ]
         }
@@ -162,186 +1300,637 @@
         "FR_Wheel",
         "RL_Wheel",
         "RR_Wheel"
+      ],
+      "frontWheels": [
+        "FL_Wheel",
+        "FR_Wheel"
+      ],
+      "rearWheels": [
+        "RL_Wheel",
+        "RR_Wheel"
+      ],
+      "chassis": [
+        "cockpit"
+      ]
+    },
+    "composites": {
+      "frontCorner": [
+        "frontSuspension",
+        "frontBrake",
+        "frontWheels"
+      ],
+      "rearCorner": [
+        "rearSuspension",
+        "rearBrake",
+        "rearWheels"
       ]
     }
   },
   "alpine-a526-formulatech-evaluation": {
-    "file": "alpine-a526-formulatech.glb",
-    "sha256": "6d1f8f5680ab4c627fb8e4b82fc089c5fe047ccb0c45961c3673d394c9a9fd03",
+    "file": "alpine-a526-colapinto.glb",
+    "sha256": "d0a8ed306ed95c028011a615bd7ab3ecbbff8f9ba0543963784da2d196744747",
     "meshRules": [
       {
-        "node": "carbon",
+        "node": "GEO_MAIN_BODY_3_366",
         "primitive": 0,
-        "vertices": 74112,
-        "indices": 403410,
-        "positionHash": "f90eed08",
-        "indexHash": "c9e92a47",
-        "weldPrecision": 10000,
+        "partition": "indexed",
+        "vertices": 18252,
+        "indices": 99168,
+        "positionHash": "5eee0635",
+        "indexHash": "eea3ac3a",
         "components": {
-          "floor": [
-            {
-              "firstTriangle": 2,
-              "triangles": 27628
-            }
-          ],
-          "frontWing": [
-            {
-              "firstTriangle": 8,
-              "triangles": 2272
-            },
-            {
-              "firstTriangle": 2280,
-              "triangles": 2272
-            }
-          ],
-          "rearWing": [
-            {
-              "firstTriangle": 54366,
-              "triangles": 1936
-            },
-            {
-              "firstTriangle": 56302,
-              "triangles": 1936
-            },
-            {
-              "firstTriangle": 58238,
-              "triangles": 2688
-            },
-            {
-              "firstTriangle": 60926,
-              "triangles": 1664
-            },
-            {
-              "firstTriangle": 62590,
-              "triangles": 1664
-            }
-          ]
-        }
-      },
-      {
-        "node": "Livery",
-        "primitive": 1,
-        "vertices": 17468,
-        "indices": 88401,
-        "positionHash": "27a22e52",
-        "indexHash": "a2b7f9f8",
-        "weldPrecision": 1000000,
-        "components": {
-          "frontWing": [
-            {
-              "firstTriangle": 17737,
-              "triangles": 2048
-            },
-            {
-              "firstTriangle": 19785,
-              "triangles": 2048
-            },
-            {
-              "firstTriangle": 21833,
-              "triangles": 2048
-            },
-            {
-              "firstTriangle": 23881,
-              "triangles": 2784
-            },
-            {
-              "firstTriangle": 26665,
-              "triangles": 2784
-            }
-          ],
-          "rearWing": [
+          "halo": [
             {
               "firstTriangle": 0,
-              "triangles": 2480
+              "triangles": 3954
             },
             {
-              "firstTriangle": 2480,
-              "triangles": 2480
+              "firstTriangle": 33,
+              "triangles": 3688
             },
             {
-              "firstTriangle": 4960,
-              "triangles": 1152
+              "firstTriangle": 77,
+              "triangles": 247
             },
             {
-              "firstTriangle": 5152,
-              "triangles": 224
+              "firstTriangle": 16605,
+              "triangles": 247
             },
             {
-              "firstTriangle": 5216,
-              "triangles": 1536
+              "firstTriangle": 3779,
+              "triangles": 228
             },
             {
-              "firstTriangle": 11078,
-              "triangles": 66
-            },
-            {
-              "firstTriangle": 11144,
-              "triangles": 80
+              "firstTriangle": 20307,
+              "triangles": 228
             }
           ]
         }
       },
       {
-        "node": "Livery",
-        "primitive": 2,
-        "vertices": 7640,
-        "indices": 35007,
-        "positionHash": "5b10c926",
-        "indexHash": "c76bf648",
-        "weldPrecision": 1000000,
+        "node": "GEO_MAIN_STICKERS_368",
+        "primitive": 0,
+        "partition": "indexed",
+        "vertices": 11120,
+        "indices": 58686,
+        "positionHash": "89a1cdb7",
+        "indexHash": "974b892d",
         "components": {
-          "frontWing": [
+          "halo": [
             {
-              "firstTriangle": 782,
-              "triangles": 616
+              "firstTriangle": 2398,
+              "triangles": 3502
             },
             {
-              "firstTriangle": 878,
-              "triangles": 704
+              "firstTriangle": 6642,
+              "triangles": 575
             },
             {
-              "firstTriangle": 1006,
-              "triangles": 704
-            },
-            {
-              "firstTriangle": 2806,
-              "triangles": 616
-            },
-            {
-              "firstTriangle": 2902,
-              "triangles": 704
-            },
-            {
-              "firstTriangle": 3030,
-              "triangles": 704
-            },
-            {
-              "firstTriangle": 4830,
-              "triangles": 384
-            },
-            {
-              "firstTriangle": 5214,
-              "triangles": 384
-            },
-            {
-              "firstTriangle": 6024,
-              "triangles": 2800
-            },
-            {
-              "firstTriangle": 8824,
-              "triangles": 2800
+              "firstTriangle": 16423,
+              "triangles": 575
             }
           ]
         }
       }
     ],
     "objects": {
-      "wheels": [
-        "FL_Wheel",
-        "FR_Wheel",
-        "RL_Wheel",
-        "RR_Wheel"
+      "frontWing": [
+        "GEO_CB1_FW_ENDPLATE_L_459",
+        "GEO_CB1_FW_ENDPLATE_R_463",
+        "GEO_EXT_FW_ATTACHMENT_471",
+        "GEO_EXT_FW_ENDPLATE_L_460",
+        "GEO_EXT_FW_ENDPLATE_R_464",
+        "GEO_MAIN_FRONTWING_SUB0_467",
+        "GEO_MAIN_FRONTWING_SUB1_468",
+        "GEO_MAIN_FRONTWING_SUB2_469",
+        "GEO_MAIN_FRONTWING_SUB3_470",
+        "GEO_MAIN_FW_ENDPLATE_L_462",
+        "GEO_MAIN_FW_ENDPLATE_R_466",
+        "GEO_MAIN_FW_STICKER_422"
+      ],
+      "rearWing": [
+        "GEO_CB1_RW_450",
+        "GEO_CB1_RW_455",
+        "GEO_CB1_RW_SKINNED_495",
+        "GEO_EXT_DRS_1_423",
+        "GEO_EXT_DRS_2_425",
+        "GEO_EXT_DRS_3_426",
+        "GEO_EXT_DRS_4_424",
+        "GEO_EXT_DRS_5_428",
+        "GEO_GEN_DRS_1_427",
+        "GEO_GEN_DRS_2_429",
+        "GEO_GEN_RW_452",
+        "GEO_MAIN_DRS_431",
+        "GEO_MAIN_REARWING_453",
+        "GEO_MAIN_STICKERS_RW_454"
+      ],
+      "halo": [
+        "GEO_MAIN_HALO_HR_86",
+        "GEO_MAIN_HALO_LR_290",
+        "GEO_MAIN_STICKER_HALO_HR_87",
+        "GEO_MAIN_STICKER_HALO_LR_291"
+      ],
+      "frontSuspension": [
+        "GEO_CB1_SUSP_LF_A_472",
+        "GEO_CB1_SUSP_LF_B_476",
+        "GEO_CB1_SUSP_LF_C_382",
+        "GEO_CB1_SUSP_LF_D_480",
+        "GEO_CB1_SUSP_RF_A_474",
+        "GEO_CB1_SUSP_RF_B_478",
+        "GEO_CB1_SUSP_RF_C_401",
+        "GEO_CB1_SUSP_RF_D_481",
+        "GEO_MAIN_SUSP_LF_A_473",
+        "GEO_MAIN_SUSP_LF_B_477",
+        "GEO_MAIN_SUSP_LF_C_383",
+        "GEO_MAIN_SUSP_RF_A_475",
+        "GEO_MAIN_SUSP_RF_B_479",
+        "GEO_MAIN_SUSP_RF_C_400"
+      ],
+      "rearSuspension": [
+        "GEO_CB1_SUSP_LR_A_482",
+        "GEO_CB1_SUSP_LR_B_484",
+        "GEO_CB1_SUSP_LR_C_486",
+        "GEO_CB1_SUSP_LR_D_488",
+        "GEO_CB1_SUSP_RR_A_483",
+        "GEO_CB1_SUSP_RR_B_485",
+        "GEO_CB1_SUSP_RR_C_487",
+        "GEO_CB1_SUSP_RR_D_489"
+      ],
+      "mirrors": [
+        "MIRROR_L_370",
+        "MIRROR_R_371"
+      ],
+      "frontWheels": [
+        "GEO_WHEEL_BLUR_A_LF_376",
+        "GEO_WHEEL_BLUR_A_RF_394",
+        "GEO_WHEEL_BLUR_B_LF_377",
+        "GEO_WHEEL_BLUR_B_RF_395",
+        "GEO_WHEEL_FIXED_LF_375",
+        "GEO_WHEEL_FIXED_RF_393",
+        "GEO_WHEEL_STATIC_LF_378",
+        "GEO_WHEEL_STATIC_RF_396",
+        "TIRE_LF_SUB0_380",
+        "TIRE_LF_SUB1_379",
+        "TIRE_RF_SUB0_398",
+        "TIRE_RF_SUB1_397"
+      ],
+      "rearWheels": [
+        "GEO_WHEEL_BLUR_A_LR_386",
+        "GEO_WHEEL_BLUR_A_RR_404",
+        "GEO_WHEEL_BLUR_B_LR_387",
+        "GEO_WHEEL_BLUR_B_RR_405",
+        "GEO_WHEEL_FIXED_LR_385",
+        "GEO_WHEEL_FIXED_RR_403",
+        "GEO_WHEEL_STATIC_LR_388",
+        "GEO_WHEEL_STATIC_RR_406",
+        "TIRE_LR_SUB0_390",
+        "TIRE_LR_SUB1_389",
+        "TIRE_RR_SUB0_408",
+        "TIRE_RR_SUB1_407"
+      ],
+      "cooling": [
+        "GEO_CB2_RADIATORS_492"
+      ],
+      "chassis": [
+        "GEO_GEN_COCKPIT_1_HR_81",
+        "GEO_GEN_COCKPIT_1_LR_287",
+        "GEO_GEN_COCKPIT_2_HR_82",
+        "GEO_GEN_COCKPIT_2_LR_288",
+        "GEO_INT_COCKPIT_1_HR_83",
+        "GEO_INT_COCKPIT_1_LR_289",
+        "GEO_INT_COCKPIT_2_HR_84",
+        "GEO_INT_COCKPIT_3_HR_493"
+      ],
+      "frontCorner": [
+        "GEO_CB1_HUB_LF_381",
+        "GEO_CB1_HUB_RF_399",
+        "GEO_MAIN_HUB_LF_384",
+        "GEO_MAIN_HUB_RF_402"
+      ],
+      "rearCorner": [
+        "GEO_CB1_HUB_LR_391",
+        "GEO_CB1_HUB_RR_409"
       ]
-    }
+    },
+    "composites": {
+      "wheels": [
+        "frontWheels",
+        "rearWheels"
+      ],
+      "frontCorner": [
+        "frontSuspension",
+        "frontWheels"
+      ],
+      "rearCorner": [
+        "rearSuspension",
+        "rearWheels"
+      ]
+    },
+    "internalComponents": [
+      "cooling"
+    ],
+    "review": {
+      "frontBrake": "unknown/manual-review: hubs are not evidence of independently identifiable brakes",
+      "rearBrake": "unknown/manual-review",
+      "nose": "unknown/manual-review: generic BODY meshes combine surfaces",
+      "floor": "unknown/manual-review",
+      "sidepods": "unknown/manual-review",
+      "engineCover": "unknown/manual-review",
+      "diffuser": "unknown/manual-review",
+      "steeringWheel": "unknown/manual-review: AL-labelled variants collapsed to micrometre size",
+      "airbox": "unsupported: no independently identified airbox; engineCover must not substitute for FIA Airbox",
+      "onboardCamera": "unsupported: no confidently identified independent onboard camera"
+    },
+    "objectFingerprints": {
+      "GEO_CB1_FW_ENDPLATE_L_459": {
+        "positionHash": "b9bfdc94",
+        "indexHash": "25972dd9"
+      },
+      "GEO_CB1_FW_ENDPLATE_R_463": {
+        "positionHash": "e7b15915",
+        "indexHash": "1ed8f6a1"
+      },
+      "GEO_EXT_FW_ATTACHMENT_471": {
+        "positionHash": "14c57dcb",
+        "indexHash": "6c3baead"
+      },
+      "GEO_EXT_FW_ENDPLATE_L_460": {
+        "positionHash": "4f267d4c",
+        "indexHash": "f2b548e7"
+      },
+      "GEO_EXT_FW_ENDPLATE_R_464": {
+        "positionHash": "a5a91fbb",
+        "indexHash": "3b765b1b"
+      },
+      "GEO_MAIN_FRONTWING_SUB0_467": {
+        "positionHash": "a93d4e05",
+        "indexHash": "15fad0d6"
+      },
+      "GEO_MAIN_FRONTWING_SUB1_468": {
+        "positionHash": "caac6d8c",
+        "indexHash": "f95cb1e3"
+      },
+      "GEO_MAIN_FRONTWING_SUB2_469": {
+        "positionHash": "2145f999",
+        "indexHash": "6a63c935"
+      },
+      "GEO_MAIN_FRONTWING_SUB3_470": {
+        "positionHash": "57499750",
+        "indexHash": "2c253f1e"
+      },
+      "GEO_MAIN_FW_ENDPLATE_L_462": {
+        "positionHash": "f5e01f3d",
+        "indexHash": "588cbb0f"
+      },
+      "GEO_MAIN_FW_ENDPLATE_R_466": {
+        "positionHash": "ca592e2e",
+        "indexHash": "9c4b6fb0"
+      },
+      "GEO_MAIN_FW_STICKER_422": {
+        "positionHash": "092680c9",
+        "indexHash": "6febdcac"
+      },
+      "GEO_CB1_RW_450": {
+        "positionHash": "76b57342",
+        "indexHash": "2f12bd24"
+      },
+      "GEO_CB1_RW_455": {
+        "positionHash": "ddbb9ec6",
+        "indexHash": "d270b421"
+      },
+      "GEO_CB1_RW_SKINNED_495": {
+        "positionHash": "c6069805",
+        "indexHash": "3afab4e4"
+      },
+      "GEO_EXT_DRS_1_423": {
+        "positionHash": "d14d01ed",
+        "indexHash": "74317165"
+      },
+      "GEO_EXT_DRS_2_425": {
+        "positionHash": "cafc65b2",
+        "indexHash": "e6359f0f"
+      },
+      "GEO_EXT_DRS_3_426": {
+        "positionHash": "0b4b40ef",
+        "indexHash": "6553832d"
+      },
+      "GEO_EXT_DRS_4_424": {
+        "positionHash": "ca38cbba",
+        "indexHash": "f85ca451"
+      },
+      "GEO_EXT_DRS_5_428": {
+        "positionHash": "d6271963",
+        "indexHash": "026743b6"
+      },
+      "GEO_GEN_DRS_1_427": {
+        "positionHash": "1ac73455",
+        "indexHash": "aea52bfa"
+      },
+      "GEO_GEN_DRS_2_429": {
+        "positionHash": "f9a0a691",
+        "indexHash": "52c0ba0e"
+      },
+      "GEO_GEN_RW_452": {
+        "positionHash": "49d9b2c9",
+        "indexHash": "43b9f5cc"
+      },
+      "GEO_GEN_SCREWS_DRS_430": {
+        "positionHash": "0dc9339d",
+        "indexHash": "16d57cd5"
+      },
+      "GEO_GEN_SCREWS_RW_451": {
+        "positionHash": "55b9318d",
+        "indexHash": "22851c25"
+      },
+      "GEO_MAIN_DRS_431": {
+        "positionHash": "29d37170",
+        "indexHash": "4207e1b4"
+      },
+      "GEO_MAIN_REARWING_453": {
+        "positionHash": "2ee4d530",
+        "indexHash": "dfd4b505"
+      },
+      "GEO_MAIN_STICKERS_DRS_432": {
+        "positionHash": "583a8b6e",
+        "indexHash": "55adc155"
+      },
+      "GEO_MAIN_STICKERS_RW_454": {
+        "positionHash": "440586a1",
+        "indexHash": "4b18c8c1"
+      },
+      "GEO_MAIN_STICKERS_RW_B_457": {
+        "positionHash": "aae2c829",
+        "indexHash": "e2dfd7f5"
+      },
+      "GEO_MAIN_HALO_HR_86": {
+        "positionHash": "b68f50f5",
+        "indexHash": "447d60a7"
+      },
+      "GEO_MAIN_HALO_LR_290": {
+        "positionHash": "ab7c4685",
+        "indexHash": "4d17a89b"
+      },
+      "GEO_MAIN_STICKER_HALO_HR_87": {
+        "positionHash": "7975b159",
+        "indexHash": "f73786e5"
+      },
+      "GEO_MAIN_STICKER_HALO_LR_291": {
+        "positionHash": "7975b159",
+        "indexHash": "f73786e5"
+      },
+      "GEO_CB1_SUSP_LF_A_472": {
+        "positionHash": "5f6dfdd9",
+        "indexHash": "ad3d2948"
+      },
+      "GEO_CB1_SUSP_LF_B_476": {
+        "positionHash": "1e5dadc2",
+        "indexHash": "c5cd61e4"
+      },
+      "GEO_CB1_SUSP_LF_C_382": {
+        "positionHash": "d133be48",
+        "indexHash": "cb1e59b3"
+      },
+      "GEO_CB1_SUSP_LF_D_480": {
+        "positionHash": "67e490e2",
+        "indexHash": "4c436aa7"
+      },
+      "GEO_CB1_SUSP_RF_A_474": {
+        "positionHash": "6200f3ef",
+        "indexHash": "960f2ec7"
+      },
+      "GEO_CB1_SUSP_RF_B_478": {
+        "positionHash": "f9aec320",
+        "indexHash": "02368d62"
+      },
+      "GEO_CB1_SUSP_RF_C_401": {
+        "positionHash": "bba97bd3",
+        "indexHash": "325edecd"
+      },
+      "GEO_CB1_SUSP_RF_D_481": {
+        "positionHash": "2e3b5abf",
+        "indexHash": "b9ae1b42"
+      },
+      "GEO_MAIN_SUSP_LF_A_473": {
+        "positionHash": "06996015",
+        "indexHash": "56861fc5"
+      },
+      "GEO_MAIN_SUSP_LF_B_477": {
+        "positionHash": "e6c4ff2e",
+        "indexHash": "4e260a76"
+      },
+      "GEO_MAIN_SUSP_LF_C_383": {
+        "positionHash": "5c886616",
+        "indexHash": "5913ae1a"
+      },
+      "GEO_MAIN_SUSP_RF_A_475": {
+        "positionHash": "56e1fabc",
+        "indexHash": "a28fcaaa"
+      },
+      "GEO_MAIN_SUSP_RF_B_479": {
+        "positionHash": "0e57c1b8",
+        "indexHash": "aff75ea9"
+      },
+      "GEO_MAIN_SUSP_RF_C_400": {
+        "positionHash": "836dcea8",
+        "indexHash": "4fff9de2"
+      },
+      "GEO_CB1_SUSP_LR_A_482": {
+        "positionHash": "eb242c70",
+        "indexHash": "e6a68bf9"
+      },
+      "GEO_CB1_SUSP_LR_B_484": {
+        "positionHash": "f4ac75ef",
+        "indexHash": "9fcb79fe"
+      },
+      "GEO_CB1_SUSP_LR_C_486": {
+        "positionHash": "27dd1c94",
+        "indexHash": "89ea31a7"
+      },
+      "GEO_CB1_SUSP_LR_D_488": {
+        "positionHash": "59ab72ce",
+        "indexHash": "4435d9af"
+      },
+      "GEO_CB1_SUSP_RR_A_483": {
+        "positionHash": "edb102a3",
+        "indexHash": "867a5c9d"
+      },
+      "GEO_CB1_SUSP_RR_B_485": {
+        "positionHash": "4e37cc17",
+        "indexHash": "c7a48cb0"
+      },
+      "GEO_CB1_SUSP_RR_C_487": {
+        "positionHash": "9ee13a42",
+        "indexHash": "cf474cba"
+      },
+      "GEO_CB1_SUSP_RR_D_489": {
+        "positionHash": "9a7bc947",
+        "indexHash": "cf98d82a"
+      },
+      "MIRROR_L_370": {
+        "positionHash": "cab97453",
+        "indexHash": "392dd8b2"
+      },
+      "MIRROR_R_371": {
+        "positionHash": "1d879e83",
+        "indexHash": "38edfb18"
+      },
+      "GEO_WHEEL_BLUR_A_LF_376": {
+        "positionHash": "e3fd938c",
+        "indexHash": "c0728af6"
+      },
+      "GEO_WHEEL_BLUR_A_RF_394": {
+        "positionHash": "b78549ff",
+        "indexHash": "d4e49f51"
+      },
+      "GEO_WHEEL_BLUR_B_LF_377": {
+        "positionHash": "ae486f69",
+        "indexHash": "f6b1dec5"
+      },
+      "GEO_WHEEL_BLUR_B_RF_395": {
+        "positionHash": "9f16bc51",
+        "indexHash": "40cd0302"
+      },
+      "GEO_WHEEL_FIXED_LF_375": {
+        "positionHash": "7a53b127",
+        "indexHash": "e3a1aa07"
+      },
+      "GEO_WHEEL_FIXED_RF_393": {
+        "positionHash": "15eb23c2",
+        "indexHash": "6cd061d2"
+      },
+      "GEO_WHEEL_STATIC_LF_378": {
+        "positionHash": "31fd8020",
+        "indexHash": "49e7621b"
+      },
+      "GEO_WHEEL_STATIC_RF_396": {
+        "positionHash": "cdbae649",
+        "indexHash": "93a82a93"
+      },
+      "GEO_WHEEL_BLUR_A_LR_386": {
+        "positionHash": "67a567c7",
+        "indexHash": "e835f377"
+      },
+      "GEO_WHEEL_BLUR_A_RR_404": {
+        "positionHash": "08bbba3d",
+        "indexHash": "e0598a16"
+      },
+      "GEO_WHEEL_BLUR_B_LR_387": {
+        "positionHash": "0ee28df9",
+        "indexHash": "a3bc6531"
+      },
+      "GEO_WHEEL_BLUR_B_RR_405": {
+        "positionHash": "7fc89f0d",
+        "indexHash": "0bb85711"
+      },
+      "GEO_WHEEL_FIXED_LR_385": {
+        "positionHash": "71bddb67",
+        "indexHash": "c27adf69"
+      },
+      "GEO_WHEEL_FIXED_RR_403": {
+        "positionHash": "dc228a79",
+        "indexHash": "066e0678"
+      },
+      "GEO_WHEEL_STATIC_LR_388": {
+        "positionHash": "e5f903c1",
+        "indexHash": "2ff241d2"
+      },
+      "GEO_WHEEL_STATIC_RR_406": {
+        "positionHash": "29fed7a7",
+        "indexHash": "22cc6a7e"
+      },
+      "GEO_CB2_RADIATORS_492": {
+        "positionHash": "28e2b49d",
+        "indexHash": "2fd59c0f"
+      },
+      "GEO_GEN_COCKPIT_1_HR_81": {
+        "positionHash": "a3ad7b84",
+        "indexHash": "44c9981d"
+      },
+      "GEO_GEN_COCKPIT_1_LR_287": {
+        "positionHash": "bc731269",
+        "indexHash": "e8c9b9ad"
+      },
+      "GEO_GEN_COCKPIT_2_HR_82": {
+        "positionHash": "b0901847",
+        "indexHash": "9db7983d"
+      },
+      "GEO_GEN_COCKPIT_2_LR_288": {
+        "positionHash": "9e9b386a",
+        "indexHash": "5a9516bc"
+      },
+      "GEO_INT_COCKPIT_1_HR_83": {
+        "positionHash": "c9061bfc",
+        "indexHash": "c41ddc1d"
+      },
+      "GEO_INT_COCKPIT_1_LR_289": {
+        "positionHash": "d960aaff",
+        "indexHash": "66fc9a36"
+      },
+      "GEO_INT_COCKPIT_2_HR_84": {
+        "positionHash": "24d42c74",
+        "indexHash": "11400384"
+      },
+      "GEO_INT_COCKPIT_3_HR_493": {
+        "positionHash": "3014ac32",
+        "indexHash": "a1b486fe"
+      },
+      "GEO_CB1_HUB_LF_381": {
+        "positionHash": "98241435",
+        "indexHash": "53ddbd5d"
+      },
+      "GEO_CB1_HUB_RF_399": {
+        "positionHash": "17f2dc6d",
+        "indexHash": "90e75970"
+      },
+      "GEO_MAIN_HUB_LF_384": {
+        "positionHash": "3e251c14",
+        "indexHash": "02f9cc64"
+      },
+      "GEO_MAIN_HUB_RF_402": {
+        "positionHash": "9ca3a7a7",
+        "indexHash": "ce2776e6"
+      },
+      "GEO_CB1_HUB_LR_391": {
+        "positionHash": "e089d828",
+        "indexHash": "af9f2d08"
+      },
+      "GEO_CB1_HUB_RR_409": {
+        "positionHash": "75202068",
+        "indexHash": "ccb3b9c0"
+      },
+      "TIRE_LF_SUB0_380": {
+        "positionHash": "b1413558",
+        "indexHash": "52704a75"
+      },
+      "TIRE_LF_SUB1_379": {
+        "positionHash": "97365025",
+        "indexHash": "0ca2f5b2"
+      },
+      "TIRE_RF_SUB0_398": {
+        "positionHash": "8724923d",
+        "indexHash": "ac2d702e"
+      },
+      "TIRE_RF_SUB1_397": {
+        "positionHash": "a03545ab",
+        "indexHash": "138a5aaa"
+      },
+      "TIRE_LR_SUB0_390": {
+        "positionHash": "b4d677a1",
+        "indexHash": "59084566"
+      },
+      "TIRE_LR_SUB1_389": {
+        "positionHash": "a1639157",
+        "indexHash": "f061338a"
+      },
+      "TIRE_RR_SUB0_408": {
+        "positionHash": "8ff456e2",
+        "indexHash": "59084566"
+      },
+      "TIRE_RR_SUB1_407": {
+        "positionHash": "a2bcb08c",
+        "indexHash": "f061338a"
+      }
+    },
+    "geometryProfile": "formula-alpha-2026"
   }
 }

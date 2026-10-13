@@ -36,3 +36,6 @@ Thumbs.db
 # Raw FIA source documents are transient ingestion inputs, never frontend assets.
 /ingestion/raw/
 /ingestion/output/
+
+# Caché temporal del laboratorio 3D
+/work/skin-lab/vite-cache/

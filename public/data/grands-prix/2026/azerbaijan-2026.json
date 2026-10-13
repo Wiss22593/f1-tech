@@ -36,18 +36,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Sidepod Inlet | Performance - Flow Conditioning | Revised Sidepod Inlet Shape | The sidepod inlet has been revised aiming at improved flow conditioning towards the rear of the car for improved aerodynamic performance.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Sidepod Inlet\",\"Performance - Flow Conditioning\",\"Revised Sidepod Inlet Shape\",\"The sidepod inlet has been revised aiming at improved flow conditioning towards the rear of the car for improved aerodynamic performance.\",\"Sidepod Inlet | Performance - Flow Conditioning | Revised Sidepod Inlet Shape | The sidepod inlet has been revised aiming at improved flow conditioning towards the rear of the car for improved aerodynamic performance.\"]",
+          "componentName": "Entrada del pontón",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Forma revisada de la entrada del pontón",
+          "briefDescription": "La entrada del pontón ha sido revisada con el objetivo de mejorar el acondicionamiento del flujo hacia la parte trasera del coche y, con ello, el rendimiento aerodinámico."
+        }
+      },
       "description": "The sidepod inlet has been revised aiming at improved flow conditioning towards the rear of the car for improved aerodynamic performance.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.506Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-engine-cover-2",
@@ -65,18 +77,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Coke/Engine Cover | Performance - Flow Conditioning | Revised Engine Cover and Coke Line | The engine cover and coke line have been revised in conjunction with the new sidepod inlet enhancing the flow conditioning downstream.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Coke/Engine Cover\",\"Performance - Flow Conditioning\",\"Revised Engine Cover and Coke Line\",\"The engine cover and coke line have been revised in conjunction with the new sidepod inlet enhancing the flow conditioning downstream.\",\"Coke/Engine Cover | Performance - Flow Conditioning | Revised Engine Cover and Coke Line | The engine cover and coke line have been revised in conjunction with the new sidepod inlet enhancing the flow conditioning downstream.\"]",
+          "componentName": "Zona de estrechamiento trasero / Cubierta del motor",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Cubierta del motor y línea de estrechamiento trasero revisadas",
+          "briefDescription": "La cubierta del motor y la línea de estrechamiento trasero se han revisado junto con la nueva entrada del pontón, mejorando el acondicionamiento del flujo aguas abajo."
+        }
+      },
       "description": "The engine cover and coke line have been revised in conjunction with the new sidepod inlet enhancing the flow conditioning downstream.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.506Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-engine-cover-3",
@@ -94,18 +118,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Coke/Engine Cover | Performance - Flow Conditioning | Alternative Sidepod Shape | An alternative sidepod shape is available as an option for the aforementioned bodywork, resulting in a change of resultant aerodynamic properties.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Coke/Engine Cover\",\"Performance - Flow Conditioning\",\"Alternative Sidepod Shape\",\"An alternative sidepod shape is available as an option for the aforementioned bodywork, resulting in a change of resultant aerodynamic properties.\",\"Coke/Engine Cover | Performance - Flow Conditioning | Alternative Sidepod Shape | An alternative sidepod shape is available as an option for the aforementioned bodywork, resulting in a change of resultant aerodynamic properties.\"]",
+          "componentName": "Zona de estrechamiento trasero / Cubierta del motor",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Forma alternativa del pontón",
+          "briefDescription": "Hay una forma alternativa del pontón disponible como opción para la carrocería mencionada, lo que modifica las propiedades aerodinámicas resultantes."
+        }
+      },
       "description": "An alternative sidepod shape is available as an option for the aforementioned bodywork, resulting in a change of resultant aerodynamic properties.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-cooling-4",
@@ -123,18 +159,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Cooling Louvres | Circuit specific - Cooling Range | New Louvre Layout | As part of the new bodywork package, cooling louvre layout and position have been altered for maximum aerodynamic performance at various cooling levels.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 4,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Cooling Louvres\",\"Circuit specific - Cooling Range\",\"New Louvre Layout\",\"As part of the new bodywork package, cooling louvre layout and position have been altered for maximum aerodynamic performance at various cooling levels.\",\"Cooling Louvres | Circuit specific - Cooling Range | New Louvre Layout | As part of the new bodywork package, cooling louvre layout and position have been altered for maximum aerodynamic performance at various cooling levels.\"]",
+          "componentName": "Branquias de refrigeración",
+          "primaryReason": "Específico del circuito - Rango de refrigeración",
+          "geometricDifference": "Nueva disposición de las branquias",
+          "briefDescription": "Como parte del nuevo paquete de carrocería, se han modificado la disposición y la posición de las branquias de refrigeración para maximizar el rendimiento aerodinámico a distintos niveles de refrigeración."
+        }
+      },
       "description": "As part of the new bodywork package, cooling louvre layout and position have been altered for maximum aerodynamic performance at various cooling levels.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-floor-5",
@@ -152,18 +200,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor Edge | Performance – Local Load | Revised Floor Edge Shape | The flow conditioning changes from the bodywork are utilised by a revised floor edge design, resulting in improved aerodynamic performance.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 5,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Floor Edge\",\"Performance – Local Load\",\"Revised Floor Edge Shape\",\"The flow conditioning changes from the bodywork are utilised by a revised floor edge design, resulting in improved aerodynamic performance.\",\"Floor Edge | Performance – Local Load | Revised Floor Edge Shape | The flow conditioning changes from the bodywork are utilised by a revised floor edge design, resulting in improved aerodynamic performance.\"]",
+          "componentName": "Borde del piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Forma revisada del borde del piso",
+          "briefDescription": "Un diseño revisado del borde del piso aprovecha los cambios en el acondicionamiento del flujo producidos por la carrocería, lo que mejora el rendimiento aerodinámico."
+        }
+      },
       "description": "The flow conditioning changes from the bodywork are utilised by a revised floor edge design, resulting in improved aerodynamic performance.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-diffuser-6",
@@ -181,18 +241,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Diffuser | Performance – Local Load | Revised Diffuser Layout | In conjunction with the floor edge, the diffuser has been revised, aiming at extracting more aerodynamic performance from the new flow topology.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 6,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Diffuser\",\"Performance – Local Load\",\"Revised Diffuser Layout\",\"In conjunction with the floor edge, the diffuser has been revised, aiming at extracting more aerodynamic performance from the new flow topology.\",\"Diffuser | Performance – Local Load | Revised Diffuser Layout | In conjunction with the floor edge, the diffuser has been revised, aiming at extracting more aerodynamic performance from the new flow topology.\"]",
+          "componentName": "Difusor",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Disposición revisada del difusor",
+          "briefDescription": "Junto con el borde del piso, se ha revisado el difusor con el objetivo de extraer más rendimiento aerodinámico de la nueva configuración del flujo."
+        }
+      },
       "description": "In conjunction with the floor edge, the diffuser has been revised, aiming at extracting more aerodynamic performance from the new flow topology.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-rear-suspension-7",
@@ -210,18 +282,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Suspension | Performance - Flow Conditioning | Revised Rear Suspension Fairings | The changes in upstream aerodynamic flow conditions incentivise a modification to the rear suspension fairings to maximise aerodynamic performance.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 7,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Suspension\",\"Performance - Flow Conditioning\",\"Revised Rear Suspension Fairings\",\"The changes in upstream aerodynamic flow conditions incentivise a modification to the rear suspension fairings to maximise aerodynamic performance.\",\"Rear Suspension | Performance - Flow Conditioning | Revised Rear Suspension Fairings | The changes in upstream aerodynamic flow conditions incentivise a modification to the rear suspension fairings to maximise aerodynamic performance.\"]",
+          "componentName": "Suspensión trasera",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Carenados revisados de la suspensión trasera",
+          "briefDescription": "Los cambios en las condiciones del flujo aerodinámico aguas arriba motivan una modificación de los carenados de la suspensión trasera para maximizar el rendimiento aerodinámico."
+        }
+      },
       "description": "The changes in upstream aerodynamic flow conditions incentivise a modification to the rear suspension fairings to maximise aerodynamic performance.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-mclaren-rear-wing-8",
@@ -239,18 +323,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Wing | Performance - Drag reduction | Alternative Straight Line Mode Flap Position | The medium isochronal rear wing has been modified to deploy the flap to an alternative position in straight line mode, resulting in a larger reduction in drag.",
+      "sourcePage": 3,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 8,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Wing\",\"Performance - Drag reduction\",\"Alternative Straight Line Mode Flap Position\",\"The medium isochronal rear wing has been modified to deploy the flap to an alternative position in straight line mode, resulting in a larger reduction in drag.\",\"Rear Wing | Performance - Drag reduction | Alternative Straight Line Mode Flap Position | The medium isochronal rear wing has been modified to deploy the flap to an alternative position in straight line mode, resulting in a larger reduction in drag.\"]",
+          "componentName": "Alerón trasero",
+          "primaryReason": "Rendimiento - Reducción de la resistencia aerodinámica",
+          "geometricDifference": "Posición alternativa del flap en modo recta",
+          "briefDescription": "El alerón trasero isócrono medio se ha modificado para desplegar el flap en una posición alternativa en modo recta, lo que permite una mayor reducción de la resistencia aerodinámica."
+        }
+      },
       "description": "The medium isochronal rear wing has been modified to deploy the flap to an alternative position in straight line mode, resulting in a larger reduction in drag.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-red-bull-racing-floor-1",
@@ -268,18 +369,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor Body & Diffuser | Performance - Local Load | Revised floor and diffuser geometries. | The realisation of development iterations sees a new floor geometry with subtle changes within the permitted geometry to extract more local load whilst maintaining flow stability.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Floor Body & Diffuser\",\"Performance - Local Load\",\"Revised floor and diffuser geometries.\",\"The realisation of development iterations sees a new floor geometry with subtle changes within the permitted geometry to extract more local load whilst maintaining flow stability.\",\"Floor Body & Diffuser | Performance - Local Load | Revised floor and diffuser geometries. | The realisation of development iterations sees a new floor geometry with subtle changes within the permitted geometry to extract more local load whilst maintaining flow stability.\"]",
+          "componentName": "Cuerpo del piso y difusor",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Geometrías revisadas del piso y del difusor.",
+          "briefDescription": "Las iteraciones de desarrollo se materializan en una nueva geometría del piso con cambios sutiles dentro de la geometría permitida, para obtener más carga aerodinámica local manteniendo la estabilidad del flujo."
+        }
+      },
       "description": "The realisation of development iterations sees a new floor geometry with subtle changes within the permitted geometry to extract more local load whilst maintaining flow stability.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-red-bull-racing-sidepods-2",
@@ -297,18 +410,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Sidepod | Performance - Local Load | Revised split line to the floor | Accompanying the new floor, the sidepod has been revised with a new junction or split line to the floor, to supplement the floor changes yielding more local load.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Sidepod\",\"Performance - Local Load\",\"Revised split line to the floor\",\"Accompanying the new floor, the sidepod has been revised with a new junction or split line to the floor, to supplement the floor changes yielding more local load.\",\"Sidepod | Performance - Local Load | Revised split line to the floor | Accompanying the new floor, the sidepod has been revised with a new junction or split line to the floor, to supplement the floor changes yielding more local load.\"]",
+          "componentName": "Pontón",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Línea de unión con el piso revisada",
+          "briefDescription": "Junto con el nuevo piso, se ha revisado el pontón con una nueva unión o línea de separación con el piso, para complementar los cambios del piso que aportan más carga aerodinámica local."
+        }
+      },
       "description": "Accompanying the new floor, the sidepod has been revised with a new junction or split line to the floor, to supplement the floor changes yielding more local load.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-red-bull-racing-cooling-3",
@@ -326,18 +451,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Cooling louvres | Reliability | Revised to suit the sidepod | To blend the new sidepod to existing surrounding geometry, the cooling louvres have been revised whilst maintaining the range of cooling levels offered previously.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Cooling louvres\",\"Reliability\",\"Revised to suit the sidepod\",\"To blend the new sidepod to existing surrounding geometry, the cooling louvres have been revised whilst maintaining the range of cooling levels offered previously.\",\"Cooling louvres | Reliability | Revised to suit the sidepod | To blend the new sidepod to existing surrounding geometry, the cooling louvres have been revised whilst maintaining the range of cooling levels offered previously.\"]",
+          "componentName": "Branquias de refrigeración",
+          "primaryReason": "Fiabilidad",
+          "geometricDifference": "Revisadas para adaptarse al pontón",
+          "briefDescription": "Para integrar el nuevo pontón con la geometría circundante existente, se han revisado las branquias de refrigeración, manteniendo el rango de niveles de refrigeración disponible anteriormente."
+        }
+      },
       "description": "To blend the new sidepod to existing surrounding geometry, the cooling louvres have been revised whilst maintaining the range of cooling levels offered previously.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-red-bull-racing-mirrors-4",
@@ -355,18 +492,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Mirrors | Flow Conditioning | Revised mirror geometry | Also accompanying the floor and sidepod, the mirror assembly geometry has been revised to aid the downstream conditioning and supplement the local load increase.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 4,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Mirrors\",\"Flow Conditioning\",\"Revised mirror geometry\",\"Also accompanying the floor and sidepod, the mirror assembly geometry has been revised to aid the downstream conditioning and supplement the local load increase.\",\"Mirrors | Flow Conditioning | Revised mirror geometry | Also accompanying the floor and sidepod, the mirror assembly geometry has been revised to aid the downstream conditioning and supplement the local load increase.\"]",
+          "componentName": "Espejos",
+          "primaryReason": "Acondicionamiento del flujo",
+          "geometricDifference": "Geometría revisada de los espejos",
+          "briefDescription": "También en conjunto con el piso y el pontón, se ha revisado la geometría del conjunto de espejos para favorecer el acondicionamiento del flujo aguas abajo y complementar el aumento de carga aerodinámica local."
+        }
+      },
       "description": "Also accompanying the floor and sidepod, the mirror assembly geometry has been revised to aid the downstream conditioning and supplement the local load increase.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-red-bull-racing-halo-5",
@@ -384,18 +533,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Halo | Flow Conditioning | Revised halo fairing geometry | A small change to revise a turning vane on the fairing to better serve downstream components, the flow stability and therefore load generation.",
+      "sourcePage": 6,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "sourceHeadingPage": 6,
+      "sourceRowNumber": 5,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Halo\",\"Flow Conditioning\",\"Revised halo fairing geometry\",\"A small change to revise a turning vane on the fairing to better serve downstream components, the flow stability and therefore load generation.\",\"Halo | Flow Conditioning | Revised halo fairing geometry | A small change to revise a turning vane on the fairing to better serve downstream components, the flow stability and therefore load generation.\"]",
+          "componentName": "Halo",
+          "primaryReason": "Acondicionamiento del flujo",
+          "geometricDifference": "Geometría revisada del carenado del halo",
+          "briefDescription": "Un pequeño cambio revisa un deflector de giro del carenado para beneficiar a los componentes aguas abajo, la estabilidad del flujo y, por tanto, la generación de carga aerodinámica."
+        }
+      },
       "description": "A small change to revise a turning vane on the fairing to better serve downstream components, the flow stability and therefore load generation.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-williams-floor-1",
@@ -413,18 +574,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor | Performance - Local Load | An updated Floor Bodywork Assembly has been introduced, including new Floor Leading Edge devices, Floor Body and Floor Corner geometry. | We have modified the forward and outboard regions of the floor to extract more performance both locally and across the main underfloor surfaces.",
+      "sourcePage": 9,
+      "sourceTeamHeading": "Williams",
+      "sourceHeadingPage": 9,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Floor\",\"Performance - Local Load\",\"An updated Floor Bodywork Assembly has been introduced, including new Floor Leading Edge devices, Floor Body and Floor Corner geometry.\",\"We have modified the forward and outboard regions of the floor to extract more performance both locally and across the main underfloor surfaces.\",\"Floor | Performance - Local Load | An updated Floor Bodywork Assembly has been introduced, including new Floor Leading Edge devices, Floor Body and Floor Corner geometry. | We have modified the forward and outboard regions of the floor to extract more performance both locally and across the main underfloor surfaces.\"]",
+          "componentName": "Piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Se ha introducido un conjunto de carrocería del piso actualizado, con nuevos elementos del borde de ataque y nuevas geometrías del cuerpo y de la esquina del piso.",
+          "briefDescription": "Hemos modificado las zonas delanteras y exteriores del piso para obtener más rendimiento tanto localmente como en las superficies principales de la parte inferior del piso."
+        }
+      },
       "description": "We have modified the forward and outboard regions of the floor to extract more performance both locally and across the main underfloor surfaces.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-williams-tail-2",
@@ -442,18 +615,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Tail | Performance - Local Load | A revised Tail geometry has been introduced to suit the new Floor update. | The new surfaces work together with the new floor to generate increased performance locally around the RIS.",
+      "sourcePage": 9,
+      "sourceTeamHeading": "Williams",
+      "sourceHeadingPage": 9,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Tail\",\"Performance - Local Load\",\"A revised Tail geometry has been introduced to suit the new Floor update.\",\"The new surfaces work together with the new floor to generate increased performance locally around the RIS.\",\"Tail | Performance - Local Load | A revised Tail geometry has been introduced to suit the new Floor update. | The new surfaces work together with the new floor to generate increased performance locally around the RIS.\"]",
+          "componentName": "Cola",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Se ha introducido una geometría de cola revisada para adaptarse a la nueva actualización del piso.",
+          "briefDescription": "Las nuevas superficies trabajan junto con el nuevo piso para aumentar el rendimiento local alrededor de la estructura de impacto trasera (RIS)."
+        }
+      },
       "description": "The new surfaces work together with the new floor to generate increased performance locally around the RIS.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-williams-front-corner-3",
@@ -471,18 +656,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Corner | Performance - Flow Conditioning | Reprofiled surfaces have been applied to the Front Brake Duct flow conditioning devices. | The forward and rearward regions of the Front Wheel Bodywork have been updated to offer both improved interaction with the Front Wing and an improved downstream flow field with the rest of the car.",
+      "sourcePage": 9,
+      "sourceTeamHeading": "Williams",
+      "sourceHeadingPage": 9,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Corner\",\"Performance - Flow Conditioning\",\"Reprofiled surfaces have been applied to the Front Brake Duct flow conditioning devices.\",\"The forward and rearward regions of the Front Wheel Bodywork have been updated to offer both improved interaction with the Front Wing and an improved downstream flow field with the rest of the car.\",\"Front Corner | Performance - Flow Conditioning | Reprofiled surfaces have been applied to the Front Brake Duct flow conditioning devices. | The forward and rearward regions of the Front Wheel Bodywork have been updated to offer both improved interaction with the Front Wing and an improved downstream flow field with the rest of the car.\"]",
+          "componentName": "Conjunto delantero",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Se han aplicado superficies reperfiladas a los elementos de acondicionamiento del flujo del conducto de freno delantero.",
+          "briefDescription": "Se han actualizado las zonas delantera y trasera de la carrocería de la rueda delantera para mejorar tanto su interacción con el alerón delantero como el campo de flujo aguas abajo hacia el resto del coche."
+        }
+      },
       "description": "The forward and rearward regions of the Front Wheel Bodywork have been updated to offer both improved interaction with the Front Wing and an improved downstream flow field with the rest of the car.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-williams-rear-suspension-4",
@@ -500,18 +697,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Suspension | Performance - Local Load | A change in suspension cladding orientation. | To suit the new onset flow, the surfaces on the rear suspension have been realigned to offer additional performance in the rear corner.",
+      "sourcePage": 9,
+      "sourceTeamHeading": "Williams",
+      "sourceHeadingPage": 9,
+      "sourceRowNumber": 4,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Suspension\",\"Performance - Local Load\",\"A change in suspension cladding orientation.\",\"To suit the new onset flow, the surfaces on the rear suspension have been realigned to offer additional performance in the rear corner.\",\"Rear Suspension | Performance - Local Load | A change in suspension cladding orientation. | To suit the new onset flow, the surfaces on the rear suspension have been realigned to offer additional performance in the rear corner.\"]",
+          "componentName": "Suspensión trasera",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Cambio en la orientación del revestimiento de la suspensión.",
+          "briefDescription": "Para adaptarse al nuevo flujo incidente, se han realineado las superficies de la suspensión trasera para aportar rendimiento adicional en el conjunto trasero."
+        }
+      },
       "description": "To suit the new onset flow, the surfaces on the rear suspension have been realigned to offer additional performance in the rear corner.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-williams-rear-corner-5",
@@ -529,18 +738,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Corner | Performance - Local Load | The Rear Brake Duct furniture has been modified with new leading edge features. | The previously described geometry changes have unlocked a new flow field opportunity in the rear corner and we have been able to extract additional performance in this region by retuning these devices.",
+      "sourcePage": 9,
+      "sourceTeamHeading": "Williams",
+      "sourceHeadingPage": 9,
+      "sourceRowNumber": 5,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Corner\",\"Performance - Local Load\",\"The Rear Brake Duct furniture has been modified with new leading edge features.\",\"The previously described geometry changes have unlocked a new flow field opportunity in the rear corner and we have been able to extract additional performance in this region by retuning these devices.\",\"Rear Corner | Performance - Local Load | The Rear Brake Duct furniture has been modified with new leading edge features. | The previously described geometry changes have unlocked a new flow field opportunity in the rear corner and we have been able to extract additional performance in this region by retuning these devices.\"]",
+          "componentName": "Conjunto trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Los elementos auxiliares del conducto de freno trasero se han modificado con nuevos detalles en el borde de ataque.",
+          "briefDescription": "Los cambios geométricos descritos anteriormente han generado una nueva oportunidad en el campo de flujo del conjunto trasero, y hemos obtenido rendimiento adicional en esta zona reajustando estos elementos."
+        }
+      },
       "description": "The previously described geometry changes have unlocked a new flow field opportunity in the rear corner and we have been able to extract additional performance in this region by retuning these devices.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-racing-bulls-front-wing-1",
@@ -558,18 +779,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Wing | Performance – Flow Conditioning | New front wing assembly | The new front wing geometry helps establish a clean flow field, which leads to improved performance from the components downstream of it.",
+      "sourcePage": 11,
+      "sourceTeamHeading": "Visa Cash App Racing Bulls",
+      "sourceHeadingPage": 11,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Wing\",\"Performance – Flow Conditioning\",\"New front wing assembly\",\"The new front wing geometry helps establish a clean flow field, which leads to improved performance from the components downstream of it.\",\"Front Wing | Performance – Flow Conditioning | New front wing assembly | The new front wing geometry helps establish a clean flow field, which leads to improved performance from the components downstream of it.\"]",
+          "componentName": "Alerón delantero",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nuevo conjunto de alerón delantero",
+          "briefDescription": "La nueva geometría del alerón delantero ayuda a establecer un campo de flujo limpio, lo que mejora el rendimiento de los componentes situados aguas abajo."
+        }
+      },
       "description": "The new front wing geometry helps establish a clean flow field, which leads to improved performance from the components downstream of it.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-racing-bulls-front-corner-2",
@@ -587,18 +820,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Corner | Performance – Flow Conditioning | New brake duct and front lip | Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.",
+      "sourcePage": 11,
+      "sourceTeamHeading": "Visa Cash App Racing Bulls",
+      "sourceHeadingPage": 11,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Corner\",\"Performance – Flow Conditioning\",\"New brake duct and front lip\",\"Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.\",\"Front Corner | Performance – Flow Conditioning | New brake duct and front lip | Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.\"]",
+          "componentName": "Conjunto delantero",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nuevo conducto de freno y labio delantero",
+          "briefDescription": "Trabajando junto con el nuevo alerón delantero, las actualizaciones del conjunto delantero y de la suspensión ayudan a gestionar el flujo aguas abajo y alrededor del coche, permitiendo que el piso funcione eficazmente."
+        }
+      },
       "description": "Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.880Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-racing-bulls-front-suspension-3",
@@ -616,18 +861,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Suspension | Performance – Flow Conditioning | Profile changes to suspension legs | Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.",
+      "sourcePage": 11,
+      "sourceTeamHeading": "Visa Cash App Racing Bulls",
+      "sourceHeadingPage": 11,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Suspension\",\"Performance – Flow Conditioning\",\"Profile changes to suspension legs\",\"Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.\",\"Front Suspension | Performance – Flow Conditioning | Profile changes to suspension legs | Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.\"]",
+          "componentName": "Suspensión delantera",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Cambios de perfil en los brazos de suspensión",
+          "briefDescription": "Trabajando junto con el nuevo alerón delantero, las actualizaciones del conjunto delantero y de la suspensión ayudan a gestionar el flujo aguas abajo y alrededor del coche, permitiendo que el piso funcione eficazmente."
+        }
+      },
       "description": "Working in conjunction with the new front wing, the front corner & suspension updates help manage the flow downstream and around the car, allowing the floor to perform effectively.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-front-wing-1",
@@ -645,18 +902,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Wing | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Wing\",\"Performance – Flow conditioning\",\"Full FW + Nose Fairing\",\"A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.\",\"Front Wing | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.\"]",
+          "componentName": "Alerón delantero",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Alerón delantero completo y carenado de la nariz",
+          "briefDescription": "Se introduce un alerón delantero completamente nuevo junto con un carenado de la nariz actualizado, para mejorar el flujo hacia el resto del coche y cubrir los niveles de balance del nuevo paquete."
+        }
+      },
       "description": "A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-front-wing-2",
@@ -674,18 +943,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Wing Endplate | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Wing Endplate\",\"Performance – Flow conditioning\",\"Full FW + Nose Fairing\",\"A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.\",\"Front Wing Endplate | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.\"]",
+          "componentName": "Placa lateral del alerón delantero",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Alerón delantero completo y carenado de la nariz",
+          "briefDescription": "Se introduce un alerón delantero completamente nuevo junto con un carenado de la nariz actualizado, para mejorar el flujo hacia el resto del coche y cubrir los niveles de balance del nuevo paquete."
+        }
+      },
       "description": "A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-nose-3",
@@ -703,18 +984,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Nose | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Nose\",\"Performance – Flow conditioning\",\"Full FW + Nose Fairing\",\"A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.\",\"Nose | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.\"]",
+          "componentName": "Nariz",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Alerón delantero completo y carenado de la nariz",
+          "briefDescription": "Se introduce un alerón delantero completamente nuevo junto con un carenado de la nariz actualizado, para mejorar el flujo hacia el resto del coche y cubrir los niveles de balance del nuevo paquete."
+        }
+      },
       "description": "A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-front-suspension-4",
@@ -732,18 +1025,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Suspension | Performance – Flow conditioning | New front suspensions covers | The front suspension fairings were revised to complement the revised front wing and nose and support the aerodynamic intent of the new package.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 4,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Suspension\",\"Performance – Flow conditioning\",\"New front suspensions covers\",\"The front suspension fairings were revised to complement the revised front wing and nose and support the aerodynamic intent of the new package.\",\"Front Suspension | Performance – Flow conditioning | New front suspensions covers | The front suspension fairings were revised to complement the revised front wing and nose and support the aerodynamic intent of the new package.\"]",
+          "componentName": "Suspensión delantera",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nuevas cubiertas de la suspensión delantera",
+          "briefDescription": "Se han revisado los carenados de la suspensión delantera para complementar el alerón delantero y la nariz revisados y apoyar el objetivo aerodinámico del nuevo paquete."
+        }
+      },
       "description": "The front suspension fairings were revised to complement the revised front wing and nose and support the aerodynamic intent of the new package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-floor-5",
@@ -761,18 +1066,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor Body | Performance – Local load | New floor | A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 5,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Floor Body\",\"Performance – Local load\",\"New floor\",\"A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.\",\"Floor Body | Performance – Local load | New floor | A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.\"]",
+          "componentName": "Cuerpo del piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Piso nuevo",
+          "briefDescription": "Se introduce un piso nuevo para este evento. Todas las superficies son nuevas y están diseñadas para proporcionar un aumento consistente de carga aerodinámica."
+        }
+      },
       "description": "A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-floor-6",
@@ -790,18 +1107,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Floor leading edge devices | Performance – Local load | New floor | A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 6,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Floor leading edge devices\",\"Performance – Local load\",\"New floor\",\"A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.\",\"Floor leading edge devices | Performance – Local load | New floor | A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.\"]",
+          "componentName": "Elementos del borde de ataque del piso",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Piso nuevo",
+          "briefDescription": "Se introduce un piso nuevo para este evento. Todas las superficies son nuevas y están diseñadas para proporcionar un aumento consistente de carga aerodinámica."
+        }
+      },
       "description": "A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-diffuser-7",
@@ -819,18 +1148,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Diffuser | Performance – Local load | New floor | A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.",
+      "sourcePage": 15,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 7,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Diffuser\",\"Performance – Local load\",\"New floor\",\"A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.\",\"Diffuser | Performance – Local load | New floor | A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.\"]",
+          "componentName": "Difusor",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Piso nuevo",
+          "briefDescription": "Se introduce un piso nuevo para este evento. Todas las superficies son nuevas y están diseñadas para proporcionar un aumento consistente de carga aerodinámica."
+        }
+      },
       "description": "A new floor is introduced for this event. All surfaces are new and designed to deliver a consistent load increase.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-halo-8",
@@ -848,18 +1189,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Halo | Performance – Flow conditioning | New bodywork and halo fairing | Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 8,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Halo\",\"Performance – Flow conditioning\",\"New bodywork and halo fairing\",\"Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.\",\"Halo | Performance – Flow conditioning | New bodywork and halo fairing | Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.\"]",
+          "componentName": "Halo",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nueva carrocería y nuevo carenado del halo",
+          "briefDescription": "Se introducen una carrocería revisada y opciones de refrigeración asociadas para trabajar con el paquete actualizado y mejorar la gestión de las estructuras del flujo aguas abajo."
+        }
+      },
       "description": "Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-engine-cover-9",
@@ -877,18 +1235,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Coke/Engine Cover | Performance – Flow conditioning | New bodywork and halo fairing | Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 9,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Coke/Engine Cover\",\"Performance – Flow conditioning\",\"New bodywork and halo fairing\",\"Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.\",\"Coke/Engine Cover | Performance – Flow conditioning | New bodywork and halo fairing | Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.\"]",
+          "componentName": "Zona de estrechamiento trasero / Cubierta del motor",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nueva carrocería y nuevo carenado del halo",
+          "briefDescription": "Se introducen una carrocería revisada y opciones de refrigeración asociadas para trabajar con el paquete actualizado y mejorar la gestión de las estructuras del flujo aguas abajo."
+        }
+      },
       "description": "Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-rear-suspension-10",
@@ -906,18 +1281,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Suspension | Performance – Local load | New Rear suspension covers and rear brake duct furniture | The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 10,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Suspension\",\"Performance – Local load\",\"New Rear suspension covers and rear brake duct furniture\",\"The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.\",\"Rear Suspension | Performance – Local load | New Rear suspension covers and rear brake duct furniture | The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.\"]",
+          "componentName": "Suspensión trasera",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Nuevas cubiertas de suspensión trasera y nuevos elementos auxiliares del conducto de freno trasero",
+          "briefDescription": "Se han revisado las cubiertas de la suspensión trasera y los elementos del conducto de freno para complementar el campo de flujo actualizado de la zona trasera y mejorar el rendimiento aerodinámico."
+        }
+      },
       "description": "The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-rear-corner-11",
@@ -935,18 +1327,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Corner | Performance – Local load | New Rear suspension covers and rear brake duct furniture | The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 11,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Corner\",\"Performance – Local load\",\"New Rear suspension covers and rear brake duct furniture\",\"The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.\",\"Rear Corner | Performance – Local load | New Rear suspension covers and rear brake duct furniture | The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.\"]",
+          "componentName": "Conjunto trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Nuevas cubiertas de suspensión trasera y nuevos elementos auxiliares del conducto de freno trasero",
+          "briefDescription": "Se han revisado las cubiertas de la suspensión trasera y los elementos del conducto de freno para complementar el campo de flujo actualizado de la zona trasera y mejorar el rendimiento aerodinámico."
+        }
+      },
       "description": "The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-beam-wing-12",
@@ -964,18 +1373,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Beam Wing | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 12,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Beam Wing\",\"Performance – Local load\",\"New rear wing assembly\",\"A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.\",\"Beam Wing | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.\"]",
+          "componentName": "Alerón viga",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Nuevo conjunto de alerón trasero",
+          "briefDescription": "Se introduce un conjunto de alerón trasero revisado con elementos actualizados diseñados para funcionar como parte del paquete aerodinámico completo."
+        }
+      },
       "description": "A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-rear-wing-13",
@@ -993,18 +1419,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Wing | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 13,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Wing\",\"Performance – Local load\",\"New rear wing assembly\",\"A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.\",\"Rear Wing | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.\"]",
+          "componentName": "Alerón trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Nuevo conjunto de alerón trasero",
+          "briefDescription": "Se introduce un conjunto de alerón trasero revisado con elementos actualizados diseñados para funcionar como parte del paquete aerodinámico completo."
+        }
+      },
       "description": "A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-audi-rear-wing-14",
@@ -1022,18 +1465,35 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Rear Wing Endplate | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
+      "sourcePage": 16,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "sourceHeadingPage": 15,
+      "sourceRowNumber": 14,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Rear Wing Endplate\",\"Performance – Local load\",\"New rear wing assembly\",\"A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.\",\"Rear Wing Endplate | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.\"]",
+          "componentName": "Placa lateral del alerón trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Nuevo conjunto de alerón trasero",
+          "briefDescription": "Se introduce un conjunto de alerón trasero revisado con elementos actualizados diseñados para funcionar como parte del paquete aerodinámico completo."
+        }
+      },
       "description": "A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4",
+      "sourceReview": {
+        "method": "visual_section_review",
+        "reviewedAt": "2026-10-02",
+        "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2"
+      }
     },
     {
       "id": "azerbaijan-2026-doc-11-cadillac-front-corner-1",
@@ -1051,18 +1511,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Corner | Performance – Brake Cooling | Updated brake cooling inlet and exit duct profiles | The front corner geometry has been revised to increase the available brake cooling capacity, whilst maintaining flow quality to the rear of the car",
+      "sourcePage": 19,
+      "sourceTeamHeading": "Cadillac",
+      "sourceHeadingPage": 19,
+      "sourceRowNumber": 1,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Corner\",\"Performance – Brake Cooling\",\"Updated brake cooling inlet and exit duct profiles\",\"The front corner geometry has been revised to increase the available brake cooling capacity, whilst maintaining flow quality to the rear of the car\",\"Front Corner | Performance – Brake Cooling | Updated brake cooling inlet and exit duct profiles | The front corner geometry has been revised to increase the available brake cooling capacity, whilst maintaining flow quality to the rear of the car\"]",
+          "componentName": "Conjunto delantero",
+          "primaryReason": "Rendimiento - Refrigeración de los frenos",
+          "geometricDifference": "Perfiles actualizados de los conductos de entrada y salida de refrigeración de los frenos",
+          "briefDescription": "Se ha revisado la geometría del conjunto delantero para aumentar la capacidad de refrigeración disponible para los frenos, manteniendo la calidad del flujo hacia la parte trasera del coche."
+        }
+      },
       "description": "The front corner geometry has been revised to increase the available brake cooling capacity, whilst maintaining flow quality to the rear of the car",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-cadillac-front-suspension-2",
@@ -1080,18 +1552,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Front Suspension | Performance – Flow Conditioning | Revised suspension fairing surfaces | The front suspension fairing surfaces have been updated to retain compatibility with the updated front corner and brake duct geometry",
+      "sourcePage": 19,
+      "sourceTeamHeading": "Cadillac",
+      "sourceHeadingPage": 19,
+      "sourceRowNumber": 2,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Front Suspension\",\"Performance – Flow Conditioning\",\"Revised suspension fairing surfaces\",\"The front suspension fairing surfaces have been updated to retain compatibility with the updated front corner and brake duct geometry\",\"Front Suspension | Performance – Flow Conditioning | Revised suspension fairing surfaces | The front suspension fairing surfaces have been updated to retain compatibility with the updated front corner and brake duct geometry\"]",
+          "componentName": "Suspensión delantera",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Superficies revisadas de los carenados de suspensión",
+          "briefDescription": "Se han actualizado las superficies de los carenados de la suspensión delantera para mantener la compatibilidad con la geometría actualizada del conjunto delantero y del conducto de freno."
+        }
+      },
       "description": "The front suspension fairing surfaces have been updated to retain compatibility with the updated front corner and brake duct geometry",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     },
     {
       "id": "azerbaijan-2026-doc-11-cadillac-diffuser-3",
@@ -1109,18 +1593,30 @@
       "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
       "sourceDocument": "Doc 11 - Car Presentation Submissions",
       "sourceText": "Diffuser | Performance – Local Load | Revised winglet lower edge geometry | The profile of the lower shedding edge of the rear diffuser winglet has been updated to increase local aerodynamic load across the operating envelope of the car",
+      "sourcePage": 19,
+      "sourceTeamHeading": "Cadillac",
+      "sourceHeadingPage": 19,
+      "sourceRowNumber": 3,
       "sourceLanguage": "en",
-      "translations": {},
+      "translations": {
+        "es": {
+          "sourceKey": "[\"1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2\",\"Diffuser\",\"Performance – Local Load\",\"Revised winglet lower edge geometry\",\"The profile of the lower shedding edge of the rear diffuser winglet has been updated to increase local aerodynamic load across the operating envelope of the car\",\"Diffuser | Performance – Local Load | Revised winglet lower edge geometry | The profile of the lower shedding edge of the rear diffuser winglet has been updated to increase local aerodynamic load across the operating envelope of the car\"]",
+          "componentName": "Difusor",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Geometría revisada del borde inferior de la aleta",
+          "briefDescription": "Se ha actualizado el perfil del borde inferior de desprendimiento del flujo de la aleta del difusor trasero para aumentar la carga aerodinámica local en todo el rango de funcionamiento del coche."
+        }
+      },
       "description": "The profile of the lower shedding edge of the rear diffuser winglet has been updated to increase local aerodynamic load across the operating envelope of the car",
       "area": null,
       "objective": null,
       "magnitude": null,
       "technicalState": "SUBMITTED",
       "validationState": "published",
-      "publishedAt": "2026-09-30T13:08:18.507Z",
+      "publishedAt": "2026-10-02T12:21:31.881Z",
       "contentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
       "parserConfidence": "deterministic_table",
-      "parserVersion": "fia-table-v3"
+      "parserVersion": "fia-table-v4"
     }
   ],
   "sourceDocument": {
@@ -1129,11 +1625,11 @@
     "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
     "documentId": "11",
     "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
-    "retrievedAt": "2026-09-30T13:07:46.806Z"
+    "retrievedAt": "2026-10-02T11:47:03.566Z"
   },
-  "retrievedAt": "2026-09-30T13:07:46.806Z",
-  "publishedAt": "2026-09-30T13:08:18.506Z",
-  "parserVersion": "fia-table-v3",
+  "retrievedAt": "2026-10-02T11:47:03.566Z",
+  "publishedAt": "2026-10-02T12:21:31.880Z",
+  "parserVersion": "fia-table-v4",
   "validation": {
     "recordsReceived": 38,
     "recordsPublished": 38,

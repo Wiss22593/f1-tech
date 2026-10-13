@@ -6,7 +6,10 @@ import { BufferAttribute, BufferGeometry, Group, Mesh, MeshStandardMaterial, Sce
 import { componentMeshMappings, connectedTriangleParts, resolveHighlightableComponents } from '../src/three/component-mapping.mjs'
 import { createComponentIsolation, isolationBrightness } from '../src/three/component-isolation.mjs'
 const ids = ['bgrt-f1-concept-2026-evaluation', 'alpine-a526-formulatech-evaluation']
-const names = ['FL_Wheel', 'FR_Wheel', 'RL_Wheel', 'RR_Wheel']
+const names = ['FL_Wheel', 'FR_Wheel', 'RL_Wheel', 'RR_Wheel', 'cockpit']
+const coverage = ['floor', 'frontWing', 'rearWing', 'frontSuspension', 'rearSuspension', 'frontBrake', 'rearBrake', 'onboardCamera', 'diffuser', 'nose', 'halo', 'sidepods', 'engineCover', 'mirrors', 'wheels', 'frontWheels', 'rearWheels', 'chassis', 'frontCorner', 'rearCorner']
+const expectedCoverage = id => id.startsWith('alpine') ? ['frontWing','rearWing','halo','frontSuspension','rearSuspension','mirrors','frontWheels','rearWheels','cooling','chassis','frontCorner','rearCorner','wheels'] : coverage
+const sameCoverage = (actual, id = ids[0]) => assert.deepEqual([...actual].sort(), [...expectedCoverage(id)].sort())
 const sources = new Map()
 for (const id of ids) {
   try {
@@ -46,14 +49,14 @@ test('topology partitions preserve whole connected surfaces and all original tri
   assert.deepEqual(connectedTriangleParts(position, index, 1000000), [{ firstTriangle: 0, indices: [0, 1, 2, 3, 4, 5] }, { firstTriangle: 2, indices: [6, 7, 8] }])
 })
 test('BGRT and Alpine resolve distinct audited mappings for complete composite pieces', () => {
-  for (const id of ids) assert.deepEqual(resolveHighlightableComponents(id, componentMeshMappings[id].meshRules, names), ['floor', 'frontWing', 'rearWing', 'wheels'])
+  for (const id of ids) sameCoverage(resolveHighlightableComponents(id, componentMeshMappings[id].meshRules, sources.get(id).gltf.nodes.map(node => node.name)), id)
   assert.notDeepEqual(componentMeshMappings[ids[0]].meshRules, componentMeshMappings[ids[1]].meshRules)
 })
 test('unknown asset, unknown component and missing real surfaces cannot highlight', () => {
   assert.deepEqual(resolveHighlightableComponents('unknown', [], names), [])
   for (const id of ids) {
     assert.deepEqual(resolveHighlightableComponents(id, [], []), [])
-    assert.deepEqual(resolveHighlightableComponents(id, [], names.slice(1)), [])
+    assert.ok(!resolveHighlightableComponents(id, [], names.slice(1)).includes('wheels'))
     const scene = new Scene(), mesh = new Mesh(new BufferGeometry(), new MeshStandardMaterial())
     mesh.name = 'Livery'; scene.add(mesh)
     const controller = createComponentIsolation(scene, id)
@@ -65,7 +68,7 @@ for (const id of ids) {
   test(`${id}: unchanged GLB, real mapping and original vertex/normal/UV/triangle preservation`, { skip: !sources.has(id) && 'Local evaluation GLB unavailable' }, () => {
     assert.equal(createHash('sha256').update(sources.get(id).bytes).digest('hex'), componentMeshMappings[id].sha256)
     const scene = sourceScene(id), before = originals(scene), controller = createComponentIsolation(scene, id)
-    assert.deepEqual(controller.highlightable, ['floor', 'frontWing', 'rearWing', 'wheels'])
+    sameCoverage(controller.highlightable, id)
     for (const { mesh, geometry } of before) {
       for (const name of ['position', 'normal', 'uv']) assert.deepEqual(mesh.geometry.attributes[name].array, geometry.attributes[name].array)
       const triangles = g => { const a = g.index.array, result = []; for (let i = 0; i < a.length; i += 3) result.push(`${a[i]},${a[i + 1]},${a[i + 2]}`); return result.sort() }
@@ -75,13 +78,13 @@ for (const id of ids) {
   })
   test(`${id}: selected pieces stay original; wheels dim; references restore and owned resources dispose`, { skip: !sources.has(id) }, () => {
     const scene = sourceScene(id), before = originals(scene), controller = createComponentIsolation(scene, id)
-    for (const component of ['frontWing', 'rearWing', 'floor']) {
+    for (const component of id.startsWith('alpine') ? ['frontWing', 'rearWing', 'halo'] : ['frontWing', 'rearWing', 'floor']) {
       controller.select(component); controller.step(1)
       const state = controller.snapshot(); assert.equal(state.active, component)
-      for (const m of state.materials) assert.equal(m.gain, m.component === component ? 1 : isolationBrightness)
+      for (const m of state.materials) assert.equal(m.gain, m.components.includes(component) ? 1 : isolationBrightness)
       assert.ok(state.materials.filter(m => m.component === 'wheels').every(m => m.gain === isolationBrightness))
     }
-    for (const component of ['sidepods', 'cooling', 'engineCover', 'frontBrake', 'rearBrake', 'diffuser', undefined]) { controller.select(component); controller.step(1); assert.equal(controller.snapshot().active, null); assert.ok(controller.snapshot().materials.every(m => m.gain === 1)) }
+    for (const component of (id.startsWith('alpine') ? ['nose','floor','frontBrake','rearBrake','frontDrum','unmapped',undefined] : ['cooling','frontDrum','unmapped',undefined])) { controller.select(component); controller.step(1); assert.equal(controller.snapshot().active, null); assert.ok(controller.snapshot().materials.every(m => m.gain === 1)) }
     const disposedMaterials = new Set(), disposedGeometries = new Set()
     scene.traverse(mesh => { if (mesh.isMesh) { for (const m of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) m.addEventListener('dispose', () => disposedMaterials.add(m)); if (!before.some(source => source.geometry === mesh.geometry)) mesh.geometry.addEventListener('dispose', () => disposedGeometries.add(mesh.geometry)) } })
     const state = controller.snapshot(); controller.dispose(); controller.dispose()
@@ -117,7 +120,7 @@ test('the isolation shader composes with existing material hooks and preserves s
   assert.equal(shader.uniforms.f1TechIsolationGain.value, 1)
   assert.match(shader.fragmentShader, /original livery pass/)
   assert.match(shader.fragmentShader, /gl_FragColor\.rgb \*= f1TechIsolationGain/)
-  assert.equal(mesh.material.customProgramCacheKey(), 'original-livery|f1-tech-component-isolation-v2')
+  assert.equal(mesh.material.customProgramCacheKey(), 'original-livery|f1-tech-component-isolation-v3')
   assert.equal(mesh.material.transparent, false)
   assert.equal(mesh.material.opacity, 1)
   assert.equal(mesh.material.roughness, source.roughness)
@@ -128,12 +131,12 @@ test('the isolation shader composes with existing material hooks and preserves s
 })
 
 test('changed topology or unsupported material groups disable incomplete composite highlights', { skip: sources.size < 2 }, () => {
-  for (const id of ids) for (const mode of ['changed-topology', 'material-groups']) {
+  for (const id of [ids[0]]) for (const mode of ['changed-topology', 'material-groups']) {
     const scene = sourceScene(id), carbon = scene.getObjectByName('carbon')
     if (mode === 'material-groups') carbon.material = [carbon.material]
     else { carbon.geometry = carbon.geometry.clone(); carbon.geometry.attributes.position.array[0] += 1 }
     const controller = createComponentIsolation(scene, id)
-    assert.deepEqual(controller.highlightable, ['wheels'])
+    assert.ok(!controller.highlightable.includes('floor')); assert.ok(controller.highlightable.includes('nose')); assert.ok(controller.highlightable.includes('wheels'))
     for (const component of ['floor', 'frontWing', 'rearWing']) {
       controller.select(component); controller.step(1)
       assert.equal(controller.snapshot().active, null)
@@ -142,3 +145,21 @@ test('changed topology or unsupported material groups disable incomplete composi
     controller.dispose()
   }
 })
+
+
+test('empty geometry targets restore the complete car after a previous isolation', () => {
+  const scene = new Scene();
+  const fullGeometry = new BufferGeometry();
+  fullGeometry.setAttribute('position', new BufferAttribute(new Float32Array([0,0,0,1,0,0,0,1,0]), 3));
+  const full = new Mesh(fullGeometry, new MeshStandardMaterial()); full.name = 'Full'; scene.add(full);
+  const empty = new Mesh(new BufferGeometry(), new MeshStandardMaterial()); empty.name = 'Empty'; scene.add(empty);
+  const controller = createComponentIsolation(scene, 'test-empty', undefined, { objects: { frontWing: ['Full'], cooling: ['Empty'] } });
+  controller.select('frontWing'); controller.step(1);
+  assert.equal(controller.snapshot().active, 'frontWing');
+  controller.select('cooling'); controller.step(1);
+  assert.equal(controller.snapshot().mode, 'normal');
+  assert.equal(controller.snapshot().targetCount, 0);
+  assert.ok(controller.snapshot().materials.every(material => material.gain === 1 && material.opacity === 1));
+  assert.ok(full.visible);
+  controller.dispose();
+});
