@@ -80,7 +80,7 @@ test('outside FP1 window succeeds without touching FIA documents or pipeline',as
   const result=await runScheduled({resolution:{event},at:new Date('2026-09-28T00:00:00Z'),publish:true,findIndex:()=>{throw new Error('must not fetch')}});assert.equal(result.status,'SKIP_OUTSIDE_WINDOW')
 })
 test('inside FP1 window discovers documents; absence is success and publishes nothing',async()=>{
-  let discoveries=0;const result=await runScheduled({resolution:{event},at:new Date(event.fp1.utc),publish:true,findIndex:async()=>event.indexUrl,findDocuments:async()=>{discoveries++;return[]},pipeline:()=>{throw new Error('must not publish')}})
+  let discoveries=0;const result=await runScheduled({resolution:{event},at:new Date(event.fp1.utc),publish:true,readDataset:async()=>null,findIndex:async()=>event.indexUrl,findDocuments:async()=>{discoveries++;return[]},pipeline:()=>{throw new Error('must not publish')}})
   assert.equal(discoveries,1);assert.equal(result.status,'PENDING_DOCUMENT');assert.equal(result.needsPipeline,false)
 })
 test('preflight does not treat a different verified event date as already published',async()=>{

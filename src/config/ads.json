@@ -1,10 +1,21 @@
 {
   "enabled": false,
   "provider": null,
+  "publisherId": null,
+  "siteApproved": false,
+  "rightsReviewed": false,
+  "privacyReady": false,
+  "consentReady": false,
   "placements": [
     "technical-preview-inline",
     "updates-bottom",
     "teams-bottom",
     "circuits-bottom"
-  ]
+  ],
+  "slots": {
+    "technical-preview-inline": null,
+    "updates-bottom": null,
+    "teams-bottom": null,
+    "circuits-bottom": null
+  }
 }

@@ -1,0 +1,4277 @@
+{
+  "season": 2026,
+  "parserVersion": "fia-table-v4",
+  "generatedAt": "2026-10-02T12:27:32.181Z",
+  "totals": {
+    "detected": 431,
+    "published": 427,
+    "manualReview": 4,
+    "discardedEmptyTemplates": 2
+  },
+  "events": [
+    {
+      "grandPrixId": "australia-2026",
+      "name": "Australian Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_australian_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "9",
+      "documentHash": "9e9ccc09667faa4f612a32edab64e41b1d7ff914778e5681d96cd4ff81dbb5dd",
+      "pageCount": 24,
+      "detected": 43,
+      "published": 39,
+      "manualReview": 4,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 4,
+          "published": 0,
+          "manualReview": 4,
+          "previousPublished": 0,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 7,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [
+        {
+          "sourcePage": 17,
+          "sourceRowNumber": 5,
+          "teamId": "haas"
+        },
+        {
+          "sourcePage": 17,
+          "sourceRowNumber": 6,
+          "teamId": "haas"
+        },
+        {
+          "sourcePage": 17,
+          "sourceRowNumber": 7,
+          "teamId": "haas"
+        },
+        {
+          "sourcePage": 17,
+          "targetRowNumber": 4,
+          "teamId": "haas"
+        }
+      ],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 1,
+            "componentName": "Bodywork"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 2,
+            "componentName": "Nose"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 2,
+            "componentName": "Floor Body / Diffuser"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 12,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 7,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 8,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 3,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 4,
+            "componentName": "Floor Edge"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 17,
+            "sourceRowNumber": 5,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 17,
+            "sourceRowNumber": 6,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 17,
+            "sourceRowNumber": 7,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 19,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 19,
+            "sourceRowNumber": 2,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 21,
+            "sourceRowNumber": 2,
+            "componentName": "Sidepod Inlet"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 21,
+            "sourceRowNumber": 3,
+            "componentName": "Sidepod Body"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 10,
+            "sourceRowNumber": 1,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 10,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 10,
+            "sourceRowNumber": 3,
+            "componentName": "Floor"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 10,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Wing"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "australia-2026-doc-9-red-bull-racing-nose-2026",
+            "previousTeamId": "red-bull-racing",
+            "previousSourceText": "2026 regulations. Up to 3 elements for 2026 by regulation, with allowance to attach at either first or second element with those rearward able to move for balance and SM drag reduction. The ORBR design attaches at the first element allowing both flaps to perform the SM/CM change. 2 Nose Performance - Local Load Revised to comply with",
+            "sourceMatches": []
+          },
+          {
+            "previousId": "australia-2026-doc-9-ferrari-front-wing-1",
+            "previousTeamId": "ferrari",
+            "previousSourceText": "1 Front Wing Performance - Flow Conditioning Narrower span / longer chord front wing with SM system integration A significant geometrical difference compared to previous generation of cars is the front wing. Design focus has been on optimizing balance range and aerodynamic characteristics around the new",
+            "sourceMatches": []
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "austria-2026",
+      "name": "Austrian Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_austrian_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "14",
+      "documentHash": "7863deb797bed267fdd978e66170d86f755cf576cffce202739fadf712de0a6c",
+      "pageCount": 23,
+      "detected": 41,
+      "published": 41,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 5,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "5 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 1,
+          "previousDuplicates": 0,
+          "corrections": "0 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 4,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "4 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 5 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 10,
+          "published": 10,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 7,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 10 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [
+        {
+          "sourcePage": 7,
+          "sourceRowNumber": 6,
+          "teamId": "red-bull-racing"
+        },
+        {
+          "sourcePage": 7,
+          "sourceRowNumber": 7,
+          "teamId": "red-bull-racing"
+        },
+        {
+          "sourcePage": 22,
+          "sourceRowNumber": 7,
+          "teamId": "cadillac"
+        },
+        {
+          "sourcePage": 22,
+          "sourceRowNumber": 8,
+          "teamId": "cadillac"
+        },
+        {
+          "sourcePage": 22,
+          "sourceRowNumber": 9,
+          "teamId": "cadillac"
+        },
+        {
+          "sourcePage": 22,
+          "sourceRowNumber": 10,
+          "teamId": "cadillac"
+        }
+      ],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [
+          {
+            "previousId": "austria-2026-doc-14-red-bull-racing-front-wing-100",
+            "previousTeamId": "red-bull-racing",
+            "previousSourceText": "100 words) 1 Front Wing Endplate Performance - Local Load Revised front wing endplate with new diveplane and new footplate vane arrangement Further step applied to the new geometry introduced in the previous race in Spain, consolidating the original flow features and performance objectives of this front wing",
+            "sourceMatches": [
+              {
+                "teamId": "ferrari",
+                "sourcePage": 9,
+                "sourceRowNumber": 1,
+                "componentName": "Front Wing Endplate"
+              }
+            ]
+          }
+        ],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 1,
+            "componentName": "Front Suspension"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 3,
+            "componentName": "Floor"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 5,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 7,
+            "sourceRowNumber": 7,
+            "componentName": "Exhaust Tailpipe"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 2,
+            "componentName": "RV Tail"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 3,
+            "componentName": "Floor Board"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 4,
+            "componentName": "Mirror stay"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 12,
+            "sourceRowNumber": 1,
+            "componentName": "Exhaust Tailpipe"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 15,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 17,
+            "sourceRowNumber": 2,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 17,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 17,
+            "sourceRowNumber": 6,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 19,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 19,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 19,
+            "sourceRowNumber": 4,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 21,
+            "sourceRowNumber": 1,
+            "componentName": "Sidepod Inlet"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 21,
+            "sourceRowNumber": 3,
+            "componentName": "Sidepod / Coke"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 21,
+            "sourceRowNumber": 5,
+            "componentName": "Mirror Stay"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 21,
+            "sourceRowNumber": 6,
+            "componentName": "Roll Hoop Leg Fairings"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 22,
+            "sourceRowNumber": 7,
+            "componentName": "Floor Bib"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 22,
+            "sourceRowNumber": 8,
+            "componentName": "Floor Leading Edge"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 22,
+            "sourceRowNumber": 10,
+            "componentName": "Beam Wing"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "austria-2026-doc-14-mercedes-front-suspension-1",
+            "previousTeamId": "mercedes",
+            "previousSourceText": "1 Front Suspension Performance - Flow Conditioning Leg fairing angle of attack adjustment Leg fairing angle of attacked adjusted to improve alignment to onset flow throughout ride height range, resulting in improved flow to the rear of the car. 2 Coke/Engine Cover Cooling Range Narrower rear exit A narrower rear exit allows more cooling range tuning, biasing more cooling flow to the louvres rather than the rear exit.\n\nCar Presentation – Austrian Grand Prix",
+            "sourceMatches": [
+              {
+                "teamId": "mercedes",
+                "sourcePage": 4,
+                "sourceRowNumber": 1,
+                "componentName": "Front Suspension"
+              },
+              {
+                "teamId": "mercedes",
+                "sourcePage": 4,
+                "sourceRowNumber": 2,
+                "componentName": "Coke/Engine Cover"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "azerbaijan-2026",
+      "name": "Azerbaijan Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_azerbaijan_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "11",
+      "documentHash": "1616de8a9a2118873ff2146d08df6a98479e777d4012aa430a40766e563699b2",
+      "pageCount": 20,
+      "detected": 38,
+      "published": 38,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 8,
+          "published": 8,
+          "manualReview": 0,
+          "previousPublished": 8,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 5,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 5,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 14,
+          "published": 14,
+          "manualReview": 0,
+          "previousPublished": 14,
+          "missingOrMalformed": 7,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [
+        {
+          "sourcePage": 3,
+          "sourceRowNumber": 8,
+          "teamId": "mclaren"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 8,
+          "teamId": "audi"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 9,
+          "teamId": "audi"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 10,
+          "teamId": "audi"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 11,
+          "teamId": "audi"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 12,
+          "teamId": "audi"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 13,
+          "teamId": "audi"
+        },
+        {
+          "sourcePage": 16,
+          "sourceRowNumber": 14,
+          "teamId": "audi"
+        }
+      ],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "audi",
+            "sourcePage": 15,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 15,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 15,
+            "sourceRowNumber": 3,
+            "componentName": "Nose"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 16,
+            "sourceRowNumber": 9,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 16,
+            "sourceRowNumber": 11,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 16,
+            "sourceRowNumber": 12,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 16,
+            "sourceRowNumber": 14,
+            "componentName": "Rear Wing Endplate"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-front-wing-1",
+            "previousTeamId": "audi",
+            "previousSourceText": "Front Wing | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 1,
+                "componentName": "Front Wing"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 3,
+                "componentName": "Nose"
+              }
+            ]
+          },
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-front-wing-2",
+            "previousTeamId": "audi",
+            "previousSourceText": "Front Wing Endplate | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 1,
+                "componentName": "Front Wing"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 2,
+                "componentName": "Front Wing Endplate"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 3,
+                "componentName": "Nose"
+              }
+            ]
+          },
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-nose-3",
+            "previousTeamId": "audi",
+            "previousSourceText": "Nose | Performance – Flow conditioning | Full FW + Nose Fairing | A full new front wing is introduced alongside an update nose fairing to deliver a better flow to the rest of the car while covering the balance levels of the new package.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 1,
+                "componentName": "Front Wing"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 15,
+                "sourceRowNumber": 3,
+                "componentName": "Nose"
+              }
+            ]
+          },
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-engine-cover-9",
+            "previousTeamId": "audi",
+            "previousSourceText": "Coke/Engine Cover | Performance – Flow conditioning | New bodywork and halo fairing | Revised bodywork and associated cooling options are introduced to work with the updated package and improve management of the downstream flow structures.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 8,
+                "componentName": "Halo"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 9,
+                "componentName": "Coke/Engine Cover"
+              }
+            ]
+          },
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-rear-corner-11",
+            "previousTeamId": "audi",
+            "previousSourceText": "Rear Corner | Performance – Local load | New Rear suspension covers and rear brake duct furniture | The rear suspension covers and brake duct elements have been revised to complement the updated rear end flow field and improve aerodynamic performance.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 10,
+                "componentName": "Rear Suspension"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 11,
+                "componentName": "Rear Corner"
+              }
+            ]
+          },
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-beam-wing-12",
+            "previousTeamId": "audi",
+            "previousSourceText": "Beam Wing | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 12,
+                "componentName": "Beam Wing"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 13,
+                "componentName": "Rear Wing"
+              }
+            ]
+          },
+          {
+            "previousId": "azerbaijan-2026-doc-11-audi-rear-wing-14",
+            "previousTeamId": "audi",
+            "previousSourceText": "Rear Wing Endplate | Performance – Local load | New rear wing assembly | A revised rear wing assembly is introduced featuring updated elements designed to operate as part of the overall aerodynamic package.",
+            "sourceMatches": [
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 13,
+                "componentName": "Rear Wing"
+              },
+              {
+                "teamId": "audi",
+                "sourcePage": 16,
+                "sourceRowNumber": 14,
+                "componentName": "Rear Wing Endplate"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "bahrain-2026",
+      "name": "Bahrain Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_bahrain_grand_prix_in_malaysia_-_car_presentation_submissions.pdf",
+      "documentId": "12",
+      "documentHash": "be68005deb6890e760be6fc032dc7026c7a44f8761ad5894a617d855e9218e3c",
+      "pageCount": 19,
+      "detected": 14,
+      "published": 14,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 7,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 1,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [
+          {
+            "previousId": "bahrain-2026-doc-12-red-bull-racing-diffuser-1",
+            "previousTeamId": "red-bull-racing",
+            "previousSourceText": "Diffuser | Performance - Local Load | Diffuser outboard winglet cascade element development | Not Sepang track specific, this very localized development around the diffuser winglet cascade is providing a favourable additional downforce across the entire car operating envelope",
+            "sourceMatches": [
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 1,
+                "componentName": "Diffuser"
+              }
+            ]
+          }
+        ],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 1,
+            "componentName": "Diffuser"
+          }
+        ],
+        "unmatchablePreviousRows": []
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "barcelona-catalunya-2026",
+      "name": "Barcelona-Catalunya Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_barcelona-catalunya_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "14",
+      "documentHash": "26ba7ae0bf3556c02d0ba691fa350f7d56ec08e9d1830ff10b416429a833c7e9",
+      "pageCount": 20,
+      "detected": 18,
+      "published": 18,
+      "manualReview": 0,
+      "discarded": [
+        {
+          "sourcePage": 6,
+          "sourceTeamHeading": "Oracle Red Bull Racing.",
+          "sourceRowNumber": 3,
+          "reason": "empty_numbered_template_row"
+        },
+        {
+          "sourcePage": 6,
+          "sourceTeamHeading": "Oracle Red Bull Racing.",
+          "sourceRowNumber": 4,
+          "reason": "empty_numbered_template_row"
+        }
+      ],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 8,
+          "published": 8,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 7,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 8 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 2,
+            "componentName": "Front wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 3,
+            "componentName": "Nose"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 4,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 5,
+            "componentName": "Floor Board"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 6,
+            "componentName": "Floor Edge"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 7,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 15,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Impact Structure"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "barcelona-catalunya-2026-doc-14-red-bull-racing-front-wing-1",
+            "previousTeamId": "red-bull-racing",
+            "previousSourceText": "1 Front Wing Local load and flow conditioning. The wing element geometries have been revised where these meet the endplate Achieved by modifying existing parts, a new geometry of the elements near the end plate becomes available. Aim being to improve the local load whilst maintaining flow stability. 2 Front wing Balance range Camber increase of the front wing flaps. Should the front wing load demand exceed expectations, a more cambered flap assembly has been produced to offer more local load. 3 4\n\nCar Presentation – Barcelona - Catalunya Grand Prix",
+            "sourceMatches": [
+              {
+                "teamId": "red-bull-racing",
+                "sourcePage": 6,
+                "sourceRowNumber": 1,
+                "componentName": "Front Wing"
+              },
+              {
+                "teamId": "red-bull-racing",
+                "sourcePage": 6,
+                "sourceRowNumber": 2,
+                "componentName": "Front wing"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "belgian-2026",
+      "name": "Belgian Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_belgian_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "12",
+      "documentHash": "e3edc39edb92db8b85e8b9216a75979b0738957acd009d0ed0ab4fb87ecd7264",
+      "pageCount": 21,
+      "detected": 21,
+      "published": 21,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 9,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 9,
+            "sourceRowNumber": 2,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 9,
+            "sourceRowNumber": 3,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 11,
+            "sourceRowNumber": 2,
+            "componentName": "Roll Hoop"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 11,
+            "sourceRowNumber": 3,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 3,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 4,
+            "componentName": "Beam Wing"
+          }
+        ],
+        "unmatchablePreviousRows": []
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "british-2026",
+      "name": "British Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_british_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "13",
+      "documentHash": "949f1403db5591bb62d84c2f0a3072368d725207a8f281dcf5b9a458a7d04204",
+      "pageCount": 18,
+      "detected": 9,
+      "published": 9,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 5,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 7,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 11,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Wing Endplate"
+          }
+        ],
+        "unmatchablePreviousRows": []
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "canada-2026",
+      "name": "Canadian Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_canadian_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "11",
+      "documentHash": "5971fae2e70a5e17ad87fbdd400e2287f064ee830dfdada8be9f7f36c882193e",
+      "pageCount": 21,
+      "detected": 39,
+      "published": 39,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 7,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 8,
+          "published": 8,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 8,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 8 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 5,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 5 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 3,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 4,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 5,
+            "componentName": "Floor Board"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 6,
+            "componentName": "Floor Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 7,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 8,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 2,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 9,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 9,
+            "sourceRowNumber": 3,
+            "componentName": "Exhaust Tailpipe"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 11,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 11,
+            "sourceRowNumber": 3,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 11,
+            "sourceRowNumber": 4,
+            "componentName": "Exhaust Tailpipe Bracket"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Sidepod Inlet"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 2,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 3,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Suspension"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 14,
+            "sourceRowNumber": 5,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 16,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 16,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 20,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "canada-2026-doc-11-red-bull-racing-front-wing-1",
+            "previousTeamId": "red-bull-racing",
+            "previousSourceText": "1 Front Wing Balance Range Revised front wing flap elements Both second and third front wing elements forming the flap assemblies are revised to shift the aerobalance range available for the upcoming circuits. 2 Front Corner Reliability Revised brake duct exit geometry The next two circuits on the calendar demand more brake assembly cooling and to offer this an enlarged exit duct has been produced to enhance the cooling",
+            "sourceMatches": [
+              {
+                "teamId": "red-bull-racing",
+                "sourcePage": 6,
+                "sourceRowNumber": 1,
+                "componentName": "Front Wing"
+              },
+              {
+                "teamId": "red-bull-racing",
+                "sourcePage": 6,
+                "sourceRowNumber": 2,
+                "componentName": "Front Corner"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "china-2026",
+      "name": "Chinese Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_chinese_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "10",
+      "documentHash": "e113dd8e20a71be5f18ff28e8a94351d2699895e09207294f73cfaecd395840b",
+      "pageCount": 16,
+      "detected": 7,
+      "published": 7,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 8,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 11,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Impact Structure"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 15,
+            "sourceRowNumber": 1,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 15,
+            "sourceRowNumber": 2,
+            "componentName": "Mirror Stay"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "china-2026-doc-10-cadillac-diffuser-1",
+            "previousTeamId": "cadillac",
+            "previousSourceText": "1 Diffuser Performance - Local Load Trailing edge detail changes on diffuser winglet cascade Modifications made to the trailing edge lead to an increase in the local aerodynamic load acting on the winglet cascade, consequently increasing the overall aerodynamic load at the rear of the car. 2 Mirror Stay Structural Improvement Small leading edge surface changes Aerodynamic surface geometry has been revised in order to accommodate and integrate the latest structural improvements made to the component.",
+            "sourceMatches": [
+              {
+                "teamId": "cadillac",
+                "sourcePage": 15,
+                "sourceRowNumber": 1,
+                "componentName": "Diffuser"
+              },
+              {
+                "teamId": "cadillac",
+                "sourcePage": 15,
+                "sourceRowNumber": 2,
+                "componentName": "Mirror Stay"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "dutch-2026",
+      "name": "Dutch Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_dutch_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "10",
+      "documentHash": "9c24cee9ec4775e7dd507654b13692500ef9e41e8b1625982a5ab8e2a92100a4",
+      "pageCount": 19,
+      "detected": 23,
+      "published": 23,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 5,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 5 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 5 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 8,
+          "published": 8,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 5,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 8 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [
+        {
+          "sourcePage": 17,
+          "sourceRowNumber": 7,
+          "teamId": "alpine"
+        },
+        {
+          "sourcePage": 17,
+          "sourceRowNumber": 8,
+          "teamId": "alpine"
+        }
+      ],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 1,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 2,
+            "componentName": "Floor Board"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 3,
+            "componentName": "Floor Edge"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 4,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 5,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 12,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 12,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 12,
+            "sourceRowNumber": 3,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 12,
+            "sourceRowNumber": 5,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 1,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 2,
+            "componentName": "Floor Board"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 3,
+            "componentName": "Floor Edge"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 6,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 17,
+            "sourceRowNumber": 7,
+            "componentName": "Rear impact structure"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "dutch-2026-doc-10-red-bull-racing-floor-100",
+            "previousTeamId": "red-bull-racing",
+            "previousSourceText": "100 words) 1 Floor Body Performance - Local Load Updated board brace layout and pick-ups, Front floor and vanes arrangement revision. Reshaped floor edge curl and revised board foot geometry. This floor development targets a global increase in aerodynamic load across the entire operating range, combined with improved robustness of the underlying flow mechanisms, enhanced flow topology, and greater flow energy delivered to the rear diffuser 2 Floor Board 3 Floor Edge 4 Diffuser Alternative diffuser stays layout, revised diffuser ex pansion profile and diffuser fence loading Benefitting from improved onset flow quality, the diffuser expansion and geometry has been further optimized and returns increased aerodynamic load, whilst still maintaining flow stability 5 Beam Wing Revised lower beam wing spanwise twist Minor update, working in interaction with the new rear diffuser, with particular attention put on flow quality\n\nCar Presentation – Dutch Grand Prix",
+            "sourceMatches": [
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 1,
+                "componentName": "Floor Body"
+              },
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 2,
+                "componentName": "Floor Board"
+              },
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 3,
+                "componentName": "Floor Edge"
+              },
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 4,
+                "componentName": "Diffuser"
+              },
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 5,
+                "componentName": "Beam Wing"
+              }
+            ]
+          },
+          {
+            "previousId": "dutch-2026-doc-10-aston-martin-diffuser-5",
+            "previousTeamId": "aston-martin",
+            "previousSourceText": "5 Diffuser Performance - Local Load Modification to the lower edge of the diffuser winglet.\n\nCar Presentation – Dutch Grand Prix TGR HAAS F1 TEAM No update for this event\n\nCar Presentation – Dutch Grand Prix",
+            "sourceMatches": []
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "hungarian-2026",
+      "name": "Hungarian Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_hungarian_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "9",
+      "documentHash": "59d9c9d893c2f83c50e65abe2be06cfaad56552c5cdecbbca7e0f3b7e4196ace",
+      "pageCount": 23,
+      "detected": 37,
+      "published": 37,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 5,
+          "published": 5,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 5 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 16,
+          "published": 16,
+          "manualReview": 0,
+          "previousPublished": 6,
+          "missingOrMalformed": 13,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "6 → 16 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 1 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 9,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 10,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 11,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 12,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 13,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 14,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 15,
+          "teamId": "aston-martin"
+        },
+        {
+          "sourcePage": 15,
+          "sourceRowNumber": 16,
+          "teamId": "aston-martin"
+        }
+      ],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 3,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 4,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 5,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 3,
+            "componentName": "Tail"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Wing Endplate"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 12,
+            "sourceRowNumber": 1,
+            "componentName": "Roll Hoop"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 3,
+            "componentName": "Nose"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 4,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 5,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 6,
+            "componentName": "Floor Fences"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 7,
+            "componentName": "Floor Edge"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 8,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 15,
+            "sourceRowNumber": 10,
+            "componentName": "Coke/Engine Cover"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 15,
+            "sourceRowNumber": 13,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 15,
+            "sourceRowNumber": 14,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 15,
+            "sourceRowNumber": 15,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 15,
+            "sourceRowNumber": 16,
+            "componentName": "Rear Wing Endplate"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 22,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "hungarian-2026-doc-9-mercedes-sidepods-2",
+            "previousTeamId": "mercedes",
+            "previousSourceText": "2 Coke/Engine Cover Cooling Range Wider bodywork rear exit Increased exit size to achieve adequate mass flow through the sidepods to ensure we have adequate cooling for this track. 3 Tail Performance - Local Load Tail winglet merged into rear wing brace. Running the tail winglet into the rear wing brace increases local downforce and drag at a ratio appropriate for Budapest L/D.\n\nCar Presentation – Hungar ian Grand Prix",
+            "sourceMatches": [
+              {
+                "teamId": "mercedes",
+                "sourcePage": 4,
+                "sourceRowNumber": 2,
+                "componentName": "Coke/Engine Cover"
+              },
+              {
+                "teamId": "mercedes",
+                "sourcePage": 4,
+                "sourceRowNumber": 3,
+                "componentName": "Tail"
+              }
+            ]
+          },
+          {
+            "previousId": "hungarian-2026-doc-9-ferrari-rear-wing-1",
+            "previousTeamId": "ferrari",
+            "previousSourceText": "1 Rear Wing Performance - Local Load New flaps design with additional trailing edge devices, re-shaped endplate top inboard volume, new pillars. Also, an optional winglet cascade in the SM fairing volume will be available Part of the standard development cycle, this further iteration of rear wing has been focused on increasing load in a robust way. The additional winglet cascade is meant to increase rear downforce at the expense of aerodynamic efficiency, and is optional. 2 Rear Wing Endplate\n\nCar Presentation – Hungarian Grand Prix",
+            "sourceMatches": [
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 1,
+                "componentName": "Rear Wing"
+              },
+              {
+                "teamId": "ferrari",
+                "sourcePage": 8,
+                "sourceRowNumber": 2,
+                "componentName": "Rear Wing Endplate"
+              }
+            ]
+          },
+          {
+            "previousId": "hungarian-2026-doc-9-aston-martin-nose-3",
+            "previousTeamId": "aston-martin",
+            "previousSourceText": "3 Nose Performance - Local Load Longer, thinner nose.",
+            "sourceMatches": []
+          },
+          {
+            "previousId": "hungarian-2026-doc-9-aston-martin-diffuser-8",
+            "previousTeamId": "aston-martin",
+            "previousSourceText": "8 Diffuser Performance - Local Load Changes to the main diffuser, fences and winglet.",
+            "sourceMatches": []
+          },
+          {
+            "previousId": "hungarian-2026-doc-9-aston-martin-engine-cover-10",
+            "previousTeamId": "aston-martin",
+            "previousSourceText": "10 Coke/Engine Cover Performance - Local Load Relative subtle changes to the shape of the bodywork",
+            "sourceMatches": []
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "italian-grand-prix-2026",
+      "name": "Italian Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_italian_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "10",
+      "documentHash": "55541780261498d2f329dae1748df636a871072f26a580dd027de78669442d81",
+      "pageCount": 22,
+      "detected": 26,
+      "published": 26,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Front Bodywork"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 3,
+            "componentName": "Exhaust Tailpipe"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 2,
+            "componentName": "Mirror Stay"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 4,
+            "componentName": "RV Tail"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 12,
+            "sourceRowNumber": 2,
+            "componentName": "Exhaust Tailpipe"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 2,
+            "componentName": "Bodywork"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Corner"
+          }
+        ],
+        "unmatchablePreviousRows": []
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "japan-2026",
+      "name": "Japanese Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_japanese_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "11",
+      "documentHash": "a8fcc30bcae36d21d52c7d3c50dc76c197949b48843653c15ae9d15facaec3a6",
+      "pageCount": 19,
+      "detected": 16,
+      "published": 16,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 2 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 4,
+            "sourceRowNumber": 3,
+            "componentName": "Floor"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 4,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 6,
+            "sourceRowNumber": 2,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 11,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 11,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 16,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Wing Endplate"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 18,
+            "sourceRowNumber": 1,
+            "componentName": "Diffuser Fence"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 18,
+            "sourceRowNumber": 2,
+            "componentName": "Diffuser"
+          }
+        ],
+        "unmatchablePreviousRows": []
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "madrid-grand-prix-2026",
+      "name": "Spanish Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_spanish_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "11",
+      "documentHash": "c92e9191ede7c2bbb5aeabb8b2026f599d3f71fe432bc55311d63cfa1cb6f6a7",
+      "pageCount": 18,
+      "detected": 10,
+      "published": 10,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [],
+        "unmatchablePreviousRows": []
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "miami-2026",
+      "name": "Miami Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_miami_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "8",
+      "documentHash": "3ba75eb51c6ce045b3e5c11279e359e1ddaa0f825a251886d9c6f7a7b307de5e",
+      "pageCount": 25,
+      "detected": 58,
+      "published": 58,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 5,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "5 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "0 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 5,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "5 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 11,
+          "published": 11,
+          "manualReview": 0,
+          "previousPublished": 4,
+          "missingOrMalformed": 9,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "4 → 11 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 7,
+          "published": 7,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 7 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 6,
+          "published": 6,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 6 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 0,
+          "published": 0,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 6,
+          "published": 6,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 4,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 6 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 9,
+          "published": 9,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 7,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 9 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [
+        {
+          "sourcePage": 7,
+          "sourceRowNumber": 7,
+          "teamId": "red-bull-racing"
+        },
+        {
+          "sourcePage": 10,
+          "sourceRowNumber": 8,
+          "teamId": "ferrari"
+        },
+        {
+          "sourcePage": 10,
+          "sourceRowNumber": 9,
+          "teamId": "ferrari"
+        },
+        {
+          "sourcePage": 10,
+          "sourceRowNumber": 10,
+          "teamId": "ferrari"
+        },
+        {
+          "sourcePage": 10,
+          "sourceRowNumber": 11,
+          "teamId": "ferrari"
+        },
+        {
+          "sourcePage": 24,
+          "sourceRowNumber": 8,
+          "teamId": "cadillac"
+        },
+        {
+          "sourcePage": 24,
+          "sourceRowNumber": 9,
+          "teamId": "cadillac"
+        },
+        {
+          "sourcePage": 7,
+          "targetRowNumber": 6,
+          "teamId": "red-bull-racing"
+        }
+      ],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 6,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 1,
+            "componentName": "Tailpipe"
+          },
+          {
+            "teamId": "mercedes",
+            "sourcePage": 4,
+            "sourceRowNumber": 2,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 2,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 6,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 2,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 4,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 5,
+            "componentName": "Floor Edge"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 6,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 9,
+            "sourceRowNumber": 7,
+            "componentName": "Rear Suspension"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 10,
+            "sourceRowNumber": 8,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 10,
+            "sourceRowNumber": 9,
+            "componentName": "Rear tail"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 10,
+            "sourceRowNumber": 10,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 10,
+            "sourceRowNumber": 11,
+            "componentName": "Rear Wing Endplate"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 12,
+            "sourceRowNumber": 4,
+            "componentName": "Mirror assembly"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 12,
+            "sourceRowNumber": 5,
+            "componentName": "Tailpipe bracket"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 12,
+            "sourceRowNumber": 6,
+            "componentName": "RIS fairings"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 12,
+            "sourceRowNumber": 7,
+            "componentName": "Rear brace wing"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 14,
+            "sourceRowNumber": 4,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "racing-bulls",
+            "sourcePage": 14,
+            "sourceRowNumber": 5,
+            "componentName": "Rear Wing Endplate"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 21,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 21,
+            "sourceRowNumber": 4,
+            "componentName": "Rear impact structure"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 21,
+            "sourceRowNumber": 5,
+            "componentName": "Rear wing"
+          },
+          {
+            "teamId": "alpine",
+            "sourcePage": 21,
+            "sourceRowNumber": 6,
+            "componentName": "Rear Wing Endplate"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 1,
+            "componentName": "Front Wing Endplate"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 2,
+            "componentName": "Front Wing Flap"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 3,
+            "componentName": "Mirror Stay"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 4,
+            "componentName": "Forward Floorboard"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 23,
+            "sourceRowNumber": 5,
+            "componentName": "Floor Body"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 24,
+            "sourceRowNumber": 8,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 24,
+            "sourceRowNumber": 9,
+            "componentName": "Exhaust Tailpipe Bracket"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "miami-2026-doc-8-ferrari-diffuser-6",
+            "previousTeamId": "ferrari",
+            "previousSourceText": "6 Diffuser Performance - Local Load Central boat and diffuser expansion reprofiling, diffuser fence shedding edge detailing, trailing edge vertical flap addition and inboard lip detail",
+            "sourceMatches": []
+          },
+          {
+            "previousId": "miami-2026-doc-8-ferrari-rear-suspension-7",
+            "previousTeamId": "ferrari",
+            "previousSourceText": "7 Rear Suspension Performance - Local Load Rear trackrod fairing reprofiling",
+            "sourceMatches": []
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    },
+    {
+      "grandPrixId": "monaco-2026",
+      "name": "Monaco Grand Prix",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_monaco_grand_prix_-_car_presentation_submissions.pdf",
+      "documentId": "15",
+      "documentHash": "513eca62751dd9e24be31a313058e3efc949ad72ed25a21fbd5a86d1f2355996",
+      "pageCount": 23,
+      "detected": 31,
+      "published": 31,
+      "manualReview": 0,
+      "discarded": [],
+      "duplicates": 0,
+      "teams": [
+        {
+          "teamId": "mclaren",
+          "fiaRows": 6,
+          "published": 6,
+          "manualReview": 0,
+          "previousPublished": 4,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "4 → 6 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "mercedes",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "red-bull-racing",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "ferrari",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "williams",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "racing-bulls",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "aston-martin",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 2,
+          "missingOrMalformed": 2,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "2 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "haas",
+          "fiaRows": 3,
+          "published": 3,
+          "manualReview": 0,
+          "previousPublished": 0,
+          "missingOrMalformed": 3,
+          "wrongTeamAssignments": 1,
+          "previousDuplicates": 0,
+          "corrections": "0 → 3 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "audi",
+          "fiaRows": 4,
+          "published": 4,
+          "manualReview": 0,
+          "previousPublished": 3,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "3 → 4 publicadas; reconstrucción desde PDF"
+        },
+        {
+          "teamId": "alpine",
+          "fiaRows": 1,
+          "published": 1,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 0,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "Columnas originales, encabezado y ES verificados"
+        },
+        {
+          "teamId": "cadillac",
+          "fiaRows": 2,
+          "published": 2,
+          "manualReview": 0,
+          "previousPublished": 1,
+          "missingOrMalformed": 1,
+          "wrongTeamAssignments": 0,
+          "previousDuplicates": 0,
+          "corrections": "1 → 2 publicadas; reconstrucción desde PDF"
+        }
+      ],
+      "appliedReviews": [],
+      "sourceComparison": {
+        "previousDuplicates": [],
+        "wrongTeamAssignments": [
+          {
+            "previousId": "monaco-2026-doc-15-aston-martin-rear-wing-2",
+            "previousTeamId": "aston-martin",
+            "previousSourceText": "2 Rear Wing Performance - Local Load SM Fairing geometry change A minor revision to the RW SM fairing aimed at inducing localized upwash, providing a small but beneficial contribution to meeting the circuit’s high downforce demands.",
+            "sourceMatches": [
+              {
+                "teamId": "haas",
+                "sourcePage": 16,
+                "sourceRowNumber": 2,
+                "componentName": "Rear Wing"
+              }
+            ]
+          }
+        ],
+        "missingOrMalformedRows": [
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 3,
+            "componentName": "Beam Wing"
+          },
+          {
+            "teamId": "mclaren",
+            "sourcePage": 2,
+            "sourceRowNumber": 5,
+            "componentName": "Rear Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 1,
+            "componentName": "Front Corner"
+          },
+          {
+            "teamId": "red-bull-racing",
+            "sourcePage": 6,
+            "sourceRowNumber": 2,
+            "componentName": "Front corner"
+          },
+          {
+            "teamId": "ferrari",
+            "sourcePage": 8,
+            "sourceRowNumber": 3,
+            "componentName": "Diffuser"
+          },
+          {
+            "teamId": "williams",
+            "sourcePage": 10,
+            "sourceRowNumber": 2,
+            "componentName": "Exhaust Tailpipe"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 1,
+            "componentName": "Front Suspension"
+          },
+          {
+            "teamId": "aston-martin",
+            "sourcePage": 14,
+            "sourceRowNumber": 3,
+            "componentName": "Exhaust Tailpipe Bracket"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 1,
+            "componentName": "Front Suspension"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 2,
+            "componentName": "Rear Wing"
+          },
+          {
+            "teamId": "haas",
+            "sourcePage": 16,
+            "sourceRowNumber": 3,
+            "componentName": "Rear Impact Structure"
+          },
+          {
+            "teamId": "audi",
+            "sourcePage": 18,
+            "sourceRowNumber": 2,
+            "componentName": "Mirror"
+          },
+          {
+            "teamId": "cadillac",
+            "sourcePage": 22,
+            "sourceRowNumber": 2,
+            "componentName": "Exhaust Tailpipe"
+          }
+        ],
+        "unmatchablePreviousRows": [
+          {
+            "previousId": "monaco-2026-doc-15-ferrari-diffuser-3",
+            "previousTeamId": "ferrari",
+            "previousSourceText": "3 Diffuser Circuit specific – Drag range Additional stay on last element of the diffuser winglet\n\nCar Presentation – Monaco Grand Prix",
+            "sourceMatches": []
+          }
+        ]
+      },
+      "status": "UNCHANGED"
+    }
+  ]
+}

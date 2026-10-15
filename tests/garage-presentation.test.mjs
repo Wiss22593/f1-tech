@@ -52,7 +52,10 @@ test('counter keeps zero, singular and plural without leading zero and counts te
   assert.equal(garageUpdateCount('es', 8), '8 ACTUALIZACIONES')
   assert.deepEqual(publishedUpdateCounts([{ teamId: 'audi', grandPrixId: 'gp', validationState: 'published', componentId: null, visualizable: false }, { teamId: 'audi', grandPrixId: 'gp', validationState: 'published', componentId: 'unknown' }, { teamId: 'audi', grandPrixId: 'gp', validationState: 'manual_review' }], 'gp'), { audi: 2 })
 })
-test('real dataset availability accepts Azerbaijan and Madrid despite registry status; future Bahrain is absent', async () => {
+test('real published datasets remain available regardless of registry status', async () => {
   for (const id of ['azerbaijan-2026', 'madrid-grand-prix-2026']) assert.equal(hasPublishedUpdates(JSON.parse(await readFile(new URL(`../public/data/grands-prix/2026/${id}.json`, import.meta.url)))), true)
-  await assert.rejects(readFile(new URL('../public/data/grands-prix/2026/bahrain-2026.json', import.meta.url)), { code: 'ENOENT' })
+  // A newly ingested event must never make the publication workflow fail.
+  const dataset = JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/bahrain-2026.json', import.meta.url)))
+  assert.equal(hasPublishedUpdates(dataset), true)
+  assert.equal(selectPublishedGarageGrandPrix(events, new Set([...published, dataset.grandPrix.id]), 2026), 'bahrain-2026')
 })
