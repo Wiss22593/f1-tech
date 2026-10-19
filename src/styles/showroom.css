@@ -296,7 +296,8 @@
 .showroom button { transition: background-color 140ms ease, border-color 140ms ease; }
 .showroom button:disabled { opacity: .65; }
 .showroom-gp-select { border-radius: 8px; border-color: #ffffff35; box-shadow: inset 0 1px 0 #ffffff08; }
-.showroom-gp-select:focus-within { border-color: #cbd8ec; }
+.showroom-gp-select:has(select:focus-visible) { border-color: #cbd8ec; }
+.showroom-gp-select select:focus:not(:focus-visible) { outline: none; box-shadow: none; }
 .showroom__context select { font-size: .75rem; font-weight: 700; }
 .showroom__model > .showroom-update-badge, .showroom-mobile-count.showroom-update-badge {
   align-items: center; justify-content: center; gap: 5px; border: 1px solid #ef596180;
