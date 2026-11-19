@@ -81,10 +81,12 @@ jobs:
           node --check ingestion/fia/backfill.mjs
 
       - name: Discover and atomically publish deterministic records
+        id: processing
         if: steps.discovery.outputs.needs_pipeline == 'true'
         run: node --use-system-ca ingestion/fia/scheduled.mjs --resolution=ingestion/output/calendar/watch-event.json --publish=true
 
       - name: Run the complete test suite
+        id: tests
         if: steps.discovery.outputs.needs_pipeline == 'true'
         run: npm test
 
@@ -152,3 +154,39 @@ jobs:
             ingestion/output/manual-review/
             ingestion/output/draft/
           if-no-files-found: ignore
+
+      - name: Report final FIA publication state
+        if: always()
+        env:
+          WINDOW_OUTCOME: ${{ steps.window.outcome }}
+          WINDOW_RELEVANT: ${{ steps.window.outputs.relevant }}
+          DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
+          DISCOVERY_STATUS: ${{ steps.discovery.outputs.status }}
+          PROCESS_OUTCOME: ${{ steps.processing.outcome }}
+          PROCESS_STATUS: ${{ steps.processing.outputs.status }}
+          TEST_OUTCOME: ${{ steps.tests.outcome }}
+          GUARD_OUTCOME: ${{ steps.guard.outcome }}
+          REMOTE_OUTCOME: ${{ steps.remote.outcome }}
+          REMOTE_COMMIT: ${{ steps.remote.outputs.commit }}
+          PUSH_OUTCOME: ${{ steps.push.outcome }}
+          HAS_CHANGES: ${{ steps.guard.outputs.has_changes }}
+        shell: bash
+        run: |
+          if [ "$WINDOW_OUTCOME" = "failure" ] || [ "$DISCOVERY_OUTCOME" = "failure" ] || [ "$PROCESS_OUTCOME" = "failure" ] || [ "$TEST_OUTCOME" = "failure" ] || [ "$GUARD_OUTCOME" = "failure" ] || [ "$REMOTE_OUTCOME" = "failure" ] || [ "$PUSH_OUTCOME" = "failure" ]; then
+            status=ERROR
+          elif [ "$DISCOVERY_STATUS" = "ALREADY_PUBLISHED" ] || [ "$PROCESS_STATUS" = "ALREADY_PUBLISHED" ]; then
+            status=ALREADY_PUBLISHED
+          elif [ "$DISCOVERY_STATUS" = "PENDING" ] || [ "$PROCESS_STATUS" = "PENDING" ]; then
+            status=PENDING
+          elif [ "$DISCOVERY_STATUS" = "AMBIGUOUS" ] || [ "$PROCESS_STATUS" = "AMBIGUOUS" ]; then
+            status=AMBIGUOUS
+          elif [ "$PUSH_OUTCOME" = "success" ]; then
+            status=PUBLISHED
+          elif [ "$REMOTE_OUTCOME" = "success" ] && [ "$REMOTE_COMMIT" = "false" ]; then
+            status=ALREADY_PUBLISHED
+          elif [ "$WINDOW_RELEVANT" != "true" ]; then
+            status=NO_ELIGIBLE_EVENT
+          else
+            status=ERROR
+          fi
+          echo "FIA Auto Publish: **$status**" >> "$GITHUB_STEP_SUMMARY"

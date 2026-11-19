@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "node --test tests/**/*.test.mjs",
+    "fia:audit:2026": "node --test tests/fia-2026-full-audit.audit.mjs",
     "fia:ingest": "node --use-system-ca ingestion/fia/run.mjs",
     "fia:backfill": "node --use-system-ca ingestion/fia/backfill.mjs",
     "fia:current": "node --use-system-ca ingestion/fia/backfill.mjs --current=true",

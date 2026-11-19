@@ -7,7 +7,7 @@ import { parsePresentationText } from '../ingestion/fia/parser.mjs'
 import { extractPdfText, extractTableLines } from '../ingestion/fia/extractor.mjs'
 import { mapFiaComponent, suggestFiaComponents } from '../ingestion/fia/component-registry.mjs'
 import { createPublicationPlan, isPublishedDatasetCurrent, publicationDecision } from '../ingestion/fia/publication.mjs'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { eventRegistry2026, selectCurrentEvents, selectIngestionWindowEvents } from '../ingestion/fia/events.mjs'
@@ -16,6 +16,7 @@ import { buildAutoPublishChangePlan, validateAutoPublishDataset } from '../inges
 import { JolpicaChampionshipProvider } from '../ingestion/championship/jolpica.mjs'
 import { resolveChampionshipSource } from '../ingestion/championship/source-config.mjs'
 import { selectLatestPublishedGrandPrixId } from '../src/services/fia/latest-published.mjs'
+import { gunzipSync } from 'node:zlib'
 
 const valid = {
   id: 'monza-mercedes-rear-wing', grandPrixId: 'italian-grand-prix-2026', teamId: 'mercedes', componentId: 'rear wing',
@@ -42,6 +43,34 @@ test('validator rejects records without traceable content', () => {
   assert.deepEqual(validateUpdate(valid, ['italian-grand-prix-2026']), { valid: true, errors: [] })
   assert.equal(validateUpdate({ ...valid, componentId: 'unknown' }, ['italian-grand-prix-2026']).valid, false)
   assert.equal(validateUpdate({ ...valid, briefDescription: null, geometricDifference: null }, ['italian-grand-prix-2026']).valid, false)
+})
+
+test('cross-page team attribution requires review tied to this PDF and complete source cells', () => {
+  const contentHash = 'a'.repeat(64)
+  const crossPage = { ...valid, season: 2026, parserVersion: 'fia-table-v4', contentHash, sourcePage: 9, sourceHeadingPage: 8, sourceTeamHeading: 'Mercedes-AMG PETRONAS F1 Team', primaryReason: 'Performance - Local Load', geometricDifference: 'Revised rear wing geometry.', sourceReview: { method: 'visual_section_review', documentHash: contentHash } }
+  assert.deepEqual(validateUpdate(crossPage, ['italian-grand-prix-2026']), { valid: true, errors: [] })
+  assert.equal(validateUpdate({ ...crossPage, sourceReview: {} }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...crossPage, sourceReview: { ...crossPage.sourceReview, documentHash: 'b'.repeat(64) } }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...crossPage, primaryReason: null }, ['italian-grand-prix-2026']).valid, false)
+  assert.equal(validateUpdate({ ...crossPage, geometricDifference: null }, ['italian-grand-prix-2026']).valid, false)
+})
+
+test('an unrecognised explicit heading cannot inherit the preceding team', async () => {
+  const fixtures = JSON.parse(gunzipSync(await readFile(new URL('./fixtures/fia-2026-official-layouts.json.gz', import.meta.url))))
+  const fixture = fixtures.find(item => item.grandPrix.id === 'bahrain-2026')
+  const extraction = structuredClone(fixture.extraction)
+  const page = extraction.pages.find(item => item.pageNumber === 8)
+  const titleY = page.items.find(item => /Car Presentation/.test(item.text)).y
+  const tableY = Math.max(...page.tableLines.vertical.map(line => line.y2))
+  page.items = page.items.filter(item => !(item.y < titleY - 2 && item.y > tableY + 2))
+  page.items.push({ text: 'Unknown Works Team', x: 300, y: (titleY + tableY) / 2, width: 150, height: 12 })
+  const parsed = parsePresentationText(extraction, { documentId: fixture.document.id, season: 2026, grandPrixId: fixture.grandPrix.id, sourceUrl: fixture.document.sourceUrl, sourceDocument: fixture.document.title, contentHash: fixture.document.contentHash, parserVersion: 'fia-table-v4' })
+  assert.equal(parsed.records.filter(record => record.sourcePage === 8).length, 0)
+  const rejected = parsed.rejected.filter(record => record.sourcePage === 8)
+  assert.equal(rejected.length, 1)
+  assert.equal(rejected[0].reason, 'unmapped_team')
+  assert.equal(rejected[0].sourceTeamHeading, 'Unknown Works Team')
+  assert.match(rejected[0].sourceText, /cascade/i)
 })
 
 test('duplicate source rows are detected before publication', () => {
@@ -206,7 +235,7 @@ test('latest published GP ignores newer future or no-document events without dat
 test('Garage opens text-only updates without assigning a fake camera component', async () => {
   const garage = await readFile(new URL('../src/features/garage/GaragePage.tsx', import.meta.url), 'utf8')
   assert.match(garage, /setSelectedUpdateId\(selecting \? update\.id : undefined\)/)
-  assert.match(garage, /if \(!update\.componentId\) return/)
+  assert.match(garage, /if \(!update\.componentId\)\s*\{[^}]*setSelectedComponent\(undefined\);[^}]*return\s*\}/s)
   assert.match(garage, /nonVisualizableUpdates\.map\(renderTextOnlyUpdate\)/)
   assert.match(garage, /findPublishedGrandPrix\(\)/)
 })
@@ -355,10 +384,16 @@ test('six-locale catalog covers Garage labels and factual offline state', async 
   assert.doesNotMatch(catalogue, /components:\s*\{\s*\}/)
   for (const locale of ['es', 'en', 'it', 'pt', 'fr', 'de']) {
     assert.match(catalogue, new RegExp(`\\b${locale}: \\{ name:`))
+    assert.match(catalogue, new RegExp(`\\b${locale}: \\{ stale: [^\\n]+offline:`))
   }
-  for (const page of ['technical-preview/TechnicalPreview.tsx', 'updates/UpdatesPage.tsx', 'teams/TeamsPage.tsx']) {
+  const preview = await readFile(new URL('../src/features/technical-preview/TechnicalPreview.tsx', import.meta.url), 'utf8')
+  assert.match(preview, /navigator\.onLine \? 'stale' : 'offline'/)
+  const recordsHook = await readFile(new URL('../src/features/insights/useSeasonRecords.ts', import.meta.url), 'utf8')
+  assert.match(recordsHook, /navigator\.onLine \? 'stale' : 'offline'/)
+  for (const page of ['updates/UpdatesPage.tsx', 'teams/TeamsPage.tsx']) {
     const source = await readFile(new URL(`../src/features/${page}`, import.meta.url), 'utf8')
-    assert.match(source, /navigator\.onLine \? 'stale' : 'offline'/)
+    assert.match(source, /useSeasonRecords/)
+    assert.match(source, /dataStateText\(locale/)
   }
 })
 
@@ -407,6 +442,13 @@ test('scheduled workflow uses verified FP1, generic 24-hour cron and guarded pre
   assert.match(workflow, /needs_pipeline == 'true'/)
   assert.match(workflow, /contents: write/)
   assert.match(workflow, /cron: '17,47 \* \* \* \*'/)
+  assert.match(workflow, /id: processing/)
+  assert.match(workflow, /Report final FIA publication state/)
+  assert.ok(workflow.indexOf('elif [ "$PUSH_OUTCOME" = "success" ]; then\r\n            status=PUBLISHED') > workflow.indexOf('name: Report final FIA publication state'))
+  assert.ok(workflow.includes('elif [ "$REMOTE_OUTCOME" = "success" ] && [ "$REMOTE_COMMIT" = "false" ]; then\r\n            status=ALREADY_PUBLISHED'))
+  const scheduledRunner = await readFile(new URL('../ingestion/fia/scheduled.mjs', import.meta.url), 'utf8')
+  assert.match(scheduledRunner, /status: 'READY_TO_PUBLISH'/)
+  assert.doesNotMatch(scheduledRunner, /status: 'PUBLISHED'/)
   const runner = await readFile(new URL('../ingestion/fia/backfill.mjs', import.meta.url), 'utf8')
   assert.match(runner, /status: 'NO_DOCUMENT_FOUND'/)
   assert.match(runner, /results.some\(\(\{ status \}\) => status === 'ERROR'\)/)
@@ -434,6 +476,63 @@ test('real runner treats no document as success and preserves an existing datase
     const { stdout } = await promisify(execFile)(process.execPath, ['--import', preload, fileURLToPath(new URL('../ingestion/fia/run.mjs', import.meta.url)), '--index-url=https://www.fia.com/documents/season/2026/event/Bahrain%20Grand%20Prix', '--grand-prix=bahrain-2026', '--event-name=Bahrain Grand Prix', '--allow-empty=true', '--publish=true', '--publish-output=' + target], { cwd: directory })
     assert.equal(JSON.parse(stdout).status, 'NO_DOCUMENT_FOUND')
     assert.equal(await readFile(target, 'utf8'), prior)
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+test('direct runner returns ALREADY_PUBLISHED before any FIA request or PDF processing', async () => {
+  const { execFile } = await import('node:child_process')
+  const { promisify } = await import('node:util')
+  const { fileURLToPath } = await import('node:url')
+  const { dirname } = await import('node:path')
+  const directory = await mkdtemp(join(tmpdir(), 'fia-already-published-run-'))
+  const target = join(directory, 'public', 'data', 'grands-prix', '2026', 'azerbaijan-2026.json')
+  const published = await readFile(new URL('../public/data/grands-prix/2026/azerbaijan-2026.json', import.meta.url))
+  await mkdir(dirname(target), { recursive: true })
+  await writeFile(target, published)
+  const preload = 'data:text/javascript,' + encodeURIComponent('globalThis.fetch = async () => { throw new Error("unexpected FIA request") }')
+  try {
+    const { stdout } = await promisify(execFile)(process.execPath, [
+      '--import', preload,
+      fileURLToPath(new URL('../ingestion/fia/run.mjs', import.meta.url)),
+      '--index-url=https://www.fia.com/documents/season/2026/event/Azerbaijan%20Grand%20Prix',
+      '--grand-prix=azerbaijan-2026', '--event-name=Azerbaijan Grand Prix', '--publish=true', '--publish-output=' + target,
+    ], { cwd: directory })
+    assert.equal(JSON.parse(stdout).status, 'ALREADY_PUBLISHED')
+    assert.deepEqual(await readFile(target), published)
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+test('real runner refuses multiple exact-title PDFs without choosing or replacing a dataset', async () => {
+  const { execFile } = await import('node:child_process')
+  const { promisify } = await import('node:util')
+  const { fileURLToPath } = await import('node:url')
+  const directory = await mkdtemp(join(tmpdir(), 'fia-ambiguous-run-'))
+  const target = join(directory, 'dataset.json')
+  const html = '<a href="/doc9.pdf">Doc 9 - Car Presentation Submissions</a><a href="/doc10.pdf">Doc 10 - Car Presentation Submissions</a>'
+  const preload = 'data:text/javascript,' + encodeURIComponent(`globalThis.fetch = async () => new Response(${JSON.stringify(html)})`)
+  try {
+    await assert.rejects(
+      promisify(execFile)(process.execPath, ['--import', preload, fileURLToPath(new URL('../ingestion/fia/run.mjs', import.meta.url)), '--index-url=https://www.fia.com/documents/season/2026/event/Bahrain%20Grand%20Prix', '--grand-prix=bahrain-2026', '--event-name=Bahrain Grand Prix', '--allow-empty=true', '--publish=true', '--publish-output=' + target], { cwd: directory }),
+      error => { assert.match(error.stderr, /AMBIGUOUS_FIA_DOCUMENTS/); return true },
+    )
+    await assert.rejects(readFile(target), { code: 'ENOENT' })
+  } finally { await rm(directory, { recursive: true, force: true }) }
+})
+
+test('scheduled CLI records ERROR and exits nonzero so the next cron can retry', async () => {
+  const { execFile } = await import('node:child_process')
+  const { promisify } = await import('node:util')
+  const { fileURLToPath } = await import('node:url')
+  const directory = await mkdtemp(join(tmpdir(), 'fia-scheduled-error-'))
+  const output = join(directory, 'github-output'), summary = join(directory, 'step-summary')
+  try {
+    await assert.rejects(
+      promisify(execFile)(process.execPath, [fileURLToPath(new URL('../ingestion/fia/scheduled.mjs', import.meta.url)), '--resolution=missing-event.json'], { cwd: directory, env: { ...process.env, GITHUB_OUTPUT: output, GITHUB_STEP_SUMMARY: summary } }),
+      error => { assert.match(error.stderr, /"status":"ERROR"/); return true },
+    )
+    assert.match(await readFile(output, 'utf8'), /status=ERROR/)
+    assert.match(await readFile(output, 'utf8'), /needs_pipeline=false/)
+    assert.match(await readFile(summary, 'utf8'), /\*\*ERROR\*\*/)
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 

@@ -77,18 +77,17 @@ test('reconciliation maps the exact FIA identity even when its venue changes',()
   const result=reconcileCalendar([base], [{eventName:base.eventName,circuit:'NEW VENUE',status:'scheduled'}],parseF1Calendar(f1Html(),2026));assert.equal(result.events[0].id,base.id);assert.equal(result.events[0].fiaCircuit,'NEW VENUE')
 })
 test('outside FP1 window succeeds without touching FIA documents or pipeline',async()=>{
-  const result=await runScheduled({resolution:{event},at:new Date('2026-09-28T00:00:00Z'),publish:true,findIndex:()=>{throw new Error('must not fetch')}});assert.equal(result.status,'SKIP_OUTSIDE_WINDOW')
+  const result=await runScheduled({resolution:{event},at:new Date('2026-09-28T00:00:00Z'),publish:true,readDataset:async()=>null,findIndex:()=>{throw new Error('must not fetch')}});assert.equal(result.status,'SKIP_OUTSIDE_WINDOW')
 })
 test('inside FP1 window discovers documents; absence is success and publishes nothing',async()=>{
   let discoveries=0;const result=await runScheduled({resolution:{event},at:new Date(event.fp1.utc),publish:true,readDataset:async()=>null,findIndex:async()=>event.indexUrl,findDocuments:async()=>{discoveries++;return[]},pipeline:()=>{throw new Error('must not publish')}})
-  assert.equal(discoveries,1);assert.equal(result.status,'PENDING_DOCUMENT');assert.equal(result.needsPipeline,false)
+  assert.equal(discoveries,1);assert.equal(result.status,'PENDING');assert.equal(result.needsPipeline,false)
 })
-test('preflight does not treat a different verified event date as already published',async()=>{
-  const current=JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/azerbaijan-2026.json',import.meta.url))),az={...eventRegistry.find(e=>e.id==='azerbaijan-2026'),fp1:event.fp1,endDate:event.endDate}
-  const options={resolution:{event:az},at:new Date(event.fp1.utc),preflight:true,findIndex:async()=>az.indexUrl,findDocuments:async()=>[{sourceUrl:current.sourceDocument.sourceUrl}],readDataset:async()=>current}
-  assert.equal((await runScheduled({...options,download:async()=>({contentHash:current.sourceDocument.documentHash})})).status,'NEEDS_PIPELINE') // Legacy v3 data must be revalidated by v4.
-  assert.equal((await runScheduled({...options,download:async()=>({contentHash:'f'.repeat(64)})})).needsPipeline,true)
-  assert.equal((await runScheduled({...options,readDataset:async()=>null})).status,'NEEDS_PIPELINE')
+test('a validated published dataset remains final if official event dates later differ',async()=>{
+  const current=JSON.parse(await readFile(new URL('../public/data/grands-prix/2026/azerbaijan-2026.json',import.meta.url))),az={...eventRegistry.find(e=>e.id==='azerbaijan-2026'),fp1:event.fp1,startDate:'2026-10-01',endDate:event.endDate}
+  const options={resolution:{event:az},at:new Date(event.fp1.utc),preflight:true,findIndex:async()=>{throw new Error('published GP must not rediscover FIA')},findDocuments:async()=>{throw new Error('published GP must not download FIA PDFs')},readDataset:async()=>current}
+  const result=await runScheduled(options)
+  assert.equal(result.status,'ALREADY_PUBLISHED');assert.equal(result.needsPipeline,false)
 })
 test('an unavailable event index falls back to the exact official season event scope',async()=>{
   const season=await readFile(new URL('./fixtures/fia-season-multi-event.html',import.meta.url),'utf8');let requests=0

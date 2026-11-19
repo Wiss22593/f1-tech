@@ -26,6 +26,13 @@ export function validateAutoPublishDataset(dataset, path, registry = eventRegist
   return validateDataset(dataset, path, registry)
 }
 
+export function isCompletePublishedDataset(dataset, path, registry = eventRegistry) {
+  const validation = validateAutoPublishDataset(dataset, path, registry)
+  return validation.valid
+    && dataset?.validation?.manualReview === 0
+    && dataset?.validation?.recordsReceived === dataset?.updates?.length
+}
+
 export function parsePorcelainPaths(output) {
   return output.split(/\r?\n/).filter(Boolean).map((line) => line.slice(3).trim())
 }

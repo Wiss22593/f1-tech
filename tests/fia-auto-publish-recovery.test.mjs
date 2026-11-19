@@ -90,7 +90,7 @@ test('schedule and dispatch both check every invocation during verified catch-up
  assert.equal(dispatched.relevant,true);assert.equal(dispatched.trigger,'workflow_dispatch')
  const event=dispatched.event
  const options={resolution:dispatched,at,publish:true,findIndex:async()=>base.indexUrl,findDocuments:async()=>[{sourceUrl:'https://www.fia.com/doc.pdf'}],readDataset:async()=>null,pipeline:async()=>({status:'PROCESSED'})}
- assert.equal((await runScheduled(options)).status,'PROCESSED')
- assert.equal((await runScheduled({...options,resolution:scheduled})).status,'PROCESSED')
+ assert.equal((await runScheduled(options)).status,'READY_TO_PUBLISH')
+ assert.equal((await runScheduled({...options,resolution:scheduled})).status,'READY_TO_PUBLISH')
  assert.equal((await runScheduled({...options,at:new Date('2026-10-07T10:47:00Z')})).status,'SKIP_OUTSIDE_WINDOW')
 })
