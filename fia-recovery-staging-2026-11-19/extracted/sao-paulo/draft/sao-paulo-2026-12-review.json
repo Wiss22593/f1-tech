@@ -1,0 +1,359 @@
+{
+  "generatedAt": "2026-11-08T22:29:47.554Z",
+  "publicationGate": "safe_publish_requested",
+  "document": {
+    "id": "sao-paulo-2026-doc-12",
+    "eventId": "sao-paulo-2026",
+    "eventName": "São Paulo Grand Prix",
+    "season": 2026,
+    "title": "Doc 12 - Car Presentation Submissions",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+    "documentId": "12",
+    "publishedAt": null,
+    "retrievedAt": "2026-11-08T22:29:40.284Z",
+    "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+    "path": "/home/runner/work/f1-tech/f1-tech/ingestion/raw/sao-paulo-2026-doc-12.pdf"
+  },
+  "extraction": {
+    "pageCount": 13,
+    "metadata": {
+      "PDFFormatVersion": "1.4",
+      "Language": null,
+      "EncryptFilterName": null,
+      "IsLinearized": false,
+      "IsAcroFormPresent": false,
+      "IsXFAPresent": false,
+      "IsCollectionPresent": false,
+      "IsSignaturesPresent": false
+    },
+    "extractionWarnings": [
+      "partial_text_layer: one or more pages contain no extractable text"
+    ],
+    "textLength": 2324
+  },
+  "records": [
+    {
+      "id": "sao-paulo-2026-doc-12-mclaren-front-wing-1",
+      "season": 2026,
+      "grandPrixId": "sao-paulo-2026",
+      "teamId": "mclaren",
+      "componentId": "front-wing",
+      "visualizable": true,
+      "componentName": "Front Wing",
+      "primaryReason": "Performance - Flow Conditioning",
+      "geometricDifference": "New Front Wing",
+      "briefDescription": "A completely new front wing design, aimed at improved flow conditioning towards the floor and bodywork resulting in improved aerodynamic performance.",
+      "category": "Performance - Flow Conditioning",
+      "source": "FIA",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+      "sourceDocument": "Doc 12 - Car Presentation Submissions",
+      "sourceText": "Front Wing | Performance - Flow Conditioning | New Front Wing | A completely new front wing design, aimed at improved flow conditioning towards the floor and bodywork resulting in improved aerodynamic performance.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 1,
+      "sourceLanguage": "en",
+      "translations": {
+        "es": {
+          "sourceKey": "[\"eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56\",\"Front Wing\",\"Performance - Flow Conditioning\",\"New Front Wing\",\"A completely new front wing design, aimed at improved flow conditioning towards the floor and bodywork resulting in improved aerodynamic performance.\",\"Front Wing | Performance - Flow Conditioning | New Front Wing | A completely new front wing design, aimed at improved flow conditioning towards the floor and bodywork resulting in improved aerodynamic performance.\"]",
+          "method": "automatic",
+          "reviewStatus": "unreviewed",
+          "policyVersion": "fia-es-auto-v1",
+          "provider": {
+            "engine": "transformers.js",
+            "engineVersion": "3.8.1",
+            "model": "Xenova/opus-mt-en-es",
+            "revision": "4b002a4c7edd54a7ced58877258b87f7efd3f892",
+            "dtype": "q8",
+            "glossaryVersion": "fia-aero-es-v2",
+            "sourceLanguage": "en",
+            "targetLanguage": "es"
+          },
+          "fieldMethods": {
+            "componentName": "reviewed_phrase",
+            "primaryReason": "reviewed_phrase",
+            "geometricDifference": "machine",
+            "briefDescription": "machine"
+          },
+          "componentName": "Alerón delantero",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nuevo alerón delantero",
+          "briefDescription": "Un diseño completamente nuevo alerón delantero, dirigido a mejorar el acondicionamiento del flujo hacia el suelo y la carrocería, lo que resulta en un mejor rendimiento aerodinámico."
+        }
+      },
+      "description": "A completely new front wing design, aimed at improved flow conditioning towards the floor and bodywork resulting in improved aerodynamic performance.",
+      "area": null,
+      "objective": null,
+      "magnitude": null,
+      "technicalState": "SUBMITTED",
+      "validationState": "validated",
+      "publishedAt": null,
+      "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+      "parserConfidence": "deterministic_table",
+      "parserVersion": "fia-table-v4"
+    },
+    {
+      "id": "sao-paulo-2026-doc-12-mclaren-rear-wing-2",
+      "season": 2026,
+      "grandPrixId": "sao-paulo-2026",
+      "teamId": "mclaren",
+      "componentId": "rear-wing",
+      "visualizable": true,
+      "componentName": "Rear Wing",
+      "primaryReason": "Performance – Local Load",
+      "geometricDifference": "New Rear Wing Assembly",
+      "briefDescription": "A new rear wing assembly has been designed for this event, aiming to increase aerodynamic load efficiently in all conditions.",
+      "category": "Performance – Local Load",
+      "source": "FIA",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+      "sourceDocument": "Doc 12 - Car Presentation Submissions",
+      "sourceText": "Rear Wing | Performance – Local Load | New Rear Wing Assembly | A new rear wing assembly has been designed for this event, aiming to increase aerodynamic load efficiently in all conditions.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 2,
+      "sourceLanguage": "en",
+      "translations": {
+        "es": {
+          "sourceKey": "[\"eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56\",\"Rear Wing\",\"Performance – Local Load\",\"New Rear Wing Assembly\",\"A new rear wing assembly has been designed for this event, aiming to increase aerodynamic load efficiently in all conditions.\",\"Rear Wing | Performance – Local Load | New Rear Wing Assembly | A new rear wing assembly has been designed for this event, aiming to increase aerodynamic load efficiently in all conditions.\"]",
+          "method": "automatic",
+          "reviewStatus": "unreviewed",
+          "policyVersion": "fia-es-auto-v1",
+          "provider": {
+            "engine": "transformers.js",
+            "engineVersion": "3.8.1",
+            "model": "Xenova/opus-mt-en-es",
+            "revision": "4b002a4c7edd54a7ced58877258b87f7efd3f892",
+            "dtype": "q8",
+            "glossaryVersion": "fia-aero-es-v2",
+            "sourceLanguage": "en",
+            "targetLanguage": "es"
+          },
+          "fieldMethods": {
+            "componentName": "reviewed_phrase",
+            "primaryReason": "reviewed_phrase",
+            "geometricDifference": "machine",
+            "briefDescription": "machine"
+          },
+          "componentName": "Alerón trasero",
+          "primaryReason": "Rendimiento - Carga aerodinámica local",
+          "geometricDifference": "Nuevo alerón trasero Asamblea",
+          "briefDescription": "Para este evento se ha diseñado un nuevo conjunto alerón trasero con el objetivo de aumentar la carga aerodinámica de manera eficiente en todas las condiciones."
+        }
+      },
+      "description": "A new rear wing assembly has been designed for this event, aiming to increase aerodynamic load efficiently in all conditions.",
+      "area": null,
+      "objective": null,
+      "magnitude": null,
+      "technicalState": "SUBMITTED",
+      "validationState": "validated",
+      "publishedAt": null,
+      "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+      "parserConfidence": "deterministic_table",
+      "parserVersion": "fia-table-v4"
+    },
+    {
+      "id": "sao-paulo-2026-doc-12-mclaren-beam-wing-3",
+      "season": 2026,
+      "grandPrixId": "sao-paulo-2026",
+      "teamId": "mclaren",
+      "componentId": null,
+      "visualizable": false,
+      "componentName": "Beam Wing",
+      "primaryReason": "Performance - Flow Conditioning",
+      "geometricDifference": "New Beam Wing",
+      "briefDescription": "In conjunction with the aforementioned rear wing, a new beam wing has been designed for improved interaction and flow conditioning.",
+      "category": "Performance - Flow Conditioning",
+      "source": "FIA",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+      "sourceDocument": "Doc 12 - Car Presentation Submissions",
+      "sourceText": "Beam Wing | Performance - Flow Conditioning | New Beam Wing | In conjunction with the aforementioned rear wing, a new beam wing has been designed for improved interaction and flow conditioning.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 3,
+      "sourceLanguage": "en",
+      "translations": {
+        "es": {
+          "sourceKey": "[\"eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56\",\"Beam Wing\",\"Performance - Flow Conditioning\",\"New Beam Wing\",\"In conjunction with the aforementioned rear wing, a new beam wing has been designed for improved interaction and flow conditioning.\",\"Beam Wing | Performance - Flow Conditioning | New Beam Wing | In conjunction with the aforementioned rear wing, a new beam wing has been designed for improved interaction and flow conditioning.\"]",
+          "method": "automatic",
+          "reviewStatus": "unreviewed",
+          "policyVersion": "fia-es-auto-v1",
+          "provider": {
+            "engine": "transformers.js",
+            "engineVersion": "3.8.1",
+            "model": "Xenova/opus-mt-en-es",
+            "revision": "4b002a4c7edd54a7ced58877258b87f7efd3f892",
+            "dtype": "q8",
+            "glossaryVersion": "fia-aero-es-v2",
+            "sourceLanguage": "en",
+            "targetLanguage": "es"
+          },
+          "fieldMethods": {
+            "componentName": "reviewed_phrase",
+            "primaryReason": "reviewed_phrase",
+            "geometricDifference": "machine",
+            "briefDescription": "machine"
+          },
+          "componentName": "Alerón viga",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Nuevo Bam alerón",
+          "briefDescription": "En conjunción con la alerón trasero mencionada, se ha diseñado un nuevo haz alerón para mejorar la interacción y el acondicionamiento del flujo."
+        }
+      },
+      "description": "In conjunction with the aforementioned rear wing, a new beam wing has been designed for improved interaction and flow conditioning.",
+      "area": null,
+      "objective": null,
+      "magnitude": null,
+      "technicalState": "SUBMITTED",
+      "validationState": "validated",
+      "publishedAt": null,
+      "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+      "parserConfidence": "deterministic_table",
+      "parserVersion": "fia-table-v4"
+    },
+    {
+      "id": "sao-paulo-2026-doc-12-mclaren-floor-4",
+      "season": 2026,
+      "grandPrixId": "sao-paulo-2026",
+      "teamId": "mclaren",
+      "componentId": "floor",
+      "visualizable": true,
+      "componentName": "Floor Furniture",
+      "primaryReason": "Performance - Flow Conditioning",
+      "geometricDifference": "Updated Floor Furniture",
+      "briefDescription": "A small modification to the floor furniture, resulting in better flow conditioning and resultant improvement of aerodynamic performance of the floor.",
+      "category": "Performance - Flow Conditioning",
+      "source": "FIA",
+      "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+      "sourceDocument": "Doc 12 - Car Presentation Submissions",
+      "sourceText": "Floor Furniture | Performance - Flow Conditioning | Updated Floor Furniture | A small modification to the floor furniture, resulting in better flow conditioning and resultant improvement of aerodynamic performance of the floor.",
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "sourceHeadingPage": 2,
+      "sourceRowNumber": 4,
+      "sourceLanguage": "en",
+      "translations": {
+        "es": {
+          "sourceKey": "[\"eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56\",\"Floor Furniture\",\"Performance - Flow Conditioning\",\"Updated Floor Furniture\",\"A small modification to the floor furniture, resulting in better flow conditioning and resultant improvement of aerodynamic performance of the floor.\",\"Floor Furniture | Performance - Flow Conditioning | Updated Floor Furniture | A small modification to the floor furniture, resulting in better flow conditioning and resultant improvement of aerodynamic performance of the floor.\"]",
+          "method": "automatic",
+          "reviewStatus": "unreviewed",
+          "policyVersion": "fia-es-auto-v1",
+          "provider": {
+            "engine": "transformers.js",
+            "engineVersion": "3.8.1",
+            "model": "Xenova/opus-mt-en-es",
+            "revision": "4b002a4c7edd54a7ced58877258b87f7efd3f892",
+            "dtype": "q8",
+            "glossaryVersion": "fia-aero-es-v2",
+            "sourceLanguage": "en",
+            "targetLanguage": "es"
+          },
+          "fieldMethods": {
+            "componentName": "machine",
+            "primaryReason": "reviewed_phrase",
+            "geometricDifference": "machine",
+            "briefDescription": "machine"
+          },
+          "componentName": "Mobiliario de suelo",
+          "primaryReason": "Rendimiento - Acondicionamiento del flujo",
+          "geometricDifference": "Mobiliario de piso actualizado",
+          "briefDescription": "Una pequeña modificación en los muebles del suelo, resultando en un mejor acondicionamiento de flujo y mejora de la aerodinámica del suelo."
+        }
+      },
+      "description": "A small modification to the floor furniture, resulting in better flow conditioning and resultant improvement of aerodynamic performance of the floor.",
+      "area": null,
+      "objective": null,
+      "magnitude": null,
+      "technicalState": "SUBMITTED",
+      "validationState": "validated",
+      "publishedAt": null,
+      "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+      "parserConfidence": "deterministic_table",
+      "parserVersion": "fia-table-v4"
+    }
+  ],
+  "rejected": [],
+  "pageAudit": [
+    {
+      "sourcePage": 1,
+      "sourceTeamHeading": null,
+      "teamId": null,
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 2,
+      "sourceTeamHeading": "McLaren Mastercard F1 Team",
+      "teamId": "mclaren",
+      "rowsDetected": 4
+    },
+    {
+      "sourcePage": 3,
+      "sourceTeamHeading": null,
+      "teamId": null,
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 4,
+      "sourceTeamHeading": "Mercedes-AMG PETRONAS F1 Team",
+      "teamId": "mercedes",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 5,
+      "sourceTeamHeading": "Oracle Red Bull Racing",
+      "teamId": "red-bull-racing",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 6,
+      "sourceTeamHeading": "SCUDERIA FERRARI HP",
+      "teamId": "ferrari",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 7,
+      "sourceTeamHeading": "Williams",
+      "teamId": "williams",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 8,
+      "sourceTeamHeading": "Visa Cash App Racing Bulls",
+      "teamId": "racing-bulls",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 9,
+      "sourceTeamHeading": "Aston Martin Aramco F1 Team",
+      "teamId": "aston-martin",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 10,
+      "sourceTeamHeading": "TGR HAAS F1 TEAM",
+      "teamId": "haas",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 11,
+      "sourceTeamHeading": "Audi Revolut F1 Team",
+      "teamId": "audi",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 12,
+      "sourceTeamHeading": "BWT Alpine F1 Team",
+      "teamId": "alpine",
+      "rowsDetected": 0
+    },
+    {
+      "sourcePage": 13,
+      "sourceTeamHeading": "Cadillac",
+      "teamId": "cadillac",
+      "rowsDetected": 0
+    }
+  ],
+  "discarded": [],
+  "appliedReviews": []
+}

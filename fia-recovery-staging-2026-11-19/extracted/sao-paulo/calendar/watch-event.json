@@ -1,0 +1,158 @@
+{
+  "trigger": "schedule",
+  "status": "RELEVANT_EVENT",
+  "start": "2026-11-03T15:30:00.000Z",
+  "end": "2026-11-06T19:30:00.000Z",
+  "catchUpEnd": "2026-11-11T02:59:59.000Z",
+  "relevant": true,
+  "phase": "CATCH_UP",
+  "nextCheckUtc": "2026-11-08T22:47:00.000Z",
+  "event": {
+    "id": "sao-paulo-2026",
+    "f1Slug": null,
+    "season": 2026,
+    "status": "scheduled",
+    "eventName": "São Paulo Grand Prix",
+    "displayName": "São Paulo Grand Prix",
+    "country": "São Paulo",
+    "circuit": "Autódromo José Carlos Pace",
+    "startDate": "2026-11-06",
+    "endDate": "2026-11-08",
+    "indexUrl": null,
+    "ingestionStatus": "PENDING",
+    "documentId": null,
+    "slug": "brazil",
+    "sourceUrl": "https://www.formula1.com/en/racing/2026/brazil",
+    "fiaCircuit": "INTERLAGOS",
+    "seasonIndexUrl": "https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072",
+    "fp1": {
+      "local": "2026-11-06T12:30:00",
+      "offset": "-03:00",
+      "timeZone": "America/Sao_Paulo",
+      "utc": "2026-11-06T15:30:00.000Z",
+      "sourceUrl": "https://www.formula1.com/en/racing/2026/brazil"
+    }
+  },
+  "diagnostics": [
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "las-vegas-2026",
+      "before": {
+        "startDate": "2026-11-19",
+        "endDate": "2026-11-21",
+        "circuit": "Las Vegas"
+      },
+      "after": {
+        "startDate": "2026-11-19",
+        "endDate": "2026-11-21",
+        "fiaCircuit": "LAS VEGAS GRAND PRIX"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "qatar-2026",
+      "before": {
+        "startDate": "2026-11-27",
+        "endDate": "2026-11-29",
+        "circuit": "Lusail"
+      },
+      "after": {
+        "startDate": "2026-11-27",
+        "endDate": "2026-11-29",
+        "fiaCircuit": "QATAR - LUSAIL"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "abu-dhabi-2026",
+      "before": {
+        "startDate": "2026-12-04",
+        "endDate": "2026-12-06",
+        "circuit": "Yas Marina"
+      },
+      "after": {
+        "startDate": "2026-12-04",
+        "endDate": "2026-12-06",
+        "fiaCircuit": "ABU DHABI - YAS MARINA"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "canada-2026",
+      "before": {
+        "startDate": "2026-05-22",
+        "endDate": "2026-05-24",
+        "circuit": "Circuit Gilles-Villeneuve"
+      },
+      "after": {
+        "startDate": "2026-05-22",
+        "endDate": "2026-05-24",
+        "fiaCircuit": "MONTREAL GILLES VILLENEUVE"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "austria-2026",
+      "before": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-06-28",
+        "circuit": "Red Bull Ring"
+      },
+      "after": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-06-28",
+        "fiaCircuit": "RED BULL RING - SPIELBERG"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "british-2026",
+      "before": {
+        "startDate": "2026-07-03",
+        "endDate": "2026-07-05",
+        "circuit": "Silverstone"
+      },
+      "after": {
+        "startDate": "2026-07-03",
+        "endDate": "2026-07-05",
+        "fiaCircuit": "SILVERSTONE GRAND PRIX"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "singapore-2026",
+      "before": {
+        "startDate": "2026-10-09",
+        "endDate": "2026-10-11",
+        "circuit": "Marina Bay"
+      },
+      "after": {
+        "startDate": "2026-10-09",
+        "endDate": "2026-10-11",
+        "fiaCircuit": "SINGAPORE - MARINA BAY"
+      }
+    },
+    {
+      "status": "CANCELLED",
+      "eventName": "Saudi Arabian Grand Prix"
+    },
+    {
+      "status": "OFFICIAL_VENUE_CHANGE",
+      "id": "sao-paulo-2026",
+      "before": {
+        "country": "Brazil",
+        "circuit": "Interlagos"
+      },
+      "after": {
+        "country": "São Paulo",
+        "circuit": "Autódromo José Carlos Pace"
+      }
+    }
+  ],
+  "sources": [
+    "https://www.fia.com/events/fia-formula-one-world-championship/season-2026/2026-fia-formula-one-world-championship",
+    "https://www.formula1.com/en/racing/2026",
+    "https://www.formula1.com/en/racing/2026/brazil"
+  ],
+  "resolvedAt": "2026-11-08T22:29:03.046Z"
+}

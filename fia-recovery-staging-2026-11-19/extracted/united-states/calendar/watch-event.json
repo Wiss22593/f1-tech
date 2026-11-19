@@ -1,0 +1,158 @@
+{
+  "trigger": "schedule",
+  "status": "RELEVANT_EVENT",
+  "start": "2026-10-20T17:30:00.000Z",
+  "end": "2026-10-23T21:30:00.000Z",
+  "catchUpEnd": "2026-10-28T04:59:59.000Z",
+  "relevant": true,
+  "phase": "CATCH_UP",
+  "nextCheckUtc": "2026-10-25T23:17:00.000Z",
+  "event": {
+    "id": "united-states-2026",
+    "f1Slug": null,
+    "season": 2026,
+    "status": "scheduled",
+    "eventName": "United States Grand Prix",
+    "displayName": "United States Grand Prix",
+    "country": "Austin",
+    "circuit": "Circuit of The Americas",
+    "startDate": "2026-10-23",
+    "endDate": "2026-10-25",
+    "indexUrl": null,
+    "ingestionStatus": "PENDING",
+    "documentId": null,
+    "slug": "united-states",
+    "sourceUrl": "https://www.formula1.com/en/racing/2026/united-states",
+    "fiaCircuit": "CIRCUIT OF THE AMERICAS",
+    "seasonIndexUrl": "https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season/season-2026-2072",
+    "fp1": {
+      "local": "2026-10-23T12:30:00",
+      "offset": "-05:00",
+      "timeZone": "US/Central",
+      "utc": "2026-10-23T17:30:00.000Z",
+      "sourceUrl": "https://www.formula1.com/en/racing/2026/united-states"
+    }
+  },
+  "diagnostics": [
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "singapore-2026",
+      "before": {
+        "startDate": "2026-10-09",
+        "endDate": "2026-10-11",
+        "circuit": "Marina Bay"
+      },
+      "after": {
+        "startDate": "2026-10-09",
+        "endDate": "2026-10-11",
+        "fiaCircuit": "SINGAPORE - MARINA BAY"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "canada-2026",
+      "before": {
+        "startDate": "2026-05-22",
+        "endDate": "2026-05-24",
+        "circuit": "Circuit Gilles-Villeneuve"
+      },
+      "after": {
+        "startDate": "2026-05-22",
+        "endDate": "2026-05-24",
+        "fiaCircuit": "MONTREAL GILLES VILLENEUVE"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "austria-2026",
+      "before": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-06-28",
+        "circuit": "Red Bull Ring"
+      },
+      "after": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-06-28",
+        "fiaCircuit": "RED BULL RING - SPIELBERG"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "british-2026",
+      "before": {
+        "startDate": "2026-07-03",
+        "endDate": "2026-07-05",
+        "circuit": "Silverstone"
+      },
+      "after": {
+        "startDate": "2026-07-03",
+        "endDate": "2026-07-05",
+        "fiaCircuit": "SILVERSTONE GRAND PRIX"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "las-vegas-2026",
+      "before": {
+        "startDate": "2026-11-19",
+        "endDate": "2026-11-21",
+        "circuit": "Las Vegas"
+      },
+      "after": {
+        "startDate": "2026-11-19",
+        "endDate": "2026-11-21",
+        "fiaCircuit": "LAS VEGAS GRAND PRIX"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "qatar-2026",
+      "before": {
+        "startDate": "2026-11-27",
+        "endDate": "2026-11-29",
+        "circuit": "Lusail"
+      },
+      "after": {
+        "startDate": "2026-11-27",
+        "endDate": "2026-11-29",
+        "fiaCircuit": "QATAR - LUSAIL"
+      }
+    },
+    {
+      "status": "OFFICIAL_CHANGE",
+      "id": "abu-dhabi-2026",
+      "before": {
+        "startDate": "2026-12-04",
+        "endDate": "2026-12-06",
+        "circuit": "Yas Marina"
+      },
+      "after": {
+        "startDate": "2026-12-04",
+        "endDate": "2026-12-06",
+        "fiaCircuit": "ABU DHABI - YAS MARINA"
+      }
+    },
+    {
+      "status": "CANCELLED",
+      "eventName": "Saudi Arabian Grand Prix"
+    },
+    {
+      "status": "OFFICIAL_VENUE_CHANGE",
+      "id": "united-states-2026",
+      "before": {
+        "country": "United States",
+        "circuit": "Circuit of the Americas"
+      },
+      "after": {
+        "country": "Austin",
+        "circuit": "Circuit of The Americas"
+      }
+    }
+  ],
+  "sources": [
+    "https://www.fia.com/events/fia-formula-one-world-championship/season-2026/2026-fia-formula-one-world-championship",
+    "https://www.formula1.com/en/racing/2026",
+    "https://www.formula1.com/en/racing/2026/united-states"
+  ],
+  "resolvedAt": "2026-10-25T22:49:39.863Z"
+}

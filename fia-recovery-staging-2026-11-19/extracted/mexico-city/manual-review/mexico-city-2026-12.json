@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-10-31T16:06:43.704Z",
+  "grandPrixId": "mexico-city-2026",
+  "document": {
+    "id": "mexico-city-2026-doc-12",
+    "eventId": "mexico-city-2026",
+    "eventName": "Mexico City Grand Prix",
+    "season": 2026,
+    "title": "Doc 12 - Car Presentation Submissions",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_mexico_city_grand_prix_-_car_presentation_submissions.pdf",
+    "documentId": "12",
+    "publishedAt": null,
+    "retrievedAt": "2026-10-31T16:06:34.557Z",
+    "contentHash": "b0abaa12d28b6685e520b2b69ae970d258e00795a386dd75fda9c2db6f8fd21b",
+    "path": "/home/runner/work/f1-tech/f1-tech/ingestion/raw/mexico-city-2026-doc-12.pdf"
+  },
+  "records": []
+}

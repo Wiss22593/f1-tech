@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-11-08T22:29:47.561Z",
+  "grandPrixId": "sao-paulo-2026",
+  "document": {
+    "id": "sao-paulo-2026-doc-12",
+    "eventId": "sao-paulo-2026",
+    "eventName": "São Paulo Grand Prix",
+    "season": 2026,
+    "title": "Doc 12 - Car Presentation Submissions",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+    "documentId": "12",
+    "publishedAt": null,
+    "retrievedAt": "2026-11-08T22:29:40.284Z",
+    "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+    "path": "/home/runner/work/f1-tech/f1-tech/ingestion/raw/sao-paulo-2026-doc-12.pdf"
+  },
+  "records": []
+}

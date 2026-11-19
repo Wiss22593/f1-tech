@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-10-25T22:50:51.521Z",
+  "grandPrixId": "united-states-2026",
+  "document": {
+    "id": "united-states-2026-doc-11",
+    "eventId": "united-states-2026",
+    "eventName": "United States Grand Prix",
+    "season": 2026,
+    "title": "Doc 11 - Car Presentation Submissions",
+    "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_united_states_grand_prix_-_car_presentation_submissions.pdf",
+    "documentId": "11",
+    "publishedAt": null,
+    "retrievedAt": "2026-10-25T22:50:15.899Z",
+    "contentHash": "fea610fdb9e255ee52b561f9bf482c149e354596e84b28396699415b842b4fd8",
+    "path": "/home/runner/work/f1-tech/f1-tech/ingestion/raw/united-states-2026-doc-11.pdf"
+  },
+  "records": []
+}

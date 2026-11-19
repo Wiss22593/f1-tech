@@ -1,0 +1,337 @@
+{
+  "generatedAt": "2026-11-19T17:26:34.937Z",
+  "mode": "recovery_preview_only",
+  "source": "original GitHub Actions diagnostics artifacts supplied locally",
+  "pdfsDownloadedOrProcessed": false,
+  "publicDataModified": false,
+  "existingPublicDatasetFiles": 17,
+  "existingPublicRecordIds": 237,
+  "duplicateIdsAgainstExisting": [],
+  "duplicateIdsAmongCandidates": [],
+  "recordsHavePilotIdentifiers": false,
+  "results": [
+    {
+      "grandPrixId": "united-states-2026",
+      "expectedCount": 20,
+      "actualCount": 20,
+      "pageAuditRowsDetected": 20,
+      "artifact": {
+        "name": "fia-ingestion-diagnostics-40241945644.zip",
+        "sha256": "63DA047D5154F1C32FD12AAD27BFC27BE3BAD1BFA4A16E11FC16CA1E04E80185"
+      },
+      "draftPath": "extracted\\united-states\\draft\\united-states-2026-11-review.json",
+      "document": {
+        "id": "united-states-2026-doc-11",
+        "eventId": "united-states-2026",
+        "season": 2026,
+        "title": "Doc 11 - Car Presentation Submissions",
+        "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_united_states_grand_prix_-_car_presentation_submissions.pdf",
+        "documentId": "11",
+        "contentHash": "fea610fdb9e255ee52b561f9bf482c149e354596e84b28396699415b842b4fd8",
+        "retrievedAt": "2026-10-25T22:50:15.899Z",
+        "pdfPages": 19
+      },
+      "calendarEventId": "united-states-2026",
+      "canonicalEvent": {
+        "id": "united-states-2026",
+        "eventName": "United States Grand Prix",
+        "country": "United States",
+        "circuit": "Circuit of the Americas",
+        "startDate": "2026-10-23",
+        "endDate": "2026-10-25"
+      },
+      "extractionWarnings": [
+        "partial_text_layer: one or more pages contain no extractable text"
+      ],
+      "rejectedRecords": 0,
+      "manualReviewRecords": 0,
+      "convertedManualReview": 0,
+      "validation": {
+        "valid": true,
+        "errors": [],
+        "grandPrixId": "united-states-2026",
+        "event": {
+          "id": "united-states-2026",
+          "f1Slug": null,
+          "season": 2026,
+          "status": "scheduled",
+          "eventName": "United States Grand Prix",
+          "displayName": "United States Grand Prix",
+          "country": "United States",
+          "circuit": "Circuit of the Americas",
+          "startDate": "2026-10-23",
+          "endDate": "2026-10-25",
+          "indexUrl": null,
+          "ingestionStatus": "PENDING",
+          "documentId": null
+        }
+      },
+      "validationSummary": {
+        "recordsReceived": 20,
+        "recordsPublished": 20,
+        "manualReview": 0
+      },
+      "teamCounts": {
+        "mclaren": 3,
+        "red-bull-racing": 2,
+        "ferrari": 4,
+        "racing-bulls": 4,
+        "audi": 3,
+        "alpine": 2,
+        "cadillac": 2
+      },
+      "componentIds": [
+        "cooling",
+        "diffuser",
+        "engine-cover",
+        "floor",
+        "front-wing",
+        "rear-wing",
+        "sidepods"
+      ],
+      "components": [
+        "Coke/Engine Cover",
+        "Cooling Louvres",
+        "Diffuser",
+        "Floor Board",
+        "Floor Body",
+        "Floor Corner",
+        "Floor Fences",
+        "Front Corner",
+        "Front Floor",
+        "Front Wing",
+        "Mirror stay",
+        "Rear Corner",
+        "Rear Wing",
+        "Sidepod Inlet / Coke"
+      ],
+      "recordIds": [
+        "united-states-2026-doc-11-mclaren-front-corner-1",
+        "united-states-2026-doc-11-mclaren-rear-corner-2",
+        "united-states-2026-doc-11-mclaren-diffuser-3",
+        "united-states-2026-doc-11-red-bull-racing-front-wing-1",
+        "united-states-2026-doc-11-red-bull-racing-front-corner-2",
+        "united-states-2026-doc-11-ferrari-floor-1",
+        "united-states-2026-doc-11-ferrari-floor-2",
+        "united-states-2026-doc-11-ferrari-sidepods-3",
+        "united-states-2026-doc-11-ferrari-diffuser-4",
+        "united-states-2026-doc-11-racing-bulls-front-wing-1",
+        "united-states-2026-doc-11-racing-bulls-rear-wing-2",
+        "united-states-2026-doc-11-racing-bulls-floor-3",
+        "united-states-2026-doc-11-racing-bulls-engine-cover-4",
+        "united-states-2026-doc-11-audi-front-corner-1",
+        "united-states-2026-doc-11-audi-floor-2",
+        "united-states-2026-doc-11-audi-mirror-stay-3",
+        "united-states-2026-doc-11-alpine-floor-1",
+        "united-states-2026-doc-11-alpine-rear-wing-2",
+        "united-states-2026-doc-11-cadillac-floor-1",
+        "united-states-2026-doc-11-cadillac-cooling-2"
+      ],
+      "pilots": [],
+      "targetPath": "public/data/grands-prix/2026/united-states-2026.json",
+      "candidatePath": "prepared\\public\\data\\grands-prix\\2026\\united-states-2026.json"
+    },
+    {
+      "grandPrixId": "mexico-city-2026",
+      "expectedCount": 9,
+      "actualCount": 9,
+      "pageAuditRowsDetected": 9,
+      "artifact": {
+        "name": "fia-ingestion-diagnostics-41217948848.zip",
+        "sha256": "89D7286898A8234606C08B5289E7ACCCEC121F44F3D9F8EFD1B92A6338C2468F"
+      },
+      "draftPath": "extracted\\mexico-city\\draft\\mexico-city-2026-12-review.json",
+      "document": {
+        "id": "mexico-city-2026-doc-12",
+        "eventId": "mexico-city-2026",
+        "season": 2026,
+        "title": "Doc 12 - Car Presentation Submissions",
+        "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_mexico_city_grand_prix_-_car_presentation_submissions.pdf",
+        "documentId": "12",
+        "contentHash": "b0abaa12d28b6685e520b2b69ae970d258e00795a386dd75fda9c2db6f8fd21b",
+        "retrievedAt": "2026-10-31T16:06:34.557Z",
+        "pdfPages": 18
+      },
+      "calendarEventId": "mexico-city-2026",
+      "canonicalEvent": {
+        "id": "mexico-city-2026",
+        "eventName": "Mexico City Grand Prix",
+        "country": "Mexico",
+        "circuit": "Autódromo Hermanos Rodríguez",
+        "startDate": "2026-10-30",
+        "endDate": "2026-11-01"
+      },
+      "extractionWarnings": [
+        "partial_text_layer: one or more pages contain no extractable text"
+      ],
+      "rejectedRecords": 0,
+      "manualReviewRecords": 0,
+      "convertedManualReview": 0,
+      "validation": {
+        "valid": true,
+        "errors": [],
+        "grandPrixId": "mexico-city-2026",
+        "event": {
+          "id": "mexico-city-2026",
+          "f1Slug": null,
+          "season": 2026,
+          "status": "scheduled",
+          "eventName": "Mexico City Grand Prix",
+          "displayName": "Mexico City Grand Prix",
+          "country": "Mexico",
+          "circuit": "Autódromo Hermanos Rodríguez",
+          "startDate": "2026-10-30",
+          "endDate": "2026-11-01",
+          "indexUrl": null,
+          "ingestionStatus": "PENDING",
+          "documentId": null
+        }
+      },
+      "validationSummary": {
+        "recordsReceived": 9,
+        "recordsPublished": 9,
+        "manualReview": 0
+      },
+      "teamCounts": {
+        "mclaren": 1,
+        "red-bull-racing": 2,
+        "ferrari": 2,
+        "racing-bulls": 2,
+        "audi": 1,
+        "alpine": 1
+      },
+      "componentIds": [
+        "cooling",
+        "engine-cover",
+        "sidepods"
+      ],
+      "components": [
+        "Coke/Engine Cover",
+        "Cooling Louvres",
+        "Engine Cover",
+        "Exhaust Tailpipe",
+        "Rear Corner",
+        "Sidepod"
+      ],
+      "recordIds": [
+        "mexico-city-2026-doc-12-mclaren-cooling-1",
+        "mexico-city-2026-doc-12-red-bull-racing-engine-cover-1",
+        "mexico-city-2026-doc-12-red-bull-racing-sidepods-2",
+        "mexico-city-2026-doc-12-ferrari-engine-cover-1",
+        "mexico-city-2026-doc-12-ferrari-cooling-2",
+        "mexico-city-2026-doc-12-racing-bulls-engine-cover-1",
+        "mexico-city-2026-doc-12-racing-bulls-cooling-2",
+        "mexico-city-2026-doc-12-audi-rear-corner-1",
+        "mexico-city-2026-doc-12-alpine-exhaust-tailpipe-1"
+      ],
+      "pilots": [],
+      "targetPath": "public/data/grands-prix/2026/mexico-city-2026.json",
+      "candidatePath": "prepared\\public\\data\\grands-prix\\2026\\mexico-city-2026.json"
+    },
+    {
+      "grandPrixId": "sao-paulo-2026",
+      "expectedCount": 4,
+      "actualCount": 4,
+      "pageAuditRowsDetected": 4,
+      "artifact": {
+        "name": "fia-ingestion-diagnostics-42530406636.zip",
+        "sha256": "BC6E1F281C6F9471D7641EB218D1E35E2B9C30991943CA938E2A7E3CDD0F435B"
+      },
+      "draftPath": "extracted\\sao-paulo\\draft\\sao-paulo-2026-12-review.json",
+      "document": {
+        "id": "sao-paulo-2026-doc-12",
+        "eventId": "sao-paulo-2026",
+        "season": 2026,
+        "title": "Doc 12 - Car Presentation Submissions",
+        "sourceUrl": "https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_car_presentation_submissions.pdf",
+        "documentId": "12",
+        "contentHash": "eaf9202e01277f4e051bc97165164078a72505f73d9472a71c69b84412809f56",
+        "retrievedAt": "2026-11-08T22:29:40.284Z",
+        "pdfPages": 13
+      },
+      "calendarEventId": "sao-paulo-2026",
+      "canonicalEvent": {
+        "id": "sao-paulo-2026",
+        "eventName": "São Paulo Grand Prix",
+        "country": "Brazil",
+        "circuit": "Interlagos",
+        "startDate": "2026-11-06",
+        "endDate": "2026-11-08"
+      },
+      "extractionWarnings": [
+        "partial_text_layer: one or more pages contain no extractable text"
+      ],
+      "rejectedRecords": 0,
+      "manualReviewRecords": 0,
+      "convertedManualReview": 0,
+      "validation": {
+        "valid": true,
+        "errors": [],
+        "grandPrixId": "sao-paulo-2026",
+        "event": {
+          "id": "sao-paulo-2026",
+          "f1Slug": null,
+          "season": 2026,
+          "status": "scheduled",
+          "eventName": "São Paulo Grand Prix",
+          "displayName": "São Paulo Grand Prix",
+          "country": "Brazil",
+          "circuit": "Interlagos",
+          "startDate": "2026-11-06",
+          "endDate": "2026-11-08",
+          "indexUrl": null,
+          "ingestionStatus": "PENDING",
+          "documentId": null
+        }
+      },
+      "validationSummary": {
+        "recordsReceived": 4,
+        "recordsPublished": 4,
+        "manualReview": 0
+      },
+      "teamCounts": {
+        "mclaren": 4
+      },
+      "componentIds": [
+        "floor",
+        "front-wing",
+        "rear-wing"
+      ],
+      "components": [
+        "Beam Wing",
+        "Floor Furniture",
+        "Front Wing",
+        "Rear Wing"
+      ],
+      "recordIds": [
+        "sao-paulo-2026-doc-12-mclaren-front-wing-1",
+        "sao-paulo-2026-doc-12-mclaren-rear-wing-2",
+        "sao-paulo-2026-doc-12-mclaren-beam-wing-3",
+        "sao-paulo-2026-doc-12-mclaren-floor-4"
+      ],
+      "pilots": [],
+      "targetPath": "public/data/grands-prix/2026/sao-paulo-2026.json",
+      "candidatePath": "prepared\\public\\data\\grands-prix\\2026\\sao-paulo-2026.json"
+    }
+  ],
+  "preparedFileValidation": [
+    {
+      "path": "fia-recovery-staging-2026-11-19\\prepared\\public\\data\\grands-prix\\2026\\united-states-2026.json",
+      "count": 20,
+      "valid": true,
+      "errors": []
+    },
+    {
+      "path": "fia-recovery-staging-2026-11-19\\prepared\\public\\data\\grands-prix\\2026\\mexico-city-2026.json",
+      "count": 9,
+      "valid": true,
+      "errors": []
+    },
+    {
+      "path": "fia-recovery-staging-2026-11-19\\prepared\\public\\data\\grands-prix\\2026\\sao-paulo-2026.json",
+      "count": 4,
+      "valid": true,
+      "errors": []
+    }
+  ]
+}
