@@ -437,6 +437,7 @@ test('recovered Thursday document remains deterministic and latest published adv
 
 test('scheduled workflow uses verified FP1, generic 24-hour cron and guarded preflight', async () => {
   const workflow = await readFile(new URL('../.github/workflows/fia-auto-publish.yml', import.meta.url), 'utf8')
+  const normalizedWorkflow = workflow.replace(/\r\n?/g, '\n')
   assert.match(workflow, /scheduled\.mjs --resolution=ingestion\/output\/calendar\/watch-event\.json --publish=true/)
   assert.match(workflow, /--preflight=true/)
   assert.match(workflow, /needs_pipeline == 'true'/)
@@ -444,8 +445,11 @@ test('scheduled workflow uses verified FP1, generic 24-hour cron and guarded pre
   assert.match(workflow, /cron: '17,47 \* \* \* \*'/)
   assert.match(workflow, /id: processing/)
   assert.match(workflow, /Report final FIA publication state/)
-  assert.ok(workflow.indexOf('elif [ "$PUSH_OUTCOME" = "success" ]; then\r\n            status=PUBLISHED') > workflow.indexOf('name: Report final FIA publication state'))
-  assert.ok(workflow.includes('elif [ "$REMOTE_OUTCOME" = "success" ] && [ "$REMOTE_COMMIT" = "false" ]; then\r\n            status=ALREADY_PUBLISHED'))
+  const finalReportIndex = normalizedWorkflow.indexOf('name: Report final FIA publication state')
+  const publishedIndex = normalizedWorkflow.indexOf('elif [ "$PUSH_OUTCOME" = "success" ]; then\n            status=PUBLISHED')
+  assert.ok(finalReportIndex >= 0)
+  assert.ok(publishedIndex > finalReportIndex)
+  assert.ok(normalizedWorkflow.includes('elif [ "$REMOTE_OUTCOME" = "success" ] && [ "$REMOTE_COMMIT" = "false" ]; then\n            status=ALREADY_PUBLISHED'))
   const scheduledRunner = await readFile(new URL('../ingestion/fia/scheduled.mjs', import.meta.url), 'utf8')
   assert.match(scheduledRunner, /status: 'READY_TO_PUBLISH'/)
   assert.doesNotMatch(scheduledRunner, /status: 'PUBLISHED'/)
